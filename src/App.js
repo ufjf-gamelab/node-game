@@ -3,7 +3,19 @@ import Button from "./components/Button";
 import HistogramChart from "./components/HistogramChart";
 import { Container, Description, Title } from "./styles";
 
+
+
 function App() {
+  const generateRandomData = (aMin, aMax, aN) => {
+    let lData = [];
+  
+    for (let i = 0; i < aN; i++) {
+      let lX = parseInt(Math.floor(Math.random() * (aMax + 1 - aMin) + aMin));
+      lData.push({ x: lX });
+    }
+  
+    setDataHistogram(lData);
+  };
   const [dataHistogram, setDataHistogram] = useState([
     { x: 0 },
     { x: 1 },
@@ -14,16 +26,6 @@ function App() {
     { x: 4 },
   ]);
 
-  const generateRandomData = (aMin, aMax, aN) => {
-    let lData = [];
-
-    for (let i = 0; i < aN; i++) {
-      let lX = parseInt(Math.floor(Math.random() * (aMax + 1 - aMin) + aMin));
-      lData.push({ x: lX });
-    }
-
-    setDataHistogram(lData);
-  };
 
   return (
     <Container>

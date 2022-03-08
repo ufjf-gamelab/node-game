@@ -2,7 +2,7 @@ import React from "react";
 
 import { Container, TextButton } from "./styles";
 
-const Button: React.FC = ({ name, onPress }) => {
+const Button = ({ name, onPress }) => {
   return (
     <Container>
       <TextButton onClick={() => onPress()}>{name}</TextButton>

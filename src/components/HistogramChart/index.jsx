@@ -1,7 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import { VictoryBar, VictoryHistogram, VictoryChart } from "victory";
-import { Container, TextButton } from "./styles";
+import { VictoryChart, VictoryHistogram } from "victory";
+import { Container } from "./styles";
 
 // const data = [
 //   { x: 0 },
@@ -13,7 +12,7 @@ import { Container, TextButton } from "./styles";
 //   { x: 4 },
 // ];
 
-const HistogramChart: React.FC = ({ data }) => {
+const HistogramChart = ({ data }) => {
   return (
     <Container>
       <VictoryChart>
