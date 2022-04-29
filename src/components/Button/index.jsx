@@ -2,12 +2,10 @@ import React from "react";
 
 import { Container, TextButton } from "./styles";
 
-const Button = ({ name, onPress }) => {
+export default function ({ name, onPress, style }) {
   return (
-    <Container>
-      <TextButton onClick={() => onPress()}>{name}</TextButton>
+    <Container style={{ ...style }} onClick={() => onPress()}>
+      <TextButton>{name}</TextButton>
     </Container>
   );
-};
-
-export default Button;
+}

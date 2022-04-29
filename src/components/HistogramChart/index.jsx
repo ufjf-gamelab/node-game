@@ -26,7 +26,7 @@ const HistogramChart = ({ data }) => {
           cornerRadius={5}
           labels={({ datum }) => `${datum.y}`}
           data={data}
-          bins={[1, 2, 3, 4, 5, 6, 7]}
+          // bins={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]}
           animate={{
             duration: 500,
             onLoad: { duration: 200 },
