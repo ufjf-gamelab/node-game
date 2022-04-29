@@ -29,6 +29,8 @@ import "./index.css";
 import HistogramNode from "./HistogramNode";
 import SumNode from "./SumNode";
 import HistogramChart from "../HistogramChart";
+import Generator from "../../class/Generator";
+import Histogram from "../../class/Histogram";
 
 const initBgColor = "#1A192B";
 
@@ -185,13 +187,17 @@ const CustomNodeFlow = () => {
         id: `node-generator-button-${nodes.length}`,
         type: "generator",
         position: { x: 100 + nodes.length * 20, y: 50 + nodes.length * 20 },
-        data: {
-          histogramData: [],
-          label: `Gerador de aleatorios`,
-          hasData: false,
-          isReady: false,
-          status: "",
-        },
+        data: new Generator(),
+
+        // data: {
+        //   histogramData: [],
+        //   label: `Gerador de aleatorios`,
+        //   hasData: false,
+        //   isReady: false,
+        //   min: 0,
+        //   max: 6,
+        //   status: "",
+        // },
       },
     ]);
   };
@@ -203,21 +209,22 @@ const CustomNodeFlow = () => {
         id: `node-histogram-${nodes.length}`,
         type: "histogramNode",
         position: { x: 300 + nodes.length * 20, y: 50 + nodes.length * 20 },
-        data: {
-          histogramData: [
-            // { x: 0 },
-            // { x: 1 },
-            // { x: 1 },
-            // { x: 2 },
-            // { x: 3 },
-            // { x: 4 },
-            // { x: 4 },
-          ],
-          label: `Gerador de aleatorios`,
-          histogramName: "",
-          isReady: false,
-          status: "",
-        },
+        data: new Histogram(),
+        // data: {
+        //   histogramData: [
+        //     // { x: 0 },
+        //     // { x: 1 },
+        //     // { x: 1 },
+        //     // { x: 2 },
+        //     // { x: 3 },
+        //     // { x: 4 },
+        //     // { x: 4 },
+        //   ],
+        //   label: `Gerador de aleatorios`,
+        //   histogramName: "",
+        //   isReady: false,
+        //   status: "",
+        // },
       },
     ]);
   };
@@ -311,12 +318,17 @@ const CustomNodeFlow = () => {
         if (lNoIndex >= 0) {
           if (nodes[lNoIndex].type === "generator") {
             console.log(nodes[lNoIndex].type);
+            nodes[lNoIndex].data.run();
             //verificar se o objeto já tem os dados aleatorios gerados, senão, deve sortear.
-            checkNodeGenerator(nodes[lNoIndex]);
+            // checkNodeGenerator(nodes[lNoIndex]);
 
-            histogram.data.histogramData = nodes[lNoIndex].data.histogramData;
+            console.log(nodes[lNoIndex].data);
+
+            histogram.data.histogramData =
+              nodes[lNoIndex].data.getHistogramData();
             histogram.data.status = "pronto";
             histogram.data.isReady = true;
+            histogram.data.run();
 
             // console.log(histogram);
           } else if (nodes[lNoIndex].type === "sumNode") {
@@ -337,7 +349,8 @@ const CustomNodeFlow = () => {
               console.log("lNodesGenerators: ", lNodesGenerators);
               lNodesGenerators.map((generator) => {
                 if (generator.type === "generator") {
-                  checkNodeGenerator(generator);
+                  // checkNodeGenerator(generator);
+                  generator.run();
                   console.log(generator);
                 } else if (generator.type === "sumNode") {
                   //pensar em como seria uma conexao continua com outros tipo de no que não sejam geradores diretamente
@@ -385,8 +398,12 @@ const CustomNodeFlow = () => {
 
   const checkNodeGenerator = (aNode) => {
     if (!aNode.data?.hasData) {
-      console.log("nao tem dados... gerando");
-      aNode.data.histogramData = generateRandomData(1, 6, 10000);
+      console.log("nao tem dados... gerando", aNode.data);
+      aNode.data.histogramData = generateRandomData(
+        aNode.data.min,
+        aNode.data.max,
+        10000
+      );
       aNode.data.hasData = true;
       aNode.data.isReady = true;
       aNode.data.status = "pronto";

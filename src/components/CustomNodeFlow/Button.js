@@ -6,6 +6,8 @@ import Button from "../Button";
 
 export default memo(({ data, isConnectable }) => {
   const [status, setStatus] = useState(data.status);
+  const [min, setMin] = useState(data.min);
+  const [max, setMax] = useState(data.max);
   const generateRandomData = (aMin, aMax, aN) => {
     let lData = [];
 
@@ -25,7 +27,7 @@ export default memo(({ data, isConnectable }) => {
     setStatus(data.status);
   }, [data]);
   return (
-    <>
+    <div style={{ backgroundColor: "salmon", borderRadius: 5 }}>
       <Handle
         type="source"
         position="right"
@@ -33,16 +35,29 @@ export default memo(({ data, isConnectable }) => {
         onConnect={(params) => console.log("handle onConnect", params)}
         isConnectable={isConnectable}
       />
-      <div style={{}}>
+      <h2>{data.label}</h2>
+      {/* <div style={{ flexDirection: "column" }}>
         <Button name={data.label} onPress={() => null} />
-        {/* <button
-        name="Gerar aleatorios"
-        type="button"
-        onClick={() => console.log("clicado")}
-        style={{ padding: 10 }}
-      /> */}
-      </div>
+      </div> */}
+      <input
+        placeholder="Minimo"
+        onChange={(e) => {
+          setMin(e.target.value);
+          data.min = parseFloat(e.target.value);
+        }}
+        type="number"
+        value={min}
+      />
+      <input
+        placeholder="Maximo"
+        onChange={(e) => {
+          setMax(e.target.value);
+          data.max = parseFloat(e.target.value);
+        }}
+        type="number"
+        value={max}
+      />
       <h5>status: {status}</h5>
-    </>
+    </div>
   );
 });
