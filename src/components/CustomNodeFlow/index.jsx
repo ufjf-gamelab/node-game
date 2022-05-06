@@ -32,6 +32,8 @@ import HistogramChart from "../HistogramChart";
 import Generator from "../../class/Generator";
 import Histogram from "../../class/Histogram";
 
+import { useSelector } from "react-redux";
+
 const initBgColor = "#1A192B";
 
 const connectionLineStyle = { stroke: "#fff" };
@@ -48,6 +50,10 @@ const CustomNodeFlow = () => {
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [canShowHistograms, setCanShowHistograms] = useState(false);
   const [bgColor, setBgColor] = useState(initBgColor);
+
+  const updateHistogramNames = useSelector(
+    (state) => state.AppReducer.updateHistogramNames
+  );
 
   useEffect(() => {
     const onChange = (event) => {
@@ -525,7 +531,7 @@ const CustomNodeFlow = () => {
             node.type == "histogramNode" &&
             node.data.isReady && (
               <div key={node.id}>
-                <h2>{node.data.histogramName}</h2>
+                {!updateHistogramNames && <h2>{node.data.histogramName}</h2>}
                 <HistogramChart data={node.data.histogramData} />
               </div>
             )

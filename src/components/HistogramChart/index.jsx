@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { VictoryChart, VictoryHistogram } from "victory";
 import { Container } from "./styles";
 
@@ -12,7 +12,7 @@ import { Container } from "./styles";
 //   { x: 4 },
 // ];
 
-const HistogramChart = ({ data }) => {
+export default memo(({ data }) => {
   return (
     <Container>
       <VictoryChart>
@@ -35,6 +35,6 @@ const HistogramChart = ({ data }) => {
       </VictoryChart>
     </Container>
   );
-};
+});
 
-export default HistogramChart;
+// export default HistogramChart;

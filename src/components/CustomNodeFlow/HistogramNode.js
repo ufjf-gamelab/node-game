@@ -2,9 +2,18 @@ import React, { memo } from "react";
 import { useState } from "react";
 
 import { Handle } from "react-flow-renderer";
+import { useDispatch } from "react-redux";
+import { setUpdateNamesHistograms } from "../../redux/actions/AppActions";
+import { useSelector } from "react-redux";
 
 export default memo(({ data, isConnectable }) => {
   const [titleHistogram, setTitleHistogram] = useState("");
+
+  const updateHistogramNames = useSelector(
+    (state) => state.AppReducer.updateHistogramNames
+  );
+  const dispatch = useDispatch();
+
   return (
     <>
       <Handle
@@ -41,8 +50,11 @@ export default memo(({ data, isConnectable }) => {
           <input
             placeholder="Titulo do histograma"
             onChange={(e) => {
+              dispatch(setUpdateNamesHistograms(true));
+
               setTitleHistogram(e.target.value);
               data.histogramName = e.target.value;
+              dispatch(setUpdateNamesHistograms(false));
             }}
             type="text"
             value={titleHistogram}
