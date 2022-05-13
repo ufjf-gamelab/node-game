@@ -5,7 +5,7 @@ export default class Generator {
   isReady = false;
   min = 0;
   max = 6;
-  status = "";
+  status = "em espera";
 
   constructor() {
     this.label = "Gerador de aleatórios";
@@ -32,10 +32,20 @@ export default class Generator {
     }
   }
 
-  run = (aNodes) => {
-    // console.log("abstraindo...");
-    this.checkNodeGenerator();
-  };
+  run() {
+    this.isReady = false;
+    console.log("nao tem dados... gerando");
+    this.histogramData = this.generateRandomData(this.min, this.max, 10000);
+    this.hasData = true;
+    this.status = "pronto";
+
+    this.isReady = true;
+  }
+
+  // run = (aNodes) => {
+  //   // console.log("abstraindo...");
+  //   this.checkNodeGenerator();
+  // };
 
   getHistogramData = () => {
     return this.histogramData;

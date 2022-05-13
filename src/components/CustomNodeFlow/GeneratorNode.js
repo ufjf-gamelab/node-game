@@ -1,13 +1,16 @@
 import React, { memo, useState } from "react";
 import { useEffect } from "react";
 
-import { Handle } from "react-flow-renderer";
+import { Handle, useReactFlow } from "react-flow-renderer";
 import Button from "../Button";
 
-export default memo(({ data, isConnectable }) => {
+export default memo(({ id, data, isConnectable }) => {
   const [status, setStatus] = useState(data.status);
   const [min, setMin] = useState(data.min);
   const [max, setMax] = useState(data.max);
+
+  const flow = useReactFlow();
+
   const generateRandomData = (aMin, aMax, aN) => {
     let lData = [];
 
@@ -57,7 +60,7 @@ export default memo(({ data, isConnectable }) => {
         type="number"
         value={max}
       />
-      <h5>status: {status}</h5>
+      <h5>status: {flow.getNode(id).data.status}</h5>
     </div>
   );
 });

@@ -1,18 +1,26 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import { useState } from "react";
 
-import { Handle } from "react-flow-renderer";
+import { Handle, useReactFlow } from "react-flow-renderer";
 import { useDispatch } from "react-redux";
 import { setUpdateNamesHistograms } from "../../redux/actions/AppActions";
 import { useSelector } from "react-redux";
 
-export default memo(({ data, isConnectable }) => {
+export default memo((props) => {
   const [titleHistogram, setTitleHistogram] = useState("");
+  const [status, setStatus] = useState(props.data.status);
+  const flow = useReactFlow();
 
-  const updateHistogramNames = useSelector(
-    (state) => state.AppReducer.updateHistogramNames
-  );
-  const dispatch = useDispatch();
+  const changeName = (aName) => {
+    let nodes = flow.getNodes();
+
+    nodes.map((node) => {
+      if (node.id === props.id) {
+        node.data.histogramName = aName;
+      }
+    });
+    flow.setNodes(nodes);
+  };
 
   return (
     <>
@@ -21,7 +29,7 @@ export default memo(({ data, isConnectable }) => {
         position="left"
         style={{ background: "#555", stroke: "#000" }}
         onConnect={(paramsm) => console.log("handle onConnect", paramsm)}
-        isConnectable={isConnectable}
+        isConnectable={props.isConnectable}
       />
       <div
         style={{
@@ -50,16 +58,16 @@ export default memo(({ data, isConnectable }) => {
           <input
             placeholder="Titulo do histograma"
             onChange={(e) => {
-              dispatch(setUpdateNamesHistograms(true));
-
               setTitleHistogram(e.target.value);
-              data.histogramName = e.target.value;
-              dispatch(setUpdateNamesHistograms(false));
+              props.data.histogramName = e.target.value;
+              console.log("nodes: ", props.data.nodes);
+              changeName(e.target.value);
+              // props.data.setNodes(props.data.nodes);
             }}
             type="text"
             value={titleHistogram}
           />
-          <h5>status: {data.status}</h5>
+          <h5>status: {flow.getNode(props.id).data.status}</h5>
         </div>
       </div>
     </>

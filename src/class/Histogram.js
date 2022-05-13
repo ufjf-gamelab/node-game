@@ -5,12 +5,16 @@ export default class Histogram {
   isReady = false;
   histogramName = "";
   isReady = false;
-  status = "";
+  status = "em espera";
 
   constructor() {}
 
-  run = (aNodes) => {
+  run = () => {
     console.log("abstraindo histograma...");
+
+    if (this.histogramData.length === 0) {
+      this.status = "x";
+    }
     // this.checkNodeGenerator();
   };
 

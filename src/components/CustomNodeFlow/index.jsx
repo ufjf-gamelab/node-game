@@ -23,7 +23,7 @@ import ReactFlow, {
 import ButtonDefault from "../Button";
 
 import ColorSelectorNode from "./ColorSelectorNode";
-import Button from "./Button";
+import GeneratorNode from "./GeneratorNode";
 
 import "./index.css";
 import HistogramNode from "./HistogramNode";
@@ -40,7 +40,7 @@ const connectionLineStyle = { stroke: "#fff" };
 const snapGrid = [20, 20];
 const nodeTypes = {
   selectorNode: ColorSelectorNode,
-  generator: Button,
+  generator: GeneratorNode,
   histogramNode: HistogramNode,
   sumNode: SumNode,
 };
@@ -216,6 +216,7 @@ const CustomNodeFlow = () => {
         type: "histogramNode",
         position: { x: 300 + nodes.length * 20, y: 50 + nodes.length * 20 },
         data: new Histogram(),
+        status: "",
         // data: {
         //   histogramData: [
         //     // { x: 0 },
@@ -325,15 +326,22 @@ const CustomNodeFlow = () => {
           if (nodes[lNoIndex].type === "generator") {
             console.log(nodes[lNoIndex].type);
             nodes[lNoIndex].data.run();
+            nodes[lNoIndex].data = {
+              ...nodes[lNoIndex].data,
+              status: nodes[lNoIndex].data.status,
+            };
             //verificar se o objeto já tem os dados aleatorios gerados, senão, deve sortear.
             // checkNodeGenerator(nodes[lNoIndex]);
 
             console.log(nodes[lNoIndex].data);
 
-            histogram.data.histogramData =
-              nodes[lNoIndex].data.getHistogramData();
-            histogram.data.status = "pronto";
-            histogram.data.isReady = true;
+            histogram.data = {
+              ...histogram.data,
+              histogramData: nodes[lNoIndex].data.getHistogramData(),
+              status: "pronto",
+              isReady: true,
+            };
+
             histogram.data.run();
 
             // console.log(histogram);
@@ -357,6 +365,10 @@ const CustomNodeFlow = () => {
                 if (generator.type === "generator") {
                   // checkNodeGenerator(generator);
                   generator.run();
+                  generator.data = {
+                    ...generator.data,
+                    status: "pronto", //generator.data.status,
+                  };
                   console.log(generator);
                 } else if (generator.type === "sumNode") {
                   //pensar em como seria uma conexao continua com outros tipo de no que não sejam geradores diretamente
@@ -393,6 +405,7 @@ const CustomNodeFlow = () => {
       }
       // console.log(edges[lEdIndex]);
     });
+    console.log(lNodesHistograms);
     setNodes([
       ...nodes.filter((no) => no.type !== "histogramNode"),
       ...lNodesHistograms,
@@ -531,7 +544,7 @@ const CustomNodeFlow = () => {
             node.type == "histogramNode" &&
             node.data.isReady && (
               <div key={node.id}>
-                {!updateHistogramNames && <h2>{node.data.histogramName}</h2>}
+                <h2>{node.data.histogramName}</h2>
                 <HistogramChart data={node.data.histogramData} />
               </div>
             )
