@@ -11,7 +11,6 @@ export default class Histogram {
 
   run = () => {
     console.log("abstraindo histograma...");
-
     if (this.histogramData.length === 0) {
       this.status = "x";
     }

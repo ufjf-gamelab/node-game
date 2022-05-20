@@ -16,6 +16,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import ReactFlow, {
   useNodesState,
   useEdgesState,
+  useReactFlow,
   addEdge,
   MiniMap,
   Controls,
@@ -50,7 +51,7 @@ const CustomNodeFlow = () => {
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [canShowHistograms, setCanShowHistograms] = useState(false);
   const [bgColor, setBgColor] = useState(initBgColor);
-
+  // const flow = useReactFlow();
   const updateHistogramNames = useSelector(
     (state) => state.AppReducer.updateHistogramNames
   );
@@ -305,6 +306,126 @@ const CustomNodeFlow = () => {
     });
   };
 
+  const run = (aNode) => {
+    switch (aNode.type) {
+      case "generator":
+        runGeneratorNode(aNode);
+
+        break;
+      case "histogramNode":
+        runHistogramNode(aNode);
+
+        break;
+      case "sumNode":
+        runSumNode(aNode);
+
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  const runGeneratorNode = (aNode) => {
+    // if (!aNode.data.isReady) {
+    // aNode.data.run();
+    aNode.data = {
+      ...aNode.data,
+      histogramData: generateRandomData(aNode.data.min, aNode.data.max, 10000),
+      isReady: true,
+      status: "pronto",
+    };
+    updateNodes(aNode);
+    // }
+  };
+
+  const runHistogramNode = (aNode) => {
+    if (!aNode.data.isReady) {
+      edges.map((no) => {
+        if (no.target == aNode.id) {
+          let lNoSrcIndex = nodes.findIndex((item) => item.id === no.source);
+          if (lNoSrcIndex >= 0) {
+            if (nodes[lNoSrcIndex].data.isReady) {
+              aNode.data = {
+                ...aNode,
+                histogramData: nodes[lNoSrcIndex].data.histogramData,
+                isReady: true,
+                status: "pronto",
+              };
+            }
+          }
+        }
+      });
+      updateNodes(aNode);
+    }
+  };
+
+  const runSumNode = (aNode) => {
+    console.log(aNode);
+    if (!aNode.data.isReady) {
+      let lEdWithTarget = edges.filter((ed) => ed.target === aNode.id);
+      console.log(lEdWithTarget);
+      if (lEdWithTarget.length === 2) {
+        let lNode1 = nodes.filter((no) => no.id === lEdWithTarget[0].source);
+        let lNode2 = nodes.filter((no) => no.id === lEdWithTarget[1].source);
+        console.log("node1: ", lNode1);
+        console.log("node2: ", lNode2);
+        if (lNode1[0].data.isReady && lNode2[0].data.isReady) {
+          console.log("entrou");
+          aNode.data = {
+            ...aNode.data,
+            histogramData: sumData(
+              lNode1[0].data.histogramData,
+              lNode2[0].data.histogramData
+            ),
+            status: "pronto",
+            isReady: true,
+          };
+        }
+      }
+      updateNodes(aNode);
+    }
+  };
+
+  const updateNodes = (aNode) => {
+    // console.log(aNode);
+    setNodes([...nodes.filter((no) => no.id !== aNode.id), aNode]);
+  };
+
+  const build = () => {
+    //criar lista auxiliar que controla se os nós já estão prontos ou não
+    //sempre percorrer essa lista e fazendo o run, caso o estado isReady for true, remove o item da lista
+    //criar um controlador de quantidade de items, toda vez que chegar no final da lista, armazenar o tamanho restante de item e percorrer novamente
+    //caso na proxima volta a quantidade de item se mantiver, os item presentes não podem ser preparador por algum motivo
+    //criar função que verifica a causa de não ser possivel fazer o run e escrever o motivo
+    let lNotReadyLength = null;
+
+    while (
+      lNotReadyLength !== nodes.filter((no) => no.data.isReady === false).length
+    ) {
+      lNotReadyLength = nodes.filter((no) => no.data.isReady === false).length;
+      reRun();
+    }
+
+    //função que faz a varredura nos nós que não conseguiram ser construidos corretamente
+    nodes.map((no) => {
+      if (!no.data.isReady)
+        no.data = { ...no.data, status: "X - problema ao rodar run" };
+    });
+
+    setNodes([...nodes]);
+
+    setCanShowHistograms(true);
+    console.log(nodes);
+  };
+
+  const reRun = () => {
+    console.log("reRun");
+    nodes.map((no) => {
+      run(no);
+    });
+  };
+
   //------
   //percorrer as conexões de tras para frente
   // - buscar por nós histograma
@@ -505,7 +626,7 @@ const CustomNodeFlow = () => {
         <ButtonDefault name={"Adicionar nó somador"} onPress={addSumNode} />
         <ButtonDefault
           name={"Construir histogramas"}
-          onPress={buildBackwards}
+          onPress={build}
           style={{}}
         />
       </div>
