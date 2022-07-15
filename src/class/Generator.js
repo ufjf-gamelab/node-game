@@ -6,6 +6,7 @@ export default class Generator {
   min = 0;
   max = 6;
   status = "em espera";
+  error = false;
 
   constructor() {
     this.label = "Gerador de aleatórios";

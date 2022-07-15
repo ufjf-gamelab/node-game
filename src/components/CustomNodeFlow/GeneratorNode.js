@@ -30,7 +30,12 @@ export default memo(({ id, data, isConnectable }) => {
     setStatus(data.status);
   }, [data]);
   return (
-    <div style={{ backgroundColor: "salmon", borderRadius: 5 }}>
+    <div
+      style={{
+        backgroundColor: data.isReady ? "green" : "salmon",
+        borderRadius: 5,
+      }}
+    >
       <Handle
         type="source"
         position="right"

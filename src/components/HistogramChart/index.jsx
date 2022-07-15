@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { VictoryChart, VictoryHistogram } from "victory";
 import { Container } from "./styles";
 
@@ -13,26 +13,67 @@ import { Container } from "./styles";
 // ];
 
 export default memo(({ data }) => {
+  const [bins, setBins] = useState([]);
+  const [loadingBins, setLoadingBins] = useState(true);
+
+  const getArrayIntegers = (aArray) => {
+    let lCleanArray = getArrayClean(aArray);
+    let lMin = Math.min(...lCleanArray);
+    let lMax = Math.max(...lCleanArray);
+    let i = 0;
+    let lIntegers = [];
+
+    for (i = parseInt(lMin); i <= lMax; i++) {
+      lIntegers.push(i);
+    }
+    lIntegers.push(i++);
+    console.log("min: ", lMin);
+    console.log("max: ", lMax);
+    console.log(lIntegers);
+
+    return lIntegers;
+  };
+
+  const getArrayClean = (aArray) => {
+    let lArray = [];
+    aArray.map((item) => {
+      lArray.push(item.x);
+    });
+
+    return lArray;
+  };
+
+  useEffect(() => {
+    setLoadingBins(true);
+    setBins(getArrayIntegers(data));
+    setLoadingBins(false);
+  }, [data]);
+
   return (
     <Container>
-      <VictoryChart>
-        <VictoryHistogram
-          style={{
-            data: {
-              fill: "hsl(355, 88%, 67%)",
-              stroke: "hsl(355, 10%, 25%)",
-            },
-          }}
-          cornerRadius={5}
-          labels={({ datum }) => `${datum.y}`}
-          data={data}
-          // bins={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]}
-          animate={{
-            duration: 500,
-            onLoad: { duration: 200 },
-          }}
-        />
-      </VictoryChart>
+      {!loadingBins ? (
+        <VictoryChart>
+          <VictoryHistogram
+            style={{
+              data: {
+                fill: "hsl(355, 88%, 67%)",
+                stroke: "hsl(355, 10%, 25%)",
+              },
+            }}
+            cornerRadius={5}
+            labels={({ datum }) => `${datum.y}`}
+            data={data}
+            // bins={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]}
+            bins={bins}
+            animate={{
+              duration: 500,
+              onLoad: { duration: 200 },
+            }}
+          />
+        </VictoryChart>
+      ) : (
+        <></>
+      )}
     </Container>
   );
 });

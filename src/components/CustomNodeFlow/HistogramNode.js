@@ -7,7 +7,9 @@ import { setUpdateNamesHistograms } from "../../redux/actions/AppActions";
 import { useSelector } from "react-redux";
 
 export default memo((props) => {
-  const [titleHistogram, setTitleHistogram] = useState("");
+  const [titleHistogram, setTitleHistogram] = useState(
+    props.data.histogramName
+  );
   const [status, setStatus] = useState(props.data.status);
   const flow = useReactFlow();
 
@@ -19,7 +21,7 @@ export default memo((props) => {
         node.data.histogramName = aName;
       }
     });
-    flow.setNodes(nodes);
+    flow.setNodes([...nodes]);
   };
 
   return (
@@ -41,7 +43,7 @@ export default memo((props) => {
       >
         <div
           style={{
-            background: "lightgreen",
+            background: props.data.error ? "red" : "lightgreen",
             borderRadius: 5,
             justifyContent: "center",
             alignItems: "center",
@@ -60,7 +62,7 @@ export default memo((props) => {
             onChange={(e) => {
               setTitleHistogram(e.target.value);
               props.data.histogramName = e.target.value;
-              console.log("nodes: ", props.data.nodes);
+              console.log("nodes: ", flow.getNode(props.id).data.histogramName);
               changeName(e.target.value);
               // props.data.setNodes(props.data.nodes);
             }}
