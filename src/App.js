@@ -4,6 +4,7 @@ import CustomNodeFlow from "./components/CustomNodeFlow";
 import Flow from "./components/Flow";
 import HistogramChart from "./components/HistogramChart";
 import { Container, Description, Title } from "./styles";
+import "@cloudscape-design/global-styles/index.css"
 
 function App() {
   const generateRandomData = (aMin, aMax, aN) => {

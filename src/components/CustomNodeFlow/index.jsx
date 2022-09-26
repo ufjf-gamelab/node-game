@@ -35,6 +35,9 @@ import Histogram from "../../class/Histogram";
 
 import { useSelector } from "react-redux";
 import ExplodingDiceNode from "./ExplodingDiceNode";
+import ButtonDropdown from "@cloudscape-design/components/button-dropdown";
+import Button from "@cloudscape-design/components/button";
+import PoolNode from "./PoolNode";
 
 const initBgColor = "#1A192B";
 
@@ -46,6 +49,7 @@ const nodeTypes = {
   histogramNode: HistogramNode,
   sumNode: SumNode,
   explodingDice: ExplodingDiceNode,
+  poolNode: PoolNode,
 };
 
 const CustomNodeFlow = () => {
@@ -123,7 +127,7 @@ const CustomNodeFlow = () => {
       //           type: "histogramNode",
       //           position: { x: 300, y: 50 },
       //           data: {
-      // histogramData: [
+      // data: [
       //   { x: 0 },
       //   { x: 1 },
       //   { x: 1 },
@@ -199,7 +203,7 @@ const CustomNodeFlow = () => {
         data: new Generator(),
 
         // data: {
-        //   histogramData: [],
+        //   data: [],
         //   label: `Gerador de aleatorios`,
         //   hasData: false,
         //   isReady: false,
@@ -220,7 +224,7 @@ const CustomNodeFlow = () => {
         position: { x: 300 + nodes.length * 20, y: 50 + nodes.length * 20 },
         data: {
           label: "",
-          histogramData: [],
+          data: [],
           hasData: false,
           isReady: false,
           histogramName: "",
@@ -242,7 +246,7 @@ const CustomNodeFlow = () => {
         position: { x: 300 + nodes.length * 20, y: 50 + nodes.length * 20 },
         data: {
           label: "Explodir dado",
-          histogramData: [],
+          data: [],
           faces: null,
           chosenFace: null,
           hasData: false,
@@ -265,16 +269,30 @@ const CustomNodeFlow = () => {
         type: "sumNode",
         position: { x: 300 + nodes.length * 20, y: 50 + nodes.length * 20 },
         data: {
-          histogramData: [
-            // { x: 0 },
-            // { x: 1 },
-            // { x: 1 },
-            // { x: 2 },
-            // { x: 3 },
-            // { x: 4 },
-            // { x: 4 },
+          data: [
           ],
           label: `Somar dois geradores`,
+          histogramName: "",
+          isReady: false,
+          status: "a construir",
+          error: false,
+        },
+      },
+    ]);
+  };
+
+  const addPoolNode = () => {
+    setNodes([
+      ...nodes,
+      {
+        id: `node-pool-${nodes.length}`,
+        type: "poolNode",
+        position: { x: 300 + nodes.length * 20, y: 50 + nodes.length * 20 },
+        data: {
+          data: [
+
+          ],
+          label: `Pool`,
           histogramName: "",
           isReady: false,
           status: "a construir",
@@ -289,18 +307,18 @@ const CustomNodeFlow = () => {
 
     for (let i = 0; i < aN; i++) {
       let lX = parseInt(Math.floor(Math.random() * (aMax + 1 - aMin) + aMin));
-      lData.push({ x: lX });
+      lData.push(lX);
     }
 
     return lData;
   };
 
-  const mapingHistogramData = () => {
+  const mapingdata = () => {
     edges.map((ed) => {
       //buscar em nós o
       let lNodeGeneratorIndex = nodes.findIndex((no) => no.id == ed.source);
       if (lNodeGeneratorIndex >= 0) {
-        nodes[lNodeGeneratorIndex].data.histogramData = generateRandomData(
+        nodes[lNodeGeneratorIndex].data.data = generateRandomData(
           1,
           6,
           10000
@@ -309,7 +327,7 @@ const CustomNodeFlow = () => {
         if (lNodeHistogramIndex >= 0) {
           nodes[lNodeHistogramIndex].data = {
             ...nodes[lNodeHistogramIndex].data,
-            histogramData: nodes[lNodeGeneratorIndex].data.histogramData,
+            data: nodes[lNodeGeneratorIndex].data.data,
           };
         }
       }
@@ -321,7 +339,7 @@ const CustomNodeFlow = () => {
 
   const clearNodes = () => {
     nodes.map((node) => {
-      node.data.histogramData = [];
+      node.data.data = [];
       node.data.isReady = false;
       node.data.status = "preparando...";
       node.data.error = false;
@@ -344,9 +362,13 @@ const CustomNodeFlow = () => {
         runSumNode(aNode);
         break;
 
-        case "explodingDice":
-          runExplodingDiceNode(aNode);
-          break;
+      case "explodingDice":
+        runExplodingDiceNode(aNode);
+        break;
+
+      case 'poolNode':
+        runPoolNode(aNode);
+        break;
 
       default:
         break;
@@ -358,7 +380,7 @@ const CustomNodeFlow = () => {
     // aNode.data.run();
     aNode.data = {
       ...aNode.data,
-      histogramData: generateRandomData(aNode.data.min, aNode.data.max, 10000),
+      data: generateRandomData(aNode.data.min, aNode.data.max, 10000),
       isReady: true,
       status: "pronto",
     };
@@ -375,7 +397,7 @@ const CustomNodeFlow = () => {
             if (nodes[lNoSrcIndex].data.isReady) {
               aNode.data = {
                 ...aNode.data,
-                histogramData: nodes[lNoSrcIndex].data.histogramData,
+                data: nodes[lNoSrcIndex].data.data,
                 isReady: true,
                 status: "pronto",
               };
@@ -401,9 +423,9 @@ const CustomNodeFlow = () => {
           console.log("entrou");
           aNode.data = {
             ...aNode.data,
-            histogramData: sumData(
-              lNode1[0].data.histogramData,
-              lNode2[0].data.histogramData
+            data: sumData(
+              lNode1[0].data.data,
+              lNode2[0].data.data
             ),
             status: "pronto",
             isReady: true,
@@ -415,10 +437,10 @@ const CustomNodeFlow = () => {
   };
 
   const runExplodingDiceNode = (aNode) => {
-    if(aNode.data.faces && aNode.data.chosenFace && !aNode.isReady){
+    if (aNode.data.faces && aNode.data.chosenFace && !aNode.isReady) {
       aNode.data = {
         ...aNode.data,
-        histogramData: explodingDice(aNode.data.faces, aNode.data.chosenFace, 10000),
+        data: explodingDice(aNode.data.faces, aNode.data.chosenFace, 10000),
         isReady: true,
         status: "pronto",
       };
@@ -435,16 +457,79 @@ const CustomNodeFlow = () => {
     // }
   };
 
+  const runPoolNode = (aNode) => {
+    // console.log(aNode)
+    if (!aNode.data.isReady) {
+      let lEdWithTarget = edges.filter((ed) => ed.target === aNode.id);
+
+      if (lEdWithTarget.length === 2) {
+        //tem duas conexoes
+        let lNoSrcIndex1 = nodes.findIndex((item) => item.id === lEdWithTarget[0].source);
+        let lNoSrcIndex2 = nodes.findIndex((item) => item.id === lEdWithTarget[1].source);
+
+        if (nodes[lNoSrcIndex1].data.isReady && nodes[lNoSrcIndex2].data.isReady) {
+          console.log('ta pronto');
+
+          aNode.data = {
+            ...aNode.data,
+            data: poolNodes(nodes[lNoSrcIndex1], nodes[lNoSrcIndex2]),
+            isReady: true,
+            status: "pronto",
+          };
+        }
+
+      }
+    } else {
+      aNode.data = {
+        ...aNode.data,
+        isReady: false,
+        status: "Preencha os campos obrigatórios",
+        error: true
+      };
+    }
+    updateNodes(aNode);
+  };
+
+  const poolNodes = (aDice1, aDice2) => {
+    // let lData = [aDice1.data.data, aDice2.data.data];
+    let lData = [];
+
+    for (let i = 0; i < aDice1.data.data.length; i++) {
+      const dado1 = aDice1.data.data[i];
+      const dado2 = aDice2.data.data[i];
+
+      lData[i] = [];
+
+      if (Array.isArray(dado1)) {
+        lData[i] = [...lData[i], ...dado1]
+      } else {
+        lData[i] = [...lData[i], dado1]
+      }
+
+      if (Array.isArray(dado2)) {
+        lData[i] = [...lData[i], ...dado2]
+      } else {
+        lData[i] = [...lData[i], dado2]
+      }
+
+    }
+
+    console.log(lData);
+
+    return lData
+
+  }
+
   const explodingDice = (aFaces, aFace, aN) => {
     let lCount = 0;
     let lX = [];
 
-    for(let i = 0; i < aN; i++){
-      while(aFace === parseInt(Math.floor(Math.random() * (aFaces + 1 - 1) + 1))){
+    for (let i = 0; i < aN; i++) {
+      while (aFace === parseInt(Math.floor(Math.random() * (aFaces + 1 - 1) + 1))) {
         lCount++;
       }
 
-      lX.push({ x: lCount});
+      lX.push(lCount);
       lCount = 0;
     }
 
@@ -467,7 +552,7 @@ const CustomNodeFlow = () => {
     //criar função que verifica a causa de não ser possivel fazer o run e escrever o motivo
 
     clearNodes();
-    console.log(nodes);
+    // console.log(nodes);
 
     let lNotReadyLength = null;
 
@@ -491,7 +576,7 @@ const CustomNodeFlow = () => {
     setNodes([...nodes]);
 
     setCanShowHistograms(true);
-    console.log(nodes);
+    // console.log(nodes);
   };
 
   const reRun = () => {
@@ -536,7 +621,7 @@ const CustomNodeFlow = () => {
 
             histogram.data = {
               ...histogram.data,
-              histogramData: nodes[lNoIndex].data.getHistogramData(),
+              data: nodes[lNoIndex].data.getdata(),
               status: "pronto",
               isReady: true,
             };
@@ -578,25 +663,25 @@ const CustomNodeFlow = () => {
               console.log("lNodesGenerators Atualizado: ", lNodesGenerators);
 
               //agora fazer a concatenação dos dois datas e setar em sumNode
-              // nodes[lNoIndex].data.histogramData = [
-              //   ...lNodesGenerators[0].data.histogramData,
-              //   ...lNodesGenerators[1].data.histogramData,
+              // nodes[lNoIndex].data.data = [
+              //   ...lNodesGenerators[0].data.data,
+              //   ...lNodesGenerators[1].data.data,
               // ];
-              nodes[lNoIndex].data.histogramData = sumData(
-                lNodesGenerators[0].data.histogramData,
-                lNodesGenerators[1].data.histogramData
+              nodes[lNoIndex].data.data = sumData(
+                lNodesGenerators[0].data.data,
+                lNodesGenerators[1].data.data
               );
 
-              console.log(nodes[lNoIndex].data.histogramData);
+              console.log(nodes[lNoIndex].data.data);
               nodes[lNoIndex].data.isReady = true;
               nodes[lNoIndex].data.status = "pronto";
 
-              histogram.data.histogramData = nodes[lNoIndex].data.histogramData;
+              histogram.data.data = nodes[lNoIndex].data.data;
               histogram.data.status = "pronto";
               histogram.data.isReady = true;
               console.log(
-                "tamanho dos dados do histogramData: ",
-                histogram.data.histogramData.length
+                "tamanho dos dados do data: ",
+                histogram.data.data.length
               );
             }
           }
@@ -617,7 +702,7 @@ const CustomNodeFlow = () => {
   const checkNodeGenerator = (aNode) => {
     if (!aNode.data?.hasData) {
       console.log("nao tem dados... gerando", aNode.data);
-      aNode.data.histogramData = generateRandomData(
+      aNode.data.data = generateRandomData(
         aNode.data.min,
         aNode.data.max,
         10000
@@ -645,16 +730,16 @@ const CustomNodeFlow = () => {
             if (lNode.type === "generator") {
               checkNodeGenerator(lNode);
               //pegar o valor do dataHistogram e adicionar ao nó sumNode
-              aNode.data.histogramData = sumData(
-                aNode.data.histogramData,
-                lNode.data.histogramData
+              aNode.data.data = sumData(
+                aNode.data.data,
+                lNode.data.data
               );
             } else if (lNode.type === "sumNode")
               checkSumNode(lNode, aNodes, aEdges);
           }
         });
       }
-      // aNode.data.histogramData = generateRandomData(1, 6, 10000);
+      // aNode.data.data = generateRandomData(1, 6, 10000);
       // aNode.data.hasData = true;
       aNode.data.isReady = true;
       aNode.data.status = "pronto";
@@ -665,23 +750,51 @@ const CustomNodeFlow = () => {
   const sumData = (aData1, aData2) => {
     const sData = [];
     for (let i = 0; i < aData1.length; i++) {
-      sData.push({ x: aData1[i].x + aData2[i].x });
+      sData.push(aData1[i] + aData2[i]);
     }
     console.log("const", sData);
     return sData;
   };
 
-  const getHistograms = () => {
-    setCanShowHistograms(false);
+  const formatDataToHistogram = (aData) => {
+    let lData = [];
 
-    mapingHistogramData();
-    setCanShowHistograms(true);
-    // console.log(nodes);
-  };
+    console.log('data: ', aData);
+    aData.map(item => {
+      lData.push({ x: item })
+    })
 
-  // useEffect(() => {
-  //   setCanShowHistograms(false);
-  // }, [nodes]);
+    return [{ x: 0, x: 1 }]//lData
+  }
+
+  const addNoId = (aId) => {
+    switch (aId) {
+      case 'noGerador': addGeneratorNode()
+
+        break;
+      case 'noHistograma': addHistogramNode()
+
+        break;
+
+      case 'noExplodeDice': addExplodingDiceNode()
+
+        break;
+
+      case 'noSomador': addSumNode()
+
+        break;
+
+      case 'noPool': addPoolNode()
+
+        break;
+      case 'contruir': build()
+
+        break;
+
+      default:
+        break;
+    }
+  }
 
   return (
     <div style={{ height: 500, width: "100%" }}>
@@ -690,10 +803,34 @@ const CustomNodeFlow = () => {
           flex: 1,
           display: "flex",
           flexDirection: "row",
-          justifyContent: "space-between",
+          justifyContent: "space-evenly",
+          padding: 10
         }}
       >
-        <ButtonDefault
+        <ButtonDropdown
+          items={[
+            { text: "Adicionar nó gerador", id: "noGerador", disabled: false },
+            { text: "Adicionar nó histogram", id: "noHistograma", disabled: false },
+            { text: "Adicionar explodir dado", id: "noExplodeDice", disabled: false },
+            { text: "Adicionar nó somador", id: "noSomador", disabled: false },
+            { text: "Adicionar nó pool", id: "noPool", disabled: false },
+            // { text: "Construir histogramas", id: "contruir", disabled: false },
+            // { text: "Move", id: "mv", disabled: false },
+            // { text: "Rename", id: "rn", disabled: true },
+            // {
+            //   text: "View metrics",
+            //   href: "https://example.com",
+            //   external: true,
+            //   externalIconAriaLabel: "(opens in new tab)"
+            // }
+          ]}
+          onItemClick={id => addNoId(id.detail.id)}
+        >
+          Adicionar
+        </ButtonDropdown>
+
+        <Button variant="primary" onClick={build} disabled={!nodes.length}>Construir</Button>
+        {/* <ButtonDefault
           name={"Adicionar nó gerador"}
           onPress={addGeneratorNode}
         />
@@ -707,7 +844,7 @@ const CustomNodeFlow = () => {
           name={"Construir histogramas"}
           onPress={build}
           style={{}}
-        />
+        /> */}
       </div>
       <ReactFlow
         nodes={nodes}
@@ -745,7 +882,7 @@ const CustomNodeFlow = () => {
             node.data.isReady && (
               <div key={node.id}>
                 <h2>{node.data.histogramName}</h2>
-                <HistogramChart data={node.data.histogramData} />
+                <HistogramChart data={formatDataToHistogram(node.data.data)} />
               </div>
             )
         )}

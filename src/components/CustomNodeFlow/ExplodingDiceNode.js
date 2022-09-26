@@ -1,6 +1,6 @@
 import React, { memo, useState } from "react";
 import { useEffect } from "react";
-
+import Container from "@cloudscape-design/components/container";
 import { Handle, useReactFlow } from "react-flow-renderer";
 import Button from "../Button";
 
@@ -45,13 +45,14 @@ export default memo(({ id, data, isConnectable }) => {
   // },[faces, explodeFace])
 
   return (
-    <div
-      style={{
-        backgroundColor: data.isReady ? "green" : data.error ? 'red' : "salmon",
-        borderRadius: 5,
-        width: '100%'
-      }}
-    >
+    // <div
+    //   style={{
+    //     backgroundColor: data.isReady ? "green" : data.error ? 'red' : "salmon",
+    //     borderRadius: 5,
+    //     width: '100%'
+    //   }}
+    // >
+    <Container>
       <Handle
         type="source"
         position="right"
@@ -87,6 +88,7 @@ export default memo(({ id, data, isConnectable }) => {
         value={explodeFace}
       />
       <h5>status: {flow.getNode(id).data.status}</h5>
-    </div>
+    {/* </div> */}
+    </Container>
   );
 });

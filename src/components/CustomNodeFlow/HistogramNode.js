@@ -1,6 +1,6 @@
 import React, { memo, useEffect } from "react";
 import { useState } from "react";
-
+import Container from "@cloudscape-design/components/container";
 import { Handle, useReactFlow } from "react-flow-renderer";
 import { useDispatch } from "react-redux";
 import { setUpdateNamesHistograms } from "../../redux/actions/AppActions";
@@ -24,54 +24,39 @@ export default memo((props) => {
     flow.setNodes([...nodes]);
   };
 
+  const isValidConnection = (connection) => connection.source.includes(['sumNode', 'generator'])
+  //(connection.type === 'generator' || connection.type === 'sumNode');
+
   return (
-    <>
+    <Container>
       <Handle
         type="target"
         position="left"
         style={{ background: "#555", stroke: "#000" }}
         onConnect={(paramsm) => console.log("handle onConnect", paramsm)}
         isConnectable={props.isConnectable}
+        isValidConnection={isValidConnection}
+
       />
-      <div
+      <h3
         style={{
-          borderWidth: 2,
-          borderRadius: 5,
-          padding: 10,
-          borderColor: "#000",
+          padding: 2,
         }}
       >
-        <div
-          style={{
-            background: props.data.error ? "red" : "lightgreen",
-            borderRadius: 5,
-            justifyContent: "center",
-            alignItems: "center",
-            flex: 1,
-          }}
-        >
-          <h3
-            style={{
-              padding: 2,
-            }}
-          >
-            Gerador de histograma
-          </h3>
-          <input
-            placeholder="Titulo do histograma"
-            onChange={(e) => {
-              setTitleHistogram(e.target.value);
-              props.data.histogramName = e.target.value;
-              console.log("nodes: ", flow.getNode(props.id).data.histogramName);
-              changeName(e.target.value);
-              // props.data.setNodes(props.data.nodes);
-            }}
-            type="text"
-            value={titleHistogram}
-          />
-          <h5>status: {flow.getNode(props.id).data.status}</h5>
-        </div>
-      </div>
-    </>
+        Gerador de histograma
+      </h3>
+      <input
+        placeholder="Titulo do histograma"
+        onChange={(e) => {
+          setTitleHistogram(e.target.value);
+          props.data.histogramName = e.target.value;
+          console.log("nodes: ", flow.getNode(props.id).data.histogramName);
+          changeName(e.target.value);
+        }}
+        type="text"
+        value={titleHistogram}
+      />
+      <h5>status: {flow.getNode(props.id).data.status}</h5>
+    </Container>
   );
 });

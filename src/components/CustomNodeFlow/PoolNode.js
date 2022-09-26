@@ -29,13 +29,10 @@ export default memo(({ id, data, isConnectable }) => {
   useEffect(() => {
     setStatus(data.status);
   }, [data]);
+
+  // const isValidConnection = (connection) => connection.target.includes(['poolNode'])
+
   return (
-    // <div
-    //   style={{
-    //     backgroundColor: data.isReady ? "green" : "salmon",
-    //     borderRadius: 5,
-    //   }}
-    // >
     <Container>
       <Handle
         type="source"
@@ -43,21 +40,26 @@ export default memo(({ id, data, isConnectable }) => {
         style={{ background: "#555", stroke: "#000" }}
         onConnect={(params) => console.log("handle onConnect", params)}
         isConnectable={isConnectable}
+      // isValidConnection={isValidConnection}
+      />
+      <Handle
+        type="target"
+        position="left"
+        id="a"
+        style={{ top: 20, background: "#555", stroke: "#000" }}
+        onConnect={(params) => console.log("handle onConnect", params)}
+        isConnectable={isConnectable}
+      />
+      <Handle
+        type="target"
+        position="left"
+        id="b"
+        style={{ bottom: 20, background: "#555", stroke: "#000" }}
+        onConnect={(params) => console.log("handle onConnect", params)}
+        isConnectable={isConnectable}
       />
       <h2>{data.label}</h2>
-      {/* <div style={{ flexDirection: "column" }}>
-        <Button name={data.label} onPress={() => null} />
-      </div> */}
-      <input
-        placeholder="Minimo"
-        onChange={(e) => {
-          setMin(e.target.value);
-          data.min = parseFloat(e.target.value);
-        }}
-        type="number"
-        value={min}
-      />
-      <input
+      {/* <input
         placeholder="Maximo"
         onChange={(e) => {
           setMax(e.target.value);
@@ -65,9 +67,8 @@ export default memo(({ id, data, isConnectable }) => {
         }}
         type="number"
         value={max}
-      />
+      /> */}
       <h5>status: {flow.getNode(id).data.status}</h5>
-      </Container>
-    // {/* </div> */}
+    </Container>
   );
 });
