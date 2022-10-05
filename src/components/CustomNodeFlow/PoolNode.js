@@ -30,17 +30,33 @@ export default memo(({ id, data, isConnectable }) => {
     setStatus(data.status);
   }, [data]);
 
-  // const isValidConnection = (connection) => connection.target.includes(['poolNode'])
+  const isValidConnection = (connection) => {
+    return canConnectToNode(flow.getNode(connection.target).type)
+  }
+
+  const canConnectToNode = (aNodeType) => {
+    let lCanConnect = false;
+    const lAllowed = ['poolNode', 'sumNode', 'poolSumNode',]
+
+    lAllowed.forEach(type => {
+      if (type === aNodeType) {
+
+        lCanConnect = true;
+      }
+    })
+
+    return lCanConnect;
+  }
 
   return (
     <Container>
       <Handle
         type="source"
         position="right"
-        style={{ background: "#555", stroke: "#000" }}
+        style={{ stroke: "#000" }}
         onConnect={(params) => console.log("handle onConnect", params)}
         isConnectable={isConnectable}
-      // isValidConnection={isValidConnection}
+        isValidConnection={isValidConnection}
       />
       <Handle
         type="target"

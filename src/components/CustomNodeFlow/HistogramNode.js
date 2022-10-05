@@ -24,18 +24,17 @@ export default memo((props) => {
     flow.setNodes([...nodes]);
   };
 
-  const isValidConnection = (connection) => connection.source.includes(['sumNode', 'generator'])
-  //(connection.type === 'generator' || connection.type === 'sumNode');
+  // const isValidConnection = (connection) => connection.source.includes(['sum', 'generator'])
 
   return (
     <Container>
       <Handle
         type="target"
         position="left"
-        style={{ background: "#555", stroke: "#000" }}
+        style={{ stroke: "#000" }}
         onConnect={(paramsm) => console.log("handle onConnect", paramsm)}
         isConnectable={props.isConnectable}
-        isValidConnection={isValidConnection}
+      // isValidConnection={isValidConnection}
 
       />
       <h3

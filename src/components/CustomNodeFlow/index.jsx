@@ -1,17 +1,3 @@
-// import React from "react";
-
-// import { Container, TextButton } from "./styles";
-
-// const Flow = ({ name, onPress }) => {
-//   return (
-//     <Container>
-//       <TextButton onClick={() => onPress()}>{name}</TextButton>
-//     </Container>
-//   );
-// };
-
-// export default Flow;
-
 import React, { useState, useEffect, useCallback } from "react";
 import ReactFlow, {
   useNodesState,
@@ -25,7 +11,6 @@ import ButtonDefault from "../Button";
 
 import ColorSelectorNode from "./ColorSelectorNode";
 import GeneratorNode from "./GeneratorNode";
-
 import "./index.css";
 import HistogramNode from "./HistogramNode";
 import SumNode from "./SumNode";
@@ -38,6 +23,7 @@ import ExplodingDiceNode from "./ExplodingDiceNode";
 import ButtonDropdown from "@cloudscape-design/components/button-dropdown";
 import Button from "@cloudscape-design/components/button";
 import PoolNode from "./PoolNode";
+import PoolSumNode from "./PoolSumNode";
 
 const initBgColor = "#1A192B";
 
@@ -50,7 +36,25 @@ const nodeTypes = {
   sumNode: SumNode,
   explodingDice: ExplodingDiceNode,
   poolNode: PoolNode,
+  poolSumNode: PoolSumNode,
 };
+
+const NodeSelectedOptions = ({ nodes }) => {
+  // const flow = useReactFlow()
+  const [selectedNode, setSelectedNode] = useState(null)
+
+  useEffect(() => {
+    nodes.forEach(node => {
+      if (node.selected) {
+        setSelectedNode(node.id)
+      }
+    })
+  }, [nodes])
+
+  return <div style={{ width: '30%', background: 'lightblue' }}>
+    <h1>{selectedNode}</h1>
+  </div>
+}
 
 const CustomNodeFlow = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -192,6 +196,10 @@ const CustomNodeFlow = () => {
     );
   });
 
+  const onConnectStart = (_, { nodeId, handleType }) =>
+    console.log('on connect start', { nodeId, handleType });
+  const onConnectEnd = (event) => console.log('on connect end', event);
+
   const addGeneratorNode = () => {
     console.log("Adicionando");
     setNodes([
@@ -301,6 +309,26 @@ const CustomNodeFlow = () => {
       },
     ]);
   };
+  const addPoolSumNode = () => {
+    setNodes([
+      ...nodes,
+      {
+        id: `node-pool-sum-${nodes.length}`,
+        type: "poolSumNode",
+        position: { x: 300 + nodes.length * 20, y: 50 + nodes.length * 20 },
+        data: {
+          data: [
+
+          ],
+          label: `Pool Sum`,
+          histogramName: "",
+          isReady: false,
+          status: "a construir",
+          error: false,
+        },
+      },
+    ]);
+  };
 
   const generateRandomData = (aMin, aMax, aN) => {
     let lData = [];
@@ -316,14 +344,14 @@ const CustomNodeFlow = () => {
   const mapingdata = () => {
     edges.map((ed) => {
       //buscar em nós o
-      let lNodeGeneratorIndex = nodes.findIndex((no) => no.id == ed.source);
+      let lNodeGeneratorIndex = nodes.findIndex((no) => no.id === ed.source);
       if (lNodeGeneratorIndex >= 0) {
         nodes[lNodeGeneratorIndex].data.data = generateRandomData(
           1,
           6,
           10000
         );
-        let lNodeHistogramIndex = nodes.findIndex((no) => no.id == ed.target);
+        let lNodeHistogramIndex = nodes.findIndex((no) => no.id === ed.target);
         if (lNodeHistogramIndex >= 0) {
           nodes[lNodeHistogramIndex].data = {
             ...nodes[lNodeHistogramIndex].data,
@@ -370,6 +398,10 @@ const CustomNodeFlow = () => {
         runPoolNode(aNode);
         break;
 
+      case 'poolSumNode':
+        runPoolSumNode(aNode);
+        break;
+
       default:
         break;
     }
@@ -391,7 +423,7 @@ const CustomNodeFlow = () => {
   const runHistogramNode = (aNode) => {
     if (!aNode.data.isReady) {
       edges.map((no) => {
-        if (no.target == aNode.id) {
+        if (no.target === aNode.id) {
           let lNoSrcIndex = nodes.findIndex((item) => item.id === no.source);
           if (lNoSrcIndex >= 0) {
             if (nodes[lNoSrcIndex].data.isReady) {
@@ -490,13 +522,47 @@ const CustomNodeFlow = () => {
     updateNodes(aNode);
   };
 
-  const poolNodes = (aDice1, aDice2) => {
+  const runPoolSumNode = (aNode) => {
+    // console.log(aNode)
+    if (!aNode.data.isReady) {
+      let lEdWithTarget = edges.filter((ed) => ed.target === aNode.id);
+
+      console.log('lEdWithTarget', lEdWithTarget)
+      if (lEdWithTarget.length === 1) {
+        let lNoSrcIndex1 = nodes.findIndex((item) => item.id === lEdWithTarget[0].source);
+
+        if (nodes[lNoSrcIndex1].data.isReady) {
+          console.log('pool ta pronto');
+
+          aNode.data = {
+            ...aNode.data,
+            data: poolSumNodes(nodes[lNoSrcIndex1]),
+            isReady: true,
+            status: "pronto",
+          };
+        } else {
+          console.log('pool ainda não está pronto')
+        }
+
+      }
+    } else {
+      aNode.data = {
+        ...aNode.data,
+        isReady: false,
+        status: "Preencha os campos obrigatórios",
+        error: true
+      };
+    }
+    updateNodes(aNode);
+  };
+
+  const poolNodes = (aInput1, aInput2) => {
     // let lData = [aDice1.data.data, aDice2.data.data];
     let lData = [];
 
-    for (let i = 0; i < aDice1.data.data.length; i++) {
-      const dado1 = aDice1.data.data[i];
-      const dado2 = aDice2.data.data[i];
+    for (let i = 0; i < aInput1.data.data.length; i++) {
+      const dado1 = aInput1.data.data[i];
+      const dado2 = aInput2.data.data[i];
 
       lData[i] = [];
 
@@ -515,6 +581,30 @@ const CustomNodeFlow = () => {
     }
 
     console.log(lData);
+
+    return lData
+
+  }
+
+  const poolSumNodes = (aInput1) => {
+    let lData = [];
+
+    for (let i = 0; i < aInput1.data.data.length; i++) {
+      const dado1 = aInput1.data.data[i];
+
+      lData[i] = 0;
+
+      if (Array.isArray(dado1)) {
+        dado1.forEach(valor =>
+          lData[i] += valor
+        )
+      } else {
+        lData[i] += dado1
+      }
+
+    }
+
+    console.log('saida pool sum: ', lData);
 
     return lData
 
@@ -562,6 +652,7 @@ const CustomNodeFlow = () => {
       lNotReadyLength = nodes.filter((no) => no.data.isReady === false).length;
       reRun();
     }
+
 
     //função que faz a varredura nos nós que não conseguiram ser construidos corretamente
     nodes.map((no) => {
@@ -764,7 +855,7 @@ const CustomNodeFlow = () => {
       lData.push({ x: item })
     })
 
-    return [{ x: 0, x: 1 }]//lData
+    return lData
   }
 
   const addNoId = (aId) => {
@@ -787,6 +878,10 @@ const CustomNodeFlow = () => {
       case 'noPool': addPoolNode()
 
         break;
+
+      case 'noPoolSum': addPoolSumNode()
+
+        break;
       case 'contruir': build()
 
         break;
@@ -797,7 +892,7 @@ const CustomNodeFlow = () => {
   }
 
   return (
-    <div style={{ height: 500, width: "100%" }}>
+    <div style={{ height: 550, width: "100%" }}>
       <div
         style={{
           flex: 1,
@@ -814,6 +909,7 @@ const CustomNodeFlow = () => {
             { text: "Adicionar explodir dado", id: "noExplodeDice", disabled: false },
             { text: "Adicionar nó somador", id: "noSomador", disabled: false },
             { text: "Adicionar nó pool", id: "noPool", disabled: false },
+            { text: "Adicionar nó pool sum", id: "noPoolSum", disabled: false },
             // { text: "Construir histogramas", id: "contruir", disabled: false },
             // { text: "Move", id: "mv", disabled: false },
             // { text: "Rename", id: "rn", disabled: true },
@@ -830,55 +926,49 @@ const CustomNodeFlow = () => {
         </ButtonDropdown>
 
         <Button variant="primary" onClick={build} disabled={!nodes.length}>Construir</Button>
-        {/* <ButtonDefault
-          name={"Adicionar nó gerador"}
-          onPress={addGeneratorNode}
-        />
-        <ButtonDefault
-          name={"Adicionar nó histogram"}
-          onPress={addHistogramNode}
-        />
-        <ButtonDefault name={"Adicionar explodir dado"} onPress={addExplodingDiceNode} />
-        <ButtonDefault name={"Adicionar nó somador"} onPress={addSumNode} />
-        <ButtonDefault
-          name={"Construir histogramas"}
-          onPress={build}
-          style={{}}
-        /> */}
+
       </div>
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        style={{ background: "grey" }}
-        nodeTypes={nodeTypes}
-        connectionLineStyle={connectionLineStyle}
-        snapToGrid={true}
-        snapGrid={snapGrid}
-        defaultZoom={1.5}
-        fitView
-        attributionPosition="bottom-left"
-      >
-        <MiniMap
-          nodeStrokeColor={(n) => {
-            if (n.type === "input") return "#0041d0";
-            if (n.type === "selectorNode") return bgColor;
-            if (n.type === "output") return "#ff0072";
-          }}
-          nodeColor={(n) => {
-            if (n.type === "selectorNode") return bgColor;
-            return "#fff";
-          }}
-        />
-        <Controls />
-      </ReactFlow>
+      <div style={{ flex: 1, flexDirection: 'row', height: '100%' }}>
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          // onConnectStart={onConnectStart}
+          // onConnectEnd={onConnectEnd}
+          style={{ background: "grey" }}
+          nodeTypes={nodeTypes}
+          connectionLineStyle={connectionLineStyle}
+          snapToGrid={true}
+          snapGrid={snapGrid}
+          defaultZoom={1.5}
+          fitView
+          attributionPosition="bottom-left"
+        >
+          <MiniMap
+            nodeStrokeColor={(n) => {
+              if (n.type === "input") return "#0041d0";
+              if (n.type === "selectorNode") return bgColor;
+              if (n.type === "output") return "#ff0072";
+            }}
+            nodeColor={(n) => {
+              if (n.type === "selectorNode") return bgColor;
+              return "#aeaeae";
+            }}
+          />
+          <Controls />
+        </ReactFlow>
+
+        {/* <NodeSelectedOptions nodes={nodes} /> */}
+
+      </div>
+
 
       {canShowHistograms &&
         nodes.map(
           (node) =>
-            node.type == "histogramNode" &&
+            node.type === "histogramNode" &&
             node.data.isReady && (
               <div key={node.id}>
                 <h2>{node.data.histogramName}</h2>

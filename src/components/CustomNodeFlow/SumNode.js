@@ -11,7 +11,25 @@ export default memo(({ data, isConnectable }) => {
   useEffect(() => {
     setStatus(data.status);
   }, [data]);
-  
+
+  // const isValidConnection = (connection) => {
+  //   return canConnectToNode(flow.getNode(connection.target).type)
+  // }
+
+  // const canConnectToNode = (aNodeType) => {
+  //   let lCan = false;
+  //   const lAllowed = ['poolNode', 'sumNode']
+
+  //   lAllowed.forEach(type => {
+  //     if (type === aNodeType) {
+
+  //       lCan = true;
+  //     }
+  //   })
+
+  //   return lCan;
+  // }
+
   return (
     <Container>
       <Handle
@@ -56,15 +74,15 @@ export default memo(({ data, isConnectable }) => {
             flex: 1,
           }}
         > */}
-          <h3
-            style={{
-              padding: 2,
-            }}
-          >
-            Somar dois geradores
-          </h3>
-          <h5>status: {status}</h5>
-        {/* </div>
+      <h3
+        style={{
+          padding: 2,
+        }}
+      >
+        Somar dois geradores
+      </h3>
+      <h5>status: {status}</h5>
+      {/* </div>
       </div> */}
     </Container>
   );
