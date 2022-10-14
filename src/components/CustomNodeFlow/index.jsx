@@ -1,29 +1,23 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ReactFlow, {
-  useNodesState,
-  useEdgesState,
-  useReactFlow,
-  addEdge,
-  MiniMap,
-  Controls,
+  addEdge, Controls, MiniMap, ReactFlowProvider, useEdgesState, useNodesState
 } from "react-flow-renderer";
-import ButtonDefault from "../Button";
 
+import Generator from "../../class/Generator";
+import HistogramChart from "../HistogramChart";
 import ColorSelectorNode from "./ColorSelectorNode";
 import GeneratorNode from "./GeneratorNode";
-import "./index.css";
 import HistogramNode from "./HistogramNode";
+import "./index.css";
 import SumNode from "./SumNode";
-import HistogramChart from "../HistogramChart";
-import Generator from "../../class/Generator";
-import Histogram from "../../class/Histogram";
 
+import Button from "@cloudscape-design/components/button";
+import ButtonDropdown from "@cloudscape-design/components/button-dropdown";
 import { useSelector } from "react-redux";
 import ExplodingDiceNode from "./ExplodingDiceNode";
-import ButtonDropdown from "@cloudscape-design/components/button-dropdown";
-import Button from "@cloudscape-design/components/button";
 import PoolNode from "./PoolNode";
 import PoolSumNode from "./PoolSumNode";
+import SaveAndLoadStates from "../SaveAndLoadStates";
 
 const initBgColor = "#1A192B";
 
@@ -55,6 +49,36 @@ const NodeSelectedOptions = ({ nodes }) => {
     <h1>{selectedNode}</h1>
   </div>
 }
+
+// const SaveAndLoadStates = () => {
+//   const flow = useReactFlow()
+
+//   const loadFile = async (aFile) => {
+//     aFile.preventDefault()
+//     const reader = new FileReader()
+//     reader.onload = async (e) => {
+//       const text = (e.target.result)
+//       console.log(text)
+//       alert(text)
+//     };
+//     reader.readAsText(aFile.target.files[0])
+//   }
+
+//   const downloadTxtFile = () => {
+//     const element = document.createElement("a");
+//     const file = new Blob(['salvando arquivos como json'], { type: 'text/plain' });
+//     element.href = URL.createObjectURL(file);
+//     element.download = "myFile.txt";
+//     document.body.appendChild(element); // Required for this to work in FireFox
+//     element.click();
+//   }
+
+//   return <>
+//     <input type="file" onChange={loadFile} />
+//     <Button variant="primary" onClick={downloadTxtFile} >Baixar</Button>
+
+//   </>
+// }
 
 const CustomNodeFlow = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -893,89 +917,92 @@ const CustomNodeFlow = () => {
 
   return (
     <div style={{ height: 550, width: "100%" }}>
-      <div
-        style={{
-          flex: 1,
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-evenly",
-          padding: 10
-        }}
-      >
-        <ButtonDropdown
-          items={[
-            { text: "Adicionar nó gerador", id: "noGerador", disabled: false },
-            { text: "Adicionar nó histogram", id: "noHistograma", disabled: false },
-            { text: "Adicionar explodir dado", id: "noExplodeDice", disabled: false },
-            { text: "Adicionar nó somador", id: "noSomador", disabled: false },
-            { text: "Adicionar nó pool", id: "noPool", disabled: false },
-            { text: "Adicionar nó pool sum", id: "noPoolSum", disabled: false },
-            // { text: "Construir histogramas", id: "contruir", disabled: false },
-            // { text: "Move", id: "mv", disabled: false },
-            // { text: "Rename", id: "rn", disabled: true },
-            // {
-            //   text: "View metrics",
-            //   href: "https://example.com",
-            //   external: true,
-            //   externalIconAriaLabel: "(opens in new tab)"
-            // }
-          ]}
-          onItemClick={id => addNoId(id.detail.id)}
+      <ReactFlowProvider>
+        <div
+          style={{
+            flex: 1,
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-evenly",
+            padding: 10
+          }}
         >
-          Adicionar
-        </ButtonDropdown>
+          <ButtonDropdown
+            items={[
+              { text: "Adicionar nó gerador", id: "noGerador", disabled: false },
+              { text: "Adicionar nó histogram", id: "noHistograma", disabled: false },
+              { text: "Adicionar explodir dado", id: "noExplodeDice", disabled: false },
+              { text: "Adicionar nó somador", id: "noSomador", disabled: false },
+              { text: "Adicionar nó pool", id: "noPool", disabled: false },
+              { text: "Adicionar nó pool sum", id: "noPoolSum", disabled: false },
+              // { text: "Construir histogramas", id: "contruir", disabled: false },
+              // { text: "Move", id: "mv", disabled: false },
+              // { text: "Rename", id: "rn", disabled: true },
+              // {
+              //   text: "View metrics",
+              //   href: "https://example.com",
+              //   external: true,
+              //   externalIconAriaLabel: "(opens in new tab)"
+              // }
+            ]}
+            onItemClick={id => addNoId(id.detail.id)}
+          >
+            Adicionar
+          </ButtonDropdown>
 
-        <Button variant="primary" onClick={build} disabled={!nodes.length}>Construir</Button>
+          <Button variant="primary" onClick={build} disabled={!nodes.length}>Construir</Button>
+          <SaveAndLoadStates />
 
-      </div>
-      <div style={{ flex: 1, flexDirection: 'row', height: '100%' }}>
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
-          // onConnectStart={onConnectStart}
-          // onConnectEnd={onConnectEnd}
-          style={{ background: "grey" }}
-          nodeTypes={nodeTypes}
-          connectionLineStyle={connectionLineStyle}
-          snapToGrid={true}
-          snapGrid={snapGrid}
-          defaultZoom={1.5}
-          fitView
-          attributionPosition="bottom-left"
-        >
-          <MiniMap
-            nodeStrokeColor={(n) => {
-              if (n.type === "input") return "#0041d0";
-              if (n.type === "selectorNode") return bgColor;
-              if (n.type === "output") return "#ff0072";
-            }}
-            nodeColor={(n) => {
-              if (n.type === "selectorNode") return bgColor;
-              return "#aeaeae";
-            }}
-          />
-          <Controls />
-        </ReactFlow>
+        </div>
+        <div style={{ flex: 1, flexDirection: 'row', height: '100%' }}>
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            // onConnectStart={onConnectStart}
+            // onConnectEnd={onConnectEnd}
+            style={{ background: "grey" }}
+            nodeTypes={nodeTypes}
+            connectionLineStyle={connectionLineStyle}
+            snapToGrid={true}
+            snapGrid={snapGrid}
+            defaultZoom={1.5}
+            fitView
+            attributionPosition="bottom-left"
+          >
+            <MiniMap
+              nodeStrokeColor={(n) => {
+                if (n.type === "input") return "#0041d0";
+                if (n.type === "selectorNode") return bgColor;
+                if (n.type === "output") return "#ff0072";
+              }}
+              nodeColor={(n) => {
+                if (n.type === "selectorNode") return bgColor;
+                return "#aeaeae";
+              }}
+            />
+            <Controls />
+          </ReactFlow>
 
-        {/* <NodeSelectedOptions nodes={nodes} /> */}
+          {/* <NodeSelectedOptions nodes={nodes} /> */}
 
-      </div>
+        </div>
 
 
-      {canShowHistograms &&
-        nodes.map(
-          (node) =>
-            node.type === "histogramNode" &&
-            node.data.isReady && (
-              <div key={node.id}>
-                <h2>{node.data.histogramName}</h2>
-                <HistogramChart data={formatDataToHistogram(node.data.data)} />
-              </div>
-            )
-        )}
+        {canShowHistograms &&
+          nodes.map(
+            (node) =>
+              node.type === "histogramNode" &&
+              node.data.isReady && (
+                <div key={node.id}>
+                  <h2>{node.data.histogramName}</h2>
+                  <HistogramChart data={formatDataToHistogram(node.data.data)} />
+                </div>
+              )
+          )}
+      </ReactFlowProvider>
     </div>
   );
 };

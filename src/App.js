@@ -29,11 +29,11 @@ function App() {
 
   return (
     <Container>
-      <Title>Iniciando desenvolvimento</Title>
-      <Description>
+      <Title>Node Game</Title>
+      {/* <Description>
         Gerar uma determinada quantidade de número aleatórios e plotar um
         histograma dos dados.
-      </Description>
+      </Description> */}
 
       <CustomNodeFlow />
       {/* <Description>{JSON.stringify(dataHistogram)}</Description> */}

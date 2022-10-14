@@ -56,7 +56,7 @@ export default memo(({ data, isConnectable }) => {
       >
         Pool Sum
       </h3>
-      <h5>gera na saida um vetor com a soma de cada linha do pool.</h5>
+      {/* <h5>gera na saida um vetor com a soma de cada linha do pool.</h5> */}
       <h5>status: {status}</h5>
       {/* </div>
       </div> */}
