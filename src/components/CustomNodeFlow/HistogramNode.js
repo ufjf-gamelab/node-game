@@ -1,10 +1,11 @@
 import React, { memo, useEffect } from "react";
 import { useState } from "react";
-import Container from "@cloudscape-design/components/container";
+// import Container from "@cloudscape-design/components/container";
 import { Handle, useReactFlow } from "react-flow-renderer";
 import { useDispatch } from "react-redux";
 import { setUpdateNamesHistograms } from "../../redux/actions/AppActions";
 import { useSelector } from "react-redux";
+import Container from "../Container";
 
 export default memo((props) => {
   const [titleHistogram, setTitleHistogram] = useState(
@@ -27,7 +28,7 @@ export default memo((props) => {
   // const isValidConnection = (connection) => connection.source.includes(['sum', 'generator'])
 
   return (
-    <Container>
+    <Container selected={props.selected}>
       <Handle
         type="target"
         position="left"
@@ -37,14 +38,14 @@ export default memo((props) => {
       // isValidConnection={isValidConnection}
 
       />
-      <h3
+      <h5
         style={{
           padding: 2,
         }}
       >
         Gerador de histograma
-      </h3>
-      <input
+      </h5>
+      {/* <input
         placeholder="Titulo do histograma"
         onChange={(e) => {
           setTitleHistogram(e.target.value);
@@ -54,7 +55,7 @@ export default memo((props) => {
         }}
         type="text"
         value={titleHistogram}
-      />
+      /> */}
       <h5>status: {flow.getNode(props.id).data.status}</h5>
     </Container>
   );

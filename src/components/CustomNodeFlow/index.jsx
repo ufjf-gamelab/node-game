@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import ReactFlow, {
-  addEdge, Controls, MiniMap, ReactFlowProvider, useEdgesState, useNodesState
+  addEdge, Controls, MiniMap, ReactFlowProvider, useEdgesState, useNodesState, useReactFlow
 } from "react-flow-renderer";
 
 import Generator from "../../class/Generator";
@@ -18,6 +18,7 @@ import ExplodingDiceNode from "./ExplodingDiceNode";
 import PoolNode from "./PoolNode";
 import PoolSumNode from "./PoolSumNode";
 import SaveAndLoadStates from "../SaveAndLoadStates";
+import NodeDetailComponent from "./NodeDetailComponent";
 
 const initBgColor = "#1A192B";
 
@@ -33,52 +34,22 @@ const nodeTypes = {
   poolSumNode: PoolSumNode,
 };
 
-const NodeSelectedOptions = ({ nodes }) => {
-  // const flow = useReactFlow()
+const NodeSelectedOptions = () => {
+  const flow = useReactFlow()
   const [selectedNode, setSelectedNode] = useState(null)
 
   useEffect(() => {
-    nodes.forEach(node => {
+    flow.getNodes().forEach(node => {
       if (node.selected) {
         setSelectedNode(node.id)
       }
     })
-  }, [nodes])
+  }, [flow.getNodes()])
 
-  return <div style={{ width: '30%', background: 'lightblue' }}>
+  return <div style={{ flex: 1 }}>
     <h1>{selectedNode}</h1>
   </div>
 }
-
-// const SaveAndLoadStates = () => {
-//   const flow = useReactFlow()
-
-//   const loadFile = async (aFile) => {
-//     aFile.preventDefault()
-//     const reader = new FileReader()
-//     reader.onload = async (e) => {
-//       const text = (e.target.result)
-//       console.log(text)
-//       alert(text)
-//     };
-//     reader.readAsText(aFile.target.files[0])
-//   }
-
-//   const downloadTxtFile = () => {
-//     const element = document.createElement("a");
-//     const file = new Blob(['salvando arquivos como json'], { type: 'text/plain' });
-//     element.href = URL.createObjectURL(file);
-//     element.download = "myFile.txt";
-//     document.body.appendChild(element); // Required for this to work in FireFox
-//     element.click();
-//   }
-
-//   return <>
-//     <input type="file" onChange={loadFile} />
-//     <Button variant="primary" onClick={downloadTxtFile} >Baixar</Button>
-
-//   </>
-// }
 
 const CustomNodeFlow = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -255,7 +226,7 @@ const CustomNodeFlow = () => {
         type: "histogramNode",
         position: { x: 300 + nodes.length * 20, y: 50 + nodes.length * 20 },
         data: {
-          label: "",
+          label: "Histograma",
           data: [],
           hasData: false,
           isReady: false,
@@ -954,39 +925,49 @@ const CustomNodeFlow = () => {
           <SaveAndLoadStates />
 
         </div>
-        <div style={{ flex: 1, flexDirection: 'row', height: '100%' }}>
-          <ReactFlow
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
-            // onConnectStart={onConnectStart}
-            // onConnectEnd={onConnectEnd}
-            style={{ background: "grey" }}
-            nodeTypes={nodeTypes}
-            connectionLineStyle={connectionLineStyle}
-            snapToGrid={true}
-            snapGrid={snapGrid}
-            defaultZoom={1.5}
-            fitView
-            attributionPosition="bottom-left"
-          >
-            <MiniMap
-              nodeStrokeColor={(n) => {
-                if (n.type === "input") return "#0041d0";
-                if (n.type === "selectorNode") return bgColor;
-                if (n.type === "output") return "#ff0072";
-              }}
-              nodeColor={(n) => {
-                if (n.type === "selectorNode") return bgColor;
-                return "#aeaeae";
-              }}
-            />
-            <Controls />
-          </ReactFlow>
+        <div style={{
+          flex: 1, display: "flex",
+          height: '100%', width: '100%'
+        }}>
+          <div style={{ flex: 4, height: '100%' }}>
+            <ReactFlow
+              nodes={nodes}
+              edges={edges}
+              onNodesChange={onNodesChange}
+              onEdgesChange={onEdgesChange}
+              onConnect={onConnect}
+              // onConnectStart={onConnectStart}
+              // onConnectEnd={onConnectEnd}
+              style={{ background: "grey", width: '100%' }}
+              nodeTypes={nodeTypes}
+              connectionLineStyle={connectionLineStyle}
+              snapToGrid={true}
+              snapGrid={snapGrid}
+              defaultZoom={1.5}
+              fitView
+              attributionPosition="bottom-left"
+            >
+              <MiniMap
+                nodeStrokeColor={(n) => {
+                  if (n.type === "input") return "#0041d0";
+                  if (n.type === "selectorNode") return bgColor;
+                  if (n.type === "output") return "#ff0072";
+                }}
+                nodeColor={(n) => {
+                  if (n.type === "selectorNode") return bgColor;
+                  return "#aeaeae";
+                }}
+              />
+              <Controls />
+            </ReactFlow>
+          </div>
+          <div style={{ flex: 1, backgroundColor: '#f1f1f1', borderWidth: 1, borderColor: 'grey', padding: 5, margin: 5 }}>
+            {/* <NodeSelectedOptions /> */}
+            <NodeDetailComponent />
+          </div>
 
           {/* <NodeSelectedOptions nodes={nodes} /> */}
+
 
         </div>
 

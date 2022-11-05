@@ -1,30 +1,17 @@
 import React, { memo, useState } from "react";
 import { useEffect } from "react";
-import Container from "@cloudscape-design/components/container";
+// import Container from "@cloudscape-design/components/container";
 import { Handle, useReactFlow } from "react-flow-renderer";
 import Button from "../Button";
+import Container from "../Container";
 
-export default memo(({ id, data, isConnectable }) => {
+export default memo(({ id, data, isConnectable, selected }) => {
   const [status, setStatus] = useState(data.status);
   const [min, setMin] = useState(data.min);
   const [max, setMax] = useState(data.max);
 
   const flow = useReactFlow();
 
-  const generateRandomData = (aMin, aMax, aN) => {
-    let lData = [];
-
-    for (let i = 0; i < aN; i++) {
-      let lX = parseInt(Math.floor(Math.random() * (aMax + 1 - aMin) + aMin));
-      lData.push({ x: lX });
-    }
-
-    data.histogramData = lData;
-  };
-
-  useEffect(() => {
-    // generateRandomData(1, 6, 1000);
-  }, []);
 
   useEffect(() => {
     setStatus(data.status);
@@ -49,7 +36,7 @@ export default memo(({ id, data, isConnectable }) => {
   }
 
   return (
-    <Container>
+    <Container selected={selected}>
       <Handle
         type="source"
         position="right"
@@ -74,7 +61,7 @@ export default memo(({ id, data, isConnectable }) => {
         onConnect={(params) => console.log("handle onConnect", params)}
         isConnectable={isConnectable}
       />
-      <h2>{data.label}</h2>
+      <h5>{data.label}</h5>
       {/* <input
         placeholder="Maximo"
         onChange={(e) => {

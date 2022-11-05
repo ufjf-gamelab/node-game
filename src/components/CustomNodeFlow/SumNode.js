@@ -1,10 +1,11 @@
 import React, { memo } from "react";
 import { useState, useEffect } from "react";
-import Container from "@cloudscape-design/components/container";
+// import Container from "@cloudscape-design/components/container";
 
 import { Handle } from "react-flow-renderer";
+import Container from "../Container";
 
-export default memo(({ data, isConnectable }) => {
+export default memo(({ data, isConnectable, selected }) => {
   const [titleHistogram, setTitleHistogram] = useState("");
   const [status, setStatus] = useState(data.status);
 
@@ -31,7 +32,7 @@ export default memo(({ data, isConnectable }) => {
   // }
 
   return (
-    <Container>
+    <Container selected={selected}>
       <Handle
         type="target"
         position="left"

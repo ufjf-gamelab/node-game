@@ -1,10 +1,11 @@
 import React, { memo } from "react";
 import { useState, useEffect } from "react";
-import Container from "@cloudscape-design/components/container";
+// import Container from "@cloudscape-design/components/container";
 
 import { Handle, useReactFlow } from "react-flow-renderer";
+import Container from "../Container";
 
-export default memo(({ data, isConnectable }) => {
+export default memo(({ data, isConnectable, selected }) => {
   const [status, setStatus] = useState(data.status);
   const flow = useReactFlow();
 
@@ -31,7 +32,7 @@ export default memo(({ data, isConnectable }) => {
   }
 
   return (
-    <Container>
+    <Container selected={selected}>
       <Handle
         type="target"
         position="left"
@@ -49,13 +50,13 @@ export default memo(({ data, isConnectable }) => {
         onConnect={(params) => console.log("handle onConnect", params)}
         isConnectable={isConnectable}
       />
-      <h3
+      <h5
         style={{
           padding: 2,
         }}
       >
         Pool Sum
-      </h3>
+      </h5>
       {/* <h5>gera na saida um vetor com a soma de cada linha do pool.</h5> */}
       <h5>status: {status}</h5>
       {/* </div>

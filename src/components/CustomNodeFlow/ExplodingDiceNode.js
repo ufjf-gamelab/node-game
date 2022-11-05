@@ -1,10 +1,11 @@
 import React, { memo, useState } from "react";
 import { useEffect } from "react";
-import Container from "@cloudscape-design/components/container";
+// import Container from "@cloudscape-design/components/container";
 import { Handle, useReactFlow } from "react-flow-renderer";
 import Button from "../Button";
+import Container from "../Container";
 
-export default memo(({ id, data, isConnectable }) => {
+export default memo(({ id, data, isConnectable, selected }) => {
   const [status, setStatus] = useState(data.status);
   const [faces, setFaces] = useState(data.face);
   const [explodeFace, setExplodeFace] = useState(data.explodeFace);
@@ -52,7 +53,7 @@ export default memo(({ id, data, isConnectable }) => {
     //     width: '100%'
     //   }}
     // >
-    <Container>
+    <Container selected={selected}>
       <Handle
         type="source"
         position="right"
@@ -60,11 +61,11 @@ export default memo(({ id, data, isConnectable }) => {
         onConnect={(params) => console.log("handle onConnect", params)}
         isConnectable={isConnectable}
       />
-      <h2>{data.label}</h2>
+      <h5>{data.label}</h5>
       {/* <div style={{ flexDirection: "column" }}>
         <Button name={data.label} onPress={() => null} />
       </div> */}
-      <input
+      {/* <input
         placeholder="Faces"
         onChange={(e) => {
           setFaces(e.target.value);
@@ -86,9 +87,9 @@ export default memo(({ id, data, isConnectable }) => {
         min={"1"}
         // max={faces}
         value={explodeFace}
-      />
+      /> */}
       <h5>status: {flow.getNode(id).data.status}</h5>
-    {/* </div> */}
+      {/* </div> */}
     </Container>
   );
 });
