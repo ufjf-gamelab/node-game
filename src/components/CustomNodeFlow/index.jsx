@@ -56,6 +56,8 @@ const CustomNodeFlow = () => {
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [canShowHistograms, setCanShowHistograms] = useState(false);
   const [bgColor, setBgColor] = useState(initBgColor);
+  const [listHistogramNodes, setListHistogramNodes] = useState([]);
+
   // const flow = useReactFlow();
   const updateHistogramNames = useSelector(
     (state) => state.AppReducer.updateHistogramNames
@@ -304,6 +306,7 @@ const CustomNodeFlow = () => {
       },
     ]);
   };
+
   const addPoolSumNode = () => {
     setNodes([
       ...nodes,
@@ -648,6 +651,7 @@ const CustomNodeFlow = () => {
       reRun();
     }
 
+    let lListNodes = []
 
     //função que faz a varredura nos nós que não conseguiram ser construidos corretamente
     nodes.map((no) => {
@@ -657,10 +661,15 @@ const CustomNodeFlow = () => {
           status: "X - problema ao rodar run",
           error: true,
         };
+      else if (no.type === 'histogramNode' && no.data.isReady) {
+        lListNodes.push({ id: no.id, data: [...no.data.data] })
+      }
     });
 
-    setNodes([...nodes]);
 
+    setNodes([...nodes]);
+    // setListHistogramNodes([...nodes.filter(node => node.type === 'histogramNode')])
+    setListHistogramNodes([...lListNodes])
     setCanShowHistograms(true);
     // console.log(nodes);
   };
@@ -843,6 +852,7 @@ const CustomNodeFlow = () => {
   };
 
   const formatDataToHistogram = (aData) => {
+    return aData
     let lData = [];
 
     console.log('data: ', aData);
@@ -973,15 +983,13 @@ const CustomNodeFlow = () => {
 
 
         {canShowHistograms &&
-          nodes.map(
-            (node) =>
-              node.type === "histogramNode" &&
-              node.data.isReady && (
-                <div key={node.id}>
-                  <h2>{node.data.histogramName}</h2>
-                  <HistogramChart data={formatDataToHistogram(node.data.data)} />
-                </div>
-              )
+          listHistogramNodes.map(
+            ({ id, data }) =>
+              <div key={id}>
+                {/* <h2>{node.data.histogramName}</h2> */}
+                <HistogramChart data={formatDataToHistogram(data)} id={id} />
+              </div>
+
           )}
       </ReactFlowProvider>
     </div>

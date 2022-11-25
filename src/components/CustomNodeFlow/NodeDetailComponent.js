@@ -3,6 +3,8 @@ import { useRef } from 'react';
 import { memo } from 'react';
 import { useState } from 'react';
 import { useReactFlow } from 'react-flow-renderer';
+import Input from "@cloudscape-design/components/input";
+import TextContent from "@cloudscape-design/components/text-content";
 
 const GeneratorDetail = ({ nodeId }) => {
     const flow = useReactFlow()
@@ -10,37 +12,46 @@ const GeneratorDetail = ({ nodeId }) => {
     const [max, setMax] = useState(flow.getNode(nodeId).data.max);
 
     return <div>
+        {/* <TextContent> */}
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
             <h5>Valor mínimo :</h5>
-            <input
-                placeholder="Minimo"
-                onChange={(e) => {
-                    flow.getNode(nodeId).data.min = parseFloat(e.target.value);
-                    setMin(flow.getNode(nodeId).data.min)
-                    // flow.setNodes(flow.getNodes())
+            <Input
+                placeholder="Mínimo"
+                onBlur={() => {
+                    flow.getNode(nodeId).data.min = min ? parseFloat(min) : 0;
+                    flow.setNodes(flow.getNodes())
                 }}
-                style={{ height: 20 }}
-                type="number"
+                onChange={({ detail }) => {
+                    console.log(detail)
+                    setMin(detail.value)
+
+                    // flow.getNode(nodeId).data.min = detail.value ? parseFloat(detail.value) : 0;
+                }}
+                type='number'
                 value={min}
             />
         </div>
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
             <h5>Valor máximo :</h5>
-            <input
-                placeholder="Maximo"
-                onChange={(e) => {
-                    flow.getNode(nodeId).data.max = parseFloat(e.target.value);
-                    setMax(flow.getNode(nodeId).data.max)
-                    // flow.setNodes(flow.getNodes())
-
+            <Input
+                placeholder="Máximo"
+                onBlur={() => {
+                    flow.getNode(nodeId).data.max = max ? parseFloat(max) : 0;
+                    flow.setNodes(flow.getNodes())
                 }}
-                style={{ height: 20 }}
-                type="number"
+                onChange={({ detail }) => {
+                    setMax(detail.value)
+                    // flow.getNode(nodeId).data.max = detail.value ? parseFloat(detail.value) : 0;
+                    // setMax(flow.getNode(nodeId).data.max)
+                    // flow.setNodes(flow.getNodes())
+                }}
+                type='number'
                 value={max}
             />
         </div>
 
         <h5>status: {flow.getNode(nodeId).data.status}</h5>
+        {/* </TextContent> */}
     </div>
 }
 
@@ -59,7 +70,20 @@ const HistogramDetail = memo(({ nodeId }) => {
     return <div>
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
             <h5>Titulo :</h5>
-            <input
+
+            <Input
+                placeholder="Título do histograma"
+                onBlur={() => {
+                    flow.getNode(nodeId).data.histogramName = title;
+                    console.log("nodes: ", flow.getNode(nodeId).data.histogramName);
+                    flow.setNodes([...flow.getNodes()])
+                }}
+                onChange={({ detail }) => {
+                    setTitle(detail.value);
+                }}
+                value={title}
+            />
+            {/* <input
                 placeholder="Titulo do histograma"
                 onChange={(e) => {
                     setTitle(e.target.value);
@@ -70,7 +94,7 @@ const HistogramDetail = memo(({ nodeId }) => {
                 ref={titleRef}
                 type="text"
                 value={title}
-            />
+            /> */}
         </div>
 
         <h5>status: {flow.getNode(nodeId).data.status}</h5>
@@ -86,7 +110,19 @@ const ExplodeDiceDetail = ({ nodeId }) => {
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
             <h5>Faces :</h5>
 
-            <input
+            <Input
+                placeholder="Faces"
+                onBlur={() => {
+                    flow.getNode(nodeId).data.faces = faces;
+                    flow.setNodes([...flow.getNodes()])
+                }}
+                onChange={({ detail }) => {
+                    setFaces(detail.value);
+                }}
+                type='number'
+                value={faces}
+            />
+            {/* <input
                 placeholder="Faces"
                 onChange={(e) => {
                     setFaces(e.target.value);
@@ -98,11 +134,23 @@ const ExplodeDiceDetail = ({ nodeId }) => {
                 type="number"
                 min="2"
                 value={faces}
-            />
+            /> */}
         </div>
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
             <h5>Explodir em qual face?</h5>
-            <input
+            <Input
+                placeholder="Face"
+                onBlur={() => {
+                    flow.getNode(nodeId).data.chosenFace = explodeFace;
+                    flow.setNodes([...flow.getNodes()])
+                }}
+                onChange={({ detail }) => {
+                    setExplodeFace(detail.value);
+                }}
+                type='number'
+                value={explodeFace}
+            />
+            {/* <input
                 placeholder="Explodir em qual face?"
                 onChange={(e) => {
                     setExplodeFace(e.target.value);
@@ -116,7 +164,7 @@ const ExplodeDiceDetail = ({ nodeId }) => {
                 min={"1"}
                 // max={faces}
                 value={explodeFace}
-            />
+            /> */}
         </div>
 
         <h5>status: {flow.getNode(nodeId).data.status}</h5>
@@ -179,7 +227,7 @@ export default function NodeDetailComponent() {
 
     const SelectDetailsToShow = () => {
         if (selectedNode)
-            switch (flow.getNode(selectedNode).type) {
+            switch (flow.getNode(selectedNode)?.type) {
                 case 'generator':
                     return <GeneratorDetail nodeId={selectedNode} />
                     break;
@@ -212,9 +260,10 @@ export default function NodeDetailComponent() {
     }
 
     return selectedNode ? <div style={{ flex: 1 }}>
-        <h4>{flow.getNode(selectedNode).data.label}</h4>
-        <h5>id: {flow.getNode(selectedNode).id}</h5>
-
+        <TextContent>
+            <h4>{flow.getNode(selectedNode)?.data?.label}</h4>
+            <h5>id: {flow.getNode(selectedNode)?.id}</h5>
+        </TextContent>
         <SelectDetailsToShow />
     </div> : <></>
 }

@@ -46,11 +46,26 @@ export default function ({ name, onPress, style }) {
 
   const buildJson = () => {
     let lObjs = {
-      nodes: flow.getNodes(),
+      nodes: flow.getNodes(), //clearData(flow.getNodes()),
       edges: flow.getEdges()
     }
 
     return JSON.stringify(lObjs);
+  }
+
+  const clearData = (nodes) => {
+    nodes.map(node => {
+      node = {
+        ...node,
+        data: {
+          ...node.data,
+          status: 'esperando',
+          data: []
+        }
+      }
+    })
+
+    return nodes
   }
 
   const getStates = (aTextJson) => {
