@@ -113,7 +113,7 @@ const ExplodeDiceDetail = ({ nodeId }) => {
             <Input
                 placeholder="Faces"
                 onBlur={() => {
-                    flow.getNode(nodeId).data.faces = faces;
+                    flow.getNode(nodeId).data.faces = parseInt(faces);
                     flow.setNodes([...flow.getNodes()])
                 }}
                 onChange={({ detail }) => {
@@ -141,7 +141,7 @@ const ExplodeDiceDetail = ({ nodeId }) => {
             <Input
                 placeholder="Face"
                 onBlur={() => {
-                    flow.getNode(nodeId).data.chosenFace = explodeFace;
+                    flow.getNode(nodeId).data.chosenFace = parseInt(explodeFace);
                     flow.setNodes([...flow.getNodes()])
                 }}
                 onChange={({ detail }) => {

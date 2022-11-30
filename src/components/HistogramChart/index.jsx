@@ -87,13 +87,7 @@ export default ({ data, id }) => {
             title: data?.histogramName,
             type: "bar",
             data: dataChart,
-            // data: [
-            //   { x: new Date(1601089200000), y: 34503 },
-            //   { x: new Date(1601096400000), y: 25832 },
-            //   { x: new Date(1601103600000), y: 4012 },
-            //   { x: new Date(1601110800000), y: -5602 },
-            //   { x: new Date(1601118000000), y: 17839 }
-            // ],
+
             valueFormatter: e =>
               e.toLocaleString("en-US")
           },
@@ -105,13 +99,6 @@ export default ({ data, id }) => {
           //     "$" + e.toLocaleString("en-US")
           // }
         ]}
-        // xDomain={[
-        //   new Date(1601089200000),
-        //   new Date(1601096400000),
-        //   new Date(1601103600000),
-        //   new Date(1601110800000),
-        //   new Date(1601118000000)
-        // ]}
         xDomain={xDomain}
         yDomain={yDomain}
         i18nStrings={{
