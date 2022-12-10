@@ -19,6 +19,7 @@ import PoolNode from "./PoolNode";
 import PoolSumNode from "./PoolSumNode";
 import SaveAndLoadStates from "../SaveAndLoadStates";
 import NodeDetailComponent from "./NodeDetailComponent";
+import SuccessNode from "./SuccessNode";
 
 const initBgColor = "#1A192B";
 
@@ -32,6 +33,7 @@ const nodeTypes = {
   explodingDice: ExplodingDiceNode,
   poolNode: PoolNode,
   poolSumNode: PoolSumNode,
+  successNode: SuccessNode
 };
 
 const NodeSelectedOptions = () => {
@@ -328,6 +330,27 @@ const CustomNodeFlow = () => {
     ]);
   };
 
+  const addSuccessNode = () => {
+    setNodes([
+      ...nodes,
+      {
+        id: `node-success-${nodes.length}`,
+        type: "successNode",
+        position: { x: 300 + nodes.length * 20, y: 50 + nodes.length * 20 },
+        data: {
+          data: [
+
+          ],
+          label: `Success`,
+          face: 0,
+          isReady: false,
+          status: "a construir",
+          error: false,
+        },
+      },
+    ]);
+  };
+
   const generateRandomData = (aMin, aMax, aN) => {
     let lData = [];
 
@@ -398,6 +421,10 @@ const CustomNodeFlow = () => {
 
       case 'poolSumNode':
         runPoolSumNode(aNode);
+        break;
+
+      case 'successNode':
+        runSuccessNode(aNode);
         break;
 
       default:
@@ -554,6 +581,40 @@ const CustomNodeFlow = () => {
     updateNodes(aNode);
   };
 
+  const runSuccessNode = (aNode) => {
+    // console.log(aNode)
+    if (!aNode.data.isReady) {
+      let lEdWithTarget = edges.filter((ed) => ed.target === aNode.id);
+
+      console.log('lEdWithTarget', lEdWithTarget)
+      if (lEdWithTarget.length === 1) {
+        let lNoSrcIndex1 = nodes.findIndex((item) => item.id === lEdWithTarget[0].source);
+
+        if (nodes[lNoSrcIndex1].data.isReady) {
+          console.log('gerador ta pronto');
+
+          aNode.data = {
+            ...aNode.data,
+            data: getArraySuccess(nodes[lNoSrcIndex1].data.data, aNode.data.face),
+            isReady: true,
+            status: "pronto",
+          };
+        } else {
+          console.log('gerador ainda não está pronto')
+        }
+
+      }
+    } else {
+      aNode.data = {
+        ...aNode.data,
+        isReady: false,
+        status: "Preencha os campos obrigatórios",
+        error: true
+      };
+    }
+    updateNodes(aNode);
+  };
+
   const poolNodes = (aInput1, aInput2) => {
     // let lData = [aDice1.data.data, aDice2.data.data];
     let lData = [];
@@ -624,6 +685,22 @@ const CustomNodeFlow = () => {
     console.log(lX);
 
     return lX;
+
+  }
+
+  const getArraySuccess = (aData, aFace) => {
+
+    //0 falha e 1 sucesso
+    let lData = []
+
+    aData?.map(item => {
+      if (item >= aFace)
+        lData.push(1)
+      else
+        lData.push(0)
+    })
+
+    return lData
 
   }
 
@@ -887,6 +964,10 @@ const CustomNodeFlow = () => {
       case 'noPoolSum': addPoolSumNode()
 
         break;
+
+      case 'noSuccess': addSuccessNode()
+
+        break;
       case 'contruir': build()
 
         break;
@@ -916,6 +997,7 @@ const CustomNodeFlow = () => {
               { text: "Adicionar nó somador", id: "noSomador", disabled: false },
               { text: "Adicionar nó pool", id: "noPool", disabled: false },
               { text: "Adicionar nó pool sum", id: "noPoolSum", disabled: false },
+              { text: "Adicionar nó sucesso", id: "noSuccess", disabled: false },
               // { text: "Construir histogramas", id: "contruir", disabled: false },
               // { text: "Move", id: "mv", disabled: false },
               // { text: "Rename", id: "rn", disabled: true },

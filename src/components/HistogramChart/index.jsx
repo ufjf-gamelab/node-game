@@ -16,8 +16,16 @@ export default ({ data, id }) => {
   // const x = [];
   // const y = [];
 
+  const getSourceNode = () => {
+    let lEdge = flow.getEdges().filter((ed) => ed.target === id);
 
+    if (lEdge.length > 0) {
+      let lNode = flow.getNode(lEdge[0].source)
+      return lNode.type
+    }
 
+    return ''
+  }
 
   const prepareData = (aData) => {
     try {
@@ -64,6 +72,28 @@ export default ({ data, id }) => {
     }
   }
 
+  const prepareSuccessData = (aData) => {
+    // zero para falha e 1 para sucesso
+
+    let lData = [], lXDomain = [], lYDomain = [];
+
+    lXDomain = ['Fracasso', 'Sucesso'];
+    lYDomain = [0, 10000];
+
+
+    aData?.map(item => {
+      if (item === 0) {
+        lData[0] = { x: 'Fracasso', y: lData[0]?.y ? lData[0]?.y + 1 : 1 }
+      } else {
+        lData[1] = { x: 'Sucesso', y: lData[1]?.y ? lData[1]?.y + 1 : 1 }
+      }
+    })
+
+    setYDomain(lYDomain)
+    setXDomain(lXDomain)
+    setDataChart(lData)
+  }
+
   const getIndex = (aData, aItem) => {
     for (let i = 0; i < aData.length; i++) {
       if (aData[i]?.x === aItem) {
@@ -74,9 +104,20 @@ export default ({ data, id }) => {
     return aData.length
   }
 
+  const build = () => {
+    switch (getSourceNode()) {
+      case 'successNode':
+        prepareSuccessData(data)
+        break;
+
+      default: prepareData(data)
+        break;
+    }
+  }
+
   useEffect(() => {
-    prepareData(data)
-  }, [])
+    build()//prepareData(data)
+  }, [data])
 
   return (
     <div style={{ width: '50%' }}>

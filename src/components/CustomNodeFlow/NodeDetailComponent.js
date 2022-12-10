@@ -204,7 +204,31 @@ const PoolSumNodeDetail = ({ nodeId }) => {
     </div>
 }
 
+const SuccessNodeDetail = ({ nodeId }) => {
+    const flow = useReactFlow()
+    const [face, setFace] = useState(flow.getNode(nodeId).data.face);
 
+    return <div>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h5>Sucesso na face maior ou igual a? </h5>
+
+            <Input
+                placeholder="Face maior ou igual"
+                onBlur={() => {
+                    flow.getNode(nodeId).data.face = parseInt(face);
+                    flow.setNodes([...flow.getNodes()])
+                }}
+                onChange={({ detail }) => {
+                    setFace(detail.value);
+                }}
+                type='number'
+                value={face}
+            />
+        </div>
+
+        <h5>status: {flow.getNode(nodeId).data.status}</h5>
+    </div>
+}
 export default function NodeDetailComponent() {
     const flow = useReactFlow()
     const [selectedNode, setSelectedNode] = useState(null)
@@ -250,6 +274,10 @@ export default function NodeDetailComponent() {
 
                 case 'poolSumNode':
                     return <PoolSumNodeDetail nodeId={selectedNode} />
+                    break;
+
+                case 'successNode':
+                    return <SuccessNodeDetail nodeId={selectedNode} />
                     break;
 
                 default:
