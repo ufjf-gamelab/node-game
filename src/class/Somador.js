@@ -21,7 +21,7 @@ export default class Somador {
     }
 
     this.hasData = true;
-    this.status = "pronto";
+    this.status = 'PRONTO';
 
     this.isReady = true;
   }

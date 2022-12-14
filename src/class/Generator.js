@@ -5,7 +5,7 @@ export default class Generator {
   isReady = false;
   min = 0;
   max = 6;
-  status = "em espera";
+  status = "EM_ESPERA";
   error = false;
 
   constructor() {
@@ -29,7 +29,7 @@ export default class Generator {
       this.histogramData = this.generateRandomData(this.min, this.max, 10000);
       this.hasData = true;
       this.isReady = true;
-      this.status = "pronto";
+      this.status = 'PRONTO';
     }
   }
 
@@ -38,7 +38,7 @@ export default class Generator {
     console.log("nao tem dados... gerando");
     this.histogramData = this.generateRandomData(this.min, this.max, 10000);
     this.hasData = true;
-    this.status = "pronto";
+    this.status = 'PRONTO';
 
     this.isReady = true;
   }

@@ -4,6 +4,9 @@ import { useEffect } from "react";
 import Container from "../Container";
 import { Handle, useReactFlow } from "react-flow-renderer";
 import Button from "../Button";
+import {GiPerspectiveDiceSixFacesOne} from "react-icons/gi";
+import styles from "./GeneratorNode.module.css";
+import Status from "../Status/Status";
 
 export default memo(({ id, data, isConnectable, selected }) => {
   const [status, setStatus] = useState(data.status);
@@ -16,7 +19,7 @@ export default memo(({ id, data, isConnectable, selected }) => {
     setStatus(data.status);
   }, [data]);
   return (
-    <Container selected={selected}>
+    <Container selected={selected} title={data.label}>
       <Handle
         type="source"
         position="right"
@@ -24,27 +27,12 @@ export default memo(({ id, data, isConnectable, selected }) => {
         onConnect={(params) => console.log("handle onConnect", params)}
         isConnectable={isConnectable}
       />
-      <h5>{data.label}</h5>
-      {/* <h6>{`De ${data.min} a ${data.max}`}</h6> */}
-      {/* <input
-        placeholder="Minimo"
-        onChange={(e) => {
-          setMin(e.target.value);
-          data.min = parseFloat(e.target.value);
-        }}
-        type="number"
-        value={min}
-      />
-      <input
-        placeholder="Maximo"
-        onChange={(e) => {
-          setMax(e.target.value);
-          data.max = parseFloat(e.target.value);
-        }}
-        type="number"
-        value={max}
-      /> */}
-      <h5>status: {flow.getNode(id).data.status}</h5>
+      <div className={styles.generatorNode}>
+
+      <h1><GiPerspectiveDiceSixFacesOne /></h1>
+      <h2>{min}-{max}</h2>
+      <Status status={flow.getNode(id).data.status} />
+      </div>
     </Container>
   );
 });

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import ReactFlow, {
-  addEdge, Controls, MiniMap, ReactFlowProvider, useEdgesState, useNodesState, useReactFlow
+  addEdge, Controls, MarkerType, MiniMap, ReactFlowProvider, useEdgesState, useNodesState, useReactFlow
 } from "react-flow-renderer";
 
 import Generator from "../../class/Generator";
@@ -185,8 +185,8 @@ const CustomNodeFlow = () => {
         addEdge(
           {
             ...params,
-            animated: true,
-            style: { stroke: "#aaa" },
+            markerEnd: {type: MarkerType.Arrow, color: 'white', size: 3},
+            style: { stroke: 'white', strokeWidth: 4 },
           },
           eds
         )
@@ -236,7 +236,7 @@ const CustomNodeFlow = () => {
           isReady: false,
           histogramName: "",
           isReady: false,
-          status: "em espera",
+          status: "EM_ESPERA",
           error: false,
         },
         status: "",
@@ -260,7 +260,7 @@ const CustomNodeFlow = () => {
           isReady: false,
           histogramName: "",
           isReady: false,
-          status: "em espera",
+          status: "EM_ESPERA",
           error: false,
         },
         status: "",
@@ -281,7 +281,7 @@ const CustomNodeFlow = () => {
           label: `Somar dois geradores`,
           histogramName: "",
           isReady: false,
-          status: "a construir",
+          status: 'A_CONSTRUIR',
           error: false,
         },
       },
@@ -302,7 +302,7 @@ const CustomNodeFlow = () => {
           label: `Pool`,
           histogramName: "",
           isReady: false,
-          status: "a construir",
+          status: 'A_CONSTRUIR',
           error: false,
         },
       },
@@ -323,7 +323,7 @@ const CustomNodeFlow = () => {
           label: `Pool Sum`,
           histogramName: "",
           isReady: false,
-          status: "a construir",
+          status: 'A_CONSTRUIR',
           error: false,
         },
       },
@@ -344,7 +344,7 @@ const CustomNodeFlow = () => {
           label: `Success`,
           face: 0,
           isReady: false,
-          status: "a construir",
+          status: 'A_CONSTRUIR',
           error: false,
         },
       },
@@ -390,7 +390,7 @@ const CustomNodeFlow = () => {
     nodes.map((node) => {
       node.data.data = [];
       node.data.isReady = false;
-      node.data.status = "preparando...";
+      node.data.status = "PREPARANDO";
       node.data.error = false;
     });
 
@@ -439,7 +439,7 @@ const CustomNodeFlow = () => {
       ...aNode.data,
       data: generateRandomData(aNode.data.min, aNode.data.max, 10000),
       isReady: true,
-      status: "pronto",
+      status: 'PRONTO',
     };
     updateNodes(aNode);
     // }
@@ -456,7 +456,7 @@ const CustomNodeFlow = () => {
                 ...aNode.data,
                 data: nodes[lNoSrcIndex].data.data,
                 isReady: true,
-                status: "pronto",
+                status: 'PRONTO',
               };
             }
           }
@@ -484,7 +484,7 @@ const CustomNodeFlow = () => {
               lNode1[0].data.data,
               lNode2[0].data.data
             ),
-            status: "pronto",
+            status: 'PRONTO',
             isReady: true,
           };
         }
@@ -499,14 +499,14 @@ const CustomNodeFlow = () => {
         ...aNode.data,
         data: explodingDice(aNode.data.faces, aNode.data.chosenFace, 10000),
         isReady: true,
-        status: "pronto",
+        status: 'PRONTO',
       };
 
     } else {
       aNode.data = {
         ...aNode.data,
         isReady: false,
-        status: "Preencha os campos obrigatórios",
+        status: 'FALTAM_DADOS',
         error: true
       };
     }
@@ -531,7 +531,7 @@ const CustomNodeFlow = () => {
             ...aNode.data,
             data: poolNodes(nodes[lNoSrcIndex1], nodes[lNoSrcIndex2]),
             isReady: true,
-            status: "pronto",
+            status: 'PRONTO',
           };
         }
 
@@ -540,7 +540,7 @@ const CustomNodeFlow = () => {
       aNode.data = {
         ...aNode.data,
         isReady: false,
-        status: "Preencha os campos obrigatórios",
+        status: 'FALTAM_DADOS',
         error: true
       };
     }
@@ -563,7 +563,7 @@ const CustomNodeFlow = () => {
             ...aNode.data,
             data: poolSumNodes(nodes[lNoSrcIndex1]),
             isReady: true,
-            status: "pronto",
+            status: 'PRONTO',
           };
         } else {
           console.log('pool ainda não está pronto')
@@ -574,7 +574,7 @@ const CustomNodeFlow = () => {
       aNode.data = {
         ...aNode.data,
         isReady: false,
-        status: "Preencha os campos obrigatórios",
+        status: 'FALTAM_DADOS',
         error: true
       };
     }
@@ -597,7 +597,7 @@ const CustomNodeFlow = () => {
             ...aNode.data,
             data: getArraySuccess(nodes[lNoSrcIndex1].data.data, aNode.data.face),
             isReady: true,
-            status: "pronto",
+            status: 'PRONTO',
           };
         } else {
           console.log('gerador ainda não está pronto')
@@ -608,7 +608,7 @@ const CustomNodeFlow = () => {
       aNode.data = {
         ...aNode.data,
         isReady: false,
-        status: "Preencha os campos obrigatórios",
+        status: 'FALTAM_DADOS',
         error: true
       };
     }
@@ -794,7 +794,7 @@ const CustomNodeFlow = () => {
             histogram.data = {
               ...histogram.data,
               data: nodes[lNoIndex].data.getdata(),
-              status: "pronto",
+              status: 'PRONTO',
               isReady: true,
             };
 
@@ -823,7 +823,7 @@ const CustomNodeFlow = () => {
                   generator.run();
                   generator.data = {
                     ...generator.data,
-                    status: "pronto", //generator.data.status,
+                    status: 'PRONTO', //generator.data.status,
                   };
                   console.log(generator);
                 } else if (generator.type === "sumNode") {
@@ -846,10 +846,10 @@ const CustomNodeFlow = () => {
 
               console.log(nodes[lNoIndex].data.data);
               nodes[lNoIndex].data.isReady = true;
-              nodes[lNoIndex].data.status = "pronto";
+              nodes[lNoIndex].data.status = 'PRONTO';
 
               histogram.data.data = nodes[lNoIndex].data.data;
-              histogram.data.status = "pronto";
+              histogram.data.status = 'PRONTO';
               histogram.data.isReady = true;
               console.log(
                 "tamanho dos dados do data: ",
@@ -881,7 +881,7 @@ const CustomNodeFlow = () => {
       );
       aNode.data.hasData = true;
       aNode.data.isReady = true;
-      aNode.data.status = "pronto";
+      aNode.data.status = 'PRONTO';
     }
   };
 
@@ -914,7 +914,7 @@ const CustomNodeFlow = () => {
       // aNode.data.data = generateRandomData(1, 6, 10000);
       // aNode.data.hasData = true;
       aNode.data.isReady = true;
-      aNode.data.status = "pronto";
+      aNode.data.status = 'PRONTO';
       return;
     }
   };

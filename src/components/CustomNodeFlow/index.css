@@ -38,3 +38,8 @@
 .validationflow .react-flow__handle-valid {
   background: #55dd99;
 }
+
+
+.validationflow .react-flow__edge-path {
+  color: red;
+}
