@@ -6,7 +6,7 @@ import ReactFlow, {
 import Generator from "../../class/Generator";
 import HistogramChart from "../HistogramChart";
 import ColorSelectorNode from "./ColorSelectorNode";
-import GeneratorNode from "./GeneratorNode";
+import GeneratorNode from "../GeneratorNode/GeneratorNode.jsx";
 import HistogramNode from "./HistogramNode";
 import "./index.css";
 import SumNode from "./SumNode";

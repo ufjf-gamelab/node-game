@@ -1,9 +1,7 @@
 import React, { memo, useState } from "react";
 import { useEffect } from "react";
-// import Container from "@cloudscape-design/components/container";
 import Container from "../Container";
-import { Handle, useReactFlow } from "react-flow-renderer";
-import Button from "../Button";
+import { Handle } from "react-flow-renderer";
 import {GiPerspectiveDiceSixFacesOne} from "react-icons/gi";
 import styles from "./GeneratorNode.module.css";
 import Status from "../Status/Status";
@@ -13,9 +11,10 @@ export default memo(({ id, data, isConnectable, selected }) => {
   const [min, setMin] = useState(data.min);
   const [max, setMax] = useState(data.max);
 
-  const flow = useReactFlow();
 
   useEffect(() => {
+    setMin(data.min);
+    setMax(data.max);
     setStatus(data.status);
   }, [data]);
   return (
@@ -31,7 +30,7 @@ export default memo(({ id, data, isConnectable, selected }) => {
 
       <h1><GiPerspectiveDiceSixFacesOne /></h1>
       <h2>{min}-{max}</h2>
-      <Status status={flow.getNode(id).data.status} />
+      <Status status={status} />
       </div>
     </Container>
   );
