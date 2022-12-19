@@ -13,8 +13,6 @@ export default ({ data, id }) => {
 
 
   const lData = [1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 4, 4, 9, 9, 9, 9, 9, 9, 9]
-  // const x = [];
-  // const y = [];
 
   const getSourceNode = () => {
     let lEdge = flow.getEdges().filter((ed) => ed.target === id);
@@ -75,10 +73,10 @@ export default ({ data, id }) => {
   const prepareSuccessData = (aData) => {
     // zero para falha e 1 para sucesso
 
-    let lData = [], lXDomain = [], lYDomain = [];
+    let lData = [{ x: 'Fracasso', y: 0 }, { x: 'Sucesso', y: 0 }], lXDomain = [], lYDomain = [];
 
     lXDomain = ['Fracasso', 'Sucesso'];
-    lYDomain = [0, 10000];
+    lYDomain = [0, 100000];
 
 
     aData?.map(item => {
@@ -89,9 +87,9 @@ export default ({ data, id }) => {
       }
     })
 
-    setYDomain(lYDomain)
-    setXDomain(lXDomain)
-    setDataChart(lData)
+    setXDomain(lXDomain);
+    setYDomain(lYDomain);
+    setDataChart(lData);
   }
 
   const getIndex = (aData, aItem) => {
@@ -107,6 +105,10 @@ export default ({ data, id }) => {
   const build = () => {
     switch (getSourceNode()) {
       case 'successNode':
+        prepareSuccessData(data)
+        break;
+
+      case 'faceBetweenNode':
         prepareSuccessData(data)
         break;
 

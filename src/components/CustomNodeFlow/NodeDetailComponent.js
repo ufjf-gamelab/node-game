@@ -229,6 +229,51 @@ const SuccessNodeDetail = ({ nodeId }) => {
         <h5>status: {flow.getNode(nodeId).data.status}</h5>
     </div>
 }
+
+const FaceBetweenNodeDetail = ({ nodeId }) => {
+    const flow = useReactFlow()
+    const [faceMin, setFaceMin] = useState(flow.getNode(nodeId).data.faceMin);
+    const [faceMax, setFaceMax] = useState(flow.getNode(nodeId).data.faceMax);
+
+    return <div>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h5>Face mínima? </h5>
+
+            <Input
+                placeholder="Face maior ou igual"
+                onBlur={() => {
+                    flow.getNode(nodeId).data.faceMin = parseInt(faceMin);
+                    flow.setNodes([...flow.getNodes()])
+                }}
+                onChange={({ detail }) => {
+                    setFaceMin(detail.value);
+                }}
+                type='number'
+                value={faceMin}
+            />
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h5>Face máxima? </h5>
+
+            <Input
+                placeholder="Face menor ou igual"
+                onBlur={() => {
+                    flow.getNode(nodeId).data.faceMax = parseInt(faceMax);
+                    flow.setNodes([...flow.getNodes()])
+                }}
+                onChange={({ detail }) => {
+                    setFaceMax(detail.value);
+                }}
+                type='number'
+                value={faceMax}
+            />
+        </div>
+
+        <h5>status: {flow.getNode(nodeId).data.status}</h5>
+    </div>
+}
+
 export default function NodeDetailComponent() {
     const flow = useReactFlow()
     const [selectedNode, setSelectedNode] = useState(null)
@@ -278,6 +323,10 @@ export default function NodeDetailComponent() {
 
                 case 'successNode':
                     return <SuccessNodeDetail nodeId={selectedNode} />
+                    break;
+
+                case 'faceBetweenNode':
+                    return <FaceBetweenNodeDetail nodeId={selectedNode} />
                     break;
 
                 default:

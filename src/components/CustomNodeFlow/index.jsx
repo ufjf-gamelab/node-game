@@ -20,6 +20,7 @@ import PoolSumNode from "./PoolSumNode";
 import SaveAndLoadStates from "../SaveAndLoadStates";
 import NodeDetailComponent from "./NodeDetailComponent";
 import SuccessNode from "./SuccessNode";
+import FaceBetweenNode from "./FaceBetweenNode";
 
 const initBgColor = "#1A192B";
 
@@ -33,7 +34,8 @@ const nodeTypes = {
   explodingDice: ExplodingDiceNode,
   poolNode: PoolNode,
   poolSumNode: PoolSumNode,
-  successNode: SuccessNode
+  successNode: SuccessNode,
+  faceBetweenNode: FaceBetweenNode
 };
 
 const NodeSelectedOptions = () => {
@@ -351,6 +353,28 @@ const CustomNodeFlow = () => {
     ]);
   };
 
+  const addFaceBetweenNode = () => {
+    setNodes([
+      ...nodes,
+      {
+        id: `node-face-between-${nodes.length}`,
+        type: "faceBetweenNode",
+        position: { x: 300 + nodes.length * 20, y: 50 + nodes.length * 20 },
+        data: {
+          data: [
+
+          ],
+          label: `Face entre intervalo`,
+          faceMin: 1,
+          faceMax: 6,
+          isReady: false,
+          status: "a construir",
+          error: false,
+        },
+      },
+    ]);
+  };
+
   const generateRandomData = (aMin, aMax, aN) => {
     let lData = [];
 
@@ -426,6 +450,11 @@ const CustomNodeFlow = () => {
       case 'successNode':
         runSuccessNode(aNode);
         break;
+
+      case 'faceBetweenNode':
+        runFaceBetweenNode(aNode);
+        break;
+
 
       default:
         break;
@@ -615,6 +644,40 @@ const CustomNodeFlow = () => {
     updateNodes(aNode);
   };
 
+  const runFaceBetweenNode = (aNode) => {
+    // console.log(aNode)
+    if (!aNode.data.isReady) {
+      let lEdWithTarget = edges.filter((ed) => ed.target === aNode.id);
+
+      console.log('lEdWithTarget', lEdWithTarget)
+      if (lEdWithTarget.length === 1) {
+        let lNoSrcIndex1 = nodes.findIndex((item) => item.id === lEdWithTarget[0].source);
+
+        if (nodes[lNoSrcIndex1].data.isReady) {
+          console.log('gerador ta pronto');
+
+          aNode.data = {
+            ...aNode.data,
+            data: getArrayFaceBetween(nodes[lNoSrcIndex1].data.data, aNode.data.faceMin, aNode.data.faceMax),
+            isReady: true,
+            status: "pronto",
+          };
+        } else {
+          console.log('gerador ainda não está pronto')
+        }
+
+      }
+    } else {
+      aNode.data = {
+        ...aNode.data,
+        isReady: false,
+        status: "Preencha os campos obrigatórios",
+        error: true
+      };
+    }
+    updateNodes(aNode);
+  };
+
   const poolNodes = (aInput1, aInput2) => {
     // let lData = [aDice1.data.data, aDice2.data.data];
     let lData = [];
@@ -701,6 +764,49 @@ const CustomNodeFlow = () => {
     })
 
     return lData
+
+  }
+
+  const getArrayFaceBetween = (aData, aMinFace, aMaxFace) => {
+
+    //0 falha e 1 sucesso
+    let lData = []
+
+    for (let i = 0; i < aData.length; i++) {
+      const dado1 = aData[i];
+
+      // lData[i] = 0;
+
+      if (Array.isArray(dado1)) {
+
+        dado1.forEach(valor => {
+          if (valor >= aMinFace && valor <= aMaxFace)
+            lData.push(1)
+          else
+            lData.push(0)
+        }
+        )
+      } else {
+        if (dado1 >= aMinFace && dado1 <= aMaxFace)
+          lData.push(1)
+        else
+          lData.push(0)
+      }
+
+    }
+
+    console.log('saida pool sum: ', lData);
+
+    return lData
+
+    // aData?.map(item => {
+    //   if (item >= aMinFace && item <= aMaxFace)
+    //     lData.push(1)
+    //   else
+    //     lData.push(0)
+    // })
+
+    // return lData
 
   }
 
@@ -968,6 +1074,9 @@ const CustomNodeFlow = () => {
       case 'noSuccess': addSuccessNode()
 
         break;
+      case 'noFaceBetween': addFaceBetweenNode()
+
+        break;
       case 'contruir': build()
 
         break;
@@ -998,6 +1107,7 @@ const CustomNodeFlow = () => {
               { text: "Adicionar nó pool", id: "noPool", disabled: false },
               { text: "Adicionar nó pool sum", id: "noPoolSum", disabled: false },
               { text: "Adicionar nó sucesso", id: "noSuccess", disabled: false },
+              { text: "Adicionar nó face entre intervalo", id: "noFaceBetween", disabled: false },
               // { text: "Construir histogramas", id: "contruir", disabled: false },
               // { text: "Move", id: "mv", disabled: false },
               // { text: "Rename", id: "rn", disabled: true },
