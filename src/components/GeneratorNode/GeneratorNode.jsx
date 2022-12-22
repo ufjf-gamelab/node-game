@@ -2,7 +2,7 @@ import React, { memo, useState } from "react";
 import { useEffect } from "react";
 import Container from "../Container";
 import { Handle } from "react-flow-renderer";
-import {GiPerspectiveDiceSixFacesOne} from "react-icons/gi";
+import { GiPerspectiveDiceSixFacesOne } from "react-icons/gi";
 import styles from "./GeneratorNode.module.css";
 import Status from "../Status/Status";
 
@@ -17,6 +17,7 @@ export default memo(({ id, data, isConnectable, selected }) => {
     setMax(data.max);
     setStatus(data.status);
   }, [data]);
+
   return (
     <Container selected={selected} title={data.label}>
       <Handle
@@ -28,9 +29,9 @@ export default memo(({ id, data, isConnectable, selected }) => {
       />
       <div className={styles.generatorNode}>
 
-      <h1><GiPerspectiveDiceSixFacesOne /></h1>
-      <h2>{min}-{max}</h2>
-      <Status status={status} />
+        <h1><GiPerspectiveDiceSixFacesOne /></h1>
+        <h2>{min}-{max}</h2>
+        <Status status={status} />
       </div>
     </Container>
   );

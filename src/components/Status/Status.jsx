@@ -2,14 +2,14 @@ import styles from './Status.module.css';
 import { AiOutlineCheckCircle, AiOutlineClockCircle } from 'react-icons/ai';
 import { MdReportProblem } from 'react-icons/md';
 
-const STATUSES = (status)=>{
+const STATUSES = (status) => {
   switch (status) {
-      case 'EM_ESPERA': return <AiOutlineClockCircle />;
-      case 'PRONTO': return <AiOutlineCheckCircle />;
-      case 'ERROR': return <MdReportProblem />;
-      case 'PREPARANDO': return <MdReportProblem />;
-      case 'A_CONSTRUIR': return <MdReportProblem />;
-      case 'FALTAM_DADOS': return <MdReportProblem />;
+    case 'EM_ESPERA': return <AiOutlineClockCircle />;
+    case 'PRONTO': return <AiOutlineCheckCircle />;
+    case 'ERROR': return <MdReportProblem />;
+    case 'PREPARANDO': return <MdReportProblem />;
+    case 'A_CONSTRUIR': return <AiOutlineClockCircle />;
+    case 'FALTAM_DADOS': return <MdReportProblem />;
     default:
       return <MdReportProblem />;
   }

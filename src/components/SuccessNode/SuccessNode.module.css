@@ -1,0 +1,25 @@
+.successNode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.successNode h1 {
+  font-size: 3em;
+  margin: 0;
+  padding: 0;
+}
+
+.successNode h2 {
+  font-size: 1em;
+  margin: 0;
+  padding: 0;
+}
+
+.successNode h5 {
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+  
+}

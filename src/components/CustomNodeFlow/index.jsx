@@ -7,20 +7,20 @@ import Generator from "../../class/Generator";
 import HistogramChart from "../HistogramChart";
 import ColorSelectorNode from "./ColorSelectorNode";
 import GeneratorNode from "../GeneratorNode/GeneratorNode.jsx";
-import HistogramNode from "./HistogramNode";
+import HistogramNode from "../HistogramNode/HistogramNode";
 import "./index.css";
-import SumNode from "./SumNode";
+import SumNode from "../SumNode/SumNode";
 
 import Button from "@cloudscape-design/components/button";
 import ButtonDropdown from "@cloudscape-design/components/button-dropdown";
 import { useSelector } from "react-redux";
-import ExplodingDiceNode from "./ExplodingDiceNode";
-import PoolNode from "./PoolNode";
-import PoolSumNode from "./PoolSumNode";
+import ExplodingDiceNode from "../ExplodingDiceNode/ExplodingDiceNode";
+import PoolNode from "../PoolNode/PoolNode";
+import PoolSumNode from "../PoolSumNode/PoolSumNode";
 import SaveAndLoadStates from "../SaveAndLoadStates";
 import NodeDetailComponent from "./NodeDetailComponent";
-import SuccessNode from "./SuccessNode";
-import FaceBetweenNode from "./FaceBetweenNode";
+import SuccessNode from "../SuccessNode/SuccessNode";
+import FaceBetweenNode from "../FaceBetweenNode/FaceBetweenNode";
 
 const initBgColor = "#1A192B";
 
@@ -187,7 +187,7 @@ const CustomNodeFlow = () => {
         addEdge(
           {
             ...params,
-            markerEnd: {type: MarkerType.Arrow, color: 'white', size: 3},
+            markerEnd: { type: MarkerType.Arrow, color: 'white', size: 3 },
             style: { stroke: 'white', strokeWidth: 4 },
           },
           eds
@@ -283,7 +283,7 @@ const CustomNodeFlow = () => {
           label: `Somar dois geradores`,
           histogramName: "",
           isReady: false,
-          status: 'A_CONSTRUIR',
+          status: 'EM_ESPERA',
           error: false,
         },
       },
@@ -304,7 +304,7 @@ const CustomNodeFlow = () => {
           label: `Pool`,
           histogramName: "",
           isReady: false,
-          status: 'A_CONSTRUIR',
+          status: 'EM_ESPERA',
           error: false,
         },
       },
@@ -325,7 +325,7 @@ const CustomNodeFlow = () => {
           label: `Pool Sum`,
           histogramName: "",
           isReady: false,
-          status: 'A_CONSTRUIR',
+          status: 'EM_ESPERA',
           error: false,
         },
       },
@@ -346,7 +346,7 @@ const CustomNodeFlow = () => {
           label: `Success`,
           face: 0,
           isReady: false,
-          status: 'A_CONSTRUIR',
+          status: 'EM_ESPERA',
           error: false,
         },
       },
@@ -368,7 +368,7 @@ const CustomNodeFlow = () => {
           faceMin: 1,
           faceMax: 6,
           isReady: false,
-          status: "a construir",
+          status: "EM_ESPERA",
           error: false,
         },
       },
@@ -660,7 +660,7 @@ const CustomNodeFlow = () => {
             ...aNode.data,
             data: getArrayFaceBetween(nodes[lNoSrcIndex1].data.data, aNode.data.faceMin, aNode.data.faceMax),
             isReady: true,
-            status: "pronto",
+            status: "PRONTO",
           };
         } else {
           console.log('gerador ainda não está pronto')

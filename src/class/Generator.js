@@ -3,7 +3,7 @@ export default class Generator {
   histogramData = [];
   hasData = false;
   isReady = false;
-  min = 0;
+  min = 1;
   max = 6;
   status = "EM_ESPERA";
   error = false;

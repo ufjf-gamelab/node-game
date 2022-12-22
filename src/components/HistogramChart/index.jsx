@@ -11,9 +11,6 @@ export default ({ data, id }) => {
   const [yDomain, setYDomain] = useState([]);
   const flow = useReactFlow()
 
-
-  const lData = [1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 4, 4, 9, 9, 9, 9, 9, 9, 9]
-
   const getSourceNode = () => {
     let lEdge = flow.getEdges().filter((ed) => ed.target === id);
 
@@ -76,7 +73,7 @@ export default ({ data, id }) => {
     let lData = [{ x: 'Fracasso', y: 0 }, { x: 'Sucesso', y: 0 }], lXDomain = [], lYDomain = [];
 
     lXDomain = ['Fracasso', 'Sucesso'];
-    lYDomain = [0, 100000];
+    lYDomain = [0, 10000];
 
 
     aData?.map(item => {
