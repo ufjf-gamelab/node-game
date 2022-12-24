@@ -27,7 +27,7 @@ export default memo(({ id, data, isConnectable, selected }) => {
 
   const canConnectToNode = (aNodeType) => {
     let lCanConnect = false;
-    const lAllowed = ['poolNode', 'sumNode', 'poolSumNode', 'faceBetweenNode']
+    const lAllowed = ['poolNode', 'sumNode', 'poolSumNode', 'faceBetweenNode', 'countRepeatedNode']
 
     lAllowed.forEach(type => {
       if (type === aNodeType) {

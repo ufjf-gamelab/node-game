@@ -274,6 +274,31 @@ const FaceBetweenNodeDetail = ({ nodeId }) => {
     </div>
 }
 
+const CountRepeatedNodeDetail = ({ nodeId }) => {
+    const flow = useReactFlow()
+    const [face, setFace] = useState(flow.getNode(nodeId).data.face);
+
+    return <div>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h5>Qual face contar quantas vezes saiu? </h5>
+
+            <Input
+                placeholder="Face"
+                onBlur={() => {
+                    flow.getNode(nodeId).data.face = parseInt(face);
+                    flow.setNodes([...flow.getNodes()])
+                }}
+                onChange={({ detail }) => {
+                    setFace(detail.value);
+                }}
+                type='number'
+                value={face}
+            />
+        </div>
+
+        <h5>status: {flow.getNode(nodeId).data.status}</h5>
+    </div>
+}
 export default function NodeDetailComponent() {
     const flow = useReactFlow()
     const [selectedNode, setSelectedNode] = useState(null)
@@ -327,6 +352,10 @@ export default function NodeDetailComponent() {
 
                 case 'faceBetweenNode':
                     return <FaceBetweenNodeDetail nodeId={selectedNode} />
+                    break;
+
+                case 'countRepeatedNode':
+                    return <CountRepeatedNodeDetail nodeId={selectedNode} />
                     break;
 
                 default:

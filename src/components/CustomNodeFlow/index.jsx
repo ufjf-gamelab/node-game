@@ -21,6 +21,7 @@ import SaveAndLoadStates from "../SaveAndLoadStates";
 import NodeDetailComponent from "./NodeDetailComponent";
 import SuccessNode from "../SuccessNode/SuccessNode";
 import FaceBetweenNode from "../FaceBetweenNode/FaceBetweenNode";
+import CountRepeatNode from "../CountRepeatNode/CountRepeatNode";
 
 const initBgColor = "#1A192B";
 
@@ -35,7 +36,8 @@ const nodeTypes = {
   poolNode: PoolNode,
   poolSumNode: PoolSumNode,
   successNode: SuccessNode,
-  faceBetweenNode: FaceBetweenNode
+  faceBetweenNode: FaceBetweenNode,
+  countRepeatedNode: CountRepeatNode
 };
 
 const NodeSelectedOptions = () => {
@@ -375,6 +377,28 @@ const CustomNodeFlow = () => {
     ]);
   };
 
+  const addCountRepeatedNode = () => {
+    setNodes([
+      ...nodes,
+      {
+        id: `node-count-repeated-${nodes.length}`,
+        type: "countRepeatedNode",
+        position: { x: 300 + nodes.length * 20, y: 50 + nodes.length * 20 },
+        data: {
+          data: [
+
+          ],
+          label: `Contar repetidos`,
+          face: 1,
+          isReady: false,
+          status: "EM_ESPERA",
+          error: false,
+        },
+      },
+    ]);
+  };
+
+
   const generateRandomData = (aMin, aMax, aN) => {
     let lData = [];
 
@@ -453,6 +477,10 @@ const CustomNodeFlow = () => {
 
       case 'faceBetweenNode':
         runFaceBetweenNode(aNode);
+        break;
+
+      case 'countRepeatedNode':
+        runCountRepeatedNode(aNode);
         break;
 
 
@@ -678,6 +706,40 @@ const CustomNodeFlow = () => {
     updateNodes(aNode);
   };
 
+  const runCountRepeatedNode = (aNode) => {
+    console.log(aNode)
+    if (!aNode.data.isReady) {
+      let lEdWithTarget = edges.filter((ed) => ed.target === aNode.id);
+
+      console.log('lEdWithTarget', lEdWithTarget)
+      if (lEdWithTarget.length === 1) {
+        let lNoSrcIndex1 = nodes.findIndex((item) => item.id === lEdWithTarget[0].source);
+
+        if (nodes[lNoSrcIndex1].data.isReady) {
+          console.log('pool ta pronto');
+
+          aNode.data = {
+            ...aNode.data,
+            data: countRepeated(nodes[lNoSrcIndex1], aNode.data.face),
+            isReady: true,
+            status: 'PRONTO',
+          };
+        } else {
+          console.log('pool ainda não está pronto')
+        }
+
+      }
+    } else {
+      aNode.data = {
+        ...aNode.data,
+        isReady: false,
+        status: 'FALTAM_DADOS',
+        error: true
+      };
+    }
+    updateNodes(aNode);
+  };
+
   const poolNodes = (aInput1, aInput2) => {
     // let lData = [aDice1.data.data, aDice2.data.data];
     let lData = [];
@@ -808,6 +870,32 @@ const CustomNodeFlow = () => {
 
     // return lData
 
+  }
+
+  const countRepeated = (aInput, aFace) => {
+    let lData = [];
+
+    for (let i = 0; i < aInput.data.data.length; i++) {
+      const dado = aInput.data.data[i];
+
+      lData[i] = 0;
+
+      if (Array.isArray(dado)) {
+        dado.forEach(valor => {
+          if (valor === aFace)
+            lData[i]++
+        }
+        )
+      } else {
+        if (dado === aFace)
+          lData[i]++
+      }
+
+    }
+
+    console.log('saida pool sum: ', lData);
+
+    return lData
   }
 
   const updateNodes = (aNode) => {
@@ -1077,6 +1165,9 @@ const CustomNodeFlow = () => {
       case 'noFaceBetween': addFaceBetweenNode()
 
         break;
+      case 'noCountRepeated': addCountRepeatedNode()
+
+        break;
       case 'contruir': build()
 
         break;
@@ -1108,6 +1199,7 @@ const CustomNodeFlow = () => {
               { text: "Adicionar nó pool sum", id: "noPoolSum", disabled: false },
               { text: "Adicionar nó sucesso", id: "noSuccess", disabled: false },
               { text: "Adicionar nó face entre intervalo", id: "noFaceBetween", disabled: false },
+              { text: "Adicionar nó contador de repetidos", id: "noCountRepeated", disabled: false },
               // { text: "Construir histogramas", id: "contruir", disabled: false },
               // { text: "Move", id: "mv", disabled: false },
               // { text: "Rename", id: "rn", disabled: true },
@@ -1174,15 +1266,18 @@ const CustomNodeFlow = () => {
         </div>
 
 
-        {canShowHistograms &&
-          listHistogramNodes.map(
-            ({ id, data }) =>
-              <div key={id}>
-                {/* <h2>{node.data.histogramName}</h2> */}
-                <HistogramChart data={formatDataToHistogram(data)} id={id} />
-              </div>
+        <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
 
-          )}
+          {canShowHistograms &&
+            listHistogramNodes.map(
+              ({ id, data }) =>
+                <div key={id} style={{ flex: 1, minWidth: '50%' }}>
+                  {/* <h2>{node.data.histogramName}</h2> */}
+                  <HistogramChart data={formatDataToHistogram(data)} id={id} />
+                </div>
+
+            )}
+        </div>
       </ReactFlowProvider>
     </div>
   );
