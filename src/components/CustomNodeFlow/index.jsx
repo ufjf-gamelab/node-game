@@ -1,6 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
 import ReactFlow, {
-  addEdge, Controls, MarkerType, MiniMap, ReactFlowProvider, useEdgesState, useNodesState, useReactFlow
+  addEdge,
+  Controls,
+  MarkerType,
+  MiniMap,
+  ReactFlowProvider,
+  useEdgesState,
+  useNodesState,
+  useReactFlow,
 } from "react-flow-renderer";
 
 import Generator from "../../class/Generator";
@@ -22,6 +29,7 @@ import NodeDetailComponent from "./NodeDetailComponent";
 import SuccessNode from "../SuccessNode/SuccessNode";
 import FaceBetweenNode from "../FaceBetweenNode/FaceBetweenNode";
 import CountRepeatNode from "../CountRepeatNode/CountRepeatNode";
+import SymbolNode from "../SymbolNode/SymbolNode";
 
 const initBgColor = "#1A192B";
 
@@ -37,25 +45,28 @@ const nodeTypes = {
   poolSumNode: PoolSumNode,
   successNode: SuccessNode,
   faceBetweenNode: FaceBetweenNode,
-  countRepeatedNode: CountRepeatNode
+  countRepeatedNode: CountRepeatNode,
+  symbolNode: SymbolNode,
 };
 
 const NodeSelectedOptions = () => {
-  const flow = useReactFlow()
-  const [selectedNode, setSelectedNode] = useState(null)
+  const flow = useReactFlow();
+  const [selectedNode, setSelectedNode] = useState(null);
 
   useEffect(() => {
-    flow.getNodes().forEach(node => {
+    flow.getNodes().forEach((node) => {
       if (node.selected) {
-        setSelectedNode(node.id)
+        setSelectedNode(node.id);
       }
-    })
-  }, [flow.getNodes()])
+    });
+  }, [flow.getNodes()]);
 
-  return <div style={{ flex: 1 }}>
-    <h1>{selectedNode}</h1>
-  </div>
-}
+  return (
+    <div style={{ flex: 1 }}>
+      <h1>{selectedNode}</h1>
+    </div>
+  );
+};
 
 const CustomNodeFlow = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -189,8 +200,8 @@ const CustomNodeFlow = () => {
         addEdge(
           {
             ...params,
-            markerEnd: { type: MarkerType.Arrow, color: 'white', size: 3 },
-            style: { stroke: 'white', strokeWidth: 4 },
+            markerEnd: { type: MarkerType.Arrow, color: "white", size: 3 },
+            style: { stroke: "white", strokeWidth: 4 },
           },
           eds
         )
@@ -200,8 +211,8 @@ const CustomNodeFlow = () => {
   });
 
   const onConnectStart = (_, { nodeId, handleType }) =>
-    console.log('on connect start', { nodeId, handleType });
-  const onConnectEnd = (event) => console.log('on connect end', event);
+    console.log("on connect start", { nodeId, handleType });
+  const onConnectEnd = (event) => console.log("on connect end", event);
 
   const addGeneratorNode = () => {
     console.log("Adicionando");
@@ -280,12 +291,11 @@ const CustomNodeFlow = () => {
         type: "sumNode",
         position: { x: 300 + nodes.length * 20, y: 50 + nodes.length * 20 },
         data: {
-          data: [
-          ],
+          data: [],
           label: `Somar dois geradores`,
           histogramName: "",
           isReady: false,
-          status: 'EM_ESPERA',
+          status: "EM_ESPERA",
           error: false,
         },
       },
@@ -300,13 +310,11 @@ const CustomNodeFlow = () => {
         type: "poolNode",
         position: { x: 300 + nodes.length * 20, y: 50 + nodes.length * 20 },
         data: {
-          data: [
-
-          ],
+          data: [],
           label: `Pool`,
           histogramName: "",
           isReady: false,
-          status: 'EM_ESPERA',
+          status: "EM_ESPERA",
           error: false,
         },
       },
@@ -321,13 +329,11 @@ const CustomNodeFlow = () => {
         type: "poolSumNode",
         position: { x: 300 + nodes.length * 20, y: 50 + nodes.length * 20 },
         data: {
-          data: [
-
-          ],
+          data: [],
           label: `Pool Sum`,
           histogramName: "",
           isReady: false,
-          status: 'EM_ESPERA',
+          status: "EM_ESPERA",
           error: false,
         },
       },
@@ -342,13 +348,11 @@ const CustomNodeFlow = () => {
         type: "successNode",
         position: { x: 300 + nodes.length * 20, y: 50 + nodes.length * 20 },
         data: {
-          data: [
-
-          ],
+          data: [],
           label: `Success`,
           face: 0,
           isReady: false,
-          status: 'EM_ESPERA',
+          status: "EM_ESPERA",
           error: false,
         },
       },
@@ -363,9 +367,7 @@ const CustomNodeFlow = () => {
         type: "faceBetweenNode",
         position: { x: 300 + nodes.length * 20, y: 50 + nodes.length * 20 },
         data: {
-          data: [
-
-          ],
+          data: [],
           label: `Face entre intervalo`,
           faceMin: 1,
           faceMax: 6,
@@ -385,9 +387,7 @@ const CustomNodeFlow = () => {
         type: "countRepeatedNode",
         position: { x: 300 + nodes.length * 20, y: 50 + nodes.length * 20 },
         data: {
-          data: [
-
-          ],
+          data: [],
           label: `Contar repetidos`,
           face: 1,
           isReady: false,
@@ -398,6 +398,25 @@ const CustomNodeFlow = () => {
     ]);
   };
 
+  const addSymbolNode = () => {
+    setNodes([
+      ...nodes,
+      {
+        id: `node-symbol-${nodes.length}`,
+        type: "symbolNode",
+        position: { x: 300 + nodes.length * 20, y: 50 + nodes.length * 20 },
+        data: {
+          data: [],
+          label: `Nó Simbólico`,
+          faces: 1,
+          facesSymbols: [{ symbol: "", face: 1 }],
+          isReady: false,
+          status: "EM_ESPERA",
+          error: false,
+        },
+      },
+    ]);
+  };
 
   const generateRandomData = (aMin, aMax, aN) => {
     let lData = [];
@@ -415,11 +434,7 @@ const CustomNodeFlow = () => {
       //buscar em nós o
       let lNodeGeneratorIndex = nodes.findIndex((no) => no.id === ed.source);
       if (lNodeGeneratorIndex >= 0) {
-        nodes[lNodeGeneratorIndex].data.data = generateRandomData(
-          1,
-          6,
-          10000
-        );
+        nodes[lNodeGeneratorIndex].data.data = generateRandomData(1, 6, 10000);
         let lNodeHistogramIndex = nodes.findIndex((no) => no.id === ed.target);
         if (lNodeHistogramIndex >= 0) {
           nodes[lNodeHistogramIndex].data = {
@@ -463,26 +478,29 @@ const CustomNodeFlow = () => {
         runExplodingDiceNode(aNode);
         break;
 
-      case 'poolNode':
+      case "poolNode":
         runPoolNode(aNode);
         break;
 
-      case 'poolSumNode':
+      case "poolSumNode":
         runPoolSumNode(aNode);
         break;
 
-      case 'successNode':
+      case "successNode":
         runSuccessNode(aNode);
         break;
 
-      case 'faceBetweenNode':
+      case "faceBetweenNode":
         runFaceBetweenNode(aNode);
         break;
 
-      case 'countRepeatedNode':
+      case "countRepeatedNode":
         runCountRepeatedNode(aNode);
         break;
 
+      case "symbolNode":
+        runSymbolNode(aNode);
+        break;
 
       default:
         break;
@@ -496,7 +514,7 @@ const CustomNodeFlow = () => {
       ...aNode.data,
       data: generateRandomData(aNode.data.min, aNode.data.max, 10000),
       isReady: true,
-      status: 'PRONTO',
+      status: "PRONTO",
     };
     updateNodes(aNode);
     // }
@@ -513,7 +531,7 @@ const CustomNodeFlow = () => {
                 ...aNode.data,
                 data: nodes[lNoSrcIndex].data.data,
                 isReady: true,
-                status: 'PRONTO',
+                status: "PRONTO",
               };
             }
           }
@@ -537,11 +555,8 @@ const CustomNodeFlow = () => {
           console.log("entrou");
           aNode.data = {
             ...aNode.data,
-            data: sumData(
-              lNode1[0].data.data,
-              lNode2[0].data.data
-            ),
-            status: 'PRONTO',
+            data: sumData(lNode1[0].data.data, lNode2[0].data.data),
+            status: "PRONTO",
             isReady: true,
           };
         }
@@ -556,15 +571,14 @@ const CustomNodeFlow = () => {
         ...aNode.data,
         data: explodingDice(aNode.data.faces, aNode.data.chosenFace, 10000),
         isReady: true,
-        status: 'PRONTO',
+        status: "PRONTO",
       };
-
     } else {
       aNode.data = {
         ...aNode.data,
         isReady: false,
-        status: 'FALTAM_DADOS',
-        error: true
+        status: "FALTAM_DADOS",
+        error: true,
       };
     }
     updateNodes(aNode);
@@ -578,27 +592,33 @@ const CustomNodeFlow = () => {
 
       if (lEdWithTarget.length === 2) {
         //tem duas conexoes
-        let lNoSrcIndex1 = nodes.findIndex((item) => item.id === lEdWithTarget[0].source);
-        let lNoSrcIndex2 = nodes.findIndex((item) => item.id === lEdWithTarget[1].source);
+        let lNoSrcIndex1 = nodes.findIndex(
+          (item) => item.id === lEdWithTarget[0].source
+        );
+        let lNoSrcIndex2 = nodes.findIndex(
+          (item) => item.id === lEdWithTarget[1].source
+        );
 
-        if (nodes[lNoSrcIndex1].data.isReady && nodes[lNoSrcIndex2].data.isReady) {
-          console.log('ta pronto');
+        if (
+          nodes[lNoSrcIndex1].data.isReady &&
+          nodes[lNoSrcIndex2].data.isReady
+        ) {
+          console.log("ta pronto");
 
           aNode.data = {
             ...aNode.data,
             data: poolNodes(nodes[lNoSrcIndex1], nodes[lNoSrcIndex2]),
             isReady: true,
-            status: 'PRONTO',
+            status: "PRONTO",
           };
         }
-
       }
     } else {
       aNode.data = {
         ...aNode.data,
         isReady: false,
-        status: 'FALTAM_DADOS',
-        error: true
+        status: "FALTAM_DADOS",
+        error: true,
       };
     }
     updateNodes(aNode);
@@ -609,30 +629,31 @@ const CustomNodeFlow = () => {
     if (!aNode.data.isReady) {
       let lEdWithTarget = edges.filter((ed) => ed.target === aNode.id);
 
-      console.log('lEdWithTarget', lEdWithTarget)
+      console.log("lEdWithTarget", lEdWithTarget);
       if (lEdWithTarget.length === 1) {
-        let lNoSrcIndex1 = nodes.findIndex((item) => item.id === lEdWithTarget[0].source);
+        let lNoSrcIndex1 = nodes.findIndex(
+          (item) => item.id === lEdWithTarget[0].source
+        );
 
         if (nodes[lNoSrcIndex1].data.isReady) {
-          console.log('pool ta pronto');
+          console.log("pool ta pronto");
 
           aNode.data = {
             ...aNode.data,
             data: poolSumNodes(nodes[lNoSrcIndex1]),
             isReady: true,
-            status: 'PRONTO',
+            status: "PRONTO",
           };
         } else {
-          console.log('pool ainda não está pronto')
+          console.log("pool ainda não está pronto");
         }
-
       }
     } else {
       aNode.data = {
         ...aNode.data,
         isReady: false,
-        status: 'FALTAM_DADOS',
-        error: true
+        status: "FALTAM_DADOS",
+        error: true,
       };
     }
     updateNodes(aNode);
@@ -643,30 +664,34 @@ const CustomNodeFlow = () => {
     if (!aNode.data.isReady) {
       let lEdWithTarget = edges.filter((ed) => ed.target === aNode.id);
 
-      console.log('lEdWithTarget', lEdWithTarget)
+      console.log("lEdWithTarget", lEdWithTarget);
       if (lEdWithTarget.length === 1) {
-        let lNoSrcIndex1 = nodes.findIndex((item) => item.id === lEdWithTarget[0].source);
+        let lNoSrcIndex1 = nodes.findIndex(
+          (item) => item.id === lEdWithTarget[0].source
+        );
 
         if (nodes[lNoSrcIndex1].data.isReady) {
-          console.log('gerador ta pronto');
+          console.log("gerador ta pronto");
 
           aNode.data = {
             ...aNode.data,
-            data: getArraySuccess(nodes[lNoSrcIndex1].data.data, aNode.data.face),
+            data: getArraySuccess(
+              nodes[lNoSrcIndex1].data.data,
+              aNode.data.face
+            ),
             isReady: true,
-            status: 'PRONTO',
+            status: "PRONTO",
           };
         } else {
-          console.log('gerador ainda não está pronto')
+          console.log("gerador ainda não está pronto");
         }
-
       }
     } else {
       aNode.data = {
         ...aNode.data,
         isReady: false,
-        status: 'FALTAM_DADOS',
-        error: true
+        status: "FALTAM_DADOS",
+        error: true,
       };
     }
     updateNodes(aNode);
@@ -677,64 +702,109 @@ const CustomNodeFlow = () => {
     if (!aNode.data.isReady) {
       let lEdWithTarget = edges.filter((ed) => ed.target === aNode.id);
 
-      console.log('lEdWithTarget', lEdWithTarget)
+      console.log("lEdWithTarget", lEdWithTarget);
       if (lEdWithTarget.length === 1) {
-        let lNoSrcIndex1 = nodes.findIndex((item) => item.id === lEdWithTarget[0].source);
+        let lNoSrcIndex1 = nodes.findIndex(
+          (item) => item.id === lEdWithTarget[0].source
+        );
 
         if (nodes[lNoSrcIndex1].data.isReady) {
-          console.log('gerador ta pronto');
+          console.log("gerador ta pronto");
 
           aNode.data = {
             ...aNode.data,
-            data: getArrayFaceBetween(nodes[lNoSrcIndex1].data.data, aNode.data.faceMin, aNode.data.faceMax),
+            data: getArrayFaceBetween(
+              nodes[lNoSrcIndex1].data.data,
+              aNode.data.faceMin,
+              aNode.data.faceMax
+            ),
             isReady: true,
             status: "PRONTO",
           };
         } else {
-          console.log('gerador ainda não está pronto')
+          console.log("gerador ainda não está pronto");
         }
-
       }
     } else {
       aNode.data = {
         ...aNode.data,
         isReady: false,
         status: "Preencha os campos obrigatórios",
-        error: true
+        error: true,
       };
     }
     updateNodes(aNode);
   };
 
   const runCountRepeatedNode = (aNode) => {
-    console.log(aNode)
+    console.log(aNode);
     if (!aNode.data.isReady) {
       let lEdWithTarget = edges.filter((ed) => ed.target === aNode.id);
 
-      console.log('lEdWithTarget', lEdWithTarget)
+      console.log("lEdWithTarget", lEdWithTarget);
       if (lEdWithTarget.length === 1) {
-        let lNoSrcIndex1 = nodes.findIndex((item) => item.id === lEdWithTarget[0].source);
+        let lNoSrcIndex1 = nodes.findIndex(
+          (item) => item.id === lEdWithTarget[0].source
+        );
 
         if (nodes[lNoSrcIndex1].data.isReady) {
-          console.log('pool ta pronto');
+          console.log("pool ta pronto");
 
           aNode.data = {
             ...aNode.data,
             data: countRepeated(nodes[lNoSrcIndex1], aNode.data.face),
             isReady: true,
-            status: 'PRONTO',
+            status: "PRONTO",
           };
         } else {
-          console.log('pool ainda não está pronto')
+          console.log("pool ainda não está pronto");
         }
-
       }
     } else {
       aNode.data = {
         ...aNode.data,
         isReady: false,
-        status: 'FALTAM_DADOS',
-        error: true
+        status: "FALTAM_DADOS",
+        error: true,
+      };
+    }
+    updateNodes(aNode);
+  };
+
+  const runSymbolNode = (aNode) => {
+    console.log(aNode);
+
+    //verificando se tem todos os símbolos preenchidos
+    let isOk =
+      aNode.data.facesSymbols.findIndex((obj) => obj.symbol === "") === -1
+        ? true
+        : false;
+
+    if (!aNode.data.isReady && isOk) {
+      let lRandom = generateRandomData(1, aNode.data.faces, 10000);
+      let lSymbolArray = [];
+
+      lRandom.map((item) => {
+        lSymbolArray.push(
+          aNode.data.facesSymbols?.find((obj) => obj.face === item)?.symbol
+        );
+      });
+
+      // console.log(lSymbolArray);
+
+      aNode.data = {
+        ...aNode.data,
+        data: lSymbolArray,
+        isReady: true,
+        status: "PRONTO",
+      };
+      updateNodes(aNode);
+    } else {
+      aNode.data = {
+        ...aNode.data,
+        isReady: false,
+        status: "FALTAM_DADOS",
+        error: true,
       };
     }
     updateNodes(aNode);
@@ -751,24 +821,22 @@ const CustomNodeFlow = () => {
       lData[i] = [];
 
       if (Array.isArray(dado1)) {
-        lData[i] = [...lData[i], ...dado1]
+        lData[i] = [...lData[i], ...dado1];
       } else {
-        lData[i] = [...lData[i], dado1]
+        lData[i] = [...lData[i], dado1];
       }
 
       if (Array.isArray(dado2)) {
-        lData[i] = [...lData[i], ...dado2]
+        lData[i] = [...lData[i], ...dado2];
       } else {
-        lData[i] = [...lData[i], dado2]
+        lData[i] = [...lData[i], dado2];
       }
-
     }
 
     console.log(lData);
 
-    return lData
-
-  }
+    return lData;
+  };
 
   const poolSumNodes = (aInput1) => {
     let lData = [];
@@ -779,27 +847,25 @@ const CustomNodeFlow = () => {
       lData[i] = 0;
 
       if (Array.isArray(dado1)) {
-        dado1.forEach(valor =>
-          lData[i] += valor
-        )
+        dado1.forEach((valor) => (lData[i] += valor));
       } else {
-        lData[i] += dado1
+        lData[i] += dado1;
       }
-
     }
 
-    console.log('saida pool sum: ', lData);
+    console.log("saida pool sum: ", lData);
 
-    return lData
-
-  }
+    return lData;
+  };
 
   const explodingDice = (aFaces, aFace, aN) => {
     let lCount = 0;
     let lX = [];
 
     for (let i = 0; i < aN; i++) {
-      while (aFace === parseInt(Math.floor(Math.random() * (aFaces + 1 - 1) + 1))) {
+      while (
+        aFace === parseInt(Math.floor(Math.random() * (aFaces + 1 - 1) + 1))
+      ) {
         lCount++;
       }
 
@@ -810,29 +876,23 @@ const CustomNodeFlow = () => {
     console.log(lX);
 
     return lX;
-
-  }
+  };
 
   const getArraySuccess = (aData, aFace) => {
-
     //0 falha e 1 sucesso
-    let lData = []
+    let lData = [];
 
-    aData?.map(item => {
-      if (item >= aFace)
-        lData.push(1)
-      else
-        lData.push(0)
-    })
+    aData?.map((item) => {
+      if (item >= aFace) lData.push(1);
+      else lData.push(0);
+    });
 
-    return lData
-
-  }
+    return lData;
+  };
 
   const getArrayFaceBetween = (aData, aMinFace, aMaxFace) => {
-
     //0 falha e 1 sucesso
-    let lData = []
+    let lData = [];
 
     for (let i = 0; i < aData.length; i++) {
       const dado1 = aData[i];
@@ -840,26 +900,19 @@ const CustomNodeFlow = () => {
       // lData[i] = 0;
 
       if (Array.isArray(dado1)) {
-
-        dado1.forEach(valor => {
-          if (valor >= aMinFace && valor <= aMaxFace)
-            lData.push(1)
-          else
-            lData.push(0)
-        }
-        )
+        dado1.forEach((valor) => {
+          if (valor >= aMinFace && valor <= aMaxFace) lData.push(1);
+          else lData.push(0);
+        });
       } else {
-        if (dado1 >= aMinFace && dado1 <= aMaxFace)
-          lData.push(1)
-        else
-          lData.push(0)
+        if (dado1 >= aMinFace && dado1 <= aMaxFace) lData.push(1);
+        else lData.push(0);
       }
-
     }
 
-    console.log('saida pool sum: ', lData);
+    console.log("saida pool sum: ", lData);
 
-    return lData
+    return lData;
 
     // aData?.map(item => {
     //   if (item >= aMinFace && item <= aMaxFace)
@@ -869,8 +922,7 @@ const CustomNodeFlow = () => {
     // })
 
     // return lData
-
-  }
+  };
 
   const countRepeated = (aInput, aFace) => {
     let lData = [];
@@ -881,22 +933,18 @@ const CustomNodeFlow = () => {
       lData[i] = 0;
 
       if (Array.isArray(dado)) {
-        dado.forEach(valor => {
-          if (valor === aFace)
-            lData[i]++
-        }
-        )
+        dado.forEach((valor) => {
+          if (valor === aFace) lData[i]++;
+        });
       } else {
-        if (dado === aFace)
-          lData[i]++
+        if (dado === aFace) lData[i]++;
       }
-
     }
 
-    console.log('saida pool sum: ', lData);
+    console.log("saida pool sum: ", lData);
 
-    return lData
-  }
+    return lData;
+  };
 
   const updateNodes = (aNode) => {
     // console.log(aNode);
@@ -922,7 +970,7 @@ const CustomNodeFlow = () => {
       reRun();
     }
 
-    let lListNodes = []
+    let lListNodes = [];
 
     //função que faz a varredura nos nós que não conseguiram ser construidos corretamente
     nodes.map((no) => {
@@ -932,15 +980,14 @@ const CustomNodeFlow = () => {
           status: "X - problema ao rodar run",
           error: true,
         };
-      else if (no.type === 'histogramNode' && no.data.isReady) {
-        lListNodes.push({ id: no.id, data: [...no.data.data] })
+      else if (no.type === "histogramNode" && no.data.isReady) {
+        lListNodes.push({ id: no.id, data: [...no.data.data] });
       }
     });
 
-
     setNodes([...nodes]);
     // setListHistogramNodes([...nodes.filter(node => node.type === 'histogramNode')])
-    setListHistogramNodes([...lListNodes])
+    setListHistogramNodes([...lListNodes]);
     setCanShowHistograms(true);
     // console.log(nodes);
   };
@@ -988,7 +1035,7 @@ const CustomNodeFlow = () => {
             histogram.data = {
               ...histogram.data,
               data: nodes[lNoIndex].data.getdata(),
-              status: 'PRONTO',
+              status: "PRONTO",
               isReady: true,
             };
 
@@ -1017,7 +1064,7 @@ const CustomNodeFlow = () => {
                   generator.run();
                   generator.data = {
                     ...generator.data,
-                    status: 'PRONTO', //generator.data.status,
+                    status: "PRONTO", //generator.data.status,
                   };
                   console.log(generator);
                 } else if (generator.type === "sumNode") {
@@ -1040,10 +1087,10 @@ const CustomNodeFlow = () => {
 
               console.log(nodes[lNoIndex].data.data);
               nodes[lNoIndex].data.isReady = true;
-              nodes[lNoIndex].data.status = 'PRONTO';
+              nodes[lNoIndex].data.status = "PRONTO";
 
               histogram.data.data = nodes[lNoIndex].data.data;
-              histogram.data.status = 'PRONTO';
+              histogram.data.status = "PRONTO";
               histogram.data.isReady = true;
               console.log(
                 "tamanho dos dados do data: ",
@@ -1075,7 +1122,7 @@ const CustomNodeFlow = () => {
       );
       aNode.data.hasData = true;
       aNode.data.isReady = true;
-      aNode.data.status = 'PRONTO';
+      aNode.data.status = "PRONTO";
     }
   };
 
@@ -1096,10 +1143,7 @@ const CustomNodeFlow = () => {
             if (lNode.type === "generator") {
               checkNodeGenerator(lNode);
               //pegar o valor do dataHistogram e adicionar ao nó sumNode
-              aNode.data.data = sumData(
-                aNode.data.data,
-                lNode.data.data
-              );
+              aNode.data.data = sumData(aNode.data.data, lNode.data.data);
             } else if (lNode.type === "sumNode")
               checkSumNode(lNode, aNodes, aEdges);
           }
@@ -1108,7 +1152,7 @@ const CustomNodeFlow = () => {
       // aNode.data.data = generateRandomData(1, 6, 10000);
       // aNode.data.hasData = true;
       aNode.data.isReady = true;
-      aNode.data.status = 'PRONTO';
+      aNode.data.status = "PRONTO";
       return;
     }
   };
@@ -1123,59 +1167,75 @@ const CustomNodeFlow = () => {
   };
 
   const formatDataToHistogram = (aData) => {
-    return aData
+    return aData;
     let lData = [];
 
-    console.log('data: ', aData);
-    aData.map(item => {
-      lData.push({ x: item })
-    })
+    console.log("data: ", aData);
+    aData.map((item) => {
+      lData.push({ x: item });
+    });
 
-    return lData
-  }
+    return lData;
+  };
 
   const addNoId = (aId) => {
     switch (aId) {
-      case 'noGerador': addGeneratorNode()
+      case "noGerador":
+        addGeneratorNode();
 
         break;
-      case 'noHistograma': addHistogramNode()
-
-        break;
-
-      case 'noExplodeDice': addExplodingDiceNode()
+      case "noHistograma":
+        addHistogramNode();
 
         break;
 
-      case 'noSomador': addSumNode()
+      case "noExplodeDice":
+        addExplodingDiceNode();
 
         break;
 
-      case 'noPool': addPoolNode()
+      case "noSomador":
+        addSumNode();
 
         break;
 
-      case 'noPoolSum': addPoolSumNode()
+      case "noPool":
+        addPoolNode();
 
         break;
 
-      case 'noSuccess': addSuccessNode()
+      case "noPoolSum":
+        addPoolSumNode();
 
         break;
-      case 'noFaceBetween': addFaceBetweenNode()
+
+      case "noSuccess":
+        addSuccessNode();
 
         break;
-      case 'noCountRepeated': addCountRepeatedNode()
+      case "noFaceBetween":
+        addFaceBetweenNode();
 
         break;
-      case 'contruir': build()
+      case "noCountRepeated":
+        addCountRepeatedNode();
+
+        break;
+
+      case "noSymbol":
+        addSymbolNode();
+
+        break;
+
+      case "contruir":
+        build();
 
         break;
 
       default:
         break;
     }
-  }
+  };
 
   return (
     <div style={{ height: 550, width: "100%" }}>
@@ -1186,20 +1246,57 @@ const CustomNodeFlow = () => {
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-evenly",
-            padding: 10
+            padding: 10,
           }}
         >
           <ButtonDropdown
             items={[
-              { text: "Adicionar nó gerador", id: "noGerador", disabled: false },
-              { text: "Adicionar nó histogram", id: "noHistograma", disabled: false },
-              { text: "Adicionar explodir dado", id: "noExplodeDice", disabled: false },
-              { text: "Adicionar nó somador", id: "noSomador", disabled: false },
+              {
+                text: "Adicionar nó gerador",
+                id: "noGerador",
+                disabled: false,
+              },
+              {
+                text: "Adicionar nó histogram",
+                id: "noHistograma",
+                disabled: false,
+              },
+              {
+                text: "Adicionar explodir dado",
+                id: "noExplodeDice",
+                disabled: false,
+              },
+              {
+                text: "Adicionar nó somador",
+                id: "noSomador",
+                disabled: false,
+              },
               { text: "Adicionar nó pool", id: "noPool", disabled: false },
-              { text: "Adicionar nó pool sum", id: "noPoolSum", disabled: false },
-              { text: "Adicionar nó sucesso", id: "noSuccess", disabled: false },
-              { text: "Adicionar nó face entre intervalo", id: "noFaceBetween", disabled: false },
-              { text: "Adicionar nó contador de repetidos", id: "noCountRepeated", disabled: false },
+              {
+                text: "Adicionar nó pool sum",
+                id: "noPoolSum",
+                disabled: false,
+              },
+              {
+                text: "Adicionar nó sucesso",
+                id: "noSuccess",
+                disabled: false,
+              },
+              {
+                text: "Adicionar nó face entre intervalo",
+                id: "noFaceBetween",
+                disabled: false,
+              },
+              {
+                text: "Adicionar nó contador de repetidos",
+                id: "noCountRepeated",
+                disabled: false,
+              },
+              {
+                text: "Adicionar nó simbólico",
+                id: "noSymbol",
+                disabled: false,
+              },
               // { text: "Construir histogramas", id: "contruir", disabled: false },
               // { text: "Move", id: "mv", disabled: false },
               // { text: "Rename", id: "rn", disabled: true },
@@ -1210,20 +1307,25 @@ const CustomNodeFlow = () => {
               //   externalIconAriaLabel: "(opens in new tab)"
               // }
             ]}
-            onItemClick={id => addNoId(id.detail.id)}
+            onItemClick={(id) => addNoId(id.detail.id)}
           >
             Adicionar
           </ButtonDropdown>
 
-          <Button variant="primary" onClick={build} disabled={!nodes.length}>Construir</Button>
+          <Button variant="primary" onClick={build} disabled={!nodes.length}>
+            Simular
+          </Button>
           <SaveAndLoadStates />
-
         </div>
-        <div style={{
-          flex: 1, display: "flex",
-          height: '100%', width: '100%'
-        }}>
-          <div style={{ flex: 4, height: '100%' }}>
+        <div
+          style={{
+            flex: 1,
+            display: "flex",
+            height: "100%",
+            width: "100%",
+          }}
+        >
+          <div style={{ flex: 4, height: "100%" }}>
             <ReactFlow
               nodes={nodes}
               edges={edges}
@@ -1232,7 +1334,7 @@ const CustomNodeFlow = () => {
               onConnect={onConnect}
               // onConnectStart={onConnectStart}
               // onConnectEnd={onConnectEnd}
-              style={{ background: "grey", width: '100%' }}
+              style={{ background: "grey", width: "100%" }}
               nodeTypes={nodeTypes}
               connectionLineStyle={connectionLineStyle}
               snapToGrid={true}
@@ -1255,28 +1357,33 @@ const CustomNodeFlow = () => {
               <Controls />
             </ReactFlow>
           </div>
-          <div style={{ flex: 1, backgroundColor: '#f1f1f1', borderWidth: 1, borderColor: 'grey', padding: 5, margin: 5 }}>
+          <div
+            style={{
+              flex: 1,
+              backgroundColor: "#f1f1f1",
+              borderWidth: 1,
+              borderColor: "grey",
+              padding: 5,
+              margin: 5,
+            }}
+          >
             {/* <NodeSelectedOptions /> */}
             <NodeDetailComponent />
           </div>
 
           {/* <NodeSelectedOptions nodes={nodes} /> */}
-
-
         </div>
 
-
-        <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-
+        <div
+          style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
+        >
           {canShowHistograms &&
-            listHistogramNodes.map(
-              ({ id, data }) =>
-                <div key={id} style={{ flex: 1, minWidth: '50%' }}>
-                  {/* <h2>{node.data.histogramName}</h2> */}
-                  <HistogramChart data={formatDataToHistogram(data)} id={id} />
-                </div>
-
-            )}
+            listHistogramNodes.map(({ id, data }) => (
+              <div key={id} style={{ flex: 1, minWidth: "50%" }}>
+                {/* <h2>{node.data.histogramName}</h2> */}
+                <HistogramChart data={formatDataToHistogram(data)} id={id} />
+              </div>
+            ))}
         </div>
       </ReactFlowProvider>
     </div>

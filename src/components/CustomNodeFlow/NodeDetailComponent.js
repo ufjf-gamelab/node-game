@@ -299,6 +299,86 @@ const CountRepeatedNodeDetail = ({ nodeId }) => {
         <h5>status: {flow.getNode(nodeId).data.status}</h5>
     </div>
 }
+
+const InputSymbol = ({ nodeId, index }) => {
+    const flow = useReactFlow()
+    const [symbol, setSymbol] = useState(flow.getNode(nodeId).data?.facesSymbols[index]?.symbol);
+
+    return <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h5>Lado {index + 1} </h5>
+
+        <Input
+            placeholder={`Símbolo da face ${index + 1}`}
+            onBlur={() => {
+                if (flow.getNode(nodeId).data.facesSymbols[index].symbol !== symbol) {
+                    flow.getNode(nodeId).data.facesSymbols[index].symbol = symbol;
+                    flow.setNodes([...flow.getNodes()])
+                }
+            }}
+            onChange={({ detail }) => {
+                setSymbol(detail.value);
+            }}
+            type='text'
+            value={symbol}
+        />
+    </div>
+
+}
+
+const SymbolNodeDetail = ({ nodeId }) => {
+    const flow = useReactFlow()
+    const [faces, setFaces] = useState(flow.getNode(nodeId).data.faces);
+
+    const addFace = () => {
+        flow.getNode(nodeId).data.facesSymbols.push({ symbol: "", face: flow.getNode(nodeId).data.facesSymbols.length + 1 });
+        flow.setNodes([...flow.getNodes()])
+    }
+
+
+    const removeFace = () => {
+        flow.getNode(nodeId).data.facesSymbols?.pop()
+        flow.setNodes([...flow.getNodes()])
+    }
+
+    const updateList = () => {
+        if (faces > flow.getNode(nodeId).data.facesSymbols.length) {
+            for (let i = flow.getNode(nodeId).data.facesSymbols.length; i < faces; i++)
+                addFace()
+        } else {
+            while (parseInt(faces) !== flow.getNode(nodeId).data.facesSymbols.length)
+                removeFace()
+        }
+    }
+
+    return <div>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h5>Quantas faces? </h5>
+
+            <Input
+                placeholder="Faces"
+                onBlur={() => {
+                    flow.getNode(nodeId).data.faces = parseInt(faces);
+                    flow.setNodes([...flow.getNodes()])
+                    updateList()
+                }}
+                onChange={({ detail }) => {
+                    setFaces(detail.value);
+                }}
+                type='number'
+                value={faces}
+            />
+
+
+
+        </div>
+        {
+            flow.getNode(nodeId).data?.facesSymbols.map((item, index) =>
+                <InputSymbol nodeId={nodeId} index={index} />)
+        }
+
+        <h5>status: {flow.getNode(nodeId).data.status}</h5>
+    </div>
+}
 export default function NodeDetailComponent() {
     const flow = useReactFlow()
     const [selectedNode, setSelectedNode] = useState(null)
@@ -356,6 +436,10 @@ export default function NodeDetailComponent() {
 
                 case 'countRepeatedNode':
                     return <CountRepeatedNodeDetail nodeId={selectedNode} />
+                    break;
+
+                case 'symbolNode':
+                    return <SymbolNodeDetail nodeId={selectedNode} />
                     break;
 
                 default:
