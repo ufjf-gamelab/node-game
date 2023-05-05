@@ -30,6 +30,7 @@ import SuccessNode from "../SuccessNode/SuccessNode";
 import FaceBetweenNode from "../FaceBetweenNode/FaceBetweenNode";
 import CountRepeatNode from "../CountRepeatNode/CountRepeatNode";
 import SymbolNode from "../SymbolNode/SymbolNode";
+import SymbolPoolNode from "../SymbolPoolNode/SymbolPoolNode";
 
 const initBgColor = "#1A192B";
 
@@ -47,6 +48,7 @@ const nodeTypes = {
   faceBetweenNode: FaceBetweenNode,
   countRepeatedNode: CountRepeatNode,
   symbolNode: SymbolNode,
+  symbolPoolNode: SymbolPoolNode
 };
 
 const NodeSelectedOptions = () => {
@@ -418,6 +420,24 @@ const CustomNodeFlow = () => {
     ]);
   };
 
+  const addSymbolPoolNode = () => {
+    setNodes([
+      ...nodes,
+      {
+        id: `node-symbol-pool-${nodes.length}`,
+        type: "symbolPoolNode",
+        position: { x: 300 + nodes.length * 20, y: 50 + nodes.length * 20 },
+        data: {
+          data: [],
+          label: `Symbol Pool`,
+          histogramName: "",
+          isReady: false,
+          status: "EM_ESPERA",
+          error: false,
+        },
+      },
+    ]);
+  };
   const generateRandomData = (aMin, aMax, aN) => {
     let lData = [];
 
@@ -501,6 +521,11 @@ const CustomNodeFlow = () => {
       case "symbolNode":
         runSymbolNode(aNode);
         break;
+
+        case "symbolPoolNode":
+          runSymbolPoolNode(aNode);
+          break;
+  
 
       default:
         break;
@@ -799,6 +824,45 @@ const CustomNodeFlow = () => {
         status: "PRONTO",
       };
       updateNodes(aNode);
+    } else {
+      aNode.data = {
+        ...aNode.data,
+        isReady: false,
+        status: "FALTAM_DADOS",
+        error: true,
+      };
+    }
+    updateNodes(aNode);
+  };
+
+  const runSymbolPoolNode = (aNode) => {
+    // console.log(aNode)
+    if (!aNode.data.isReady) {
+      let lEdWithTarget = edges.filter((ed) => ed.target === aNode.id);
+
+      if (lEdWithTarget.length === 2) {
+        //tem duas conexoes
+        let lNoSrcIndex1 = nodes.findIndex(
+          (item) => item.id === lEdWithTarget[0].source
+        );
+        let lNoSrcIndex2 = nodes.findIndex(
+          (item) => item.id === lEdWithTarget[1].source
+        );
+
+        if (
+          nodes[lNoSrcIndex1].data.isReady &&
+          nodes[lNoSrcIndex2].data.isReady
+        ) {
+          console.log("ta pronto");
+
+          aNode.data = {
+            ...aNode.data,
+            data: poolNodes(nodes[lNoSrcIndex1], nodes[lNoSrcIndex2]),
+            isReady: true,
+            status: "PRONTO",
+          };
+        }
+      }
     } else {
       aNode.data = {
         ...aNode.data,
@@ -1167,13 +1231,23 @@ const CustomNodeFlow = () => {
   };
 
   const formatDataToHistogram = (aData) => {
-    return aData;
+    // return aData;
     let lData = [];
 
-    console.log("data: ", aData);
-    aData.map((item) => {
-      lData.push({ x: item });
-    });
+    for (let i = 0; i < aData.length; i++) {
+      const mesmoSorteio = aData[i];
+
+      if (Array.isArray(mesmoSorteio)) {
+        mesmoSorteio.map(item => lData.push(item))
+      } else {
+        lData.push(mesmoSorteio)
+      }
+
+    }
+    // console.log("data: ", aData);
+    // aData.map((item) => {
+    //   lData.push({ x: item });
+    // });
 
     return lData;
   };
@@ -1226,6 +1300,11 @@ const CustomNodeFlow = () => {
         addSymbolNode();
 
         break;
+
+        case "noSymbolPool":
+          addSymbolPoolNode();
+  
+          break;
 
       case "contruir":
         build();
@@ -1295,6 +1374,11 @@ const CustomNodeFlow = () => {
               {
                 text: "Adicionar nó simbólico",
                 id: "noSymbol",
+                disabled: false,
+              },
+              {
+                text: "Adicionar nó pool simbólico",
+                id: "noSymbolPool",
                 disabled: false,
               },
               // { text: "Construir histogramas", id: "contruir", disabled: false },
