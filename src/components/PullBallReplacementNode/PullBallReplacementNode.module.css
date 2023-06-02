@@ -1,0 +1,25 @@
+.generatorNode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.generatorNode h1 {
+  font-size: 3em;
+  margin: 0;
+  padding: 0;
+}
+
+.generatorNode h2 {
+  font-size: 1em;
+  margin: 0;
+  padding: 0;
+}
+
+.generatorNode h5 {
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+  
+}

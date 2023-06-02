@@ -1,0 +1,31 @@
+.symbolNode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.symbolIcons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.symbolNode h1 {
+  font-size: 3em;
+  margin: 0;
+  padding: 0;
+}
+
+.symbolNode h2 {
+  font-size: 1em;
+  margin: 0;
+  padding: 0;
+}
+
+.symbolNode h5 {
+  font-size: 1em;
+  margin: 0;
+  padding: 0;
+}

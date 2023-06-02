@@ -31,6 +31,8 @@ import FaceBetweenNode from "../FaceBetweenNode/FaceBetweenNode";
 import CountRepeatNode from "../CountRepeatNode/CountRepeatNode";
 import SymbolNode from "../SymbolNode/SymbolNode";
 import SymbolPoolNode from "../SymbolPoolNode/SymbolPoolNode";
+import BagNode from "../BagNode/BagNode";
+import PullBallReplacementNode from "../PullBallReplacementNode/PullBallReplacementNode";
 
 const initBgColor = "#1A192B";
 
@@ -48,7 +50,9 @@ const nodeTypes = {
   faceBetweenNode: FaceBetweenNode,
   countRepeatedNode: CountRepeatNode,
   symbolNode: SymbolNode,
-  symbolPoolNode: SymbolPoolNode
+  symbolPoolNode: SymbolPoolNode,
+  bagNode: BagNode,
+  pullBallReplacementNode: PullBallReplacementNode,
 };
 
 const NodeSelectedOptions = () => {
@@ -438,6 +442,46 @@ const CustomNodeFlow = () => {
       },
     ]);
   };
+
+  const addBagNode = () => {
+    setNodes([
+      ...nodes,
+      {
+        id: `node-bag-${nodes.length}`,
+        type: "bagNode",
+        position: { x: 300 + nodes.length * 20, y: 50 + nodes.length * 20 },
+        data: {
+          data: [],
+          label: `Bag Node`,
+          qtd: 1,
+          balls: [{ color: "", qtd: 1 }],
+          isReady: false,
+          status: "EM_ESPERA",
+          error: false,
+        },
+      },
+    ]);
+  };
+
+  const addPullBallWithReplacementNode = () => {
+    setNodes([
+      ...nodes,
+      {
+        id: `node-pull-ball-replacement-${nodes.length}`,
+        type: "pullBallReplacementNode",
+        position: { x: 300 + nodes.length * 20, y: 50 + nodes.length * 20 },
+        data: {
+          data: [],
+          label: `Puxar bola com reposicao`,
+          qtd: 1,
+          isReady: false,
+          status: "EM_ESPERA",
+          error: false,
+        },
+      },
+    ]);
+  };
+
   const generateRandomData = (aMin, aMax, aN) => {
     let lData = [];
 
@@ -522,10 +566,17 @@ const CustomNodeFlow = () => {
         runSymbolNode(aNode);
         break;
 
-        case "symbolPoolNode":
-          runSymbolPoolNode(aNode);
-          break;
-  
+      case "symbolPoolNode":
+        runSymbolPoolNode(aNode);
+        break;
+
+      case "bagNode":
+        runBagNode(aNode);
+        break;
+
+      case "pullBallReplacementNode":
+        runPullBallReplacementNode(aNode);
+        break;
 
       default:
         break;
@@ -872,6 +923,61 @@ const CustomNodeFlow = () => {
       };
     }
     updateNodes(aNode);
+  };
+
+  const runBagNode = (aNode) => {
+    aNode.data = {
+      ...aNode.data,
+      isReady: true,
+      status: "PRONTO",
+    };
+
+    updateNodes(aNode);
+  };
+
+  const runPullBallReplacementNode = (aNode) => {
+    // if (!aNode.data.isReady) {
+    // aNode.data.run();
+
+    const getColorsArray = (aArrayColors) => {
+      let lArray = [];
+      let lRandom = generateRandomData(1, aArrayColors.length, 10000);
+
+      lRandom?.map((item) => {
+        lArray.push(aArrayColors[item - 1]?.color);
+      });
+      return lArray;
+    };
+
+    edges.map((no) => {
+      if (no.target === aNode.id) {
+        let lNoSrcIndex = nodes.findIndex((item) => item.id === no.source);
+        if (lNoSrcIndex >= 0) {
+          // if (nodes[lNoSrcIndex].data.isReady) {
+          aNode.data = {
+            ...aNode.data,
+            data: getColorsArray(nodes[lNoSrcIndex].data.balls),
+            // generateRandomData(
+            //   1,
+            //   nodes[lNoSrcIndex].data.balls?.length,
+            //   10000
+            // ),
+            isReady: true,
+            status: "PRONTO",
+          };
+          // }
+        }
+      }
+    });
+
+    // aNode.data = {
+    //   ...aNode.data,
+    //   data: generateRandomData(1, aNode.data.qtd, 10000),
+    //   isReady: true,
+    //   status: "PRONTO",
+    // };
+    updateNodes(aNode);
+    // }
   };
 
   const poolNodes = (aInput1, aInput2) => {
@@ -1231,24 +1337,17 @@ const CustomNodeFlow = () => {
   };
 
   const formatDataToHistogram = (aData) => {
-    // return aData;
     let lData = [];
 
     for (let i = 0; i < aData.length; i++) {
       const mesmoSorteio = aData[i];
 
       if (Array.isArray(mesmoSorteio)) {
-        mesmoSorteio.map(item => lData.push(item))
+        mesmoSorteio.map((item) => lData.push(item));
       } else {
-        lData.push(mesmoSorteio)
+        lData.push(mesmoSorteio);
       }
-
     }
-    // console.log("data: ", aData);
-    // aData.map((item) => {
-    //   lData.push({ x: item });
-    // });
-
     return lData;
   };
 
@@ -1301,10 +1400,20 @@ const CustomNodeFlow = () => {
 
         break;
 
-        case "noSymbolPool":
-          addSymbolPoolNode();
-  
-          break;
+      case "noSymbolPool":
+        addSymbolPoolNode();
+
+        break;
+
+      case "bagPool":
+        addBagNode();
+
+        break;
+
+      case "bagPpullBallReplacementNodeool":
+        addPullBallWithReplacementNode();
+
+        break;
 
       case "contruir":
         build();
@@ -1379,6 +1488,16 @@ const CustomNodeFlow = () => {
               {
                 text: "Adicionar nó pool simbólico",
                 id: "noSymbolPool",
+                disabled: false,
+              },
+              {
+                text: "Adicionar nó bolsa",
+                id: "bagPool",
+                disabled: false,
+              },
+              {
+                text: "Adicionar nó puxar bola sem repetição",
+                id: "bagPpullBallReplacementNodeool",
                 disabled: false,
               },
               // { text: "Construir histogramas", id: "contruir", disabled: false },
