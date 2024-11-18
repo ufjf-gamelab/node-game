@@ -1,11 +1,16 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
+import { ReactFlowProvider } from "@xyflow/react";
+import App from "./app.tsx";
+
 import "./assets/tailwind.scss";
 import "./assets/global.scss";
+import "@xyflow/react/dist/style.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <ReactFlowProvider>
+      <App />
+    </ReactFlowProvider>
   </StrictMode>
 );

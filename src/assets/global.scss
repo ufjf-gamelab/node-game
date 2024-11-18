@@ -37,3 +37,7 @@ h1 {
 .btn {
   @apply text-white bg-gray-700 hover:bg-gray-800  font-medium text-sm px-6 py-[3px]  dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800;
 }
+
+input {
+  @apply w-full bg-gray-100 text-gray-800 p-1 rounded-sm border border-gray-400 shadow-sm;
+}
