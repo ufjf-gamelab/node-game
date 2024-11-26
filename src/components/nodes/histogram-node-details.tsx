@@ -1,9 +1,14 @@
 import { IHistogramNode } from "@/config/types";
+import { useReactFlow } from "@xyflow/react";
 
 import React from "react";
+import { useDebounce } from "react-use";
 
 export const HistogramNodeDetails: React.FunctionComponent<{ node: IHistogramNode }> = ({ node }) => {
-  const [title, setTitle] = React.useState(node.data.name);
+  const flow = useReactFlow();
+  const [title, setTitle] = React.useState(node.data.title);
+
+  useDebounce(() => flow.setNodes(flow.getNodes()), 500, [title]);
 
   return (
     <div>
@@ -17,13 +22,11 @@ export const HistogramNodeDetails: React.FunctionComponent<{ node: IHistogramNod
 
           <input
             placeholder="Título do histograma"
-            onBlur={() => {
-              // flow.getNode(nodeId).data.histogramName = title;
-              // console.log("nodes: ", flow.getNode(nodeId).data.histogramName);
-              // flow.setNodes([...flow.getNodes()]);
-            }}
-            onChange={(e) => setTitle(e.target.value)}
             value={title}
+            onChange={(e) => {
+              setTitle(e.target.value);
+              node.data.title = e.target.value;
+            }}
           />
         </div>
 

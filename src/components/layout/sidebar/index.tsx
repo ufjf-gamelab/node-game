@@ -78,7 +78,7 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="item-3">
+        <AccordionItem value="item-4">
           <AccordionTrigger className="px-4 hover:bg-slate-100">
             <div className="flex gap-4 items-center justify-start">
               <GiNetworkBars className="text-[22px]" />
