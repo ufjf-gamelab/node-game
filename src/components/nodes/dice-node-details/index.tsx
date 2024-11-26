@@ -22,24 +22,32 @@ export const DiceNodeDetails: React.FunctionComponent<{ node: IDiceNode }> = ({ 
 
   if (!node) return null;
   return (
-    <div className="flex flex-col">
-      <div className="border-b border-gray-300 py-4 text-xl px-4 mb-8">
+    <div className="flex flex-col text-sm">
+      <div className="border-b-2  py-4 text-center text-xl">
         <h2>Dice Node</h2>
       </div>
 
-      <div className="flex flex-col gap-2 px-4">
-        <h5 className="font-semibold">
-          ID: <span className="font-normal">{node.id}</span>
-        </h5>
+      <div className="flex flex-col px-2">
+        <div className="w-full flex items-center justify-between border-b py-2">
+          <label className="whitespace-nowrap w-full font-medium">Node ID</label>
+          <input
+            type="text"
+            value={node.id}
+            readOnly
+            className="cursor-default bg-transparent py-1 px-2 border-none shadow-none ring-0 outline-none text-right w-full"
+          />
+        </div>
 
-        <div className="flex justify-between items-center">
-          <h5 className="font-semibold">Valor mínimo:</h5>
-
+        <div className="w-full flex items-center justify-between border-b py-2">
+          <label className="whitespace-nowrap w-full font-medium" htmlFor="min">
+            Valor minimo
+          </label>
           <input
             type="number"
+            id="min"
+            className="bg-gray-100 py-1 px-2 border shadow-none focus:ring-1 outline-none text-center w-24"
             placeholder="Mínimo"
             value={min}
-            className="w-20 text-center"
             onChange={(e) => {
               const newValue = Number(e.target.value) || 1;
               setMin(newValue);
@@ -48,13 +56,15 @@ export const DiceNodeDetails: React.FunctionComponent<{ node: IDiceNode }> = ({ 
           />
         </div>
 
-        <div className="flex justify-between items-center">
-          <h5 className="font-semibold">Valor máximo:</h5>
-
+        <div className="w-full flex items-center justify-between border-b py-2">
+          <label className="whitespace-nowrap w-full font-medium" htmlFor="max">
+            Valor máximo
+          </label>
           <input
             type="number"
+            id="max"
+            className="bg-gray-100 py-1 px-2 border shadow-none focus:ring-1 outline-none text-center w-24"
             placeholder="Máximo"
-            className="w-20 text-center"
             value={max}
             onChange={(e) => {
               const newValue = Number(e.target.value) || 1;
@@ -64,9 +74,15 @@ export const DiceNodeDetails: React.FunctionComponent<{ node: IDiceNode }> = ({ 
           />
         </div>
 
-        <h5 className="font-semibold">
-          status: <span className="font-normal">{node.data.generator.status.replaceAll("_", " ")}</span>
-        </h5>
+        <div className="w-full flex items-center justify-between border-b py-2">
+          <label className="whitespace-nowrap w-full font-medium">Status</label>
+          <input
+            type="text"
+            value="Em espera"
+            readOnly
+            className="cursor-default bg-transparent py-1 px-2 border-none shadow-none ring-0 outline-none text-right w-full"
+          />
+        </div>
       </div>
     </div>
   );
