@@ -1,12 +1,28 @@
 import { Node } from "@xyflow/react";
-import { Generator } from "@/services";
 
-export type INodeType = "dice" | "histogram" | "diceSum";
+export type INodeType = "diceGenerator" | "histogram" | "diceSum";
+export type INodeStatus = "IDLE" | "FINISHED" | "ERROR" | "MISSING_DATA" | "LOADING";
 
-type BaseNode<NodeData extends Record<string, unknown> = Record<string, unknown>, NodeType extends INodeType = INodeType> = Node<NodeData, NodeType>;
+type IBaseNode<NodeData extends Record<string, unknown> = Record<string, unknown>, NodeType extends INodeType = INodeType> = Node<NodeData, NodeType>;
 
-export type IDiceNode = BaseNode<{ generator: Generator }, "dice">;
-export type IHistogramNode = BaseNode<{ status: string; title: string }, "histogram">;
-export type IDiceSumNode = BaseNode<{ status: string; title: string }, "diceSum">;
+export type IDiceGeneratorNode = IBaseNode<
+  { name: string; min: number; max: number; status: INodeStatus; generatedValues: number[] },
+  "diceGenerator"
+>;
 
-export type INode = IDiceNode | IHistogramNode | IDiceSumNode;
+export type IHistogramNode = IBaseNode<
+  {
+    name: string;
+    status: INodeStatus;
+  },
+  "histogram"
+>;
+export type IDiceSumNode = IBaseNode<
+  {
+    name: string;
+    status: INodeStatus;
+  },
+  "diceSum"
+>;
+
+export type INode = IDiceGeneratorNode | IHistogramNode | IDiceSumNode;

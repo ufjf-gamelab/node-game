@@ -1,26 +1,38 @@
 import React from "react";
 import { useReactFlow } from "@xyflow/react";
-import { IDiceNode } from "@/config/types";
 import { useDebounce } from "react-use";
+import { IDiceGeneratorNode } from "@/config/types";
 
-export const DiceNodeDetails: React.FunctionComponent<{ node: IDiceNode }> = ({ node }) => {
+export const DiceGeneratorDetails: React.FunctionComponent<{ node: IDiceGeneratorNode }> = ({ node }) => {
   const flow = useReactFlow();
   const [min, setMin] = React.useState(1);
   const [max, setMax] = React.useState(1);
 
+  function handleChangeMax(e: React.ChangeEvent<HTMLInputElement>) {
+    const newValue = Number(e.target.value) || 1;
+    setMax(newValue);
+    node.data.max = newValue;
+  }
+
+  function handleChangeMin(e: React.ChangeEvent<HTMLInputElement>) {
+    const newValue = Number(e.target.value) || 1;
+    setMin(newValue);
+    node.data.min = newValue;
+  }
+
   React.useEffect(() => {
-    if (node) {
-      setMin(node.data.generator.min);
-      setMax(node.data.generator.max);
-    } else {
-      setMin(1);
-      setMax(1);
-    }
+    setMin(node.data.min);
+    setMax(node.data.max);
   }, [node]);
 
-  useDebounce(() => flow.setNodes(flow.getNodes()), 500, [min, max]);
+  useDebounce(
+    () => {
+      flow.setNodes(flow.getNodes());
+    },
+    500,
+    [min, max]
+  );
 
-  if (!node) return null;
   return (
     <div className="flex flex-col text-sm">
       <div className="border-b-2  py-4 text-center text-xl">
@@ -39,6 +51,16 @@ export const DiceNodeDetails: React.FunctionComponent<{ node: IDiceNode }> = ({ 
         </div>
 
         <div className="w-full flex items-center justify-between border-b py-2">
+          <label className="whitespace-nowrap w-full font-medium">Status</label>
+          <input
+            type="text"
+            value={node.data.status}
+            readOnly
+            className="cursor-default bg-transparent py-1 px-2 border-none shadow-none ring-0 outline-none text-right w-full"
+          />
+        </div>
+
+        <div className="w-full flex items-center justify-between border-b py-2">
           <label className="whitespace-nowrap w-full font-medium" htmlFor="min">
             Valor minimo
           </label>
@@ -48,11 +70,7 @@ export const DiceNodeDetails: React.FunctionComponent<{ node: IDiceNode }> = ({ 
             className="bg-gray-100 py-1 px-2 border shadow-none focus:ring-1 outline-none text-center w-24"
             placeholder="Mínimo"
             value={min}
-            onChange={(e) => {
-              const newValue = Number(e.target.value) || 1;
-              setMin(newValue);
-              node.data.generator.min = newValue;
-            }}
+            onChange={handleChangeMin}
           />
         </div>
 
@@ -66,21 +84,7 @@ export const DiceNodeDetails: React.FunctionComponent<{ node: IDiceNode }> = ({ 
             className="bg-gray-100 py-1 px-2 border shadow-none focus:ring-1 outline-none text-center w-24"
             placeholder="Máximo"
             value={max}
-            onChange={(e) => {
-              const newValue = Number(e.target.value) || 1;
-              setMax(newValue);
-              node.data.generator.max = newValue;
-            }}
-          />
-        </div>
-
-        <div className="w-full flex items-center justify-between border-b py-2">
-          <label className="whitespace-nowrap w-full font-medium">Status</label>
-          <input
-            type="text"
-            value="Em espera"
-            readOnly
-            className="cursor-default bg-transparent py-1 px-2 border-none shadow-none ring-0 outline-none text-right w-full"
+            onChange={handleChangeMax}
           />
         </div>
       </div>

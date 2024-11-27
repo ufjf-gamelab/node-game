@@ -3,9 +3,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { GiPerspectiveDiceOne, GiNetworkBars, GiPerspectiveDiceSixFacesRandom, GiSwapBag } from "react-icons/gi";
 import { INodeType } from "@/config/types";
 
-type IProps = {
-  addNewNode: (type: INodeType) => void;
-};
+type IProps = { addNewNode: (type: INodeType) => void };
 
 const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
   return (
@@ -21,7 +19,7 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
 
           <AccordionContent>
             <ul className="flex flex-col">
-              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("dice")}>
+              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("diceGenerator")}>
                 Dice generator
               </li>
               <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("diceSum")}>

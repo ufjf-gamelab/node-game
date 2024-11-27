@@ -13,7 +13,7 @@ export const HistogramNode: React.ComponentType<IProps> = ({ data, selected, isC
       <Handle type="target" position={Position.Left} isConnectable={isConnectable} />
 
       <div className="flex flex-col items-center">
-        <h2 className="text-base">Histogram</h2>
+        <h2 className="text-base">{data.name}</h2>
 
         <GiHistogram className="text-5xl" />
         <NodeStatus status={data.status} />
