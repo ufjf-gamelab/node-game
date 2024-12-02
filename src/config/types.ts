@@ -1,7 +1,8 @@
-import { Node } from "@xyflow/react";
+import { Edge, Node } from "@xyflow/react";
 
 export type INodeType = "diceGenerator" | "histogram" | "diceSum" | "dicePool";
 export type INodeStatus = "IDLE" | "FINISHED" | "ERROR" | "MISSING_DATA" | "LOADING";
+export type IEdge = Edge;
 
 type IBaseNode<NodeData extends Record<string, unknown> = Record<string, unknown>, NodeType extends INodeType = INodeType> = Node<
   NodeData,
@@ -9,7 +10,13 @@ type IBaseNode<NodeData extends Record<string, unknown> = Record<string, unknown
 > & { type: INodeType };
 
 export type IDiceGeneratorNode = IBaseNode<
-  { name: string; min: number; max: number; status: INodeStatus; generatedValues: number[] },
+  {
+    name: string;
+    min: number;
+    max: number;
+    status: INodeStatus;
+    state: number[];
+  },
   "diceGenerator"
 >;
 
@@ -33,6 +40,7 @@ export type IDicePoolNode = IBaseNode<
   {
     name: string;
     status: INodeStatus;
+    state: number[][];
   },
   "dicePool"
 >;

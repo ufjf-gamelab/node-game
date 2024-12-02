@@ -4,12 +4,12 @@ import { Sidebar } from "@/components/layout/sidebar";
 import { AsideDetails } from "@/components/layout/aside-details";
 import { nodeFactory } from "@/utils/node-factory";
 
-import { INodeType, INode } from "@/config/types";
+import { INodeType, INode, IEdge } from "@/config/types";
 import { NODE_TYPES } from "@/config/constants";
 
 function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState<INode>([]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState<IEdge>([]);
 
   function addNewNode(type: INodeType) {
     setNodes([...nodes, nodeFactory(type, nodes)]);

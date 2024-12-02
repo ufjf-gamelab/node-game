@@ -14,7 +14,7 @@ export const DiceGeneratorService = {
         status: "IDLE",
         min: 1,
         max: 6,
-        generatedValues: [],
+        state: [],
       },
     };
   },
@@ -22,13 +22,13 @@ export const DiceGeneratorService = {
   run(node: IDiceGeneratorNode) {
     node.data = {
       ...node.data,
-      generatedValues: this.generateRandomData(node.data.min, node.data.max, this.TOTAL_DATA_VALUE),
+      state: this.generateRandomData(node.data.min, node.data.max, this.TOTAL_DATA_VALUE),
       status: "FINISHED",
     };
   },
 
   generateRandomData(aMin: number, aMax: number, aN: number) {
-    let lData = [];
+    let lData: number[] = [];
     for (let i = 0; i < aN; i++) {
       lData.push(parseInt(Math.floor(Math.random() * (aMax + 1 - aMin) + aMin).toString()));
     }
