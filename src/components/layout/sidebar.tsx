@@ -25,7 +25,9 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
               <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("diceSum")}>
                 Sum
               </li>
-              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer">Pool</li>
+              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("dicePool")}>
+                Pool
+              </li>
               <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer">Pool sum</li>
               <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer">Success</li>
               <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer">Between interval</li>

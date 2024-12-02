@@ -1,9 +1,12 @@
 import { Node } from "@xyflow/react";
 
-export type INodeType = "diceGenerator" | "histogram" | "diceSum";
+export type INodeType = "diceGenerator" | "histogram" | "diceSum" | "dicePool";
 export type INodeStatus = "IDLE" | "FINISHED" | "ERROR" | "MISSING_DATA" | "LOADING";
 
-type IBaseNode<NodeData extends Record<string, unknown> = Record<string, unknown>, NodeType extends INodeType = INodeType> = Node<NodeData, NodeType>;
+type IBaseNode<NodeData extends Record<string, unknown> = Record<string, unknown>, NodeType extends INodeType = INodeType> = Node<
+  NodeData,
+  NodeType
+> & { type: INodeType };
 
 export type IDiceGeneratorNode = IBaseNode<
   { name: string; min: number; max: number; status: INodeStatus; generatedValues: number[] },
@@ -17,6 +20,7 @@ export type IHistogramNode = IBaseNode<
   },
   "histogram"
 >;
+
 export type IDiceSumNode = IBaseNode<
   {
     name: string;
@@ -25,4 +29,12 @@ export type IDiceSumNode = IBaseNode<
   "diceSum"
 >;
 
-export type INode = IDiceGeneratorNode | IHistogramNode | IDiceSumNode;
+export type IDicePoolNode = IBaseNode<
+  {
+    name: string;
+    status: INodeStatus;
+  },
+  "dicePool"
+>;
+
+export type INode = IDiceGeneratorNode | IHistogramNode | IDiceSumNode | IDicePoolNode;
