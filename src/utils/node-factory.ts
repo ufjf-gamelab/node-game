@@ -4,6 +4,7 @@ import { HistogramService } from "@/features/histogram";
 import { DicePoolService } from "@/features/dice-pool";
 import { INode, INodeType } from "@/config/types";
 import { DicePoolSumService } from "@/features/dice-pool-sum";
+import { DiceSuccessService } from "@/features/dice-success";
 
 export function nodeFactory(type: INodeType, nodes: INode[]): INode {
   switch (type) {
@@ -17,6 +18,8 @@ export function nodeFactory(type: INodeType, nodes: INode[]): INode {
       return DicePoolService.new(nodes);
     case "dicePoolSum":
       return DicePoolSumService.new(nodes);
+    case "diceSuccess":
+      return DiceSuccessService.new(nodes);
 
     default:
       throw new Error("Invalid node type!");
