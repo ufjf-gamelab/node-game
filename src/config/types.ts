@@ -1,6 +1,15 @@
 import { Edge, Node } from "@xyflow/react";
 
-export type INodeType = "diceGenerator" | "histogram" | "diceSum" | "dicePool" | "dicePoolSum" | "diceSuccess" | "diceBetweenInterval";
+export type INodeType =
+  | "diceGenerator"
+  | "histogram"
+  | "diceSum"
+  | "dicePool"
+  | "dicePoolSum"
+  | "diceSuccess"
+  | "diceBetweenInterval"
+  | "diceCountRepetition";
+
 export type INodeStatus = "IDLE" | "FINISHED" | "ERROR" | "MISSING_DATA" | "LOADING";
 export type IEdge = Edge;
 
@@ -65,4 +74,20 @@ export type IDiceBetweenInterval = IBaseNode<
   "diceBetweenInterval"
 >;
 
-export type INode = IDiceGeneratorNode | IHistogramNode | IDiceSumNode | IDicePoolNode | IDicePoolSumNode | IDiceSuccessNode | IDiceBetweenInterval;
+export type IDiceCountRepetition = IBaseNode<
+  {
+    face: number;
+    state: number[];
+  },
+  "diceCountRepetition"
+>;
+
+export type INode =
+  | IDiceGeneratorNode
+  | IHistogramNode
+  | IDiceSumNode
+  | IDicePoolNode
+  | IDicePoolSumNode
+  | IDiceSuccessNode
+  | IDiceBetweenInterval
+  | IDiceCountRepetition;

@@ -15,7 +15,7 @@ export const DiceBetweenIntervalNode: React.ComponentType<IProps> = ({ data, sel
       <Handle type="source" position={Position.Right} isConnectable={isConnectable} />
 
       <div className="flex flex-col items-center">
-        <h2 className="text-base text-center max-w-36">{data.name}</h2>
+        <h2 className="text-base text-center max-w-24">{data.name}</h2>
 
         <div className="flex text-5xl items-center justify-center">
           <GiPerspectiveDiceSixFacesRandom />
