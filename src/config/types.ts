@@ -1,6 +1,6 @@
 import { Edge, Node } from "@xyflow/react";
 
-export type INodeType = "diceGenerator" | "histogram" | "diceSum" | "dicePool";
+export type INodeType = "diceGenerator" | "histogram" | "diceSum" | "dicePool" | "dicePoolSum";
 export type INodeStatus = "IDLE" | "FINISHED" | "ERROR" | "MISSING_DATA" | "LOADING";
 export type IEdge = Edge;
 
@@ -45,4 +45,13 @@ export type IDicePoolNode = IBaseNode<
   "dicePool"
 >;
 
-export type INode = IDiceGeneratorNode | IHistogramNode | IDiceSumNode | IDicePoolNode;
+export type IDicePoolSumNode = IBaseNode<
+  {
+    name: string;
+    status: INodeStatus;
+    state: number[][];
+  },
+  "dicePoolSum"
+>;
+
+export type INode = IDiceGeneratorNode | IHistogramNode | IDiceSumNode | IDicePoolNode | IDicePoolSumNode;

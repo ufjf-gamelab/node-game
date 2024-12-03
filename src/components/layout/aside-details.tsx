@@ -5,6 +5,7 @@ import { HistogramDetails } from "@/features/histogram";
 import { DicePoolDetails } from "@/features/dice-pool";
 import { DiceSumDetails } from "@/features/dice-sum";
 import { INode } from "@/config/types";
+import { DicePoolSumDetails } from "@/features/dice-pool-sum";
 
 export const AsideDetails: React.FunctionComponent = () => {
   const [selectedNode, setSelectedNode] = React.useState<INode | null>(null);
@@ -18,6 +19,7 @@ export const AsideDetails: React.FunctionComponent = () => {
       {selectedNode.type === "diceSum" && <DiceSumDetails node={selectedNode} />}
       {selectedNode.type === "histogram" && <HistogramDetails node={selectedNode} />}
       {selectedNode.type === "dicePool" && <DicePoolDetails node={selectedNode} />}
+      {selectedNode.type === "dicePoolSum" && <DicePoolSumDetails node={selectedNode} />}
     </div>
   );
 };

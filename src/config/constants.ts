@@ -3,6 +3,7 @@ import { DiceGeneratorNode } from "@/features/dice-generator";
 import { DiceSumNode } from "@/features/dice-sum";
 import { HistogramNode } from "@/features/histogram";
 import { DicePoolNode } from "@/features/dice-pool";
+import { DicePoolSumNode } from "@/features/dice-pool-sum";
 import { INodeStatus, INodeType } from "./types";
 
 export const NODE_TYPES: Record<INodeType, React.ComponentType<any>> = {
@@ -10,6 +11,7 @@ export const NODE_TYPES: Record<INodeType, React.ComponentType<any>> = {
   histogram: HistogramNode,
   diceSum: DiceSumNode,
   dicePool: DicePoolNode,
+  dicePoolSum: DicePoolSumNode,
 };
 
 export const NODE_STATUS_TO_LABEL: Record<INodeStatus, string> = {
