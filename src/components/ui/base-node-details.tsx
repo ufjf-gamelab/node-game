@@ -1,11 +1,14 @@
 import React from "react";
 import { useReactFlow } from "@xyflow/react";
 import { useDebounce } from "react-use";
-import { IDiceSumNode } from "@/config/types";
+import { INode } from "@/config/types";
 
-type IProps = { node: IDiceSumNode };
+type IProps = {
+  node: INode;
+  children?: React.ReactNode;
+};
 
-export const DiceSumDetails: React.FunctionComponent<IProps> = ({ node }) => {
+export const BaseNodeDetails: React.FunctionComponent<IProps> = ({ node, children }) => {
   const flow = useReactFlow();
 
   const [name, setName] = React.useState(node.data.name);
@@ -19,14 +22,14 @@ export const DiceSumDetails: React.FunctionComponent<IProps> = ({ node }) => {
   );
 
   return (
-    <div className="flex flex-col text-sm">
+    <div className="flex flex-col">
       <div className="border-b-2  py-4 text-center text-xl">
-        <h2>Dice Sum Node</h2>
+        <h2>{node.data.detailsTitle}</h2>
       </div>
 
       <div className="flex flex-col px-2">
         <div className="w-full flex items-center justify-between border-b py-2">
-          <label className="whitespace-nowrap w-full font-medium">Node ID</label>
+          <label className="whitespace-nowrap font-medium">Node ID</label>
           <input
             type="text"
             value={node.id}
@@ -36,7 +39,7 @@ export const DiceSumDetails: React.FunctionComponent<IProps> = ({ node }) => {
         </div>
 
         <div className="w-full flex items-center justify-between border-b py-2">
-          <label className="whitespace-nowrap w-full font-medium">Status</label>
+          <label className="whitespace-nowrap font-medium">Status</label>
           <input
             type="text"
             value={node.data.status}
@@ -46,7 +49,7 @@ export const DiceSumDetails: React.FunctionComponent<IProps> = ({ node }) => {
         </div>
 
         <div className="w-full flex items-center justify-between border-b py-2">
-          <label className="whitespace-nowrap w-full font-medium" htmlFor="min">
+          <label className="whitespace-nowrap font-medium" htmlFor="min">
             Name
           </label>
           <input
@@ -60,6 +63,8 @@ export const DiceSumDetails: React.FunctionComponent<IProps> = ({ node }) => {
             }}
           />
         </div>
+
+        {children}
       </div>
     </div>
   );

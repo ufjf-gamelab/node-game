@@ -7,7 +7,8 @@ export const DiceSumService = {
       type: "diceSum",
       position: { x: 100 + nodes.length * 20, y: 50 + nodes.length * 20 },
       data: {
-        name: "Sum dice",
+        name: "Sum dices",
+        detailsTitle: "Sum Dices",
         status: "IDLE",
       },
     };

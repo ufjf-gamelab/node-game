@@ -11,6 +11,7 @@ export const DiceGeneratorService = {
       position: { x: 100 + nodes.length * 20, y: 50 + nodes.length * 20 },
       data: {
         name: "Dice " + diceCount,
+        detailsTitle: "Dice Generator",
         status: "IDLE",
         min: 1,
         max: 6,

@@ -8,6 +8,7 @@ export const DicePoolSumService = {
       position: { x: 100 + nodes.length * 20, y: 50 + nodes.length * 20 },
       data: {
         name: "Dice pool sum",
+        detailsTitle: "Dice Pool Sum",
         status: "IDLE",
         state: [],
       },

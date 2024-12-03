@@ -1,11 +1,20 @@
 import React from "react";
 import { useOnSelectionChange } from "@xyflow/react";
-import { DiceGeneratorDetails } from "@/features/dice-generator";
-import { HistogramDetails } from "@/features/histogram";
-import { DicePoolDetails } from "@/features/dice-pool";
-import { DiceSumDetails } from "@/features/dice-sum";
 import { INode } from "@/config/types";
-import { DicePoolSumDetails } from "@/features/dice-pool-sum";
+import { DiceGeneratorDetails } from "@/features/dice-generator";
+import { DiceSuccessDetails } from "@/features/dice-success";
+import { BaseNodeDetails } from "../ui/base-node-details";
+
+function renderDetails(node: INode) {
+  switch (node.type) {
+    case "diceGenerator":
+      return <DiceGeneratorDetails node={node} />;
+    case "diceSuccess":
+      return <DiceSuccessDetails node={node} />;
+    default:
+      return <BaseNodeDetails node={node} />;
+  }
+}
 
 export const AsideDetails: React.FunctionComponent = () => {
   const [selectedNode, setSelectedNode] = React.useState<INode | null>(null);
@@ -13,13 +22,5 @@ export const AsideDetails: React.FunctionComponent = () => {
   useOnSelectionChange({ onChange: React.useCallback(({ nodes }) => setSelectedNode((nodes[0] as INode) || null), []) });
 
   if (!selectedNode) return null;
-  return (
-    <div className="fixed right-0 top-0 h-screen bg-white z-20 w-60 border-l text-sm">
-      {selectedNode.type === "diceGenerator" && <DiceGeneratorDetails node={selectedNode} />}
-      {selectedNode.type === "diceSum" && <DiceSumDetails node={selectedNode} />}
-      {selectedNode.type === "histogram" && <HistogramDetails node={selectedNode} />}
-      {selectedNode.type === "dicePool" && <DicePoolDetails node={selectedNode} />}
-      {selectedNode.type === "dicePoolSum" && <DicePoolSumDetails node={selectedNode} />}
-    </div>
-  );
+  return <div className="fixed right-0 top-0 h-screen bg-white z-20 w-60 border-l text-sm">{renderDetails(selectedNode)}</div>;
 };

@@ -1,20 +1,24 @@
 import { Edge, Node } from "@xyflow/react";
 
-export type INodeType = "diceGenerator" | "histogram" | "diceSum" | "dicePool" | "dicePoolSum";
+export type INodeType = "diceGenerator" | "histogram" | "diceSum" | "dicePool" | "dicePoolSum" | "diceSuccess";
 export type INodeStatus = "IDLE" | "FINISHED" | "ERROR" | "MISSING_DATA" | "LOADING";
 export type IEdge = Edge;
+
+type IBaseNodeData = {
+  name: string;
+  status: INodeStatus;
+  detailsTitle: string;
+};
 
 type IBaseNode<NodeData extends Record<string, unknown> = Record<string, unknown>, NodeType extends INodeType = INodeType> = Node<
   NodeData,
   NodeType
-> & { type: INodeType };
+> & { data: IBaseNodeData };
 
 export type IDiceGeneratorNode = IBaseNode<
   {
-    name: string;
     min: number;
     max: number;
-    status: INodeStatus;
     state: number[];
   },
   "diceGenerator"
@@ -28,18 +32,10 @@ export type IHistogramNode = IBaseNode<
   "histogram"
 >;
 
-export type IDiceSumNode = IBaseNode<
-  {
-    name: string;
-    status: INodeStatus;
-  },
-  "diceSum"
->;
+export type IDiceSumNode = IBaseNode<{}, "diceSum">;
 
 export type IDicePoolNode = IBaseNode<
   {
-    name: string;
-    status: INodeStatus;
     state: number[][];
   },
   "dicePool"
@@ -47,11 +43,17 @@ export type IDicePoolNode = IBaseNode<
 
 export type IDicePoolSumNode = IBaseNode<
   {
-    name: string;
-    status: INodeStatus;
     state: number[][];
   },
   "dicePoolSum"
 >;
 
-export type INode = IDiceGeneratorNode | IHistogramNode | IDiceSumNode | IDicePoolNode | IDicePoolSumNode;
+export type IDiceSuccessNode = IBaseNode<
+  {
+    face: number;
+    state: number[];
+  },
+  "diceSuccess"
+>;
+
+export type INode = IDiceGeneratorNode | IHistogramNode | IDiceSumNode | IDicePoolNode | IDicePoolSumNode | IDiceSuccessNode;

@@ -9,6 +9,7 @@ export const DicePoolService = {
       position: { x: 100 + nodes.length * 20, y: 50 + nodes.length * 20 },
       data: {
         name: "Dice pool",
+        detailsTitle: "Dice Pool",
         status: "IDLE",
         state: [],
       },
