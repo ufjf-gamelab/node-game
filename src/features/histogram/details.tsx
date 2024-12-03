@@ -45,7 +45,7 @@ export const HistogramDetails: React.FunctionComponent<{ node: IHistogramNode }>
 
         <div className="w-full flex items-center justify-between border-b py-2">
           <label className="whitespace-nowrap w-full font-medium" htmlFor="min">
-            Nome
+            Name
           </label>
           <input
             type="text"

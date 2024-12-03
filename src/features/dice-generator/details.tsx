@@ -5,8 +5,9 @@ import { IDiceGeneratorNode } from "@/config/types";
 
 export const DiceGeneratorDetails: React.FunctionComponent<{ node: IDiceGeneratorNode }> = ({ node }) => {
   const flow = useReactFlow();
-  const [min, setMin] = React.useState(1);
-  const [max, setMax] = React.useState(1);
+  const [min, setMin] = React.useState(node.data.min);
+  const [max, setMax] = React.useState(node.data.max);
+  const [name, setName] = React.useState(node.data.name);
 
   function handleChangeMax(e: React.ChangeEvent<HTMLInputElement>) {
     const newValue = Number(e.target.value) || 1;
@@ -18,6 +19,12 @@ export const DiceGeneratorDetails: React.FunctionComponent<{ node: IDiceGenerato
     const newValue = Number(e.target.value) || 1;
     setMin(newValue);
     node.data.min = newValue;
+  }
+
+  function handleChangeName(e: React.ChangeEvent<HTMLInputElement>) {
+    const newValue = e.target.value;
+    setName(newValue);
+    node.data.name = newValue;
   }
 
   React.useEffect(() => {
@@ -36,7 +43,7 @@ export const DiceGeneratorDetails: React.FunctionComponent<{ node: IDiceGenerato
   return (
     <div className="flex flex-col text-sm">
       <div className="border-b-2  py-4 text-center text-xl">
-        <h2>Dice Node</h2>
+        <h2>Dice Generator Node</h2>
       </div>
 
       <div className="flex flex-col px-2">
@@ -62,7 +69,20 @@ export const DiceGeneratorDetails: React.FunctionComponent<{ node: IDiceGenerato
 
         <div className="w-full flex items-center justify-between border-b py-2">
           <label className="whitespace-nowrap w-full font-medium" htmlFor="min">
-            Valor minimo
+            Name
+          </label>
+          <input
+            type="text"
+            id="min"
+            className="bg-gray-100 py-1 px-2 border shadow-none focus:ring-1 outline-none text-center w-28"
+            value={name}
+            onChange={handleChangeName}
+          />
+        </div>
+
+        <div className="w-full flex items-center justify-between border-b py-2">
+          <label className="whitespace-nowrap w-full font-medium" htmlFor="min">
+            Min value
           </label>
           <input
             type="number"
@@ -76,7 +96,7 @@ export const DiceGeneratorDetails: React.FunctionComponent<{ node: IDiceGenerato
 
         <div className="w-full flex items-center justify-between border-b py-2">
           <label className="whitespace-nowrap w-full font-medium" htmlFor="max">
-            Valor máximo
+            Max value
           </label>
           <input
             type="number"

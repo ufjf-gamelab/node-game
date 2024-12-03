@@ -21,7 +21,7 @@ export const DicePoolDetails: React.FunctionComponent<IProps> = ({ node }) => {
   return (
     <div className="flex flex-col text-sm">
       <div className="border-b-2  py-4 text-center text-xl">
-        <h2>Histogram Node</h2>
+        <h2>Dice Pool Node</h2>
       </div>
 
       <div className="flex flex-col px-2">
@@ -47,7 +47,7 @@ export const DicePoolDetails: React.FunctionComponent<IProps> = ({ node }) => {
 
         <div className="w-full flex items-center justify-between border-b py-2">
           <label className="whitespace-nowrap w-full font-medium" htmlFor="min">
-            Nome
+            Name
           </label>
           <input
             type="text"

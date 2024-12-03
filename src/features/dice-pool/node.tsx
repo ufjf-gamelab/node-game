@@ -33,8 +33,8 @@ export const DicePoolNode: React.ComponentType<IProps> = ({ data, isConnectable,
         isConnectable={isConnectable}
         isValidConnection={(connection) => isValidConnection(connection.target)}
       />
-      <Handle type="target" position={Position.Left} isConnectable={isConnectable} className="top-5" />
-      <Handle type="target" position={Position.Left} isConnectable={isConnectable} className="bottom-5" />
+      <Handle type="target" id="pool-1" position={Position.Left} isConnectable={isConnectable} className="top-5" />
+      <Handle type="target" id="pool-2" position={Position.Left} isConnectable={isConnectable} className="bottom-5" />
 
       <div className="flex flex-col items-center">
         <h2 className="text-base">{data.name}</h2>
