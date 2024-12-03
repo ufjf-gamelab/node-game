@@ -8,7 +8,8 @@ export type INodeType =
   | "dicePoolSum"
   | "diceSuccess"
   | "diceBetweenInterval"
-  | "diceCountRepetition";
+  | "diceCountRepetition"
+  | "diceExplodeGenerator";
 
 export type INodeStatus = "IDLE" | "FINISHED" | "ERROR" | "MISSING_DATA" | "LOADING";
 export type IEdge = Edge;
@@ -82,6 +83,15 @@ export type IDiceCountRepetition = IBaseNode<
   "diceCountRepetition"
 >;
 
+export type IDiceExplodeGenerator = IBaseNode<
+  {
+    explodeFace: number;
+    maxFace: number;
+    state: number[];
+  },
+  "diceExplodeGenerator"
+>;
+
 export type INode =
   | IDiceGeneratorNode
   | IHistogramNode
@@ -90,4 +100,5 @@ export type INode =
   | IDicePoolSumNode
   | IDiceSuccessNode
   | IDiceBetweenInterval
-  | IDiceCountRepetition;
+  | IDiceCountRepetition
+  | IDiceExplodeGenerator;

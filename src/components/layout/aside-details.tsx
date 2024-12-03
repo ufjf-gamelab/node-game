@@ -5,6 +5,8 @@ import { DiceGeneratorDetails } from "@/features/dice-generator";
 import { DiceSuccessDetails } from "@/features/dice-success";
 import { BaseNodeDetails } from "../ui/base-node-details";
 import { DiceBetweenIntervalDetails } from "@/features/dice-between-interval";
+import { DiceExplodeGeneratorDetails } from "@/features/dice-explode-generator";
+import { DiceCountRepetitionDetails } from "@/features/dice-count-repetition";
 
 function renderDetails(node: INode) {
   switch (node.type) {
@@ -14,6 +16,10 @@ function renderDetails(node: INode) {
       return <DiceSuccessDetails node={node} />;
     case "diceBetweenInterval":
       return <DiceBetweenIntervalDetails node={node} />;
+    case "diceCountRepetition":
+      return <DiceCountRepetitionDetails node={node} />;
+    case "diceExplodeGenerator":
+      return <DiceExplodeGeneratorDetails node={node} />;
     default:
       return <BaseNodeDetails node={node} />;
   }

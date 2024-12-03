@@ -22,8 +22,8 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
               <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("diceGenerator")}>
                 Dice generator
               </li>
-              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => {}}>
-                Explode
+              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("diceExplodeGenerator")}>
+                Dice explode generator
               </li>
               <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("diceSum")}>
                 Sum
