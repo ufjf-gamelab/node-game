@@ -1,11 +1,12 @@
 import { IDiceExplodeGenerator, INode } from "@/config/types";
+import { generateHash } from "@/utils/generate-hash";
 
 export const DiceExplodeGeneratorService = {
   TOTAL_DATA_VALUE: 10000,
 
   new(nodes: INode[]): IDiceExplodeGenerator {
     return {
-      id: `D-explode-generator-${nodes.length}`,
+      id: generateHash(),
       type: "diceExplodeGenerator",
       position: { x: 100 + nodes.length * 20, y: 50 + nodes.length * 20 },
       data: {

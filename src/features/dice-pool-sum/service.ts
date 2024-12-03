@@ -1,9 +1,10 @@
 import { INode, IEdge, IDicePoolSumNode } from "@/config/types";
+import { generateHash } from "@/utils/generate-hash";
 
 export const DicePoolSumService = {
   new(nodes: INode[]): IDicePoolSumNode {
     return {
-      id: `dice-pool-sum-${nodes.length}`,
+      id: generateHash(),
       type: "dicePoolSum",
       position: { x: 100 + nodes.length * 20, y: 50 + nodes.length * 20 },
       data: {
@@ -15,5 +16,5 @@ export const DicePoolSumService = {
     };
   },
 
-  run(node: IDicePoolSumNode, nodes: INode[], edges: IEdge[]) {},
+  run(_node: IDicePoolSumNode, _nodes: INode[], _edges: IEdge[]) {},
 };

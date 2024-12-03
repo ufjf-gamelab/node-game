@@ -1,9 +1,10 @@
 import { IDiceSuccessNode, IEdge, INode } from "@/config/types";
+import { generateHash } from "@/utils/generate-hash";
 
 export const DiceSuccessService = {
   new(nodes: INode[]): IDiceSuccessNode {
     return {
-      id: `dice-success-${nodes.length}`,
+      id: generateHash(),
       type: "diceSuccess",
       position: { x: 100 + nodes.length * 20, y: 50 + nodes.length * 20 },
       data: {

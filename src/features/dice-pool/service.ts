@@ -1,10 +1,11 @@
 import { INode, IEdge, IDicePoolNode, IDiceGeneratorNode } from "@/config/types";
+import { generateHash } from "@/utils/generate-hash";
 import { poolNodes } from "@/utils/pool-nodes";
 
 export const DicePoolService = {
   new(nodes: INode[]): IDicePoolNode {
     return {
-      id: `dice-pool-${nodes.length}`,
+      id: generateHash(),
       type: "dicePool",
       position: { x: 100 + nodes.length * 20, y: 50 + nodes.length * 20 },
       data: {

@@ -1,12 +1,12 @@
 import React from "react";
 import { useOnSelectionChange } from "@xyflow/react";
-import { INode } from "@/config/types";
-import { DiceGeneratorDetails } from "@/features/dice-generator";
 import { DiceSuccessDetails } from "@/features/dice-success";
-import { BaseNodeDetails } from "../ui/base-node-details";
+import { BaseNodeDetails } from "@/components/ui/base-node-details";
+import { DiceGeneratorDetails } from "@/features/dice-generator";
 import { DiceBetweenIntervalDetails } from "@/features/dice-between-interval";
 import { DiceExplodeGeneratorDetails } from "@/features/dice-explode-generator";
 import { DiceCountRepetitionDetails } from "@/features/dice-count-repetition";
+import { INode } from "@/config/types";
 
 function renderDetails(node: INode) {
   switch (node.type) {

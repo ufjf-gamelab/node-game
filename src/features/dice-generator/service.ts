@@ -1,4 +1,5 @@
 import { INode, IDiceGeneratorNode } from "@/config/types";
+import { generateHash } from "@/utils/generate-hash";
 
 export const DiceGeneratorService = {
   TOTAL_DATA_VALUE: 10000,
@@ -6,7 +7,7 @@ export const DiceGeneratorService = {
   new(nodes: INode[]): IDiceGeneratorNode {
     const diceCount = nodes.reduce((acc, item) => (item.type === "diceGenerator" ? acc + 1 : acc), 1);
     return {
-      id: `dice-${nodes.length}`,
+      id: generateHash(),
       type: "diceGenerator",
       position: { x: 100 + nodes.length * 20, y: 50 + nodes.length * 20 },
       data: {

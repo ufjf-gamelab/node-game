@@ -1,9 +1,10 @@
 import { IDiceCountRepetition, IEdge, INode } from "@/config/types";
+import { generateHash } from "@/utils/generate-hash";
 
 export const DiceCountRepetitionService = {
   new(nodes: INode[]): IDiceCountRepetition {
     return {
-      id: `dice-success-${nodes.length}`,
+      id: generateHash(),
       type: "diceCountRepetition",
       position: { x: 100 + nodes.length * 20, y: 50 + nodes.length * 20 },
       data: {

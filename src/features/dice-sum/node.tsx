@@ -14,27 +14,12 @@ export const DiceSumNode: React.ComponentType<IProps> = ({ data, selected, isCon
 
   return (
     <NodeContainer selected={selected}>
-      <Handle
-        type="target"
-        position={Position.Left}
-        id="a"
-        style={{ top: 30, background: "#555", stroke: "#000" }}
-        onConnect={(paramsm) => console.log("handle onConnect", paramsm)}
-        isConnectable={isConnectable}
-      />
-      <Handle
-        type="target"
-        position={Position.Left}
-        id="b"
-        style={{ background: "#00f", stroke: "#000" }}
-        onConnect={(paramsm) => console.log("handle onConnect", paramsm)}
-        isConnectable={isConnectable}
-      />
+      <Handle type="target" position={Position.Left} id="sum-target-1" className="top-6" isConnectable={isConnectable} />
+      <Handle type="target" position={Position.Left} id="sum-target-2" className="top-16" isConnectable={isConnectable} />
       <Handle
         type="source"
         id="c"
         position={Position.Right}
-        style={{ background: "#555", stroke: "#000" }}
         onConnect={(params) => console.log("handle onConnect", params)}
         isConnectable={isConnectable}
       />

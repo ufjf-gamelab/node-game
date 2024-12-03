@@ -1,9 +1,10 @@
 import { IDiceBetweenInterval, IDiceGeneratorNode, IEdge, INode } from "@/config/types";
+import { generateHash } from "@/utils/generate-hash";
 
 export const DiceBetweenIntervalService = {
   new(nodes: INode[]): IDiceBetweenInterval {
     return {
-      id: `dice-between-interval-${nodes.length}`,
+      id: generateHash(),
       type: "diceBetweenInterval",
       position: { x: 100 + nodes.length * 20, y: 50 + nodes.length * 20 },
       data: {

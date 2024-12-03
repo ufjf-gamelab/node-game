@@ -25,11 +25,6 @@ export const DiceBetweenIntervalDetails: React.FunctionComponent<IProps> = ({ no
     node.data.min = newValue;
   }
 
-  React.useEffect(() => {
-    setMin(node.data.min);
-    setMax(node.data.max);
-  }, [node]);
-
   useDebounce(
     () => {
       flow.setNodes(flow.getNodes());
