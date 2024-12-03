@@ -15,7 +15,14 @@ function App() {
     setNodes([...nodes, nodeFactory(type, nodes)]);
   }
 
-  const onConnect = React.useCallback((params: Connection) => setEdges((eds) => addEdge(params, eds)), [setEdges]);
+  const onConnect = React.useCallback(
+    (params: Connection) => {
+      const existingEdges = edges.filter((edge) => edge.target === params.target && edge.targetHandle === params.targetHandle);
+
+      if (existingEdges.length === 0) setEdges((eds) => addEdge(params, eds));
+    },
+    [edges, setEdges]
+  );
 
   return (
     <div className="relative">
