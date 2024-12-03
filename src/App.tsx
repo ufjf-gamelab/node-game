@@ -42,8 +42,9 @@ function App() {
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
           nodeTypes={NODE_TYPES}
-          fitView
-          deleteKeyCode={["Backspace", "Delete"]}>
+          deleteKeyCode={["Backspace", "Delete"]}
+          className="react-flow-board"
+          fitView>
           <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
           <MiniMap />
         </ReactFlow>

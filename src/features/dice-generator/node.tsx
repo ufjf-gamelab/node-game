@@ -1,16 +1,31 @@
 import React from "react";
-import { Handle, Position, NodeProps } from "@xyflow/react";
+import { Handle, Position, NodeProps, useReactFlow } from "@xyflow/react";
 import { GiPerspectiveDiceSixFacesOne } from "react-icons/gi";
 import { NodeStatus } from "@/components/ui/node-status";
 import { NodeContainer } from "@/components/ui/node-container";
-import { IDiceGeneratorNode } from "@/config/types";
+import { IDiceGeneratorNode, INode, INodeType } from "@/config/types";
 
 type IProps = NodeProps<IDiceGeneratorNode>;
 
 export const DiceGeneratorNode: React.ComponentType<IProps> = ({ data, selected, isConnectable }) => {
+  const flow = useReactFlow();
+
+  function isValidConnection(targetId: string) {
+    const targetNode = flow.getNode(targetId) as INode | undefined;
+    if (!targetNode) return false;
+
+    const allowedTypes: INodeType[] = ["dicePool", "dicePoolSum", "diceSum"];
+    return allowedTypes.includes(targetNode.type);
+  }
+
   return (
     <NodeContainer selected={selected}>
-      <Handle type="source" position={Position.Right} isConnectable={isConnectable} />
+      <Handle
+        type="source"
+        position={Position.Right}
+        isConnectable={isConnectable}
+        isValidConnection={(connection) => isValidConnection(connection.target)}
+      />
 
       <div className="flex flex-col items-center text-base">
         <h2>{data.name}</h2>

@@ -8,7 +8,7 @@ type IProps = { addNewNode: (type: INodeType) => void };
 const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
   return (
     <aside className="text-slate-900 fixed z-10 left-0 top-0 bg-white h-screen w-48 flex flex-col">
-      <Accordion type="multiple" value={["item-1"]} className="w-full">
+      <Accordion type="multiple" defaultValue={["item-1"]} className="w-full">
         <AccordionItem value="item-1">
           <AccordionTrigger className="px-4 hover:bg-slate-100">
             <div className="flex gap-4 items-center justify-start">
