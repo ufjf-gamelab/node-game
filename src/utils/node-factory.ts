@@ -5,6 +5,7 @@ import { DicePoolService } from "@/features/dice-pool";
 import { INode, INodeType } from "@/config/types";
 import { DicePoolSumService } from "@/features/dice-pool-sum";
 import { DiceSuccessService } from "@/features/dice-success";
+import { DiceBetweenIntervalService } from "@/features/dice-between-interval";
 
 export function nodeFactory(type: INodeType, nodes: INode[]): INode {
   switch (type) {
@@ -20,6 +21,8 @@ export function nodeFactory(type: INodeType, nodes: INode[]): INode {
       return DicePoolSumService.new(nodes);
     case "diceSuccess":
       return DiceSuccessService.new(nodes);
+    case "diceBetweenInterval":
+      return DiceBetweenIntervalService.new(nodes);
 
     default:
       throw new Error("Invalid node type!");

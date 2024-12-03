@@ -6,6 +6,7 @@ import { DicePoolNode } from "@/features/dice-pool";
 import { DicePoolSumNode } from "@/features/dice-pool-sum";
 import { INodeStatus, INodeType } from "./types";
 import { DiceSuccessNode } from "@/features/dice-success";
+import { DiceBetweenIntervalNode } from "@/features/dice-between-interval";
 
 export const NODE_TYPES: Record<INodeType, React.ComponentType<any>> = {
   diceGenerator: DiceGeneratorNode,
@@ -14,6 +15,7 @@ export const NODE_TYPES: Record<INodeType, React.ComponentType<any>> = {
   dicePool: DicePoolNode,
   dicePoolSum: DicePoolSumNode,
   diceSuccess: DiceSuccessNode,
+  diceBetweenInterval: DiceBetweenIntervalNode,
 };
 
 export const NODE_STATUS_TO_LABEL: Record<INodeStatus, string> = {

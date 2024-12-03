@@ -4,6 +4,7 @@ import { INode } from "@/config/types";
 import { DiceGeneratorDetails } from "@/features/dice-generator";
 import { DiceSuccessDetails } from "@/features/dice-success";
 import { BaseNodeDetails } from "../ui/base-node-details";
+import { DiceBetweenIntervalDetails } from "@/features/dice-between-interval";
 
 function renderDetails(node: INode) {
   switch (node.type) {
@@ -11,6 +12,8 @@ function renderDetails(node: INode) {
       return <DiceGeneratorDetails node={node} />;
     case "diceSuccess":
       return <DiceSuccessDetails node={node} />;
+    case "diceBetweenInterval":
+      return <DiceBetweenIntervalDetails node={node} />;
     default:
       return <BaseNodeDetails node={node} />;
   }
