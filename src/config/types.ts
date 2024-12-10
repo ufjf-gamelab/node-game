@@ -14,16 +14,17 @@ export type INodeType =
 export type INodeStatus = "IDLE" | "FINISHED" | "ERROR" | "MISSING_DATA" | "LOADING";
 export type IEdge = Edge;
 
-type IBaseNodeData = {
-  name: string;
-  status: INodeStatus;
-  detailsTitle: string;
-};
-
 type IBaseNode<NodeData extends Record<string, unknown> = Record<string, unknown>, NodeType extends INodeType = INodeType> = Node<
   NodeData,
   NodeType
-> & { data: IBaseNodeData };
+> & {
+  type: INodeType;
+  data: {
+    name: string;
+    status: INodeStatus;
+    detailsTitle: string;
+  };
+};
 
 export type IDiceGeneratorNode = IBaseNode<
   {
