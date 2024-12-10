@@ -7,6 +7,7 @@ import { DiceBetweenIntervalDetails } from "@/features/dice-between-interval";
 import { DiceExplodeGeneratorDetails } from "@/features/dice-explode-generator";
 import { DiceCountRepetitionDetails } from "@/features/dice-count-repetition";
 import { INode } from "@/config/types";
+import { BagGeneratorDetails } from "@/features/bag-generator";
 
 function renderDetails(node: INode) {
   switch (node.type) {
@@ -20,6 +21,8 @@ function renderDetails(node: INode) {
       return <DiceCountRepetitionDetails node={node} />;
     case "diceExplodeGenerator":
       return <DiceExplodeGeneratorDetails node={node} />;
+    case "bagGenerator":
+      return <BagGeneratorDetails node={node} />;
     default:
       return <BaseNodeDetails node={node} />;
   }
