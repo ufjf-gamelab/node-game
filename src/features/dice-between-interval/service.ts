@@ -1,12 +1,11 @@
-import { IDiceBetweenInterval, IDiceGeneratorNode, IEdge, INode } from "@/config/types";
-import { generateHash } from "@/utils/generate-hash";
+import { IDiceBetweenInterval, IDiceGeneratorNode, INodeService } from "@/config/types";
 
-export const DiceBetweenIntervalService = {
-  new(nodes: INode[]): IDiceBetweenInterval {
+export const DiceBetweenIntervalService: INodeService<IDiceBetweenInterval> = {
+  new(_flow, { id, position }) {
     return {
-      id: generateHash(),
+      id,
+      position,
       type: "diceBetweenInterval",
-      position: { x: 100 + nodes.length * 20, y: 50 + nodes.length * 20 },
       data: {
         name: "Dice between interval",
         detailsTitle: "Dice Between Interval",
@@ -18,7 +17,10 @@ export const DiceBetweenIntervalService = {
     };
   },
 
-  run(node: IDiceBetweenInterval, nodes: INode[], edges: IEdge[]) {
+  run(flow, node) {
+    const nodes = flow.getNodes();
+    const edges = flow.getEdges();
+
     if (node.data.status === "FINISHED") {
       node.data = { ...node.data, status: "MISSING_DATA" };
       return;
@@ -40,28 +42,28 @@ export const DiceBetweenIntervalService = {
 
     node.data = {
       ...node.data,
-      state: this.getArrayFaceBetween(nodeSource.data.state, node.data.min, node.data.max),
+      state: getArrayFaceBetween(nodeSource.data.state, node.data.min, node.data.max),
       status: "FINISHED",
     };
   },
-
-  getArrayFaceBetween(data: number[], min: number, max: number) {
-    const result = [];
-
-    for (let i = 0; i < data.length; i++) {
-      const dado1 = data[i];
-
-      if (Array.isArray(dado1)) {
-        dado1.forEach((valor) => {
-          if (valor >= min && valor <= max) result.push(1);
-          else result.push(0);
-        });
-      } else {
-        if (dado1 >= min && dado1 <= max) result.push(1);
-        else result.push(0);
-      }
-    }
-
-    return result;
-  },
 };
+
+function getArrayFaceBetween(data: number[], min: number, max: number) {
+  const result = [];
+
+  for (let i = 0; i < data.length; i++) {
+    const dado1 = data[i];
+
+    if (Array.isArray(dado1)) {
+      dado1.forEach((valor) => {
+        if (valor >= min && valor <= max) result.push(1);
+        else result.push(0);
+      });
+    } else {
+      if (dado1 >= min && dado1 <= max) result.push(1);
+      else result.push(0);
+    }
+  }
+
+  return result;
+}

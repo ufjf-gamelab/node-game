@@ -1,13 +1,12 @@
-import { INode, IEdge, IDicePoolNode, IDiceGeneratorNode } from "@/config/types";
-import { generateHash } from "@/utils/generate-hash";
+import { IDicePoolNode, IDiceGeneratorNode, INodeService } from "@/config/types";
 import { poolNodes } from "@/utils/pool-nodes";
 
-export const DicePoolService = {
-  new(nodes: INode[]): IDicePoolNode {
+export const DicePoolService: INodeService<IDicePoolNode> = {
+  new(_flow, { id, position }) {
     return {
-      id: generateHash(),
+      id,
+      position,
       type: "dicePool",
-      position: { x: 100 + nodes.length * 20, y: 50 + nodes.length * 20 },
       data: {
         name: "Dice pool",
         detailsTitle: "Dice Pool",
@@ -17,7 +16,10 @@ export const DicePoolService = {
     };
   },
 
-  run(node: IDicePoolNode, nodes: INode[], edges: IEdge[]) {
+  run(flow, node) {
+    const nodes = flow.getNodes();
+    const edges = flow.getEdges();
+
     if (node.data.status === "FINISHED") {
       node.data = { ...node.data, status: "MISSING_DATA" };
       return;

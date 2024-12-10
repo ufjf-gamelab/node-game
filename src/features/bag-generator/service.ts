@@ -1,11 +1,12 @@
 import { IBagGenerator, INodeService } from "@/config/types";
 
 export const BagGeneratorService: INodeService<IBagGenerator> = {
-  new(flow, defaultValues) {
+  new(flow, { id, position }) {
     const bagCount = flow.getNodes().reduce((acc, item) => (item.type === "diceGenerator" ? acc + 1 : acc), 1);
 
     return {
-      ...defaultValues,
+      id,
+      position,
       type: "bagGenerator",
       data: {
         status: "IDLE",

@@ -1,12 +1,11 @@
-import { IDiceSuccessNode, IEdge, INode } from "@/config/types";
-import { generateHash } from "@/utils/generate-hash";
+import { IDiceSuccessNode, INodeService } from "@/config/types";
 
-export const DiceSuccessService = {
-  new(nodes: INode[]): IDiceSuccessNode {
+export const DiceSuccessService: INodeService<IDiceSuccessNode> = {
+  new(_flow, { id, position }) {
     return {
-      id: generateHash(),
+      id,
+      position,
       type: "diceSuccess",
-      position: { x: 100 + nodes.length * 20, y: 50 + nodes.length * 20 },
       data: {
         name: "Dice success",
         detailsTitle: "Dice Success",
@@ -17,7 +16,10 @@ export const DiceSuccessService = {
     };
   },
 
-  run(node: IDiceSuccessNode, nodes: INode[], edges: IEdge[]) {
+  run(flow, node) {
+    const nodes = flow.getNodes();
+    const edges = flow.getEdges();
+
     if (node.data.status === "FINISHED") {
       node.data = { ...node.data, status: "MISSING_DATA" };
       return;
@@ -39,19 +41,19 @@ export const DiceSuccessService = {
 
     node.data = {
       ...node.data,
-      state: this.getArraySuccess(nodeSource.data.state, node.data.face),
+      state: getArraySuccess(nodeSource.data.state, node.data.face),
       status: "FINISHED",
     };
   },
-
-  getArraySuccess(data: number[], face: number) {
-    const result: number[] = [];
-
-    data?.map((item) => {
-      if (item >= face) result.push(1);
-      else result.push(0);
-    });
-
-    return result;
-  },
 };
+
+function getArraySuccess(data: number[], face: number) {
+  const result: number[] = [];
+
+  data.map((item) => {
+    if (item >= face) result.push(1);
+    else result.push(0);
+  });
+
+  return result;
+}

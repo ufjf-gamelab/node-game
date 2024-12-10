@@ -1,12 +1,11 @@
-import { INode, IDiceSumNode } from "@/config/types";
-import { generateHash } from "@/utils/generate-hash";
+import { IDiceSumNode, INodeService } from "@/config/types";
 
-export const DiceSumService = {
-  new(nodes: INode[]): IDiceSumNode {
+export const DiceSumService: INodeService<IDiceSumNode> = {
+  new(_flow, { id, position }) {
     return {
-      id: generateHash(),
+      id,
+      position,
       type: "diceSum",
-      position: { x: 100 + nodes.length * 20, y: 50 + nodes.length * 20 },
       data: {
         name: "Sum dices",
         detailsTitle: "Sum Dices",
@@ -15,5 +14,5 @@ export const DiceSumService = {
     };
   },
 
-  run(_node: IDiceSumNode) {},
+  run(_flow, _node) {},
 };

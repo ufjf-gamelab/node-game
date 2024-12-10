@@ -14,6 +14,7 @@ export type INodeType =
 
 export type INodeStatus = "IDLE" | "FINISHED" | "ERROR" | "MISSING_DATA" | "LOADING";
 export type IEdge = Edge;
+export type IFlowInstance = ReactFlowInstance<INode, IEdge>;
 
 type IBaseNode<NodeData extends Record<string, unknown> = Record<string, unknown>, NodeType extends INodeType = INodeType> = Node<
   NodeData,

@@ -1,5 +1,4 @@
 import { DiceGeneratorService } from "@/features/dice-generator";
-import { ReactFlowInstance } from "@xyflow/react";
 import { HistogramService } from "@/features/histogram";
 import { DiceSumService } from "@/features/dice-sum";
 import { DicePoolService } from "@/features/dice-pool";
@@ -10,35 +9,33 @@ import { DiceCountRepetitionService } from "@/features/dice-count-repetition";
 import { DiceExplodeGeneratorService } from "@/features/dice-explode-generator";
 import { BagGeneratorService } from "@/features/bag-generator";
 import { generateHash } from "./generate-hash";
-import { IEdge, INode, INodeType } from "@/config/types";
+import { IFlowInstance, INode, INodeType } from "@/config/types";
 
-export function nodeFactory(type: INodeType, flow: ReactFlowInstance<INode, IEdge>): INode {
-  const nodes = flow.getNodes();
-
+export function nodeFactory(type: INodeType, flow: IFlowInstance): INode {
   const defaultDefinitions = {
     id: generateHash(),
-    position: getAdjustedPosition(flow, nodes),
+    position: getAdjustedPosition(flow),
   };
 
   switch (type) {
     case "diceGenerator":
-      return { ...DiceGeneratorService.new(nodes), ...defaultDefinitions };
+      return DiceGeneratorService.new(flow, defaultDefinitions);
     case "histogram":
-      return { ...HistogramService.new(nodes), ...defaultDefinitions };
+      return HistogramService.new(flow, defaultDefinitions);
     case "diceSum":
-      return { ...DiceSumService.new(nodes), ...defaultDefinitions };
+      return DiceSumService.new(flow, defaultDefinitions);
     case "dicePool":
-      return { ...DicePoolService.new(nodes), ...defaultDefinitions };
+      return DicePoolService.new(flow, defaultDefinitions);
     case "dicePoolSum":
-      return { ...DicePoolSumService.new(nodes), ...defaultDefinitions };
+      return DicePoolSumService.new(flow, defaultDefinitions);
     case "diceSuccess":
-      return { ...DiceSuccessService.new(nodes), ...defaultDefinitions };
+      return DiceSuccessService.new(flow, defaultDefinitions);
     case "diceBetweenInterval":
-      return { ...DiceBetweenIntervalService.new(nodes), ...defaultDefinitions };
+      return DiceBetweenIntervalService.new(flow, defaultDefinitions);
     case "diceCountRepetition":
-      return { ...DiceCountRepetitionService.new(nodes), ...defaultDefinitions };
+      return DiceCountRepetitionService.new(flow, defaultDefinitions);
     case "diceExplodeGenerator":
-      return DiceExplodeGeneratorService.new(nodes);
+      return DiceExplodeGeneratorService.new(flow, defaultDefinitions);
     case "bagGenerator":
       return BagGeneratorService.new(flow, defaultDefinitions);
 
@@ -47,12 +44,12 @@ export function nodeFactory(type: INodeType, flow: ReactFlowInstance<INode, IEdg
   }
 }
 
-function getAdjustedPosition(reactFlowInstance: ReactFlowInstance<INode, IEdge>, nodes: INode[], offset: number = 10): { x: number; y: number } {
-  const { x, y, zoom } = reactFlowInstance.getViewport();
+function getAdjustedPosition(flow: IFlowInstance, offset: number = 10): { x: number; y: number } {
+  const { x, y, zoom } = flow.getViewport();
   const containerCenter = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 
   let adjustedPosition = { x: (containerCenter.x - x) / zoom, y: (containerCenter.y - y) / zoom - 50 };
-  while (nodes.some((node) => node.position.x === adjustedPosition.x && node.position.y === adjustedPosition.y)) {
+  while (flow.getNodes().some((node) => node.position.x === adjustedPosition.x && node.position.y === adjustedPosition.y)) {
     adjustedPosition = { x: adjustedPosition.x + offset, y: adjustedPosition.y + offset };
   }
 

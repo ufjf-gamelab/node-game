@@ -1,12 +1,11 @@
-import { IDiceCountRepetition, IEdge, INode } from "@/config/types";
-import { generateHash } from "@/utils/generate-hash";
+import { IDiceCountRepetition, INodeService } from "@/config/types";
 
-export const DiceCountRepetitionService = {
-  new(nodes: INode[]): IDiceCountRepetition {
+export const DiceCountRepetitionService: INodeService<IDiceCountRepetition> = {
+  new(_flow, { id, position }) {
     return {
-      id: generateHash(),
+      id,
+      position,
       type: "diceCountRepetition",
-      position: { x: 100 + nodes.length * 20, y: 50 + nodes.length * 20 },
       data: {
         name: "Dice count repetition",
         detailsTitle: "Dice Count Repetition",
@@ -17,7 +16,10 @@ export const DiceCountRepetitionService = {
     };
   },
 
-  run(node: IDiceCountRepetition, nodes: INode[], edges: IEdge[]) {
+  run(flow, node) {
+    const nodes = flow.getNodes();
+    const edges = flow.getEdges();
+
     if (node.data.status === "FINISHED") {
       node.data = { ...node.data, status: "MISSING_DATA" };
       return;
@@ -39,27 +41,27 @@ export const DiceCountRepetitionService = {
 
     node.data = {
       ...node.data,
-      state: this.countRepetition(nodeSource.data.state, node.data.face),
+      state: countRepetition(nodeSource.data.state, node.data.face),
       status: "FINISHED",
     };
   },
-
-  countRepetition(data: number[], face: number) {
-    const result: number[] = [];
-
-    for (let i = 0; i < data.length; i++) {
-      const dado = data[i];
-      result[i] = 0;
-
-      if (Array.isArray(dado)) {
-        dado.forEach((valor) => {
-          if (valor === face) result[i]++;
-        });
-      } else {
-        if (dado === face) result[i]++;
-      }
-    }
-
-    return result;
-  },
 };
+
+function countRepetition(data: number[], face: number) {
+  const result: number[] = [];
+
+  for (let i = 0; i < data.length; i++) {
+    const dado = data[i];
+    result[i] = 0;
+
+    if (Array.isArray(dado)) {
+      dado.forEach((valor) => {
+        if (valor === face) result[i]++;
+      });
+    } else {
+      if (dado === face) result[i]++;
+    }
+  }
+
+  return result;
+}
