@@ -1,5 +1,5 @@
 import React from "react";
-import { Background, BackgroundVariant, Connection, MiniMap, ReactFlow, addEdge, useEdgesState, useNodesState } from "@xyflow/react";
+import { Background, BackgroundVariant, Connection, MiniMap, ReactFlow, addEdge, useEdgesState, useNodesState, useReactFlow } from "@xyflow/react";
 import { Sidebar } from "@/components/layout/sidebar";
 import { AsideDetails } from "@/components/layout/aside-details";
 import { nodeFactory } from "@/utils/node-factory";
@@ -10,15 +10,15 @@ import { NODE_TYPES } from "@/config/constants";
 function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState<INode>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<IEdge>([]);
+  const flow = useReactFlow<INode, IEdge>();
 
   function addNewNode(type: INodeType) {
-    setNodes([...nodes, nodeFactory(type, nodes)]);
+    setNodes([...nodes, nodeFactory(type, flow)]);
   }
 
   const onConnect = React.useCallback(
     (params: Connection) => {
       const existingEdges = edges.filter((edge) => edge.target === params.target && edge.targetHandle === params.targetHandle);
-
       if (existingEdges.length === 0) setEdges((eds) => addEdge(params, eds));
     },
     [edges, setEdges]
