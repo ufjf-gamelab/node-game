@@ -1,12 +1,9 @@
 import React from "react";
-
 import { NodeProps, Position, Handle, useReactFlow } from "@xyflow/react";
-
 import { GiRollingDices } from "react-icons/gi";
-
-import { IDicePoolNode, INode, INodeType } from "@/config/types";
 import { NodeStatus } from "@/components/ui/node-status";
 import { NodeContainer } from "@/components/ui/node-container";
+import { IDicePoolNode, INode, INodeType } from "@/config/types";
 
 type IProps = NodeProps<IDicePoolNode>;
 
@@ -17,11 +14,7 @@ export const DicePoolNode: React.ComponentType<IProps> = ({ data, isConnectable,
     const targetNode = flow.getNode(targetId) as INode | undefined;
     if (!targetNode) return false;
 
-    const allowedTypes: INodeType[] = [
-      "dicePool",
-      "diceSum",
-      //  "poolSumNode", "faceBetweenNode", "countRepeatedNode"
-    ];
+    const allowedTypes: INodeType[] = [];
     return allowedTypes.includes(targetNode.type);
   }
 
