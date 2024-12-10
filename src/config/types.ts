@@ -1,4 +1,4 @@
-import { Edge, Node } from "@xyflow/react";
+import { Edge, Node, ReactFlowInstance } from "@xyflow/react";
 
 export type INodeType =
   | "diceGenerator"
@@ -9,7 +9,8 @@ export type INodeType =
   | "diceSuccess"
   | "diceBetweenInterval"
   | "diceCountRepetition"
-  | "diceExplodeGenerator";
+  | "diceExplodeGenerator"
+  | "bagGenerator";
 
 export type INodeStatus = "IDLE" | "FINISHED" | "ERROR" | "MISSING_DATA" | "LOADING";
 export type IEdge = Edge;
@@ -93,6 +94,14 @@ export type IDiceExplodeGenerator = IBaseNode<
   "diceExplodeGenerator"
 >;
 
+export type IBagGenerator = IBaseNode<
+  {
+    state: number[];
+    balls: string[];
+  },
+  "bagGenerator"
+>;
+
 export type INode =
   | IDiceGeneratorNode
   | IHistogramNode
@@ -102,4 +111,10 @@ export type INode =
   | IDiceSuccessNode
   | IDiceBetweenInterval
   | IDiceCountRepetition
-  | IDiceExplodeGenerator;
+  | IDiceExplodeGenerator
+  | IBagGenerator;
+
+export type INodeService<N extends INode> = {
+  new: (flow: ReactFlowInstance<INode, IEdge>, defaultValue: Pick<N, "id" | "position">) => N;
+  run: (flow: ReactFlowInstance<INode, IEdge>, node: N) => void;
+};

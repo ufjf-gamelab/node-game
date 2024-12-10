@@ -1,15 +1,16 @@
 import { DiceGeneratorService } from "@/features/dice-generator";
-import { DiceSumService } from "@/features/dice-sum";
+import { ReactFlowInstance } from "@xyflow/react";
 import { HistogramService } from "@/features/histogram";
+import { DiceSumService } from "@/features/dice-sum";
 import { DicePoolService } from "@/features/dice-pool";
-import { IEdge, INode, INodeType } from "@/config/types";
 import { DicePoolSumService } from "@/features/dice-pool-sum";
 import { DiceSuccessService } from "@/features/dice-success";
 import { DiceBetweenIntervalService } from "@/features/dice-between-interval";
 import { DiceCountRepetitionService } from "@/features/dice-count-repetition";
 import { DiceExplodeGeneratorService } from "@/features/dice-explode-generator";
+import { BagGeneratorService } from "@/features/bag-generator";
 import { generateHash } from "./generate-hash";
-import { ReactFlowInstance } from "@xyflow/react";
+import { IEdge, INode, INodeType } from "@/config/types";
 
 export function nodeFactory(type: INodeType, flow: ReactFlowInstance<INode, IEdge>): INode {
   const nodes = flow.getNodes();
@@ -38,6 +39,8 @@ export function nodeFactory(type: INodeType, flow: ReactFlowInstance<INode, IEdg
       return { ...DiceCountRepetitionService.new(nodes), ...defaultDefinitions };
     case "diceExplodeGenerator":
       return DiceExplodeGeneratorService.new(nodes);
+    case "bagGenerator":
+      return BagGeneratorService.new(flow, defaultDefinitions);
 
     default:
       throw new Error("Node factory: Invalid node type!");
