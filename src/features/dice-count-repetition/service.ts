@@ -1,6 +1,6 @@
-import { IDiceCountRepetition, INodeService } from "@/config/types";
+import { IDiceCountRepetitionNode, INodeService } from "@/config/types";
 
-export const DiceCountRepetitionService: INodeService<IDiceCountRepetition> = {
+export const DiceCountRepetitionService: INodeService<IDiceCountRepetitionNode> = {
   new(_flow, { id, position }) {
     return {
       id,

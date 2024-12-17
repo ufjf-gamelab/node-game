@@ -1,11 +1,11 @@
 import React from "react";
 import { useReactFlow } from "@xyflow/react";
 import { useDebounce } from "react-use";
-import { IDiceBetweenInterval } from "@/config/types";
+import { IDiceBetweenIntervalNode } from "@/config/types";
 import { BaseNodeDetails } from "@/components/ui/base-node-details";
 
 type IProps = {
-  node: IDiceBetweenInterval;
+  node: IDiceBetweenIntervalNode;
 };
 
 export const DiceBetweenIntervalDetails: React.FunctionComponent<IProps> = ({ node }) => {

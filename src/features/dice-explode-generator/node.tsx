@@ -4,9 +4,9 @@ import { NodeContainer } from "@/components/ui/node-container";
 import { GiDiceTarget, GiRollingDiceCup } from "react-icons/gi";
 import { NodeStatus } from "@/components/ui/node-status";
 import { TiArrowLoop } from "react-icons/ti";
-import { IDiceCountRepetition } from "@/config/types";
+import { IDiceCountRepetitionNode } from "@/config/types";
 
-type IProps = NodeProps<IDiceCountRepetition>;
+type IProps = NodeProps<IDiceCountRepetitionNode>;
 
 export const DiceExplodeGeneratorNode: React.ComponentType<IProps> = ({ data, selected, isConnectable }) => {
   return (

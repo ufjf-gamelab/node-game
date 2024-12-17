@@ -1,10 +1,10 @@
 import React from "react";
 import { BaseNodeDetails } from "@/components/ui/base-node-details";
-import { IDiceCountRepetition } from "@/config/types";
+import { IDiceCountRepetitionNode } from "@/config/types";
 import { useReactFlow } from "@xyflow/react";
 import { useDebounce } from "react-use";
 
-export const DiceCountRepetitionDetails: React.FunctionComponent<{ node: IDiceCountRepetition }> = ({ node }) => {
+export const DiceCountRepetitionDetails: React.FunctionComponent<{ node: IDiceCountRepetitionNode }> = ({ node }) => {
   const flow = useReactFlow();
   const [face, setFace] = React.useState(node.data.face);
 

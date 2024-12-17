@@ -71,7 +71,7 @@ export type IDiceSuccessNode = IBaseNode<
   "diceSuccess"
 >;
 
-export type IDiceBetweenInterval = IBaseNode<
+export type IDiceBetweenIntervalNode = IBaseNode<
   {
     min: number;
     max: number;
@@ -80,7 +80,7 @@ export type IDiceBetweenInterval = IBaseNode<
   "diceBetweenInterval"
 >;
 
-export type IDiceCountRepetition = IBaseNode<
+export type IDiceCountRepetitionNode = IBaseNode<
   {
     face: number;
     state: number[];
@@ -88,7 +88,7 @@ export type IDiceCountRepetition = IBaseNode<
   "diceCountRepetition"
 >;
 
-export type IDiceExplodeGenerator = IBaseNode<
+export type IDiceExplodeGeneratorNode = IBaseNode<
   {
     explodeFace: number;
     maxFace: number;
@@ -97,7 +97,7 @@ export type IDiceExplodeGenerator = IBaseNode<
   "diceExplodeGenerator"
 >;
 
-export type IBagGenerator = IBaseNode<
+export type IBagGeneratorNode = IBaseNode<
   {
     state: number[];
     balls: string[];
@@ -105,7 +105,7 @@ export type IBagGenerator = IBaseNode<
   "bagGenerator"
 >;
 
-export type IBagGeneratorWithoutRepetition = IBaseNode<
+export type IBagGeneratorWithoutRepetitionNode = IBaseNode<
   {
     state: number[];
     balls: string[];
@@ -128,11 +128,11 @@ export type INode =
   | IDicePoolNode
   | IDicePoolSumNode
   | IDiceSuccessNode
-  | IDiceBetweenInterval
-  | IDiceCountRepetition
-  | IDiceExplodeGenerator
-  | IBagGenerator
-  | IBagGeneratorWithoutRepetition
+  | IDiceBetweenIntervalNode
+  | IDiceCountRepetitionNode
+  | IDiceExplodeGeneratorNode
+  | IBagGeneratorNode
+  | IBagGeneratorWithoutRepetitionNode
   | ISymbolicGeneratorNode;
 
 export type INodeService<N extends INode> = {

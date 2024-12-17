@@ -1,10 +1,10 @@
 import React from "react";
 import { BaseNodeDetails } from "@/components/ui/base-node-details";
-import { IDiceExplodeGenerator } from "@/config/types";
+import { IDiceExplodeGeneratorNode } from "@/config/types";
 import { useReactFlow } from "@xyflow/react";
 import { useDebounce } from "react-use";
 
-export const DiceExplodeGeneratorDetails: React.FunctionComponent<{ node: IDiceExplodeGenerator }> = ({ node }) => {
+export const DiceExplodeGeneratorDetails: React.FunctionComponent<{ node: IDiceExplodeGeneratorNode }> = ({ node }) => {
   const flow = useReactFlow();
   const [maxFace, setMaxFace] = React.useState(node.data.maxFace);
   const [explodeFace, setExplodeFace] = React.useState(node.data.explodeFace);

@@ -4,9 +4,9 @@ import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
 import { AiOutlineVerticalAlignMiddle } from "react-icons/ai";
 import { NodeContainer } from "@/components/ui/node-container";
 import { NodeStatus } from "@/components/ui/node-status";
-import { IDiceBetweenInterval } from "@/config/types";
+import { IDiceBetweenIntervalNode } from "@/config/types";
 
-type IProps = NodeProps<IDiceBetweenInterval>;
+type IProps = NodeProps<IDiceBetweenIntervalNode>;
 
 export const DiceBetweenIntervalNode: React.ComponentType<IProps> = ({ data, selected, isConnectable }) => {
   return (

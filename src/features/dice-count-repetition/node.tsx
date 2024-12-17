@@ -1,12 +1,12 @@
 import React from "react";
 import { Handle, Position, NodeProps } from "@xyflow/react";
 import { NodeContainer } from "@/components/ui/node-container";
-import { IDiceCountRepetition } from "@/config/types";
+import { IDiceCountRepetitionNode } from "@/config/types";
 import { GiDiceTarget } from "react-icons/gi";
 import { NodeStatus } from "@/components/ui/node-status";
 import { AiOutlineFieldNumber } from "react-icons/ai";
 
-type IProps = NodeProps<IDiceCountRepetition>;
+type IProps = NodeProps<IDiceCountRepetitionNode>;
 
 export const DiceCountRepetitionNode: React.ComponentType<IProps> = ({ data, selected, isConnectable }) => {
   return (

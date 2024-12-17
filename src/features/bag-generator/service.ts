@@ -1,6 +1,6 @@
-import { IBagGenerator, INodeService } from "@/config/types";
+import { IBagGeneratorNode, INodeService } from "@/config/types";
 
-export const BagGeneratorService: INodeService<IBagGenerator> = {
+export const BagGeneratorService: INodeService<IBagGeneratorNode> = {
   new(_flow, { id, position }) {
     return {
       id,

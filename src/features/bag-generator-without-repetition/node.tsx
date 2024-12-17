@@ -3,9 +3,9 @@ import { NodeContainer } from "@/components/ui/node-container";
 import { NodeStatus } from "@/components/ui/node-status";
 import { Handle, NodeProps, Position } from "@xyflow/react";
 import { GiGlassBall, GiSwapBag } from "react-icons/gi";
-import { IBagGeneratorWithoutRepetition } from "@/config/types";
+import { IBagGeneratorWithoutRepetitionNode } from "@/config/types";
 
-type IProps = NodeProps<IBagGeneratorWithoutRepetition>;
+type IProps = NodeProps<IBagGeneratorWithoutRepetitionNode>;
 
 export const BagGeneratorWithoutRepetitionNode: React.ComponentType<IProps> = ({ data, isConnectable, selected }) => {
   return (

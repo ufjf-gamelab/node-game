@@ -1,12 +1,12 @@
 import React from "react";
 import { BaseNodeDetails } from "@/components/ui/base-node-details";
-import { IBagGenerator } from "@/config/types";
+import { IBagGeneratorNode } from "@/config/types";
 import { useReactFlow } from "@xyflow/react";
 import { useDebounce } from "react-use";
 import { BiPlus, BiTrash } from "react-icons/bi";
 
 type IProps = {
-  node: IBagGenerator;
+  node: IBagGeneratorNode;
 };
 
 export const BagGeneratorDetails: React.FunctionComponent<IProps> = ({ node }) => {

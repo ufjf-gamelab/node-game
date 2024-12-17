@@ -1,6 +1,6 @@
-import { IDiceBetweenInterval, IDiceGeneratorNode, INodeService } from "@/config/types";
+import { IDiceBetweenIntervalNode, IDiceGeneratorNode, INodeService } from "@/config/types";
 
-export const DiceBetweenIntervalService: INodeService<IDiceBetweenInterval> = {
+export const DiceBetweenIntervalService: INodeService<IDiceBetweenIntervalNode> = {
   new(_flow, { id, position }) {
     return {
       id,

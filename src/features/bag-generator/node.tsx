@@ -3,9 +3,9 @@ import { NodeContainer } from "@/components/ui/node-container";
 import { NodeStatus } from "@/components/ui/node-status";
 import { Handle, NodeProps, Position } from "@xyflow/react";
 import { GiGlassBall, GiSwapBag } from "react-icons/gi";
-import { IBagGenerator } from "@/config/types";
+import { IBagGeneratorNode } from "@/config/types";
 
-type IProps = NodeProps<IBagGenerator>;
+type IProps = NodeProps<IBagGeneratorNode>;
 
 export const BagGeneratorNode: React.ComponentType<IProps> = ({ data, isConnectable, selected }) => {
   return (

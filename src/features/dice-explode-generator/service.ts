@@ -1,8 +1,8 @@
-import { IDiceExplodeGenerator, INodeService } from "@/config/types";
+import { IDiceExplodeGeneratorNode, INodeService } from "@/config/types";
 
 const TOTAL_DATA_VALUE = 10000;
 
-export const DiceExplodeGeneratorService: INodeService<IDiceExplodeGenerator> = {
+export const DiceExplodeGeneratorService: INodeService<IDiceExplodeGeneratorNode> = {
   new(_flow, { id, position }) {
     return {
       id,
