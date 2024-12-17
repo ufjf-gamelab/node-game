@@ -9,9 +9,10 @@ import { DiceCountRepetitionService } from "@/features/dice-count-repetition";
 import { DiceExplodeGeneratorService } from "@/features/dice-explode-generator";
 import { BagGeneratorService } from "@/features/bag-generator";
 import { BagGeneratorWithoutRepetitionService } from "@/features/bag-generator-without-repetition";
+import { SymbolicGeneratorService } from "@/features/symbolic-generator";
+import { SymbolicPoolService } from "@/features/symbolic-pool";
 import { generateHash } from "./generate-hash";
 import { IFlowInstance, INode, INodeType } from "@/config/types";
-import { SymbolicGeneratorService } from "@/features/symbolic-generator";
 
 export function nodeFactory(type: INodeType, flow: IFlowInstance): INode {
   const defaultDefinitions = {
@@ -44,6 +45,8 @@ export function nodeFactory(type: INodeType, flow: IFlowInstance): INode {
       return BagGeneratorWithoutRepetitionService.new(flow, defaultDefinitions);
     case "symbolicGenerator":
       return SymbolicGeneratorService.new(flow, defaultDefinitions);
+    case "symbolicPool":
+      return SymbolicPoolService.new(flow, defaultDefinitions);
 
     default:
       throw new Error("Node factory: Invalid node type!");

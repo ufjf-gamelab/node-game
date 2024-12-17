@@ -12,7 +12,8 @@ export type INodeType =
   | "diceExplodeGenerator"
   | "bagGenerator"
   | "bagGeneratorWithoutRepetition"
-  | "symbolicGenerator";
+  | "symbolicGenerator"
+  | "symbolicPool";
 
 export type INodeStatus = "IDLE" | "FINISHED" | "ERROR" | "MISSING_DATA" | "LOADING";
 export type IEdge = Edge;
@@ -121,6 +122,13 @@ export type ISymbolicGeneratorNode = IBaseNode<
   "symbolicGenerator"
 >;
 
+export type ISymbolicPoolNode = IBaseNode<
+  {
+    state: string[][];
+  },
+  "symbolicPool"
+>;
+
 export type INode =
   | IDiceGeneratorNode
   | IHistogramNode
@@ -133,7 +141,8 @@ export type INode =
   | IDiceExplodeGeneratorNode
   | IBagGeneratorNode
   | IBagGeneratorWithoutRepetitionNode
-  | ISymbolicGeneratorNode;
+  | ISymbolicGeneratorNode
+  | ISymbolicPoolNode;
 
 export type INodeService<N extends INode> = {
   new: (flow: ReactFlowInstance<INode, IEdge>, defaultValue: Pick<N, "id" | "position">) => N;

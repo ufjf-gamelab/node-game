@@ -16,7 +16,7 @@ export const SymbolicGeneratorService: INodeService<ISymbolicGeneratorNode> = {
     };
   },
 
-  run(flow, node) {
+  run(_flow, node) {
     const isMissingFields = node.data.faces.some((item) => !item);
     if (isMissingFields) {
       throw new Error("Symbolic generator with invalid faces!");
@@ -24,7 +24,6 @@ export const SymbolicGeneratorService: INodeService<ISymbolicGeneratorNode> = {
 
     if (node.data.status === "FINISHED") {
       node.data = { ...node.data, status: "MISSING_DATA" };
-      flow.updateNode(node.id, node);
       return;
     }
 
@@ -37,7 +36,6 @@ export const SymbolicGeneratorService: INodeService<ISymbolicGeneratorNode> = {
     });
 
     node.data = { ...node.data, state: symbolicState, status: "FINISHED" };
-    flow.updateNode(node.id, node);
   },
 };
 

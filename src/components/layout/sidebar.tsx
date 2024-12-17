@@ -80,7 +80,9 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
               <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("symbolicGenerator")}>
                 Symbolic generator
               </li>
-              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer">Pool symbolic</li>
+              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("symbolicPool")}>
+                Pool symbolic
+              </li>
             </ul>
           </AccordionContent>
         </AccordionItem>
@@ -97,9 +99,6 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
             <ul className="flex flex-col">
               <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("histogram")}>
                 Bars
-              </li>
-              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("histogram")}>
-                Line
               </li>
             </ul>
           </AccordionContent>
