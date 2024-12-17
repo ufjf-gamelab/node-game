@@ -8,6 +8,7 @@ import { DiceBetweenIntervalService } from "@/features/dice-between-interval";
 import { DiceCountRepetitionService } from "@/features/dice-count-repetition";
 import { DiceExplodeGeneratorService } from "@/features/dice-explode-generator";
 import { BagGeneratorService } from "@/features/bag-generator";
+import { BagGeneratorWithoutRepetitionService } from "@/features/bag-generator-without-repetition";
 import { generateHash } from "./generate-hash";
 import { IFlowInstance, INode, INodeType } from "@/config/types";
 
@@ -38,6 +39,8 @@ export function nodeFactory(type: INodeType, flow: IFlowInstance): INode {
       return DiceExplodeGeneratorService.new(flow, defaultDefinitions);
     case "bagGenerator":
       return BagGeneratorService.new(flow, defaultDefinitions);
+    case "bagGeneratorWithoutRepetition":
+      return BagGeneratorWithoutRepetitionService.new(flow, defaultDefinitions);
 
     default:
       throw new Error("Node factory: Invalid node type!");
