@@ -11,6 +11,7 @@ import { BagGeneratorService } from "@/features/bag-generator";
 import { BagGeneratorWithoutRepetitionService } from "@/features/bag-generator-without-repetition";
 import { generateHash } from "./generate-hash";
 import { IFlowInstance, INode, INodeType } from "@/config/types";
+import { SymbolicGeneratorService } from "@/features/symbolic-generator";
 
 export function nodeFactory(type: INodeType, flow: IFlowInstance): INode {
   const defaultDefinitions = {
@@ -41,6 +42,8 @@ export function nodeFactory(type: INodeType, flow: IFlowInstance): INode {
       return BagGeneratorService.new(flow, defaultDefinitions);
     case "bagGeneratorWithoutRepetition":
       return BagGeneratorWithoutRepetitionService.new(flow, defaultDefinitions);
+    case "symbolicGenerator":
+      return SymbolicGeneratorService.new(flow, defaultDefinitions);
 
     default:
       throw new Error("Node factory: Invalid node type!");

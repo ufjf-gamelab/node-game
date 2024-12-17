@@ -11,6 +11,7 @@ import { INodeStatus, INodeType } from "./types";
 import { DiceExplodeGeneratorNode } from "@/features/dice-explode-generator";
 import { BagGeneratorNode } from "@/features/bag-generator";
 import { BagGeneratorWithoutRepetitionNode } from "@/features/bag-generator-without-repetition";
+import { SymbolicGeneratorNode } from "@/features/symbolic-generator";
 
 export const NODE_TYPES: Record<INodeType, React.ComponentType<any>> = {
   diceGenerator: DiceGeneratorNode,
@@ -24,6 +25,7 @@ export const NODE_TYPES: Record<INodeType, React.ComponentType<any>> = {
   diceExplodeGenerator: DiceExplodeGeneratorNode,
   bagGenerator: BagGeneratorNode,
   bagGeneratorWithoutRepetition: BagGeneratorWithoutRepetitionNode,
+  symbolicGenerator: SymbolicGeneratorNode,
 };
 
 export const NODE_STATUS_TO_LABEL: Record<INodeStatus, string> = {

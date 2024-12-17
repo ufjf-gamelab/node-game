@@ -77,7 +77,9 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
 
           <AccordionContent>
             <ul className="flex flex-col">
-              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer">Symbolic generator</li>
+              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("symbolicGenerator")}>
+                Symbolic generator
+              </li>
               <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer">Pool symbolic</li>
             </ul>
           </AccordionContent>
