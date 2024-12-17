@@ -1,16 +1,30 @@
 import React from "react";
-import { Handle, NodeProps, Position } from "@xyflow/react";
+import { Handle, NodeProps, Position, useReactFlow } from "@xyflow/react";
 import { GiPerspectiveDiceSixFacesOne } from "react-icons/gi";
-import { IDiceSumNode } from "@/config/types";
+import { IDiceSumNode, INode, INodeType } from "@/config/types";
 import { NodeContainer } from "@/components/ui/node-container";
 import { NodeStatus } from "@/components/ui/node-status";
 
 type IProps = NodeProps<IDiceSumNode>;
 
 export const DiceSumNode: React.ComponentType<IProps> = ({ data, selected, isConnectable }: IProps) => {
-  const [status, setStatus] = React.useState(data.status);
+  const flow = useReactFlow();
 
-  React.useEffect(() => setStatus(data.status), [data]);
+  function isValidConnection(targetId: string) {
+    const targetNode = flow.getNode(targetId) as INode | undefined;
+    if (!targetNode) return false;
+
+    const allowedTypes: INodeType[] = [
+      "histogram",
+      "diceSum",
+      "dicePool",
+      "dicePoolSum",
+      "diceSuccess",
+      "diceBetweenInterval",
+      "diceCountRepetition",
+    ];
+    return allowedTypes.includes(targetNode.type);
+  }
 
   return (
     <NodeContainer selected={selected}>
@@ -20,14 +34,18 @@ export const DiceSumNode: React.ComponentType<IProps> = ({ data, selected, isCon
         type="source"
         id="c"
         position={Position.Right}
-        onConnect={(params) => console.log("handle onConnect", params)}
         isConnectable={isConnectable}
+        isValidConnection={(connection) => isValidConnection(connection.target)}
       />
       <h2 className="text-center">Dice Sum</h2>
-      <div className="flex items-center">
-        <GiPerspectiveDiceSixFacesOne className="text-5xl" />+<GiPerspectiveDiceSixFacesOne className="text-5xl" />
+
+      <div className="flex items-center justify-center text-5xl">
+        <GiPerspectiveDiceSixFacesOne />
+        <span className="text-base">+</span>
+        <GiPerspectiveDiceSixFacesOne />
       </div>
-      <NodeStatus status={status} />
+
+      <NodeStatus status={data.status} />
     </NodeContainer>
   );
 };

@@ -14,7 +14,7 @@ export const BagPullWithoutRepetitionNode: React.ComponentType<IProps> = ({ data
     const targetNode = flow.getNode(targetId) as INode | undefined;
     if (!targetNode) return false;
 
-    const allowedTypes: INodeType[] = ["histogram"];
+    const allowedTypes: INodeType[] = ["histogram", "bagPullWithoutRepetition"];
     return allowedTypes.includes(targetNode.type);
   }
 

@@ -14,7 +14,15 @@ export const DicePoolNode: React.ComponentType<IProps> = ({ data, isConnectable,
     const targetNode = flow.getNode(targetId) as INode | undefined;
     if (!targetNode) return false;
 
-    const allowedTypes: INodeType[] = [];
+    const allowedTypes: INodeType[] = [
+      "histogram",
+      "diceSum",
+      "dicePool",
+      "dicePoolSum",
+      "diceSuccess",
+      "diceBetweenInterval",
+      "diceCountRepetition",
+    ];
     return allowedTypes.includes(targetNode.type);
   }
 
@@ -33,6 +41,7 @@ export const DicePoolNode: React.ComponentType<IProps> = ({ data, isConnectable,
         <h2 className="text-base">{data.name}</h2>
 
         <GiRollingDices className="text-5xl" />
+
         <NodeStatus status={data.status} />
       </div>
     </NodeContainer>
