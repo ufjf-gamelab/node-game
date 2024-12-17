@@ -1,9 +1,7 @@
 import { IBagGeneratorWithoutRepetition, INodeService } from "@/config/types";
 
 export const BagGeneratorWithoutRepetitionService: INodeService<IBagGeneratorWithoutRepetition> = {
-  new(flow, { id, position }) {
-    const bagCount = flow.getNodes().reduce((acc, item) => (item.type === "diceGenerator" ? acc + 1 : acc), 1);
-
+  new(_flow, { id, position }) {
     return {
       id,
       position,
@@ -11,7 +9,7 @@ export const BagGeneratorWithoutRepetitionService: INodeService<IBagGeneratorWit
       data: {
         status: "IDLE",
         detailsTitle: "Bag generator without repetition",
-        name: "Bag without repetition " + bagCount,
+        name: "Bag without repetition",
         state: [],
         balls: ["red"],
       },

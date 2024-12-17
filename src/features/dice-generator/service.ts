@@ -3,14 +3,13 @@ import { IDiceGeneratorNode, INodeService } from "@/config/types";
 const TOTAL_DATA_VALUE = 10000;
 
 export const DiceGeneratorService: INodeService<IDiceGeneratorNode> = {
-  new(flow, { id, position }) {
-    const diceCount = flow.getNodes().reduce((acc, item) => (item.type === "diceGenerator" ? acc + 1 : acc), 1);
+  new(_flow, { id, position }) {
     return {
       id,
       position,
       type: "diceGenerator",
       data: {
-        name: "Dice " + diceCount,
+        name: "Dice",
         detailsTitle: "Dice Generator",
         status: "IDLE",
         min: 1,

@@ -1,15 +1,13 @@
 import { IHistogramNode, INodeService } from "@/config/types";
 
 export const HistogramService: INodeService<IHistogramNode> = {
-  new(flow, { id, position }) {
-    const histogramCount = flow.getNodes().reduce((acc, item) => (item.type === "histogram" ? acc + 1 : acc), 1);
-
+  new(_flow, { id, position }) {
     return {
       id,
       position,
       type: "histogram",
       data: {
-        name: "Histogram " + histogramCount.toString(),
+        name: "Histogram",
         detailsTitle: "Histogram",
         status: "IDLE",
       },
