@@ -8,7 +8,7 @@ import { DiceBetweenIntervalService } from "@/features/dice-between-interval";
 import { DiceCountRepetitionService } from "@/features/dice-count-repetition";
 import { DiceExplodeGeneratorService } from "@/features/dice-explode-generator";
 import { BagGeneratorService } from "@/features/bag-generator";
-import { BagGeneratorWithoutRepetitionService } from "@/features/bag-generator-without-repetition";
+import { BagGeneratorWithoutRepetitionService } from "@/features/bag-pull-without-repetition";
 import { SymbolicGeneratorService } from "@/features/symbolic-generator";
 import { SymbolicPoolService } from "@/features/symbolic-pool";
 import { generateHash } from "./generate-hash";
@@ -41,7 +41,7 @@ export function nodeFactory(type: INodeType, flow: IFlowInstance): INode {
       return DiceExplodeGeneratorService.new(flow, defaultDefinitions);
     case "bagGenerator":
       return BagGeneratorService.new(flow, defaultDefinitions);
-    case "bagGeneratorWithoutRepetition":
+    case "bagPullWithoutRepetition":
       return BagGeneratorWithoutRepetitionService.new(flow, defaultDefinitions);
     case "symbolicGenerator":
       return SymbolicGeneratorService.new(flow, defaultDefinitions);

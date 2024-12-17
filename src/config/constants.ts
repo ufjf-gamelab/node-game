@@ -10,7 +10,7 @@ import { DiceCountRepetitionNode } from "@/features/dice-count-repetition";
 import { INodeStatus, INodeType } from "./types";
 import { DiceExplodeGeneratorNode } from "@/features/dice-explode-generator";
 import { BagGeneratorNode } from "@/features/bag-generator";
-import { BagGeneratorWithoutRepetitionNode } from "@/features/bag-generator-without-repetition";
+import { BagPullWithoutRepetitionNode } from "@/features/bag-pull-without-repetition";
 import { SymbolicGeneratorNode } from "@/features/symbolic-generator";
 import { SymbolicPoolNode } from "@/features/symbolic-pool";
 
@@ -25,7 +25,7 @@ export const NODE_TYPES: Record<INodeType, React.ComponentType<any>> = {
   diceCountRepetition: DiceCountRepetitionNode,
   diceExplodeGenerator: DiceExplodeGeneratorNode,
   bagGenerator: BagGeneratorNode,
-  bagGeneratorWithoutRepetition: BagGeneratorWithoutRepetitionNode,
+  bagPullWithoutRepetition: BagPullWithoutRepetitionNode,
   symbolicGenerator: SymbolicGeneratorNode,
   symbolicPool: SymbolicPoolNode,
 };

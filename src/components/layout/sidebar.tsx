@@ -60,8 +60,8 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
               <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("bagGenerator")}>
                 Bag generator
               </li>
-              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("bagGeneratorWithoutRepetition")}>
-                Bag generator without repetition
+              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("bagPullWithoutRepetition")}>
+                Pull without repetition
               </li>
             </ul>
           </AccordionContent>

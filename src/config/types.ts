@@ -11,7 +11,7 @@ export type INodeType =
   | "diceCountRepetition"
   | "diceExplodeGenerator"
   | "bagGenerator"
-  | "bagGeneratorWithoutRepetition"
+  | "bagPullWithoutRepetition"
   | "symbolicGenerator"
   | "symbolicPool";
 
@@ -106,12 +106,12 @@ export type IBagGeneratorNode = IBaseNode<
   "bagGenerator"
 >;
 
-export type IBagGeneratorWithoutRepetitionNode = IBaseNode<
+export type IBagPullWithoutRepetitionNode = IBaseNode<
   {
     state: number[];
     balls: string[];
   },
-  "bagGeneratorWithoutRepetition"
+  "bagPullWithoutRepetition"
 >;
 
 export type ISymbolicGeneratorNode = IBaseNode<
@@ -140,7 +140,7 @@ export type INode =
   | IDiceCountRepetitionNode
   | IDiceExplodeGeneratorNode
   | IBagGeneratorNode
-  | IBagGeneratorWithoutRepetitionNode
+  | IBagPullWithoutRepetitionNode
   | ISymbolicGeneratorNode
   | ISymbolicPoolNode;
 

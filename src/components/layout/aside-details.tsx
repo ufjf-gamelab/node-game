@@ -6,10 +6,9 @@ import { DiceGeneratorDetails } from "@/features/dice-generator";
 import { DiceBetweenIntervalDetails } from "@/features/dice-between-interval";
 import { DiceExplodeGeneratorDetails } from "@/features/dice-explode-generator";
 import { DiceCountRepetitionDetails } from "@/features/dice-count-repetition";
-import { INode } from "@/config/types";
 import { BagGeneratorDetails } from "@/features/bag-generator";
 import { SymbolicGeneratorDetails } from "@/features/symbolic-generator";
-import { BagGeneratorWithoutRepetitionDetails } from "@/features/bag-generator-without-repetition";
+import { INode } from "@/config/types";
 
 function renderDetails(node: INode) {
   switch (node.type) {
@@ -25,8 +24,6 @@ function renderDetails(node: INode) {
       return <DiceExplodeGeneratorDetails node={node} />;
     case "bagGenerator":
       return <BagGeneratorDetails node={node} />;
-    case "bagGeneratorWithoutRepetition":
-      return <BagGeneratorWithoutRepetitionDetails node={node} />;
     case "symbolicGenerator":
       return <SymbolicGeneratorDetails node={node} />;
     default:
