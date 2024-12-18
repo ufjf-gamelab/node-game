@@ -14,44 +14,80 @@ import { SymbolicPoolService } from "@/features/symbolic-pool";
 import { generateHash } from "./generate-hash";
 import { IFlowInstance, INode, INodeType } from "@/config/types";
 
-export function nodeFactory(type: INodeType, flow: IFlowInstance): INode {
-  const defaultDefinitions = {
-    id: generateHash(),
-    position: getAdjustedPosition(flow),
-  };
+export const NodeFactory = {
+  new(type: INodeType, flow: IFlowInstance): INode {
+    const defaultDefinitions = {
+      id: generateHash(),
+      position: getAdjustedPosition(flow),
+    };
 
-  switch (type) {
-    case "diceGenerator":
-      return DiceGeneratorService.new(flow, defaultDefinitions);
-    case "histogram":
-      return HistogramService.new(flow, defaultDefinitions);
-    case "diceSum":
-      return DiceSumService.new(flow, defaultDefinitions);
-    case "dicePool":
-      return DicePoolService.new(flow, defaultDefinitions);
-    case "dicePoolSum":
-      return DicePoolSumService.new(flow, defaultDefinitions);
-    case "diceSuccess":
-      return DiceSuccessService.new(flow, defaultDefinitions);
-    case "diceBetweenInterval":
-      return DiceBetweenIntervalService.new(flow, defaultDefinitions);
-    case "diceCountRepetition":
-      return DiceCountRepetitionService.new(flow, defaultDefinitions);
-    case "diceExplodeGenerator":
-      return DiceExplodeGeneratorService.new(flow, defaultDefinitions);
-    case "bagGenerator":
-      return BagGeneratorService.new(flow, defaultDefinitions);
-    case "bagPullWithoutRepetition":
-      return BagGeneratorWithoutRepetitionService.new(flow, defaultDefinitions);
-    case "symbolicGenerator":
-      return SymbolicGeneratorService.new(flow, defaultDefinitions);
-    case "symbolicPool":
-      return SymbolicPoolService.new(flow, defaultDefinitions);
+    switch (type) {
+      case "diceGenerator":
+        return DiceGeneratorService.new(flow, defaultDefinitions);
+      case "histogram":
+        return HistogramService.new(flow, defaultDefinitions);
+      case "diceSum":
+        return DiceSumService.new(flow, defaultDefinitions);
+      case "dicePool":
+        return DicePoolService.new(flow, defaultDefinitions);
+      case "dicePoolSum":
+        return DicePoolSumService.new(flow, defaultDefinitions);
+      case "diceSuccess":
+        return DiceSuccessService.new(flow, defaultDefinitions);
+      case "diceBetweenInterval":
+        return DiceBetweenIntervalService.new(flow, defaultDefinitions);
+      case "diceCountRepetition":
+        return DiceCountRepetitionService.new(flow, defaultDefinitions);
+      case "diceExplodeGenerator":
+        return DiceExplodeGeneratorService.new(flow, defaultDefinitions);
+      case "bagGenerator":
+        return BagGeneratorService.new(flow, defaultDefinitions);
+      case "bagPullWithoutRepetition":
+        return BagGeneratorWithoutRepetitionService.new(flow, defaultDefinitions);
+      case "symbolicGenerator":
+        return SymbolicGeneratorService.new(flow, defaultDefinitions);
+      case "symbolicPool":
+        return SymbolicPoolService.new(flow, defaultDefinitions);
 
-    default:
-      throw new Error("Node factory: Invalid node type!");
-  }
-}
+      default:
+        throw new Error("Node factory: Invalid node type!");
+    }
+  },
+
+  run(node: INode, flow: IFlowInstance) {
+    switch (node.type) {
+      case "diceGenerator":
+        return DiceGeneratorService.run(flow, node);
+      case "histogram":
+        return HistogramService.run(flow, node);
+      case "diceSum":
+        return DiceSumService.run(flow, node);
+      case "dicePool":
+        return DicePoolService.run(flow, node);
+      case "dicePoolSum":
+        return DicePoolSumService.run(flow, node);
+      case "diceSuccess":
+        return DiceSuccessService.run(flow, node);
+      case "diceBetweenInterval":
+        return DiceBetweenIntervalService.run(flow, node);
+      case "diceCountRepetition":
+        return DiceCountRepetitionService.run(flow, node);
+      case "diceExplodeGenerator":
+        return DiceExplodeGeneratorService.run(flow, node);
+      case "bagGenerator":
+        return BagGeneratorService.run(flow, node);
+      case "bagPullWithoutRepetition":
+        return BagGeneratorWithoutRepetitionService.run(flow, node);
+      case "symbolicGenerator":
+        return SymbolicGeneratorService.run(flow, node);
+      case "symbolicPool":
+        return SymbolicPoolService.run(flow, node);
+
+      default:
+        throw new Error("Node factory run: Invalid node type!");
+    }
+  },
+};
 
 function getAdjustedPosition(flow: IFlowInstance, offset: number = 10): { x: number; y: number } {
   const { x, y, zoom } = flow.getViewport();

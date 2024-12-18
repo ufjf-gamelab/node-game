@@ -44,6 +44,7 @@ export type IHistogramNode = IBaseNode<
   {
     name: string;
     status: INodeStatus;
+    state: number[];
   },
   "histogram"
 >;

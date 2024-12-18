@@ -2,18 +2,21 @@ import React from "react";
 import { Background, BackgroundVariant, Connection, MiniMap, ReactFlow, addEdge, useEdgesState, useNodesState, useReactFlow } from "@xyflow/react";
 import { Sidebar } from "@/components/layout/sidebar";
 import { AsideDetails } from "@/components/layout/aside-details";
-import { nodeFactory } from "@/utils/node-factory";
+import { NodeFactory } from "@/utils/node-factory";
 
 import { INodeType, INode, IEdge } from "@/config/types";
 import { NODE_TYPES } from "@/config/constants";
+import { BiPlay, BiTrash } from "react-icons/bi";
+import { SimulationSection } from "./components/layout/simulation-section";
 
 function App() {
-  const [nodes, setNodes, onNodesChange] = useNodesState<INode>([]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState<IEdge>([]);
   const flow = useReactFlow<INode, IEdge>();
+  const [displayCharts, setDisplayCharts] = React.useState<boolean>(false);
+  const [edges, setEdges, onEdgesChange] = useEdgesState<IEdge>([]);
+  const [nodes, setNodes, onNodesChange] = useNodesState<INode>([]);
 
   function addNewNode(type: INodeType) {
-    setNodes([...nodes, nodeFactory(type, flow)]);
+    setNodes([...nodes, NodeFactory.new(type, flow)]);
   }
 
   const onConnect = React.useCallback(
@@ -24,15 +27,41 @@ function App() {
     [edges, setEdges]
   );
 
+  function runSimulation() {
+    nodes.map((node) => (node.data.status = "LOADING"));
+    setNodes([...nodes]);
+
+    nodes.forEach((node) => NodeFactory.run(node, flow));
+
+    setNodes([...nodes]);
+    setDisplayCharts(true);
+  }
+  React.useEffect(() => {
+    const dice = NodeFactory.new("diceGenerator", flow);
+    dice.position.x = 20;
+    dice.position.y = 20;
+    const histogram = NodeFactory.new("histogram", flow);
+    histogram.position.x = 200;
+    histogram.position.y = 20;
+    setNodes([dice, histogram]);
+    setEdges([{ id: "init", source: dice.id, target: histogram.id }]);
+  }, []);
+
   return (
     <div className="relative">
-      <div className="absolute z-10 top-2 left-0 pl-56 w-full h-7 flex items-center justify-start gap-4 overflow-hidden">
-        <button className="btn h-full w-max rounded-full !border-0">view results</button>
-        <button className="btn h-full w-max rounded-full !border-0">clear board</button>
+      <div className="absolute z-10 top-2 left-0 pl-56 w-screen h-7 flex items-center justify-start gap-4 overflow-hidden">
+        <button className="btn h-full flex items-center w-max rounded-full !border-0" onClick={runSimulation}>
+          <BiPlay /> Run simulation
+        </button>
+        <button className="btn h-full flex items-center w-max rounded-full !border-0">
+          <BiTrash />
+          Clear board
+        </button>
       </div>
 
       <Sidebar addNewNode={addNewNode} />
       <AsideDetails />
+      {displayCharts && <SimulationSection />}
 
       <main className="w-screen h-screen">
         <ReactFlow
@@ -46,7 +75,7 @@ function App() {
           className="react-flow-board"
           fitView>
           <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
-          <MiniMap />
+          <MiniMap position="top-right" />
         </ReactFlow>
       </main>
     </div>
