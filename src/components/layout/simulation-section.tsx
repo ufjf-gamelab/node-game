@@ -3,13 +3,15 @@ import React from "react";
 import { BarChart, IChartData } from "../ui/bar-chart";
 import { useReactFlow } from "@xyflow/react";
 import { BiArrowToBottom } from "react-icons/bi";
+import { useLayoutContext } from "@/contexts/layout-context";
 
-const ASIDE_DETAILS_WIDTH = 240;
+const DETAILS_WIDTH = 240;
 const SIDEBAR_WIDTH = 192;
 
 const SimulationSection: React.ComponentType = () => {
   const flow = useReactFlow<INode>();
   const [dataChart, setDataChart] = React.useState<IChartData>([]);
+  const layoutContext = useLayoutContext();
 
   function getIndex(chartData: IChartData, item: number) {
     const index = chartData.findIndex((entry) => entry.x === item.toString());
@@ -57,13 +59,27 @@ const SimulationSection: React.ComponentType = () => {
 
   return (
     <div
-      className="absolute left-56 top-[calc(100vh-500px)] h-[500px] bg-white border-t-2 border-slate-700 -10 flex flex-col z-10 overflow-auto"
-      style={{ width: `calc(100vw - ${ASIDE_DETAILS_WIDTH + SIDEBAR_WIDTH + 64}px)` }}>
-      <button className="h-6 w-full bg-gray-300 flex justify-center items-center">
+      className="absolute transform -translate-x-1/2 top-[calc(100vh-450px)] h-[450px] max-w-[900px] bg-white border-t-2 border-blue-700 flex flex-col z-10 transition-all"
+      style={{
+        left: `calc(${SIDEBAR_WIDTH}px + (100vw - ${SIDEBAR_WIDTH}px - ${layoutContext.asideDetailsOpen ? DETAILS_WIDTH : 0}px) / 2)`,
+        width: `calc(100vw - ${(layoutContext.asideDetailsOpen ? DETAILS_WIDTH : 0) + SIDEBAR_WIDTH + 64}px)`,
+      }}>
+      <button className="h-6 w-full bg-blue-200 flex justify-center items-center">
         <BiArrowToBottom />
       </button>
 
-      <BarChart data={dataChart} />
+      <div className="w-full h-full flex-1 overflow-auto flex flex-col items-center p-4 gap-2">
+        <div className="w-full flex flex-col items-center">
+          <h2 className="pl-2 font-medium">Histogram</h2>
+          <BarChart data={dataChart} />
+        </div>
+        <hr className="w-full border-t-4 border-gray-400" />
+
+        <div className="w-full flex flex-col items-center">
+          <h2 className="pl-2 font-medium">Histogram</h2>
+          <BarChart data={dataChart} />
+        </div>
+      </div>
     </div>
   );
 };

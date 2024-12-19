@@ -9,6 +9,7 @@ import { DiceCountRepetitionDetails } from "@/features/dice-count-repetition";
 import { BagGeneratorDetails } from "@/features/bag-generator";
 import { SymbolicGeneratorDetails } from "@/features/symbolic-generator";
 import { INode } from "@/config/types";
+import { useLayoutContext } from "@/contexts/layout-context";
 
 function renderDetails(node: INode) {
   switch (node.type) {
@@ -33,8 +34,13 @@ function renderDetails(node: INode) {
 
 export const AsideDetails: React.FunctionComponent = () => {
   const [selectedNode, setSelectedNode] = React.useState<INode | null>(null);
+  const layoutContext = useLayoutContext();
 
   useOnSelectionChange({ onChange: React.useCallback(({ nodes }) => setSelectedNode((nodes[0] as INode) || null), []) });
+
+  React.useEffect(() => {
+    layoutContext.setAsideDetailsOpen(!!selectedNode);
+  }, [selectedNode]);
 
   if (!selectedNode) return null;
   return <div className="fixed right-0 top-0 h-screen bg-white z-20 w-60 border-l text-sm">{renderDetails(selectedNode)}</div>;

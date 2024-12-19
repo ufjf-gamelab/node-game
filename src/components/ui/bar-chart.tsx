@@ -1,7 +1,7 @@
 import { Bar, BarChart, CartesianGrid, XAxis, ResponsiveContainer } from "recharts";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 
-const chartConfig = { y: { label: "" } } satisfies ChartConfig;
+const chartConfig = { y: { label: " " } } satisfies ChartConfig;
 
 export type IChartData = { x: string; y: number | string }[];
 
@@ -11,7 +11,7 @@ type IProps = {
 
 export function Chart({ data }: IProps) {
   return (
-    <ChartContainer config={chartConfig} className="min-h-[200px] w-max max-h-[500px]">
+    <ChartContainer config={chartConfig} className="min-h-[200px] w-full max-w-[700px] max-h-[350px]">
       <ResponsiveContainer width="100%" height="100%" aspect={2}>
         <BarChart accessibilityLayer data={data}>
           <CartesianGrid vertical={false} />

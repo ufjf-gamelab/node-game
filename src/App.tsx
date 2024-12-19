@@ -75,7 +75,6 @@ function App() {
           className="react-flow-board"
           fitView>
           <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
-          <MiniMap position="top-right" />
         </ReactFlow>
       </main>
     </div>
