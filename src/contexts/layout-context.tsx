@@ -5,6 +5,8 @@ interface UIStateContextProps {
   setSidebarOpen: (isOpen: boolean) => void;
   asideDetailsOpen: boolean;
   setAsideDetailsOpen: (isOpen: boolean) => void;
+  simulationOpen: boolean;
+  setSimulationOpen: (isOpen: boolean) => void;
   sidebarWidth: number;
   asideDetailsWidth: number;
 }
@@ -19,17 +21,27 @@ const sidebarWidth = 192;
 const asideDetailsWidth = 240;
 
 export const LayoutProvider: React.ComponentType<UIStateProviderProps> = ({ children }) => {
+  const [simulationOpen, setSimulationOpen] = useState<boolean>(false);
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const [asideDetailsOpen, setAsideDetailsOpen] = useState<boolean>(false);
 
   return (
-    <LayoutContent.Provider value={{ sidebarWidth, asideDetailsWidth, sidebarOpen, setSidebarOpen, asideDetailsOpen, setAsideDetailsOpen }}>
+    <LayoutContent.Provider
+      value={{
+        sidebarWidth,
+        asideDetailsWidth,
+        sidebarOpen,
+        setSidebarOpen,
+        asideDetailsOpen,
+        setAsideDetailsOpen,
+        simulationOpen,
+        setSimulationOpen,
+      }}>
       {children}
     </LayoutContent.Provider>
   );
 };
 
-// Custom hook to use the UI state context
 export const useLayoutContext = (): UIStateContextProps => {
   const context = useContext(LayoutContent);
   if (context === undefined) {

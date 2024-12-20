@@ -1,19 +1,19 @@
 import React from "react";
-import { Background, BackgroundVariant, Connection, MiniMap, ReactFlow, addEdge, useEdgesState, useNodesState, useReactFlow } from "@xyflow/react";
+import { Background, BackgroundVariant, Connection, ReactFlow, addEdge, useEdgesState, useNodesState, useReactFlow } from "@xyflow/react";
 import { Sidebar } from "@/components/layout/sidebar";
 import { AsideDetails } from "@/components/layout/aside-details";
 import { NodeFactory } from "@/utils/node-factory";
 
-import { INodeType, INode, IEdge } from "@/config/types";
+import { INodeType, INode, IEdge, IHistogramNode } from "@/config/types";
 import { NODE_TYPES } from "@/config/constants";
 import { BiPlay, BiTrash } from "react-icons/bi";
 import { SimulationSection } from "./components/layout/simulation-section";
 
 function App() {
   const flow = useReactFlow<INode, IEdge>();
-  const [displayCharts, setDisplayCharts] = React.useState<boolean>(false);
   const [edges, setEdges, onEdgesChange] = useEdgesState<IEdge>([]);
   const [nodes, setNodes, onNodesChange] = useNodesState<INode>([]);
+  const [finishedHistograms, setFinishedHistograms] = React.useState<IHistogramNode[]>([]);
 
   function addNewNode(type: INodeType) {
     setNodes([...nodes, NodeFactory.new(type, flow)]);
@@ -34,8 +34,9 @@ function App() {
     nodes.forEach((node) => NodeFactory.run(node, flow));
 
     setNodes([...nodes]);
-    setDisplayCharts(true);
+    setFinishedHistograms(nodes.filter((node) => node.type === "histogram" && node.data.status === "FINISHED") as IHistogramNode[]);
   }
+
   React.useEffect(() => {
     const dice = NodeFactory.new("diceGenerator", flow);
     dice.position.x = 20;
@@ -61,7 +62,7 @@ function App() {
 
       <Sidebar addNewNode={addNewNode} />
       <AsideDetails />
-      {displayCharts && <SimulationSection />}
+      <SimulationSection histogramNodes={finishedHistograms} />
 
       <main className="w-screen h-screen">
         <ReactFlow
