@@ -1,4 +1,5 @@
-import { IDicePoolNode, IDiceGeneratorNode, INodeService } from "@/config/types";
+import { IDicePoolNode, INodeService } from "@/config/types";
+import { NodeManager } from "@/utils/node-manager";
 
 export const DicePoolService: INodeService<IDicePoolNode> = {
   new(_flow, { id, position }) {
@@ -10,51 +11,38 @@ export const DicePoolService: INodeService<IDicePoolNode> = {
         name: "Dice pool",
         detailsTitle: "Dice Pool",
         status: "IDLE",
-        state: [],
       },
     };
   },
 
   run(flow, node) {
-    const nodes = flow.getNodes();
-    const edges = flow.getEdges();
+    try {
+      const nodeEdges = flow.getEdges().filter((edge) => edge.target === node.id);
+      if (nodeEdges.length !== 2) throw new Error("Invalid connection!");
 
-    if (node.data.status === "FINISHED") {
-      node.data = { ...node.data, status: "MISSING_DATA" };
-      return;
+      const sourceNode1 = flow.getNode(nodeEdges[0].source);
+      const sourceNode2 = flow.getNode(nodeEdges[1].source);
+      if (!sourceNode1 || !sourceNode2) throw new Error("Source connection not found!");
+
+      const sourceState1 = NodeManager.run(sourceNode1, flow) as number[];
+      const sourceState2 = NodeManager.run(sourceNode2, flow) as number[];
+      const resultState = poolNodes(sourceState1, sourceState2);
+
+      flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
+      return resultState;
+    } catch (error) {
+      flow.updateNodeData(node.id, { ...node.data, status: "ERROR", errorMessage: error?.message });
+      throw error;
     }
-
-    const nodeEdges = edges.filter((edge) => edge.target === node.id);
-
-    if (nodeEdges.length !== 2) {
-      throw new Error("Dice pool with Invalid number of connections!");
-    }
-
-    const nodeSource1 = nodes.find((item) => item.id === nodeEdges[0].source) as IDiceGeneratorNode | undefined;
-    const nodeSource2 = nodes.find((item) => item.id === nodeEdges[1].source) as IDiceGeneratorNode | undefined;
-
-    if (!nodeSource1 || !nodeSource2) {
-      throw new Error("Dice pool with invalid node connections!");
-    }
-
-    if (nodeSource1.data.status !== "FINISHED" || nodeSource2.data.status !== "FINISHED") {
-      throw new Error("Dice pool connections not ready!");
-    }
-
-    node.data = {
-      ...node.data,
-      state: poolNodes(nodeSource1, nodeSource2),
-      status: "FINISHED",
-    };
   },
 };
 
-export function poolNodes(aInput1: IDiceGeneratorNode, aInput2: IDiceGeneratorNode) {
+export function poolNodes(aInput1: number[], aInput2: number[]) {
   let result: number[][] = [];
 
-  for (let i = 0; i < aInput1.data.state.length; i++) {
-    const dado1 = aInput1.data.state[i];
-    const dado2 = aInput2.data.state[i];
+  for (let i = 0; i < aInput1.length; i++) {
+    const dado1 = aInput1[i];
+    const dado2 = aInput2[i];
 
     result[i] = [];
 

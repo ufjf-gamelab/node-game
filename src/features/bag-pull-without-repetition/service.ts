@@ -10,14 +10,13 @@ export const BagGeneratorWithoutRepetitionService: INodeService<IBagPullWithoutR
         status: "IDLE",
         detailsTitle: "Pull Bag without repetition",
         name: "Pull without repetition",
-        state: [],
         balls: ["red"],
       },
     };
   },
 
   run(flow, node) {
-    node.data.status = "MISSING_DATA";
-    flow.updateNode(node.id, node);
+    flow.updateNodeData(node.id, { ...node.data, status: "MISSING_DATA" });
+    return [];
   },
 };

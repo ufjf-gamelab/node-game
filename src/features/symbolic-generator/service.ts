@@ -1,5 +1,7 @@
 import { INodeService, ISymbolicGeneratorNode } from "@/config/types";
 
+const TOTAL_DATA_VALUE = 10000;
+
 export const SymbolicGeneratorService: INodeService<ISymbolicGeneratorNode> = {
   new(_flow, { id, position }) {
     return {
@@ -10,39 +12,37 @@ export const SymbolicGeneratorService: INodeService<ISymbolicGeneratorNode> = {
         status: "IDLE",
         detailsTitle: "Symbolic generator",
         name: "Symbolic",
-        state: [],
         faces: ["A"],
       },
     };
   },
 
-  run(_flow, node) {
-    const isMissingFields = node.data.faces.some((item) => !item);
-    if (isMissingFields) {
-      throw new Error("Symbolic generator with invalid faces!");
+  run(flow, node) {
+    try {
+      const isMissingFields = node.data.faces.some((item) => !item);
+      if (isMissingFields) throw new Error("Symbolic generator with invalid faces!");
+
+      const resultState = generateRandomSymbolicData(1, node.data.faces, TOTAL_DATA_VALUE);
+
+      flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
+      return resultState;
+    } catch (error) {
+      flow.updateNodeData(node.id, { ...node.data, status: "ERROR", errorMessage: error?.message });
+      throw error;
     }
-
-    if (node.data.status === "FINISHED") {
-      node.data = { ...node.data, status: "MISSING_DATA" };
-      return;
-    }
-
-    let randomData = generateRandomData(1, node.data.faces.length, 10000);
-    let symbolicState: string[] = [];
-
-    randomData.map((randomData) => {
-      const itemFound = node.data.faces.find((item) => item.toString() === randomData.toString());
-      itemFound && symbolicState.push(itemFound);
-    });
-
-    node.data = { ...node.data, state: symbolicState, status: "FINISHED" };
   },
 };
 
-function generateRandomData(aMin: number, aMax: number, aN: number) {
-  let lData: number[] = [];
+function generateRandomSymbolicData(aMin: number, faces: string[], aN: number) {
+  const randomData: number[] = [];
   for (let i = 0; i < aN; i++) {
-    lData.push(parseInt(Math.floor(Math.random() * (aMax + 1 - aMin) + aMin).toString()));
+    randomData.push(parseInt(Math.floor(Math.random() * (faces.length + 1 - aMin) + aMin).toString()));
   }
-  return lData;
+
+  const result: string[] = [];
+  randomData.forEach((data) => {
+    const itemFound = faces.find((item) => item === data.toString());
+    itemFound && result.push(itemFound);
+  });
+  return result;
 }

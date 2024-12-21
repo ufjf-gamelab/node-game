@@ -10,14 +10,13 @@ export const BagGeneratorService: INodeService<IBagGeneratorNode> = {
         status: "IDLE",
         detailsTitle: "Bag generator",
         name: "Bag",
-        state: [],
         balls: ["red"],
       },
     };
   },
 
   run(flow, node) {
-    node.data.status = "MISSING_DATA";
-    flow.updateNode(node.id, node);
+    flow.updateNodeData(node.id, { ...node.data, status: "MISSING_DATA" });
+    return [];
   },
 };

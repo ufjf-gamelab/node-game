@@ -1,5 +1,5 @@
 import { IHistogramNode, INode, INodeService } from "@/config/types";
-import { NodeFactory } from "@/utils/node-factory";
+import { NodeManager } from "@/utils/node-manager";
 
 export const HistogramService: INodeService<IHistogramNode> = {
   new(_flow, { id, position }) {
@@ -19,12 +19,13 @@ export const HistogramService: INodeService<IHistogramNode> = {
   run(flow, node) {
     try {
       const edge = flow.getEdges().find((edge) => edge.target === node.id);
-      if (!edge) throw new Error("Histogram connection not found!");
+      if (!edge) throw new Error("Connection not found!");
 
-      let sourceNode = flow.getNode(edge.source) as INode | undefined;
-      if (!sourceNode) throw new Error("Histogram source connection not found!");
+      const sourceNode = flow.getNode(edge.source) as INode | undefined;
+      if (!sourceNode) throw new Error("Source connection not found!");
 
-      const sourceState = NodeFactory.run(sourceNode, flow);
+      const sourceState = NodeManager.run(sourceNode, flow);
+
       flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
       return sourceState;
     } catch (error) {

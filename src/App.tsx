@@ -1,6 +1,6 @@
 import React from "react";
 import { Background, BackgroundVariant, Connection, ReactFlow, addEdge, useEdgesState, useNodesState, useReactFlow } from "@xyflow/react";
-import { NodeFactory } from "@/utils/node-factory";
+import { NodeManager } from "@/utils/node-manager";
 import { Sidebar } from "@/components/layout/sidebar";
 import { TaskBar } from "./components/layout/task-bar";
 import { AsideDetails } from "@/components/layout/aside-details";
@@ -13,7 +13,7 @@ function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState<INode>([]);
 
   function addNewNode(type: INodeType) {
-    setNodes([...nodes, NodeFactory.new(type, flow)]);
+    setNodes([...nodes, NodeManager.new(type, flow)]);
   }
 
   const onConnect = React.useCallback(
@@ -25,10 +25,10 @@ function App() {
   );
 
   React.useEffect(() => {
-    const dice = NodeFactory.new("diceGenerator", flow);
+    const dice = NodeManager.new("diceGenerator", flow);
     dice.position.x = 20;
     dice.position.y = 20;
-    const histogram = NodeFactory.new("histogram", flow);
+    const histogram = NodeManager.new("histogram", flow);
     histogram.position.x = 200;
     histogram.position.y = 20;
     setNodes([dice, histogram]);

@@ -1,9 +1,10 @@
 import React from "react";
 import { IChartData } from "@/components/ui/bar-chart";
 import { IEdge, IHistogramNode, INode } from "@/config/types";
-import { NodeFactory } from "@/utils/node-factory";
+import { NodeManager } from "@/utils/node-manager";
 import { useReactFlow } from "@xyflow/react";
 import { sortBy } from "@/utils/sort-by";
+import { waitAsync } from "@/utils/waitAsync";
 
 type IChart = { id: string; name: string; data: IChartData };
 
@@ -23,9 +24,10 @@ export const SimulationProvider: React.ComponentType<UIStateProviderProps> = ({ 
   const flow = useReactFlow<INode, IEdge>();
   const [charts, setCharts] = React.useState<IChart[]>([]);
 
-  function runSimulation() {
+  async function runSimulation() {
     const nodes = flow.getNodes();
     nodes.forEach((node) => flow.updateNodeData(node.id, { ...node.data, status: "LOADING" }));
+    await waitAsync(200);
 
     const newCharts: IChart[] = [];
     const histogramsNode = nodes.filter((node) => node.type === "histogram") as IHistogramNode[];
@@ -39,11 +41,21 @@ export const SimulationProvider: React.ComponentType<UIStateProviderProps> = ({ 
       }
     });
 
+    await waitAsync(200);
+
+    flow
+      .getNodes()
+      .filter((node) => node.data.status === "LOADING" && node.type !== "histogram")
+      .forEach((node) => {
+        console.log("Running node", node.type);
+        NodeManager.run(node, flow);
+      });
+
     setCharts(newCharts);
   }
 
   function buildChart(node: IHistogramNode): IChart {
-    const nodeState = NodeFactory.run(node, flow);
+    const nodeState = NodeManager.run(node, flow);
 
     const chartData: IChartData = nodeState.reduce((acc, item) => {
       const existingEntry = acc.find((entry) => entry.x === item.toString());

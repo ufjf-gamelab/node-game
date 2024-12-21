@@ -1,4 +1,5 @@
-import { IDiceBetweenIntervalNode, IDiceGeneratorNode, INodeService } from "@/config/types";
+import { IDiceBetweenIntervalNode, INodeService } from "@/config/types";
+import { NodeManager } from "@/utils/node-manager";
 
 export const DiceBetweenIntervalService: INodeService<IDiceBetweenIntervalNode> = {
   new(_flow, { id, position }) {
@@ -12,39 +13,27 @@ export const DiceBetweenIntervalService: INodeService<IDiceBetweenIntervalNode> 
         status: "IDLE",
         min: 1,
         max: 6,
-        state: [],
       },
     };
   },
 
   run(flow, node) {
-    const nodes = flow.getNodes();
-    const edges = flow.getEdges();
+    try {
+      const edge = flow.getEdges().find((edge) => edge.target === node.id);
+      if (!edge) throw new Error("Connection not found!");
 
-    if (node.data.status === "FINISHED") {
-      node.data = { ...node.data, status: "MISSING_DATA" };
-      return;
+      const sourceNode = flow.getNode(edge.source);
+      if (!sourceNode) throw new Error("Source connection not found!");
+
+      const sourceState = NodeManager.run(sourceNode, flow) as number[];
+      const resultState = getArrayFaceBetween(sourceState, node.data.min, node.data.max);
+
+      flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
+      return resultState;
+    } catch (error) {
+      flow.updateNodeData(node.id, { ...node.data, status: "ERROR", errorMessage: error?.message });
+      throw error;
     }
-
-    const nodeEdges = edges.filter((edge) => edge.target === node.id);
-    if (nodeEdges.length !== 1) {
-      throw new Error("Dice success with Invalid number of connections!");
-    }
-
-    const nodeSource = nodes.find((item) => item.id === nodeEdges[0].source) as IDiceGeneratorNode | undefined;
-    if (!nodeSource) {
-      throw new Error("Dice success with invalid node connections!");
-    }
-
-    if (nodeSource.data.status !== "FINISHED") {
-      throw new Error("Dice success connections not ready!");
-    }
-
-    node.data = {
-      ...node.data,
-      state: getArrayFaceBetween(nodeSource.data.state, node.data.min, node.data.max),
-      status: "FINISHED",
-    };
   },
 };
 

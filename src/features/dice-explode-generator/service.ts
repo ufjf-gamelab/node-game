@@ -12,24 +12,22 @@ export const DiceExplodeGeneratorService: INodeService<IDiceExplodeGeneratorNode
         name: "Dice explode",
         detailsTitle: "Dice Explode Generator",
         status: "IDLE",
-        state: [],
         explodeFace: 1,
         maxFace: 6,
       },
     };
   },
 
-  run(_flow, node) {
-    if (node.data.status === "FINISHED") {
-      node.data = { ...node.data, status: "MISSING_DATA" };
-      return;
-    }
+  run(flow, node) {
+    try {
+      const resultState = explodeDice(node.data.maxFace, node.data.explodeFace, TOTAL_DATA_VALUE);
 
-    node.data = {
-      ...node.data,
-      state: explodeDice(node.data.maxFace, node.data.explodeFace, TOTAL_DATA_VALUE),
-      status: "FINISHED",
-    };
+      flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
+      return resultState;
+    } catch (error) {
+      flow.updateNodeData(node.id, { ...node.data, status: "ERROR", errorMessage: error?.message });
+      throw error;
+    }
   },
 };
 

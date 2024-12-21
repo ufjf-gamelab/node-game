@@ -15,5 +15,8 @@ export const DicePoolSumService: INodeService<IDicePoolSumNode> = {
     };
   },
 
-  run(_flow, _node) {},
+  run(flow, node) {
+    flow.updateNodeData(node.id, { ...node.data, status: "MISSING_DATA" });
+    return [];
+  },
 };
