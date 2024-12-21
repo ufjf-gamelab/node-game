@@ -7,8 +7,13 @@ import { useSimulationContext } from "@/contexts/simulation-context";
 import { BarChart } from "@/components/ui/bar-chart";
 
 export const TaskBar: React.ComponentType = () => {
-  const { runSimulation, clearSimulation, simulationCharts } = useSimulationContext();
+  const { loading, runSimulation, clearSimulation, simulationCharts } = useSimulationContext();
   const { simulationOpen, setSimulationOpen, asideDetailsOpen, sidebarWidth, asideDetailsWidth } = useLayoutContext();
+
+  async function startSimulation() {
+    await runSimulation();
+    setSimulationOpen(true);
+  }
 
   return (
     <>
@@ -18,13 +23,7 @@ export const TaskBar: React.ComponentType = () => {
           left: `calc(${sidebarWidth}px + (100vw - ${sidebarWidth}px - ${asideDetailsOpen ? asideDetailsWidth : 0}px) / 2)`,
           top: "calc(100vh - 52px)",
         }}>
-        <Button
-          title="Start simulation"
-          leftSection={<BiPlay className="text-xl" />}
-          onClick={() => {
-            runSimulation();
-            setSimulationOpen(true);
-          }}>
+        <Button title="Start simulation" loading={loading} leftSection={<BiPlay className="text-xl" />} onClick={startSimulation}>
           Start
         </Button>
         <Button title="Clear simulation" color="red" leftSection={<BiReset className="text-xl" />} onClick={clearSimulation}>

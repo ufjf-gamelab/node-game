@@ -9,7 +9,8 @@ import { waitAsync } from "@/utils/waitAsync";
 type IChart = { id: string; name: string; data: IChartData };
 
 interface UIStateContextProps {
-  runSimulation: () => void;
+  loading: boolean;
+  runSimulation: () => Promise<void>;
   clearSimulation: () => void;
   simulationCharts: IChart[];
 }
@@ -23,8 +24,10 @@ interface UIStateProviderProps {
 export const SimulationProvider: React.ComponentType<UIStateProviderProps> = ({ children }) => {
   const flow = useReactFlow<INode, IEdge>();
   const [charts, setCharts] = React.useState<IChart[]>([]);
+  const [loading, setLoading] = React.useState(false);
 
   async function runSimulation() {
+    setLoading(true);
     const nodes = flow.getNodes();
     nodes.forEach((node) => flow.updateNodeData(node.id, { ...node.data, status: "LOADING" }));
     await waitAsync(200);
@@ -48,6 +51,7 @@ export const SimulationProvider: React.ComponentType<UIStateProviderProps> = ({ 
       .forEach((node) => NodeManager.run(node, flow));
 
     setCharts(newCharts);
+    setLoading(false);
   }
 
   function buildChart(node: IHistogramNode): IChart {
@@ -71,7 +75,7 @@ export const SimulationProvider: React.ComponentType<UIStateProviderProps> = ({ 
     nodes.forEach((node) => flow.updateNodeData(node.id, { ...node.data, status: "IDLE" }));
   }
 
-  return <LayoutContent.Provider value={{ runSimulation, clearSimulation, simulationCharts: charts }}>{children}</LayoutContent.Provider>;
+  return <LayoutContent.Provider value={{ loading, runSimulation, clearSimulation, simulationCharts: charts }}>{children}</LayoutContent.Provider>;
 };
 
 export const useSimulationContext = (): UIStateContextProps => {
