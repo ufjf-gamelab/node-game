@@ -1,23 +1,22 @@
 import React from "react";
-import { AiOutlineCheckCircle, AiOutlineClockCircle, AiOutlineLoading } from "react-icons/ai";
-import { MdReportProblem } from "react-icons/md";
-import { cls } from "@/utils/cls";
+import { BiCheckCircle, BiErrorCircle, BiLoader, BiTime } from "react-icons/bi";
 import { INodeStatus } from "@/config/types";
+import { cls } from "@/utils/cls";
 
 const STATUS_TO_ICON = (status: INodeStatus) => {
   switch (status) {
     case "IDLE":
-      return <AiOutlineClockCircle />;
+      return <BiTime />;
     case "FINISHED":
-      return <AiOutlineCheckCircle />;
+      return <BiCheckCircle />;
     case "ERROR":
-      return <MdReportProblem />;
+      return <BiErrorCircle />;
     case "LOADING":
-      return <AiOutlineLoading />;
+      return <BiLoader />;
     case "MISSING_DATA":
-      return <MdReportProblem />;
+      return <BiErrorCircle />;
     default:
-      return <MdReportProblem />;
+      return null;
   }
 };
 
@@ -32,7 +31,7 @@ const statusClasses: Record<INodeStatus, string> = {
 export const NodeStatus: React.ComponentType<{ status: INodeStatus }> = ({ status }) => {
   return (
     <div
-      className={cls("flex items-center justify-center text-[0.6rem] font-bold uppercase tracking-[0.1rem] text-center opacity-40")}
+      className={cls("flex items-center justify-center text-[0.7rem] font-bold uppercase tracking-[0.1rem] text-center opacity-40")}
       data-status={status}>
       <span className={cls(statusClasses[status])}>{STATUS_TO_ICON(status)}</span>
     </div>

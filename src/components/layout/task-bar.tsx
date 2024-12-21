@@ -19,6 +19,7 @@ export const TaskBar: React.ComponentType = () => {
           top: "calc(100vh - 52px)",
         }}>
         <Button
+          title="Start simulation"
           leftSection={<BiPlay className="text-xl" />}
           onClick={() => {
             runSimulation();
@@ -26,11 +27,11 @@ export const TaskBar: React.ComponentType = () => {
           }}>
           Start
         </Button>
-        <Button color="red" leftSection={<BiReset className="text-xl" />} onClick={clearSimulation}>
+        <Button title="Clear simulation" color="red" leftSection={<BiReset className="text-xl" />} onClick={clearSimulation}>
           Clear
         </Button>
         <Button leftSection={<BiImport className="text-xl" />}>Import/Export</Button>
-        <Button color="gray" onClick={() => setSimulationOpen(!simulationOpen)}>
+        <Button title={simulationOpen ? "Close section" : "Open section"} color="gray" onClick={() => setSimulationOpen(!simulationOpen)}>
           <BiSolidChevronUp className={cls("text-xl", { "transform rotate-180": simulationOpen, "transition-transform duration-700": true })} />
         </Button>
       </div>

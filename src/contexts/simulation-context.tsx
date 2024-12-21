@@ -31,7 +31,6 @@ export const SimulationProvider: React.ComponentType<UIStateProviderProps> = ({ 
 
     const newCharts: IChart[] = [];
     const histogramsNode = nodes.filter((node) => node.type === "histogram") as IHistogramNode[];
-
     histogramsNode.forEach((histogram) => {
       try {
         const chart = buildChart(histogram);
@@ -41,15 +40,12 @@ export const SimulationProvider: React.ComponentType<UIStateProviderProps> = ({ 
       }
     });
 
-    await waitAsync(200);
+    await waitAsync(500);
 
     flow
       .getNodes()
       .filter((node) => node.data.status === "LOADING" && node.type !== "histogram")
-      .forEach((node) => {
-        console.log("Running node", node.type);
-        NodeManager.run(node, flow);
-      });
+      .forEach((node) => NodeManager.run(node, flow));
 
     setCharts(newCharts);
   }
