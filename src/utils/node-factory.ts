@@ -54,7 +54,7 @@ export const NodeFactory = {
     }
   },
 
-  run(node: INode, flow: IFlowInstance) {
+  run<T extends INode>(node: T, flow: IFlowInstance) {
     switch (node.type) {
       case "diceGenerator":
         return DiceGeneratorService.run(flow, node);

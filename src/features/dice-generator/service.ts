@@ -19,12 +19,15 @@ export const DiceGeneratorService: INodeService<IDiceGeneratorNode> = {
     };
   },
 
-  run(_flow, node) {
-    node.data = {
-      ...node.data,
-      state: generateRandomData(node.data.min, node.data.max, TOTAL_DATA_VALUE),
-      status: "FINISHED",
-    };
+  run(flow, node) {
+    try {
+      const resultState = generateRandomData(node.data.min, node.data.max, TOTAL_DATA_VALUE);
+      flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
+      return resultState;
+    } catch (error) {
+      flow.updateNodeData(node.id, { ...node.data, status: "ERROR", errorMessage: error?.message });
+      throw error;
+    }
   },
 };
 
