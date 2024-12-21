@@ -14,21 +14,21 @@ import { useLayoutContext } from "@/contexts/layout-context";
 function renderDetails(node: INode) {
   switch (node.type) {
     case "diceGenerator":
-      return <DiceGeneratorDetails node={node} />;
+      return <DiceGeneratorDetails node={node} key={node.id} />;
     case "diceSuccess":
-      return <DiceSuccessDetails node={node} />;
+      return <DiceSuccessDetails node={node} key={node.id} />;
     case "diceBetweenInterval":
-      return <DiceBetweenIntervalDetails node={node} />;
+      return <DiceBetweenIntervalDetails node={node} key={node.id} />;
     case "diceCountRepetition":
-      return <DiceCountRepetitionDetails node={node} />;
+      return <DiceCountRepetitionDetails node={node} key={node.id} />;
     case "diceExplodeGenerator":
-      return <DiceExplodeGeneratorDetails node={node} />;
+      return <DiceExplodeGeneratorDetails node={node} key={node.id} />;
     case "bagGenerator":
-      return <BagGeneratorDetails node={node} />;
+      return <BagGeneratorDetails node={node} key={node.id} />;
     case "symbolicGenerator":
-      return <SymbolicGeneratorDetails node={node} />;
+      return <SymbolicGeneratorDetails node={node} key={node.id} />;
     default:
-      return <BaseNodeDetails node={node} />;
+      return <BaseNodeDetails node={node} key={node.id} />;
   }
 }
 
