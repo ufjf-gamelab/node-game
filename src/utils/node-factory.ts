@@ -12,7 +12,7 @@ import { BagGeneratorWithoutRepetitionService } from "@/features/bag-pull-withou
 import { SymbolicGeneratorService } from "@/features/symbolic-generator";
 import { SymbolicPoolService } from "@/features/symbolic-pool";
 import { generateHash } from "./generate-hash";
-import { IFlowInstance, INode, INodeType } from "@/config/types";
+import { IFlowInstance, INode, INodeState, INodeType } from "@/config/types";
 
 export const NodeFactory = {
   new(type: INodeType, flow: IFlowInstance): INode {
@@ -54,34 +54,34 @@ export const NodeFactory = {
     }
   },
 
-  run<T extends INode>(node: T, flow: IFlowInstance) {
+  run<N extends INode>(node: N, flow: IFlowInstance): INodeState<N> {
     switch (node.type) {
       case "diceGenerator":
-        return DiceGeneratorService.run(flow, node);
+        return DiceGeneratorService.run(flow, node) as INodeState<N>;
       case "histogram":
-        return HistogramService.run(flow, node);
+        return HistogramService.run(flow, node) as INodeState<N>;
       case "diceSum":
-        return DiceSumService.run(flow, node);
+        return DiceSumService.run(flow, node) as INodeState<N>;
       case "dicePool":
-        return DicePoolService.run(flow, node);
+        return DicePoolService.run(flow, node) as INodeState<N>;
       case "dicePoolSum":
-        return DicePoolSumService.run(flow, node);
+        return DicePoolSumService.run(flow, node) as INodeState<N>;
       case "diceSuccess":
-        return DiceSuccessService.run(flow, node);
+        return DiceSuccessService.run(flow, node) as INodeState<N>;
       case "diceBetweenInterval":
-        return DiceBetweenIntervalService.run(flow, node);
+        return DiceBetweenIntervalService.run(flow, node) as INodeState<N>;
       case "diceCountRepetition":
-        return DiceCountRepetitionService.run(flow, node);
+        return DiceCountRepetitionService.run(flow, node) as INodeState<N>;
       case "diceExplodeGenerator":
-        return DiceExplodeGeneratorService.run(flow, node);
+        return DiceExplodeGeneratorService.run(flow, node) as INodeState<N>;
       case "bagGenerator":
-        return BagGeneratorService.run(flow, node);
+        return BagGeneratorService.run(flow, node) as INodeState<N>;
       case "bagPullWithoutRepetition":
-        return BagGeneratorWithoutRepetitionService.run(flow, node);
+        return BagGeneratorWithoutRepetitionService.run(flow, node) as INodeState<N>;
       case "symbolicGenerator":
-        return SymbolicGeneratorService.run(flow, node);
+        return SymbolicGeneratorService.run(flow, node) as INodeState<N>;
       case "symbolicPool":
-        return SymbolicPoolService.run(flow, node);
+        return SymbolicPoolService.run(flow, node) as INodeState<N>;
 
       default:
         throw new Error("Node factory run: Invalid node type!");
