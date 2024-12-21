@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Accordion } from "@mantine/core";
 import { GiPerspectiveDiceOne, GiNetworkBars, GiPerspectiveDiceSixFacesRandom, GiSwapBag } from "react-icons/gi";
 import { INodeType } from "@/config/types";
 
@@ -7,17 +7,12 @@ type IProps = { addNewNode: (type: INodeType) => void };
 
 const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
   return (
-    <aside className="text-slate-900 fixed z-20 left-0 top-0 bg-white h-screen w-48 flex flex-col border-r">
-      <Accordion type="multiple" defaultValue={["item-1"]} className="w-full">
-        <AccordionItem value="item-1">
-          <AccordionTrigger className="px-4 hover:bg-slate-100">
-            <div className="flex gap-4 items-center justify-start">
-              <GiPerspectiveDiceOne className="text-[22px]" />
-              <span>Dice</span>
-            </div>
-          </AccordionTrigger>
+    <aside className="text-[14px] text-slate-900 fixed z-20 left-0 top-0 bg-white h-screen w-48 flex flex-col border-r">
+      <Accordion classNames={{ content: "p-0" }} chevronPosition="right" variant="contained" multiple defaultValue={["dice"]} className="w-full">
+        <Accordion.Item value="dice">
+          <Accordion.Control icon={<GiPerspectiveDiceOne className="text-[22px]" />}>Dice</Accordion.Control>
 
-          <AccordionContent>
+          <Accordion.Panel className="bg-white">
             <ul className="flex flex-col">
               <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("diceGenerator")}>
                 Dice generator
@@ -44,18 +39,13 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
                 Count repetition
               </li>
             </ul>
-          </AccordionContent>
-        </AccordionItem>
+          </Accordion.Panel>
+        </Accordion.Item>
 
-        <AccordionItem value="item-2">
-          <AccordionTrigger className="px-4 hover:bg-slate-100">
-            <div className="flex gap-4 items-center justify-start">
-              <GiSwapBag className="text-[22px]" />
-              <span>Bag</span>
-            </div>
-          </AccordionTrigger>
+        <Accordion.Item value="item-2">
+          <Accordion.Control icon={<GiSwapBag className="text-[22px]" />}>Bag</Accordion.Control>
 
-          <AccordionContent>
+          <Accordion.Panel className="bg-white">
             <ul className="flex flex-col">
               <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("bagGenerator")}>
                 Bag generator
@@ -64,18 +54,13 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
                 Pull without repetition
               </li>
             </ul>
-          </AccordionContent>
-        </AccordionItem>
+          </Accordion.Panel>
+        </Accordion.Item>
 
-        <AccordionItem value="item-3">
-          <AccordionTrigger className="px-4 hover:bg-slate-100">
-            <div className="flex gap-4 items-center justify-start">
-              <GiPerspectiveDiceSixFacesRandom className="text-[22px]" />
-              <span>Symbolic</span>
-            </div>
-          </AccordionTrigger>
+        <Accordion.Item value="item-3">
+          <Accordion.Control icon={<GiPerspectiveDiceSixFacesRandom className="text-[22px]" />}>Symbolic</Accordion.Control>
 
-          <AccordionContent>
+          <Accordion.Panel className="bg-white">
             <ul className="flex flex-col">
               <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("symbolicGenerator")}>
                 Symbolic generator
@@ -84,25 +69,25 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
                 Pool symbolic
               </li>
             </ul>
-          </AccordionContent>
-        </AccordionItem>
+          </Accordion.Panel>
+        </Accordion.Item>
 
-        <AccordionItem value="item-4">
-          <AccordionTrigger className="px-4 hover:bg-slate-100">
+        <Accordion.Item value="item-4">
+          <Accordion.Control className="px-4 hover:bg-slate-100">
             <div className="flex gap-4 items-center justify-start">
               <GiNetworkBars className="text-[22px]" />
               <span>Graphs</span>
             </div>
-          </AccordionTrigger>
+          </Accordion.Control>
 
-          <AccordionContent>
+          <Accordion.Panel className="bg-white">
             <ul className="flex flex-col">
               <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("histogram")}>
                 Bars
               </li>
             </ul>
-          </AccordionContent>
-        </AccordionItem>
+          </Accordion.Panel>
+        </Accordion.Item>
       </Accordion>
     </aside>
   );
