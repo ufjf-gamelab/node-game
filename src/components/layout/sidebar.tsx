@@ -83,7 +83,7 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
           <Accordion.Panel className="bg-white">
             <ul className="flex flex-col">
               <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("histogram")}>
-                Bars
+                Histogram
               </li>
             </ul>
           </Accordion.Panel>
