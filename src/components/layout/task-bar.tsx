@@ -54,9 +54,11 @@ export const TaskBar: React.ComponentType = () => {
           simulationCharts.map((chart, index) => (
             <React.Fragment key={chart.id}>
               <div className="w-full flex flex-col items-center last-of-type:mb-16">
-                <h3 className="text-lg pl-2 font-medium py-3">{chart.name}</h3>
+                <h3 className="text-xl font-medium py-3">{chart.name}</h3>
 
-                <BarChart data={chart.data} key={"chart_" + chart.id} />
+                <div className="sm:px-4 lg:px-12 w-full">
+                  <BarChart data={chart.data} key={"chart_" + chart.id} />
+                </div>
               </div>
 
               {index !== simulationCharts.length - 1 && <hr className="w-full border-2 border-gray-300 my-4" />}
