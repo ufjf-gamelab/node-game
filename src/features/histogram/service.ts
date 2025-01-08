@@ -12,6 +12,7 @@ export const HistogramService: INodeService<IHistogramNode> = {
         detailsTitle: "Histogram",
         status: "IDLE",
         state: [],
+        parentNodeType: "",
       },
     };
   },
@@ -25,6 +26,7 @@ export const HistogramService: INodeService<IHistogramNode> = {
       if (!sourceNode) throw new Error("Source connection not found!");
 
       const sourceState = NodeManager.run(sourceNode, flow);
+      node.data.parentNodeType = sourceNode.type;
 
       flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
       return sourceState;

@@ -1,6 +1,6 @@
 import React from "react";
 import { IChartData } from "@/components/ui/bar-chart";
-import { IEdge, IHistogramNode, INode } from "@/config/types";
+import { IEdge, IHistogramNode, INode, INodeType } from "@/config/types";
 import { NodeManager } from "@/utils/node-manager";
 import { useReactFlow } from "@xyflow/react";
 import { sortBy } from "@/utils/sort-by";
@@ -54,19 +54,28 @@ export const SimulationProvider: React.ComponentType<UIStateProviderProps> = ({ 
     setLoading(false);
   }
 
-  function buildChart(node: IHistogramNode): IChart {
-    const nodeState = NodeManager.run(node, flow);
+  function buildChart(histogramNode: IHistogramNode): IChart {
+    const nodeState = NodeManager.run(histogramNode, flow);
+
+    const successTypeNodes: INodeType[] = ["diceSuccess", "diceBetweenInterval"];
+    const parentIsTypeSuccessNode = histogramNode.data.parentNodeType && successTypeNodes.includes(histogramNode.data.parentNodeType);
 
     const chartData: IChartData = nodeState.reduce((acc, item) => {
-      const existingEntry = acc.find((entry) => entry.x === item.toString());
+      let itemLabel = item.toString();
+      if (parentIsTypeSuccessNode) itemLabel = item === 1 ? "Sucesso" : "Fracasso";
+
+      const existingEntry = acc.find((entry) => entry.x === itemLabel);
+
       if (existingEntry) existingEntry.y += 1;
-      else acc.push({ x: item.toString(), y: 1 });
+      else acc.push({ x: itemLabel, y: 1 });
 
       return acc;
     }, [] as IChartData);
 
+    console.log("chartData", chartData);
+
     const sortedChartData = sortBy(chartData, "x", "asc");
-    return { id: "chart_" + node.id, name: node.data.name, data: sortedChartData };
+    return { id: "chart_" + histogramNode.id, name: histogramNode.data.name, data: sortedChartData };
   }
 
   function clearSimulation() {

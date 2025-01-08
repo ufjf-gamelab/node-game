@@ -57,7 +57,7 @@ type IBaseNode<NodeData extends Record<string, unknown> = Record<string, unknown
 };
 
 export type IDiceGeneratorNode = IBaseNode<{ min: number; max: number }, "diceGenerator">;
-export type IHistogramNode = IBaseNode<{ name: string; status: INodeStatus }, "histogram">;
+export type IHistogramNode = IBaseNode<{ name: string; status: INodeStatus; parentNodeType: INodeType | "" }, "histogram">;
 export type IDiceSumNode = IBaseNode<{}, "diceSum">;
 export type IDicePoolNode = IBaseNode<{}, "dicePool">;
 export type IDicePoolSumNode = IBaseNode<{}, "dicePoolSum">;

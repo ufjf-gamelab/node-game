@@ -28,11 +28,17 @@ function App() {
     const dice = NodeManager.new("diceGenerator", flow);
     dice.position.x = 20;
     dice.position.y = 20;
+    const betweenInterval = NodeManager.new("diceBetweenInterval", flow);
+    betweenInterval.position.x = 200;
+    betweenInterval.position.y = 20;
     const histogram = NodeManager.new("histogram", flow);
-    histogram.position.x = 200;
+    histogram.position.x = 400;
     histogram.position.y = 20;
-    setNodes([dice, histogram]);
-    setEdges([{ id: "init", source: dice.id, target: histogram.id }]);
+    setNodes([dice, betweenInterval, histogram]);
+    setEdges([
+      { id: "1-2", source: dice.id, target: betweenInterval.id },
+      { id: "2-3", source: betweenInterval.id, target: histogram.id },
+    ]);
   }, []);
 
   return (
