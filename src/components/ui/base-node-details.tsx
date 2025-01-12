@@ -23,7 +23,7 @@ export const BaseNodeDetails: React.FunctionComponent<IProps> = ({ node, childre
 
   return (
     <div className="flex flex-col">
-      <div className="border-b-2  py-4 text-center text-xl">
+      <div className="border-b-2 px-2 py-4 text-center text-xl">
         <h2>{node.data.detailsTitle}</h2>
       </div>
 

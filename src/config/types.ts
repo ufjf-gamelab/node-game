@@ -26,7 +26,7 @@ type INodeStateMap = {
   diceCountRepetition: number[];
   diceExplodeGenerator: number[];
   bagGenerator: number[];
-  bagPullWithoutRepetition: number[];
+  bagPullWithoutRepetition: string[];
   symbolicGenerator: string[];
   symbolicPool: string[][];
 };
