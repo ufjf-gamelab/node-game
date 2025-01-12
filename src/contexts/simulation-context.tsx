@@ -40,6 +40,7 @@ export const SimulationProvider: React.ComponentType<UIStateProviderProps> = ({ 
         newCharts.push(chart);
       } catch (error) {
         console.error("Error building chart", error);
+        setLoading(false);
       }
     });
 
