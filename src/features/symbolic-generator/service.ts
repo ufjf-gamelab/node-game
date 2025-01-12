@@ -12,7 +12,7 @@ export const SymbolicGeneratorService: INodeService<ISymbolicGeneratorNode> = {
         status: "IDLE",
         detailsTitle: "Symbolic generator",
         name: "Symbolic",
-        faces: ["A"],
+        faces: ["A", "B"],
       },
     };
   },
@@ -41,8 +41,9 @@ function generateRandomSymbolicData(aMin: number, faces: string[], aN: number) {
 
   const result: string[] = [];
   randomData.forEach((data) => {
-    const itemFound = faces.find((item) => item === data.toString());
+    const itemFound = faces.find((_item, index) => index + 1 === data);
     itemFound && result.push(itemFound);
   });
+
   return result;
 }

@@ -11,7 +11,6 @@ export const BagGeneratorWithoutRepetitionService: INodeService<IBagPullWithoutR
         status: "IDLE",
         detailsTitle: "Pull Bag without repetition",
         name: "Pull without repetition",
-        balls: ["red"],
       },
     };
   },

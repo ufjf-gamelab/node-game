@@ -12,7 +12,7 @@ export const DiceBetweenIntervalService: INodeService<IDiceBetweenIntervalNode> 
         detailsTitle: "Dice Between Interval",
         status: "IDLE",
         min: 1,
-        max: 6,
+        max: 2,
       },
     };
   },

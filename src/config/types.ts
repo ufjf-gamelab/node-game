@@ -66,6 +66,6 @@ export type IDiceBetweenIntervalNode = IBaseNode<{ min: number; max: number }, "
 export type IDiceCountRepetitionNode = IBaseNode<{ face: number }, "diceCountRepetition">;
 export type IDiceExplodeGeneratorNode = IBaseNode<{ explodeFace: number; maxFace: number }, "diceExplodeGenerator">;
 export type IBagGeneratorNode = IBaseNode<{ balls: string[] }, "bagGenerator">;
-export type IBagPullWithoutRepetitionNode = IBaseNode<{ balls: string[] }, "bagPullWithoutRepetition">;
+export type IBagPullWithoutRepetitionNode = IBaseNode<{}, "bagPullWithoutRepetition">;
 export type ISymbolicGeneratorNode = IBaseNode<{ faces: string[] }, "symbolicGenerator">;
 export type ISymbolicPoolNode = IBaseNode<{}, "symbolicPool">;
