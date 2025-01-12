@@ -1,4 +1,5 @@
 import { IDiceSuccessNode, INodeService } from "@/config/types";
+import { flattenArray } from "@/utils/flatten-array";
 import { NodeManager } from "@/utils/node-manager";
 
 export const DiceSuccessService: INodeService<IDiceSuccessNode> = {
@@ -25,8 +26,8 @@ export const DiceSuccessService: INodeService<IDiceSuccessNode> = {
       const sourceNode = flow.getNode(edge.source);
       if (!sourceNode) throw new Error("Source connection not found!");
 
-      const sourceState = NodeManager.run(sourceNode, flow) as number[];
-      const resultState = getArraySuccess(sourceState, node.data.face);
+      const sourceState = NodeManager.run(sourceNode, flow) as number[] | number[][];
+      const resultState = getArraySuccess(flattenArray(sourceState), node.data.face);
 
       flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
       return resultState;

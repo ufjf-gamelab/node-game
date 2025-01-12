@@ -1,4 +1,5 @@
 import { IHistogramNode, INode, INodeService } from "@/config/types";
+import { flattenArray } from "@/utils/flatten-array";
 import { NodeManager } from "@/utils/node-manager";
 
 export const HistogramService: INodeService<IHistogramNode> = {
@@ -25,11 +26,12 @@ export const HistogramService: INodeService<IHistogramNode> = {
       const sourceNode = flow.getNode(edge.source) as INode | undefined;
       if (!sourceNode) throw new Error("Source connection not found!");
 
-      const sourceState = NodeManager.run(sourceNode, flow) as (string | number)[];
+      const sourceState = NodeManager.run(sourceNode, flow);
+      const resultState = flattenArray(sourceState);
       node.data.parentNodeType = sourceNode.type;
 
       flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
-      return sourceState;
+      return resultState;
     } catch (error) {
       flow.updateNodeData(node.id, { ...node.data, status: "ERROR", errorMessage: error?.message });
       throw error;

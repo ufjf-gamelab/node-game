@@ -1,4 +1,4 @@
-import { ISymbolicPoolNode, INodeService } from "@/config/types";
+import { ISymbolicPoolNode, INodeService, ISymbolicGeneratorNode } from "@/config/types";
 import { NodeManager } from "@/utils/node-manager";
 
 export const SymbolicPoolService: INodeService<ISymbolicPoolNode> = {
@@ -20,12 +20,12 @@ export const SymbolicPoolService: INodeService<ISymbolicPoolNode> = {
       const nodeEdges = flow.getEdges().filter((edge) => edge.target === node.id);
       if (nodeEdges.length !== 2) throw new Error("Invalid connection!");
 
-      const sourceNode1 = flow.getNode(nodeEdges[0].source);
-      const sourceNode2 = flow.getNode(nodeEdges[1].source);
+      const sourceNode1 = flow.getNode(nodeEdges[0].source) as ISymbolicGeneratorNode | undefined;
+      const sourceNode2 = flow.getNode(nodeEdges[1].source) as ISymbolicGeneratorNode | undefined;
       if (!sourceNode1 || !sourceNode2) throw new Error("Source connection not found!");
 
-      const sourceState1 = NodeManager.run(sourceNode1, flow) as string[];
-      const sourceState2 = NodeManager.run(sourceNode2, flow) as string[];
+      const sourceState1 = NodeManager.run(sourceNode1, flow);
+      const sourceState2 = NodeManager.run(sourceNode2, flow);
       const resultState = poolSymbolicNodes(sourceState1, sourceState2);
 
       flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
