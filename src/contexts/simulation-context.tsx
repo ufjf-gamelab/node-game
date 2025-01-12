@@ -61,7 +61,7 @@ export const SimulationProvider: React.ComponentType<UIStateProviderProps> = ({ 
     const parentIsTypeSuccessNode = histogramNode.data.parentNodeType && successTypeNodes.includes(histogramNode.data.parentNodeType);
 
     const chartData: IChartData = nodeState.reduce((acc, item) => {
-      let itemLabel = item.toString();
+      let itemLabel = item;
       if (parentIsTypeSuccessNode) itemLabel = item === 1 ? "Sucesso" : "Fracasso";
 
       const existingEntry = acc.find((entry) => entry.x === itemLabel);
@@ -71,8 +71,6 @@ export const SimulationProvider: React.ComponentType<UIStateProviderProps> = ({ 
 
       return acc;
     }, [] as IChartData);
-
-    console.log("chartData", chartData);
 
     const sortedChartData = sortBy(chartData, "x", "asc");
     return { id: "chart_" + histogramNode.id, name: histogramNode.data.name, data: sortedChartData };

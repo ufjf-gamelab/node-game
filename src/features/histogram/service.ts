@@ -25,7 +25,7 @@ export const HistogramService: INodeService<IHistogramNode> = {
       const sourceNode = flow.getNode(edge.source) as INode | undefined;
       if (!sourceNode) throw new Error("Source connection not found!");
 
-      const sourceState = NodeManager.run(sourceNode, flow);
+      const sourceState = NodeManager.run(sourceNode, flow) as (string | number)[];
       node.data.parentNodeType = sourceNode.type;
 
       flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });

@@ -4,7 +4,7 @@ import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "
 
 const chartConfig = { y: { label: " " } } satisfies ChartConfig;
 
-export type IChartData = { x: string; y: number }[];
+export type IChartData = { x: string | number; y: number }[];
 
 type IProps = {
   data: IChartData;

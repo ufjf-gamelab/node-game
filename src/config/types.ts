@@ -17,10 +17,10 @@ export type INode =
 
 type INodeStateMap = {
   diceGenerator: number[];
-  histogram: (number | string)[] | (number | string)[][];
+  histogram: (number | string)[];
   diceSum: number[];
   dicePool: number[][];
-  dicePoolSum: number[][];
+  dicePoolSum: number[];
   diceSuccess: number[];
   diceBetweenInterval: number[];
   diceCountRepetition: number[];
