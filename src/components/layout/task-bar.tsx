@@ -5,6 +5,7 @@ import { useLayoutContext } from "@/contexts/layout-context";
 import { Button } from "@mantine/core";
 import { useSimulationContext } from "@/contexts/simulation-context";
 import { BarChart } from "@/components/ui/bar-chart";
+import { ImportExportModal } from "@/features/import-export-modal";
 
 export const TaskBar: React.ComponentType = () => {
   const { loading, runSimulation, clearSimulation, simulationCharts } = useSimulationContext();
@@ -15,21 +16,28 @@ export const TaskBar: React.ComponentType = () => {
     setSimulationOpen(true);
   }
 
+  const [openedImportModal, setOpenedImportModal] = React.useState(false);
+
   return (
     <>
+      <ImportExportModal opened={openedImportModal} close={() => setOpenedImportModal(false)} />
+
       <div
         className="absolute z-[15] flex gap-4 h-16 justify-center transform -translate-x-1/2 transition-all duration-300 p-2 pb-8 rounded-md bg-white border border-gray-300"
         style={{
           left: `calc(${sidebarWidth}px + (100vw - ${sidebarWidth}px - ${asideDetailsOpen ? asideDetailsWidth : 0}px) / 2)`,
           top: "calc(100vh - 52px)",
         }}>
-        <Button title="Start simulation" loading={loading} leftSection={<BiPlay className="text-xl" />} onClick={startSimulation}>
+        <Button color="green" title="Start simulation" loading={loading} leftSection={<BiPlay className="text-xl" />} onClick={startSimulation}>
           Start
         </Button>
         <Button title="Clear simulation" color="red" leftSection={<BiReset className="text-xl" />} onClick={clearSimulation}>
           Clear
         </Button>
-        <Button leftSection={<BiImport className="text-xl" />}>Import/Export</Button>
+        <Button leftSection={<BiImport className="text-xl" />} onClick={() => setOpenedImportModal(!openedImportModal)}>
+          Import & Export
+        </Button>
+
         <Button title={simulationOpen ? "Close section" : "Open section"} color="gray" onClick={() => setSimulationOpen(!simulationOpen)}>
           <BiSolidChevronUp className={cls("text-xl", { "transform rotate-180": simulationOpen, "transition-transform duration-700": true })} />
         </Button>
