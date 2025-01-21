@@ -3,13 +3,14 @@ import { flattenArray } from "@/utils/flatten-array";
 import { NodeManager } from "@/utils/node-manager";
 
 export const HistogramService: INodeService<IHistogramNode> = {
-  new(_flow, { id, position }) {
+  new(flow, { id, position }) {
+    const histogramCount = flow.getNodes().filter((node) => node.type === "histogram").length;
     return {
       id,
       position,
       type: "histogram",
       data: {
-        name: "Histogram",
+        name: "Histogram " + (histogramCount + 1),
         detailsTitle: "Histogram",
         status: "IDLE",
         state: [],
