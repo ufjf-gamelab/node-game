@@ -17,7 +17,12 @@ const Chart: React.ComponentType<IProps> = ({ data }) => {
           data={data}
           dataKey="x"
           tickLine="y"
-          tooltipProps={{ itemStyle: { zIndex: 100 } }}
+          classNames={{
+            tooltipBody: "p-1",
+            tooltipLabel: "text-sm py-1",
+            tooltipItemName: "text-sm pl-1",
+            tooltipItemColor: "pl-3",
+          }}
           series={[{ name: "y", color: "blue.6", label: "Results" }]}
         />
       </ResponsiveContainer>
