@@ -1,11 +1,12 @@
 import React from "react";
-import { BiImport, BiNoSignal, BiPlay, BiReset, BiSolidChevronUp } from "react-icons/bi";
+import { BiDownload, BiImport, BiNoSignal, BiPlay, BiReset, BiSolidChevronUp } from "react-icons/bi";
 import { cls } from "@/utils/cls";
 import { useLayoutContext } from "@/contexts/layout-context";
-import { Button } from "@mantine/core";
+import { Button, Tooltip } from "@mantine/core";
 import { useSimulationContext } from "@/contexts/simulation-context";
 import { BarChart } from "@/components/ui/bar-chart";
 import { ImportExportModal } from "@/features/import-export-modal";
+import html2canvas from "html2canvas";
 
 export const TaskBar: React.ComponentType = () => {
   const { loading, runSimulation, clearSimulation, simulationCharts } = useSimulationContext();
@@ -17,6 +18,22 @@ export const TaskBar: React.ComponentType = () => {
   }
 
   const [openedImportModal, setOpenedImportModal] = React.useState(false);
+
+  async function downloadChartAsImagem(chartId: string, chartName: string) {
+    const chartElement = document.getElementById(chartId);
+    if (!chartElement) {
+      alert("Chart not found");
+      return;
+    }
+
+    const canvas = await html2canvas(chartElement);
+    const dataUrl = canvas.toDataURL("image/png");
+
+    const link = document.createElement("a");
+    link.href = dataUrl;
+    link.download = ("chart-" + chartName.replaceAll(" ", "-") + ".png").toLowerCase();
+    link.click();
+  }
 
   return (
     <>
@@ -61,8 +78,16 @@ export const TaskBar: React.ComponentType = () => {
         {simulationOpen &&
           simulationCharts.map((chart, index) => (
             <React.Fragment key={chart.id}>
-              <div className="w-full flex flex-col items-center last-of-type:mb-16">
-                <h3 className="text-xl font-medium py-3">{chart.name}</h3>
+              <div className="w-full flex flex-col items-center last-of-type:mb-16" id={chart.id}>
+                <div className="flex justify-center relative w-full">
+                  <h3 className="text-xl font-medium py-3">{chart.name}</h3>
+
+                  <Tooltip label="Download chart as image">
+                    <Button p="xs" className="top-12 absolute right-1" onClick={() => downloadChartAsImagem(chart.id, chart.name)}>
+                      <BiDownload />
+                    </Button>
+                  </Tooltip>
+                </div>
 
                 <div className="sm:px-4 lg:px-12 w-full">
                   <BarChart data={chart.data} key={"chart_" + chart.id} />
