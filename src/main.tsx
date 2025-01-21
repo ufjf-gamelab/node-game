@@ -10,6 +10,7 @@ import "./assets/tailwind.scss";
 import "./assets/global.scss";
 import "@xyflow/react/dist/style.css";
 import "@mantine/core/styles.css";
+import "@mantine/charts/styles.css";
 import { StrictMode } from "react";
 
 createRoot(document.getElementById("root")!).render(

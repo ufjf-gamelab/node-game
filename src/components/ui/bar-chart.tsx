@@ -1,8 +1,6 @@
 import React from "react";
-import { Bar, BarChart, CartesianGrid, XAxis, ResponsiveContainer } from "recharts";
-import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-
-const chartConfig = { y: { label: " " } } satisfies ChartConfig;
+import { ResponsiveContainer } from "recharts";
+import { BarChart } from "@mantine/charts";
 
 export type IChartData = { x: string | number; y: number }[];
 
@@ -12,19 +10,19 @@ type IProps = {
 
 const Chart: React.ComponentType<IProps> = ({ data }) => {
   return (
-    <ChartContainer config={chartConfig} className="w-full min-h-[200px] h-max max-h-[300px]">
+    <div className="w-full min-h-[200px] h-max max-h-[300px]">
       <ResponsiveContainer width="100%" height="100%" maxHeight={300} aspect={2}>
-        <BarChart accessibilityLayer data={data}>
-          <CartesianGrid vertical={false} />
-          <ChartTooltip content={<ChartTooltipContent />} />
-
-          <XAxis dataKey="x" tickLine={false} tickMargin={10} className="text-sm" axisLine={false} />
-          <Bar dataKey="y" fill="#60a5fa" radius={4} />
-        </BarChart>
+        <BarChart
+          h="300"
+          data={data}
+          dataKey="x"
+          tickLine="y"
+          tooltipProps={{ itemStyle: { zIndex: 100 } }}
+          series={[{ name: "y", color: "blue.6", label: "Results" }]}
+        />
       </ResponsiveContainer>
-    </ChartContainer>
+    </div>
   );
 };
 
-const MemoizedComponent = React.memo(Chart);
-export { MemoizedComponent as BarChart };
+export { Chart as BarChart };
