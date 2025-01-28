@@ -75,28 +75,30 @@ export const TaskBar: React.ComponentType = () => {
           </div>
         )}
 
-        {simulationOpen &&
-          simulationCharts.map((chart, index) => (
-            <React.Fragment key={chart.id}>
-              <div className="w-full flex flex-col items-center last-of-type:mb-16" id={chart.id}>
-                <div className="flex justify-center relative w-full">
-                  <h3 className="text-xl font-medium py-3">{chart.name}</h3>
+        <div id="charts-container">
+          {simulationOpen &&
+            simulationCharts.map((chart, index) => (
+              <React.Fragment key={chart.id}>
+                <div className="w-full flex flex-col items-center last-of-type:mb-16" id={chart.id}>
+                  <div className="flex justify-center relative w-full">
+                    <h3 className="text-xl font-medium py-3">{chart.name}</h3>
 
-                  <Tooltip label="Download chart as image">
-                    <Button p="xs" className="top-12 absolute right-1" onClick={() => downloadChartAsImagem(chart.id, chart.name)}>
-                      <BiDownload />
-                    </Button>
-                  </Tooltip>
+                    <Tooltip label="Download chart as image">
+                      <Button p="xs" className="top-12 absolute right-1" onClick={() => downloadChartAsImagem(chart.id, chart.name)}>
+                        <BiDownload />
+                      </Button>
+                    </Tooltip>
+                  </div>
+
+                  <div className="sm:px-4 lg:px-12 w-full">
+                    <BarChart data={chart.data} key={"chart_" + chart.id} />
+                  </div>
                 </div>
 
-                <div className="sm:px-4 lg:px-12 w-full">
-                  <BarChart data={chart.data} key={"chart_" + chart.id} />
-                </div>
-              </div>
-
-              {index !== simulationCharts.length - 1 && <hr className="w-full border-2 border-gray-300 my-4" />}
-            </React.Fragment>
-          ))}
+                {index !== simulationCharts.length - 1 && <hr className="w-full border-2 border-gray-300 my-4" />}
+              </React.Fragment>
+            ))}
+        </div>
       </div>
     </>
   );

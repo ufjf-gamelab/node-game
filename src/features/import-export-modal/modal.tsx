@@ -1,10 +1,14 @@
-import { Button, Divider, FileInput, Modal } from "@mantine/core";
-import { useReactFlow } from "@xyflow/react";
-import { BiDownload } from "react-icons/bi";
 import React from "react";
+import html2canvas from "html2canvas";
+import { Button, Divider, FileInput, Modal, Menu } from "@mantine/core";
+import { useReactFlow } from "@xyflow/react";
+import { BiBarChart, BiDownload, BiChalkboard, BiSolidFileImport } from "react-icons/bi";
 import { parseJsonFile } from "@/utils/parse-json-file";
 import { IEdge, INode } from "@/config/types";
 import { downloadFile } from "@/utils/download-file";
+import { useLayoutContext } from "@/contexts/layout-context";
+import { useSimulationContext } from "@/contexts/simulation-context";
+import { waitAsync } from "@/utils/waitAsync";
 
 const FILE_TYPE = "text/plain";
 
@@ -20,6 +24,8 @@ type IProps = {
 
 export const ImportExportModal: React.ComponentType<IProps> = ({ opened, close }) => {
   const flow = useReactFlow<INode, IEdge>();
+  const { simulationCharts } = useSimulationContext();
+  const { setSimulationOpen } = useLayoutContext();
 
   const [inputFile, setInputFile] = React.useState<File | null>(null);
   const [error, setError] = React.useState("");
@@ -54,6 +60,24 @@ export const ImportExportModal: React.ComponentType<IProps> = ({ opened, close }
     downloadFile(file, `node-crafter-export-${new Date().getTime()}.txt`);
   }
 
+  async function exportGraphImages() {
+    setSimulationOpen(true);
+    await waitAsync(300);
+    const chartElement = document.getElementById("charts-container");
+    if (!chartElement) {
+      alert("Chart not found");
+      return;
+    }
+
+    const canvas = await html2canvas(chartElement);
+    const dataUrl = canvas.toDataURL("image/png");
+
+    const link = document.createElement("a");
+    link.href = dataUrl;
+    link.download = "chart-graphs.png".toLowerCase();
+    link.click();
+  }
+
   React.useEffect(() => {
     if (!opened) {
       setError("");
@@ -64,29 +88,45 @@ export const ImportExportModal: React.ComponentType<IProps> = ({ opened, close }
   return (
     <>
       <Modal opened={opened} onClose={close} title="Import & Export" classNames={{ title: "text-xl font-medium" }} centered>
-        <div className="flex flex-col gap-8">
-          <div className="flex flex-col gap-2">
+        <Divider mb="md" />
+
+        <div className="flex flex-col gap-6 pb-4">
+          <div className="flex flex-col gap-4">
+            <span className="font-medium text-base m-0">Export current state</span>
+
+            <Menu withArrow shadow="md" width={200}>
+              <Menu.Target>
+                <Button leftSection={<BiDownload />} color="green">
+                  Download
+                </Button>
+              </Menu.Target>
+
+              <Menu.Dropdown w="100%" maw="250px">
+                <Menu.Item leftSection={<BiChalkboard size={14} />} onClick={exportBoard}>
+                  Board <span className="text-gray-400">(.txt)</span>
+                </Menu.Item>
+                <Menu.Item leftSection={<BiBarChart size={14} />} onClick={exportGraphImages} disabled={simulationCharts.length === 0}>
+                  Graphs <span className="text-gray-400">(.png)</span>
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
+          </div>
+
+          <Divider />
+
+          <div className="flex flex-col gap-4">
             <span className="font-medium text-base">Import new board</span>
             <FileInput onChange={selectInputFile} accept=".txt" placeholder="Select file (.txt)" error={error} />
-          </div>
 
-          <div className="flex flex-col gap-2">
-            <span className="font-medium text-base"> Export current board</span>
-            <Button leftSection={<BiDownload />} color="green" onClick={exportBoard}>
-              Download
+            <Button
+              leftSection={<BiSolidFileImport />}
+              color="blue"
+              px="xl"
+              disabled={!inputFile}
+              onClick={() => inputFile && importBoard(inputFile)}>
+              Import
             </Button>
           </div>
-        </div>
-
-        <Divider mt="xl" mb="lg" />
-
-        <div className="flex justify-between gap-4">
-          <Button color="gray" px="xl" onClick={close}>
-            Cancelar
-          </Button>
-          <Button color="blue" px="xl" disabled={!inputFile} onClick={() => inputFile && importBoard(inputFile)}>
-            Confirm
-          </Button>
         </div>
       </Modal>
     </>
