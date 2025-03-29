@@ -1,59 +1,50 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@tailwind base;
+@tailwind utilities;
 
-  color-scheme: light;
-  color: #242424;
-  background-color: #ffffffde;
+@layer base {
+  :root {
+    --radius: 0.5rem;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+    color-scheme: light;
+    color: #242424;
+    background-color: #ffffffde;
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  width: 100%;
-  @apply bg-slate-200 text-gray-800 overflow-hidden;
-}
+  a {
+    font-weight: 500;
+    color: #646cff;
+    text-decoration: inherit;
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
+    &:hover {
+      color: #535bf2;
+    }
+  }
 
-button {
-  @apply transition-all;
-}
+  body {
+    margin: 0;
+    min-height: 100vh;
+    width: 100%;
+    @apply bg-slate-200 text-gray-800 overflow-hidden;
+  }
 
-.btn {
-  @apply text-white bg-gray-700 hover:bg-gray-800  font-medium text-sm px-6 py-[3px]  dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800;
-}
+  h1 {
+    font-size: 3.2em;
+    line-height: 1.1;
+  }
 
-input {
-  @apply w-full bg-gray-100 text-gray-800 p-1 rounded-sm border border-gray-400 shadow-sm;
-}
+  button {
+    @apply transition-all;
+  }
 
-.react-flow-board .react-flow__handle {
-  @apply h-[10px] w-[10px];
-}
-
-.react-flow-board .react-flow__handle.connectingto {
-  @apply bg-red-600;
-}
-
-.react-flow-board .react-flow__handle.valid {
-  @apply bg-green-600;
+  input {
+    @apply w-full bg-gray-100 text-gray-800 p-1 rounded-sm border border-gray-400 shadow-sm;
+  }
 }

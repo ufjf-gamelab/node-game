@@ -1,0 +1,23 @@
+@tailwind components;
+
+@layer components {
+  .react-flow-board .react-flow__handle {
+    @apply h-[10px] w-[10px];
+  }
+
+  .react-flow-board .react-flow__handle.connectingto {
+    @apply bg-red-600;
+  }
+
+  .react-flow-board .react-flow__handle.valid {
+    @apply bg-green-600;
+  }
+
+  .btn {
+    @apply text-white bg-gray-700 hover:bg-gray-800  font-medium text-sm px-6 py-[3px]  dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800;
+  }
+
+  .sidebar-item {
+    @apply select-none cursor-pointer px-2 pl-8 py-1 hover:bg-slate-100;
+  }
+}

@@ -7,38 +7,38 @@ type IProps = { addNewNode: (type: INodeType) => void };
 
 const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
   return (
-    <aside className="text-[14px] text-slate-900 fixed z-20 left-0 top-0 bg-white h-screen w-48 flex flex-col border-r">
+    <aside className="text-[14px] text-slate-900 fixed z-20 left-0 top-0 bg-white h-screen w-48 flex flex-col border-r select-none">
       <Accordion classNames={{ content: "p-0" }} chevronPosition="right" variant="contained" multiple defaultValue={["dice"]} className="w-full">
         <Accordion.Item value="dice">
           <Accordion.Control icon={<GiPerspectiveDiceOne className="text-[22px]" />}>Dice</Accordion.Control>
 
           <Accordion.Panel className="bg-white">
             <ul className="flex flex-col">
-              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("diceGenerator")}>
+              <li className="sidebar-item" onClick={() => addNewNode("diceGenerator")}>
                 Dice generator
               </li>
-              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("diceExplodeGenerator")}>
+              <li className="sidebar-item" onClick={() => addNewNode("diceExplodeGenerator")}>
                 Dice explode generator
               </li>
-              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("diceSum")}>
+              <li className="sidebar-item" onClick={() => addNewNode("diceSum")}>
                 Sum
               </li>
-              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("diceSubtract")}>
+              <li className="sidebar-item" onClick={() => addNewNode("diceSubtract")}>
                 Subtract
               </li>
-              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("dicePool")}>
+              <li className="sidebar-item" onClick={() => addNewNode("dicePool")}>
                 Pool
               </li>
-              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("dicePoolSum")}>
+              <li className="sidebar-item" onClick={() => addNewNode("dicePoolSum")}>
                 Pool sum
               </li>
-              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("diceSuccess")}>
+              <li className="sidebar-item" onClick={() => addNewNode("diceSuccess")}>
                 Success
               </li>
-              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("diceBetweenInterval")}>
+              <li className="sidebar-item" onClick={() => addNewNode("diceBetweenInterval")}>
                 Between interval
               </li>
-              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("diceCountRepetition")}>
+              <li className="sidebar-item" onClick={() => addNewNode("diceCountRepetition")}>
                 Count repetition
               </li>
             </ul>
@@ -50,10 +50,10 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
 
           <Accordion.Panel className="bg-white">
             <ul className="flex flex-col">
-              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("bagGenerator")}>
+              <li className="sidebar-item" onClick={() => addNewNode("bagGenerator")}>
                 Bag generator
               </li>
-              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("bagPullWithoutRepetition")}>
+              <li className="sidebar-item" onClick={() => addNewNode("bagPullWithoutRepetition")}>
                 Pull without repetition
               </li>
             </ul>
@@ -65,10 +65,10 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
 
           <Accordion.Panel className="bg-white">
             <ul className="flex flex-col">
-              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("symbolicGenerator")}>
+              <li className="sidebar-item" onClick={() => addNewNode("symbolicGenerator")}>
                 Symbolic generator
               </li>
-              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("symbolicPool")}>
+              <li className="sidebar-item" onClick={() => addNewNode("symbolicPool")}>
                 Pool symbolic
               </li>
             </ul>
@@ -85,7 +85,7 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
 
           <Accordion.Panel className="bg-white">
             <ul className="flex flex-col">
-              <li className="px-2 pl-8 py-1 hover:bg-slate-100 cursor-pointer" onClick={() => addNewNode("histogram")}>
+              <li className="sidebar-item" onClick={() => addNewNode("histogram")}>
                 Histogram
               </li>
             </ul>

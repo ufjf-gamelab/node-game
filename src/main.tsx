@@ -6,8 +6,8 @@ import { mantineTheme } from "./config/mantine-theme.ts";
 import { SimulationProvider } from "@/contexts/simulation-context.tsx";
 import App from "./App.tsx";
 
-import "./assets/tailwind.scss";
 import "./assets/global.scss";
+import "./assets/components.scss";
 import "@xyflow/react/dist/style.css";
 import "@mantine/core/styles.css";
 import "@mantine/charts/styles.css";

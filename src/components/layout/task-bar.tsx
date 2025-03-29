@@ -40,7 +40,7 @@ export const TaskBar: React.ComponentType = () => {
       <ImportExportModal opened={openedImportModal} close={() => setOpenedImportModal(false)} />
 
       <div
-        className="absolute z-[15] flex gap-4 h-16 justify-center transform -translate-x-1/2 transition-all duration-300 p-2 pb-8 rounded-md bg-white border border-gray-300"
+        className="absolute z-[15] flex gap-4 h-16 justify-center transform -translate-x-1/2 transition-all duration-300 p-2 pb-8 rounded-md bg-white border border-gray-300 select-none"
         style={{
           left: `calc(${sidebarWidth}px + (100vw - ${sidebarWidth}px - ${asideDetailsOpen ? asideDetailsWidth : 0}px) / 2)`,
           top: "calc(100vh - 52px)",
