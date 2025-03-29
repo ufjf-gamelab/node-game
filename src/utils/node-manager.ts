@@ -11,6 +11,7 @@ import { BagGeneratorService } from "@/features/bag-generator";
 import { BagGeneratorWithoutRepetitionService } from "@/features/bag-pull-without-repetition";
 import { SymbolicGeneratorService } from "@/features/symbolic-generator";
 import { SymbolicPoolService } from "@/features/symbolic-pool";
+import { DiceSubtractService } from "@/features/dice-subtract";
 import { generateHash } from "./generate-hash";
 import { IFlowInstance, INode, INodeState, INodeType } from "@/config/types";
 
@@ -48,6 +49,8 @@ export const NodeManager = {
         return SymbolicGeneratorService.new(flow, defaultDefinitions);
       case "symbolicPool":
         return SymbolicPoolService.new(flow, defaultDefinitions);
+      case "diceSubtract":
+        return DiceSubtractService.new(flow, defaultDefinitions);
 
       default:
         throw new Error("Node creation: Invalid node type!");
@@ -82,6 +85,8 @@ export const NodeManager = {
         return SymbolicGeneratorService.run(flow, node) as INodeState<N>;
       case "symbolicPool":
         return SymbolicPoolService.run(flow, node) as INodeState<N>;
+      case "diceSubtract":
+        return DiceSubtractService.run(flow, node) as INodeState<N>;
 
       default:
         throw new Error("Node factory run: Invalid node type!");

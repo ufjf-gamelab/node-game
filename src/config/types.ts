@@ -13,7 +13,8 @@ export type INode =
   | IBagGeneratorNode
   | IBagPullWithoutRepetitionNode
   | ISymbolicGeneratorNode
-  | ISymbolicPoolNode;
+  | ISymbolicPoolNode
+  | IDiceSubtractNode;
 
 type INodeStateMap = {
   diceGenerator: number[];
@@ -29,6 +30,7 @@ type INodeStateMap = {
   bagPullWithoutRepetition: string[];
   symbolicGenerator: string[];
   symbolicPool: string[][];
+  diceSubtract: number[];
 };
 
 export type INodeType = keyof INodeStateMap;
@@ -69,3 +71,4 @@ export type IBagGeneratorNode = IBaseNode<{ balls: string[] }, "bagGenerator">;
 export type IBagPullWithoutRepetitionNode = IBaseNode<{}, "bagPullWithoutRepetition">;
 export type ISymbolicGeneratorNode = IBaseNode<{ faces: string[] }, "symbolicGenerator">;
 export type ISymbolicPoolNode = IBaseNode<{}, "symbolicPool">;
+export type IDiceSubtractNode = IBaseNode<{}, "diceSubtract">;

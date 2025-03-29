@@ -18,6 +18,7 @@ export const DiceExplodeGeneratorNode: React.ComponentType<IProps> = ({ data, se
     const allowedTypes: INodeType[] = [
       "histogram",
       "diceSum",
+      "diceSubtract",
       "dicePool",
       "dicePoolSum",
       "diceSuccess",

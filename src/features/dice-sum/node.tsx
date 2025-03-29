@@ -17,6 +17,7 @@ export const DiceSumNode: React.ComponentType<IProps> = ({ data, selected, isCon
     const allowedTypes: INodeType[] = [
       "histogram",
       "diceSum",
+      "diceSubtract",
       "dicePool",
       "dicePoolSum",
       "diceSuccess",
