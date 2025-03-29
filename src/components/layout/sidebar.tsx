@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { Accordion } from "@mantine/core";
-import { GiPerspectiveDiceOne, GiNetworkBars, GiPerspectiveDiceSixFacesRandom, GiSwapBag } from "react-icons/gi";
+import { GiPerspectiveDiceOne, GiPerspectiveDiceSixFacesRandom, GiSwapBag, GiHistogram } from "react-icons/gi";
 import { INodeType } from "@/config/types";
 
 type IProps = { addNewNode: (type: INodeType) => void };
@@ -78,8 +78,8 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
         <Accordion.Item value="item-4">
           <Accordion.Control className="px-4 hover:bg-slate-100">
             <div className="flex gap-4 items-center justify-start">
-              <GiNetworkBars className="text-[22px]" />
-              <span>Graphs</span>
+              <GiHistogram className="text-[22px]" />
+              <span>Output</span>
             </div>
           </Accordion.Control>
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Background, BackgroundVariant, Connection, ReactFlow, addEdge, useEdgesState, useNodesState, useReactFlow } from "@xyflow/react";
+import { Background, BackgroundVariant, Connection, ReactFlow, addEdge, useEdgesState, useNodesState, useReactFlow, MarkerType } from "@xyflow/react";
 import { NodeManager } from "@/utils/node-manager";
 import { Sidebar } from "@/components/layout/sidebar";
 import { TaskBar } from "./components/layout/task-bar";
@@ -18,8 +18,25 @@ function App() {
 
   const onConnect = React.useCallback(
     (params: Connection) => {
+      console.log(params);
+
       const existingEdges = edges.filter((edge) => edge.target === params.target && edge.targetHandle === params.targetHandle);
-      if (existingEdges.length === 0) setEdges((eds) => addEdge(params, eds));
+      if (existingEdges.length === 0)
+        setEdges((eds) =>
+          addEdge(
+            {
+              ...params,
+              markerEnd: {
+                type: MarkerType.ArrowClosed,
+                width: 20,
+                height: 20,
+                color: "#00a63e",
+              },
+              style: { strokeWidth: 2 },
+            },
+            eds
+          )
+        );
     },
     [edges, setEdges]
   );
@@ -33,12 +50,10 @@ function App() {
     betweenInterval.position.y = 20;
     const histogram = NodeManager.new("histogram", flow);
     histogram.position.x = 400;
-    histogram.position.y = 20;
+    histogram.position.y = 32;
     setNodes([dice, betweenInterval, histogram]);
-    setEdges([
-      { id: "1-2", source: dice.id, target: betweenInterval.id },
-      { id: "2-3", source: betweenInterval.id, target: histogram.id },
-    ]);
+    onConnect({ source: dice.id, target: betweenInterval.id, sourceHandle: null, targetHandle: null });
+    onConnect({ source: betweenInterval.id, target: histogram.id, sourceHandle: null, targetHandle: null });
   }, []);
 
   return (
