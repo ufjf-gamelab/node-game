@@ -28,10 +28,10 @@ const statusClasses: Record<INodeStatus, string> = {
   FINISHED: "text-green-500",
 };
 
-export const NodeStatus: React.ComponentType<{ status: INodeStatus }> = ({ status }) => {
+export const NodeStatus: React.ComponentType<{ status: INodeStatus; className?: string }> = ({ status, className }) => {
   return (
     <div
-      className={cls("flex items-center justify-center text-[0.7rem] font-bold uppercase tracking-[0.1rem] text-center opacity-40")}
+      className={cls("flex items-center justify-center text-[0.75rem] font-bold uppercase tracking-[0.1rem] text-center opacity-40", className)}
       data-status={status}>
       <span className={cls(statusClasses[status])}>{STATUS_TO_ICON(status)}</span>
     </div>

@@ -50,7 +50,7 @@ function App() {
     betweenInterval.position.y = 20;
     const histogram = NodeManager.new("histogram", flow);
     histogram.position.x = 400;
-    histogram.position.y = 32;
+    histogram.position.y = 20;
     setNodes([dice, betweenInterval, histogram]);
     onConnect({ source: dice.id, target: betweenInterval.id, sourceHandle: null, targetHandle: null });
     onConnect({ source: betweenInterval.id, target: histogram.id, sourceHandle: null, targetHandle: null });
