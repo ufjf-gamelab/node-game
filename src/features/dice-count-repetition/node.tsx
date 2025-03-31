@@ -7,7 +7,7 @@ import { BaseNode } from "@/components/ui/base-node";
 
 type IProps = NodeProps<IDiceCountRepetitionNode>;
 
-export const DiceCountRepetitionNode: React.ComponentType<IProps> = ({ data, selected, isConnectable }) => {
+export const DiceCountRepetitionNode: React.ComponentType<IProps> = ({ data, selected, isConnectable, id }) => {
   const flow = useReactFlow();
 
   function isValidConnection(targetId: string) {
@@ -29,13 +29,14 @@ export const DiceCountRepetitionNode: React.ComponentType<IProps> = ({ data, sel
           <GiDiceTarget />
         </>
       }>
-      <Handle type="target" position={Position.Left} isConnectable={isConnectable} />
       <Handle
         type="source"
+        id={"count-source-" + id}
         position={Position.Right}
         isConnectable={isConnectable}
         isValidConnection={(connection) => isValidConnection(connection.target)}
       />
+      <Handle type="target" id={"count-target-" + id} position={Position.Left} isConnectable={isConnectable} />
     </BaseNode>
   );
 };

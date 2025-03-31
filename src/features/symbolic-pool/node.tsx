@@ -7,7 +7,7 @@ import { BaseNode } from "@/components/ui/base-node";
 
 type IProps = NodeProps<IDicePoolNode>;
 
-export const SymbolicPoolNode: React.ComponentType<IProps> = ({ data, isConnectable, selected }) => {
+export const SymbolicPoolNode: React.ComponentType<IProps> = ({ data, isConnectable, selected, id }) => {
   const flow = useReactFlow();
 
   function isValidConnection(targetId: string) {
@@ -31,12 +31,13 @@ export const SymbolicPoolNode: React.ComponentType<IProps> = ({ data, isConnecta
       }>
       <Handle
         type="source"
+        id={"symbolic-pool-source-" + id}
         position={Position.Right}
         isConnectable={isConnectable}
         isValidConnection={(connection) => isValidConnection(connection.target)}
       />
-      <Handle type="target" id="pool-1" position={Position.Left} isConnectable={isConnectable} className="top-8" />
-      <Handle type="target" id="pool-2" position={Position.Left} isConnectable={isConnectable} className="top-16" />
+      <Handle type="target" id={"symbolic-pool-target-1-" + id} position={Position.Left} isConnectable={isConnectable} className="top-8" />
+      <Handle type="target" id={"symbolic-pool-target-2-" + id} position={Position.Left} isConnectable={isConnectable} className="top-16" />
     </BaseNode>
   );
 };

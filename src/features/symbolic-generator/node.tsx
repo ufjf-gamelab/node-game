@@ -7,7 +7,7 @@ import { BaseNode } from "@/components/ui/base-node";
 
 type IProps = NodeProps<ISymbolicGeneratorNode>;
 
-export const SymbolicGeneratorNode: React.ComponentType<IProps> = ({ data, isConnectable, selected }) => {
+export const SymbolicGeneratorNode: React.ComponentType<IProps> = ({ data, isConnectable, selected, id }) => {
   const flow = useReactFlow();
 
   function isValidConnection(targetId: string) {
@@ -32,6 +32,7 @@ export const SymbolicGeneratorNode: React.ComponentType<IProps> = ({ data, isCon
       }>
       <Handle
         type="source"
+        id={"symbolic-gen-source-" + id}
         position={Position.Right}
         isConnectable={isConnectable}
         isValidConnection={(connection) => isValidConnection(connection.target)}

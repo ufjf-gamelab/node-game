@@ -6,7 +6,7 @@ import { BaseNode } from "@/components/ui/base-node";
 
 type IProps = NodeProps<IBagGeneratorNode>;
 
-export const BagGeneratorNode: React.ComponentType<IProps> = ({ data, isConnectable, selected }) => {
+export const BagGeneratorNode: React.ComponentType<IProps> = ({ data, isConnectable, selected, id }) => {
   const flow = useReactFlow();
 
   function isValidConnection(targetId: string) {
@@ -31,6 +31,7 @@ export const BagGeneratorNode: React.ComponentType<IProps> = ({ data, isConnecta
       }>
       <Handle
         type="source"
+        id={"bag-source-" + id}
         position={Position.Right}
         isConnectable={isConnectable}
         isValidConnection={(connection) => isValidConnection(connection.target)}

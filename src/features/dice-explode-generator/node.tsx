@@ -7,7 +7,7 @@ import { BaseNode } from "@/components/ui/base-node";
 
 type IProps = NodeProps<IDiceCountRepetitionNode>;
 
-export const DiceExplodeGeneratorNode: React.ComponentType<IProps> = ({ data, selected, isConnectable }) => {
+export const DiceExplodeGeneratorNode: React.ComponentType<IProps> = ({ data, selected, isConnectable, id }) => {
   const flow = useReactFlow();
 
   function isValidConnection(targetId: string) {
@@ -42,6 +42,7 @@ export const DiceExplodeGeneratorNode: React.ComponentType<IProps> = ({ data, se
       }>
       <Handle
         type="source"
+        id={"explode-gen-source-" + id}
         position={Position.Right}
         isConnectable={isConnectable}
         isValidConnection={(connection) => isValidConnection(connection.target)}

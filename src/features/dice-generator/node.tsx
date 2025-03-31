@@ -34,8 +34,8 @@ export const DiceGeneratorNode: React.ComponentType<IProps> = ({ data, selected,
       icon={<GiPerspectiveDiceSixFacesOne className="text-5xl" />}>
       <Handle
         type="source"
+        id={"dice-gen-source-" + id}
         position={Position.Right}
-        id={"dice-generator-source-" + id}
         isConnectable={isConnectable}
         isValidConnection={(connection) => isValidConnection(connection.target)}
       />

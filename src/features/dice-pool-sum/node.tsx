@@ -44,7 +44,7 @@ export const DicePoolSumNode: React.ComponentType<IProps> = ({ data, isConnectab
         isConnectable={isConnectable}
         isValidConnection={(connection) => isValidConnection(connection.target)}
       />
-      <Handle type="target" position={Position.Left} id={"pool-sum-target-" + id} isConnectable={isConnectable} />{" "}
+      <Handle type="target" id={"pool-sum-target-" + id} position={Position.Left} isConnectable={isConnectable} />{" "}
     </BaseNode>
   );
 };

@@ -7,7 +7,7 @@ import { BaseNode } from "@/components/ui/base-node";
 
 type IProps = NodeProps<IDiceBetweenIntervalNode>;
 
-export const DiceBetweenIntervalNode: React.ComponentType<IProps> = ({ data, selected, isConnectable }) => {
+export const DiceBetweenIntervalNode: React.ComponentType<IProps> = ({ data, selected, isConnectable, id }) => {
   const flow = useReactFlow();
 
   function isValidConnection(targetId: string) {
@@ -31,11 +31,12 @@ export const DiceBetweenIntervalNode: React.ComponentType<IProps> = ({ data, sel
       }>
       <Handle
         type="source"
+        id={"between-source-" + id}
         position={Position.Right}
         isConnectable={isConnectable}
         isValidConnection={(connection) => isValidConnection(connection.target)}
       />
-      <Handle type="target" position={Position.Left} isConnectable={isConnectable} />
+      <Handle type="target" id={"between-target-" + id} position={Position.Left} isConnectable={isConnectable} />
     </BaseNode>
   );
 };

@@ -6,7 +6,7 @@ import { BaseNode } from "@/components/ui/base-node";
 
 type IProps = NodeProps<IBagPullWithoutRepetitionNode>;
 
-export const BagPullWithoutRepetitionNode: React.ComponentType<IProps> = ({ data, isConnectable, selected }) => {
+export const BagPullWithoutRepetitionNode: React.ComponentType<IProps> = ({ data, isConnectable, selected, id }) => {
   const flow = useReactFlow();
 
   function isValidConnection(targetId: string) {
@@ -21,11 +21,12 @@ export const BagPullWithoutRepetitionNode: React.ComponentType<IProps> = ({ data
     <BaseNode selected={selected} name={data.name} status={data.status} icon={<GiRollingDiceCup />}>
       <Handle
         type="source"
+        id={"pull-source-" + id}
         position={Position.Right}
         isConnectable={isConnectable}
         isValidConnection={(connection) => isValidConnection(connection.target)}
       />
-      <Handle type="target" position={Position.Left} isConnectable={isConnectable} />
+      <Handle type="target" id={"pull-target-" + id} position={Position.Left} isConnectable={isConnectable} />
     </BaseNode>
   );
 };
