@@ -1,14 +1,13 @@
 import React from "react";
 import { Handle, Position, NodeProps, useReactFlow } from "@xyflow/react";
-import { NodeContainer } from "@/components/ui/node-container";
 import { IHistogramNode, INode, INodeType } from "@/config/types";
 import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
-import { NodeStatus } from "@/components/ui/node-status";
 import { BsChevronBarUp, BsFillQuestionSquareFill } from "react-icons/bs";
+import { BaseNode } from "@/components/ui/base-node";
 
 type IProps = NodeProps<IHistogramNode>;
 
-export const DiceSuccessNode: React.ComponentType<IProps> = ({ data, selected, isConnectable }) => {
+export const DiceSuccessNode: React.ComponentType<IProps> = ({ data, selected, isConnectable, id }) => {
   const flow = useReactFlow();
 
   function isValidConnection(targetId: string) {
@@ -20,28 +19,27 @@ export const DiceSuccessNode: React.ComponentType<IProps> = ({ data, selected, i
   }
 
   return (
-    <NodeContainer selected={selected}>
+    <BaseNode
+      selected={selected}
+      name={data.name}
+      status={data.status}
+      icon={
+        <>
+          <GiPerspectiveDiceSixFacesRandom />
+          <div className="flex flex-col justify-center items-center -ml-1">
+            <BsChevronBarUp className="text-2xl" />
+            <BsFillQuestionSquareFill className="text-lg" />
+          </div>
+        </>
+      }>
       <Handle
         type="source"
+        id={"success-source-" + id}
         position={Position.Right}
         isConnectable={isConnectable}
         isValidConnection={(connection) => isValidConnection(connection.target)}
       />
-      <Handle type="target" position={Position.Left} isConnectable={isConnectable} />
-
-      <div className="flex flex-col items-center">
-        <h2 className="text-base">{data.name}</h2>
-
-        <div className="flex items-center justify-center text-5xl">
-          <GiPerspectiveDiceSixFacesRandom />
-          <div className="flex flex-col justify-center items-center text-2xl">
-            <BsChevronBarUp />
-            <BsFillQuestionSquareFill className="text-xl" />
-          </div>
-        </div>
-
-        <NodeStatus status={data.status} />
-      </div>
-    </NodeContainer>
+      <Handle type="target" id={"success-target-" + id} position={Position.Left} isConnectable={isConnectable} />
+    </BaseNode>
   );
 };

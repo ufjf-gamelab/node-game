@@ -1,9 +1,8 @@
 import React from "react";
-import { NodeContainer } from "@/components/ui/node-container";
-import { NodeStatus } from "@/components/ui/node-status";
 import { Handle, NodeProps, Position, useReactFlow } from "@xyflow/react";
 import { GiRollingDiceCup } from "react-icons/gi";
 import { IBagPullWithoutRepetitionNode, INode, INodeType } from "@/config/types";
+import { BaseNode } from "@/components/ui/base-node";
 
 type IProps = NodeProps<IBagPullWithoutRepetitionNode>;
 
@@ -19,7 +18,7 @@ export const BagPullWithoutRepetitionNode: React.ComponentType<IProps> = ({ data
   }
 
   return (
-    <NodeContainer selected={selected}>
+    <BaseNode selected={selected} name={data.name} status={data.status} icon={<GiRollingDiceCup />}>
       <Handle
         type="source"
         position={Position.Right}
@@ -27,18 +26,6 @@ export const BagPullWithoutRepetitionNode: React.ComponentType<IProps> = ({ data
         isValidConnection={(connection) => isValidConnection(connection.target)}
       />
       <Handle type="target" position={Position.Left} isConnectable={isConnectable} />
-
-      <div className="flex flex-col items-center w-max">
-        <h2 className="text-base max-w-24 break-words text-center w-max">{data.name}</h2>
-
-        <div className="flex justify-center items-center text-5xl">
-          <GiRollingDiceCup />
-        </div>
-
-        <span className="text-sm">{data.balls.length} faces</span>
-
-        <NodeStatus status={data.status} />
-      </div>
-    </NodeContainer>
+    </BaseNode>
   );
 };

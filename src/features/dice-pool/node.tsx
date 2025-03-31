@@ -1,13 +1,12 @@
 import React from "react";
 import { NodeProps, Position, Handle, useReactFlow } from "@xyflow/react";
 import { GiRollingDices } from "react-icons/gi";
-import { NodeStatus } from "@/components/ui/node-status";
-import { NodeContainer } from "@/components/ui/node-container";
 import { IDicePoolNode, INode, INodeType } from "@/config/types";
+import { BaseNode } from "@/components/ui/base-node";
 
 type IProps = NodeProps<IDicePoolNode>;
 
-export const DicePoolNode: React.ComponentType<IProps> = ({ data, isConnectable, selected }) => {
+export const DicePoolNode: React.ComponentType<IProps> = ({ data, isConnectable, selected, id }) => {
   const flow = useReactFlow();
 
   function isValidConnection(targetId: string) {
@@ -19,23 +18,16 @@ export const DicePoolNode: React.ComponentType<IProps> = ({ data, isConnectable,
   }
 
   return (
-    <NodeContainer selected={selected}>
+    <BaseNode selected={selected} name={data.name} status={data.status} icon={<GiRollingDices />}>
       <Handle
         type="source"
+        id={"pool-source-" + id}
         position={Position.Right}
         isConnectable={isConnectable}
         isValidConnection={(connection) => isValidConnection(connection.target)}
       />
-      <Handle type="target" id="pool-1" position={Position.Left} isConnectable={isConnectable} className="top-5" />
-      <Handle type="target" id="pool-2" position={Position.Left} isConnectable={isConnectable} className="bottom-5" />
-
-      <div className="flex flex-col items-center">
-        <h2 className="text-base">{data.name}</h2>
-
-        <GiRollingDices className="text-5xl" />
-
-        <NodeStatus status={data.status} />
-      </div>
-    </NodeContainer>
+      <Handle type="target" id={"pool-target-1-" + id} position={Position.Left} isConnectable={isConnectable} className="top-5" />
+      <Handle type="target" id={"pool-target-2-" + id} position={Position.Left} isConnectable={isConnectable} className="top-16" />
+    </BaseNode>
   );
 };

@@ -1,10 +1,9 @@
 import React from "react";
-import { NodeContainer } from "@/components/ui/node-container";
-import { NodeStatus } from "@/components/ui/node-status";
 import { Handle, NodeProps, Position, useReactFlow } from "@xyflow/react";
 import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
 import { INode, INodeType, ISymbolicGeneratorNode } from "@/config/types";
 import { VscSymbolString } from "react-icons/vsc";
+import { BaseNode } from "@/components/ui/base-node";
 
 type IProps = NodeProps<ISymbolicGeneratorNode>;
 
@@ -20,26 +19,23 @@ export const SymbolicGeneratorNode: React.ComponentType<IProps> = ({ data, isCon
   }
 
   return (
-    <NodeContainer selected={selected}>
+    <BaseNode
+      selected={selected}
+      name={data.name}
+      status={data.status}
+      label={data.faces.length + " faces"}
+      icon={
+        <>
+          <GiPerspectiveDiceSixFacesRandom />
+          <VscSymbolString className="text-3xl -ml-1" />
+        </>
+      }>
       <Handle
         type="source"
         position={Position.Right}
         isConnectable={isConnectable}
         isValidConnection={(connection) => isValidConnection(connection.target)}
       />
-
-      <div className="flex flex-col items-center w-max">
-        <h2 className="text-base max-w-24 break-words text-center w-max">{data.name}</h2>
-
-        <div className="flex justify-center items-center text-5xl">
-          <GiPerspectiveDiceSixFacesRandom />
-          <VscSymbolString className="text-4xl" />
-        </div>
-
-        <span className="text-sm">{data.faces.length} faces</span>
-
-        <NodeStatus status={data.status} />
-      </div>
-    </NodeContainer>
+    </BaseNode>
   );
 };

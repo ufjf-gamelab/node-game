@@ -1,23 +1,15 @@
 import React from "react";
 import { Handle, Position, NodeProps } from "@xyflow/react";
-import { NodeContainer } from "@/components/ui/node-container";
 import { IHistogramNode } from "@/config/types";
 import { GiHistogram } from "react-icons/gi";
-import { NodeStatus } from "@/components/ui/node-status";
+import { BaseNode } from "@/components/ui/base-node";
 
 type IProps = NodeProps<IHistogramNode>;
 
 export const HistogramNode: React.ComponentType<IProps> = ({ data, selected, isConnectable }) => {
   return (
-    <NodeContainer selected={selected}>
+    <BaseNode selected={selected} name={data.name} status={data.status} icon={<GiHistogram className="text-5xl" />}>
       <Handle type="target" position={Position.Left} isConnectable={isConnectable} />
-
-      <div className="flex flex-col items-center">
-        <h2 className="text-base">{data.name}</h2>
-
-        <GiHistogram className="text-5xl" />
-        <NodeStatus status={data.status} />
-      </div>
-    </NodeContainer>
+    </BaseNode>
   );
 };

@@ -2,8 +2,7 @@ import React from "react";
 import { Handle, NodeProps, Position, useReactFlow } from "@xyflow/react";
 import { GiPerspectiveDiceSixFacesOne } from "react-icons/gi";
 import { IDiceSumNode, INode, INodeType } from "@/config/types";
-import { NodeContainer } from "@/components/ui/node-container";
-import { NodeStatus } from "@/components/ui/node-status";
+import { BaseNode } from "@/components/ui/base-node";
 
 type IProps = NodeProps<IDiceSumNode>;
 
@@ -28,9 +27,17 @@ export const DiceSubtractNode: React.ComponentType<IProps> = ({ data, selected, 
   }
 
   return (
-    <NodeContainer selected={selected}>
-      <Handle type="target" position={Position.Left} id={"sub-target-1" + id} className="top-6" isConnectable={isConnectable} />
-      <Handle type="target" position={Position.Left} id={"sub-target-2" + id} className="top-16" isConnectable={isConnectable} />
+    <BaseNode
+      selected={selected}
+      name={data.name}
+      status={data.status}
+      icon={
+        <>
+          <GiPerspectiveDiceSixFacesOne className="text-4xl" />
+          <span className="text-base mx-[-1px] font-semibold">-</span>
+          <GiPerspectiveDiceSixFacesOne className="text-4xl" />
+        </>
+      }>
       <Handle
         type="source"
         id={"c" + id}
@@ -38,15 +45,8 @@ export const DiceSubtractNode: React.ComponentType<IProps> = ({ data, selected, 
         isConnectable={isConnectable}
         isValidConnection={(connection) => isValidConnection(connection.target)}
       />
-      <h2 className="text-center">Dice Subtract</h2>
-
-      <div className="flex items-center justify-center text-5xl">
-        <GiPerspectiveDiceSixFacesOne />
-        <span className="text-base">-</span>
-        <GiPerspectiveDiceSixFacesOne />
-      </div>
-
-      <NodeStatus status={data.status} />
-    </NodeContainer>
+      <Handle type="target" position={Position.Left} id={"sub-target-1" + id} className="top-6" isConnectable={isConnectable} />
+      <Handle type="target" position={Position.Left} id={"sub-target-2" + id} className="top-16" isConnectable={isConnectable} />
+    </BaseNode>
   );
 };

@@ -18,8 +18,6 @@ function App() {
 
   const onConnect = React.useCallback(
     (params: Connection) => {
-      console.log(params);
-
       const existingEdges = edges.filter((edge) => edge.target === params.target && edge.targetHandle === params.targetHandle);
       if (existingEdges.length === 0)
         setEdges((eds) =>
