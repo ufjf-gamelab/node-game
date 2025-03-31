@@ -1,16 +1,17 @@
-import { IDiceGeneratorNode, IDiceSubtractNode, INodeService } from "@/config/types";
+import { IDiceGeneratorNode, IDiceMathNode, INodeService } from "@/config/types";
 import { NodeManager } from "@/utils/node-manager";
 
-export const DiceSubtractService: INodeService<IDiceSubtractNode> = {
+export const DiceMathService: INodeService<IDiceMathNode> = {
   new(_flow, { id, position }) {
     return {
       id,
       position,
-      type: "diceSubtract",
+      type: "diceMath",
       data: {
-        name: "Subtract dices",
-        detailsTitle: "Subtract Dices",
+        name: "Dice math",
+        detailsTitle: "Dice Math",
         status: "IDLE",
+        operation: "add",
       },
     };
   },
@@ -26,7 +27,7 @@ export const DiceSubtractService: INodeService<IDiceSubtractNode> = {
 
       const sourceState1 = NodeManager.run(sourceNode1, flow) as number[];
       const sourceState2 = NodeManager.run(sourceNode2, flow) as number[];
-      const resultState = subtractDataNodes(sourceState1, sourceState2);
+      const resultState = executeMathOperationDataNodes(sourceState1, sourceState2, node.data.operation);
 
       flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
       return resultState;
@@ -37,10 +38,14 @@ export const DiceSubtractService: INodeService<IDiceSubtractNode> = {
   },
 };
 
-const subtractDataNodes = (input1: number[], input2: number[]) => {
+const executeMathOperationDataNodes = (input1: number[], input2: number[], operation: IDiceMathNode["data"]["operation"]) => {
   const result = [];
   for (let i = 0; i < input1.length; i++) {
-    result.push(input1[i] - input2[i]);
+    if (operation === "add") result.push(input1[i] + input2[i]);
+    else if (operation === "subtract") result.push(input1[i] - input2[i]);
+    else if (operation === "multiply") result.push(input1[i] * input2[i]);
+    else if (operation === "divide (floor)") result.push(Math.floor(input1[i] / input2[i]));
+    else if (operation === "divide (ceil)") result.push(Math.ceil(input1[i] / input2[i]));
   }
   return result;
 };

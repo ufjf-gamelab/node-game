@@ -1,6 +1,5 @@
 import { DiceGeneratorService } from "@/features/dice-generator";
 import { HistogramService } from "@/features/histogram";
-import { DiceSumService } from "@/features/dice-sum";
 import { DicePoolService } from "@/features/dice-pool";
 import { DicePoolSumService } from "@/features/dice-pool-sum";
 import { DiceSuccessService } from "@/features/dice-success";
@@ -11,7 +10,7 @@ import { BagGeneratorService } from "@/features/bag-generator";
 import { BagGeneratorWithoutRepetitionService } from "@/features/bag-pull-without-repetition";
 import { SymbolicGeneratorService } from "@/features/symbolic-generator";
 import { SymbolicPoolService } from "@/features/symbolic-pool";
-import { DiceSubtractService } from "@/features/dice-subtract";
+import { DiceMathService } from "@/features/dice-math";
 import { generateHash } from "./generate-hash";
 import { IFlowInstance, INode, INodeState, INodeType } from "@/config/types";
 
@@ -27,8 +26,6 @@ export const NodeManager = {
         return DiceGeneratorService.new(flow, defaultDefinitions);
       case "histogram":
         return HistogramService.new(flow, defaultDefinitions);
-      case "diceSum":
-        return DiceSumService.new(flow, defaultDefinitions);
       case "dicePool":
         return DicePoolService.new(flow, defaultDefinitions);
       case "dicePoolSum":
@@ -49,8 +46,8 @@ export const NodeManager = {
         return SymbolicGeneratorService.new(flow, defaultDefinitions);
       case "symbolicPool":
         return SymbolicPoolService.new(flow, defaultDefinitions);
-      case "diceSubtract":
-        return DiceSubtractService.new(flow, defaultDefinitions);
+      case "diceMath":
+        return DiceMathService.new(flow, defaultDefinitions);
 
       default:
         throw new Error("Node creation: Invalid node type!");
@@ -63,8 +60,6 @@ export const NodeManager = {
         return DiceGeneratorService.run(flow, node) as INodeState<N>;
       case "histogram":
         return HistogramService.run(flow, node) as INodeState<N>;
-      case "diceSum":
-        return DiceSumService.run(flow, node) as INodeState<N>;
       case "dicePool":
         return DicePoolService.run(flow, node) as INodeState<N>;
       case "dicePoolSum":
@@ -85,8 +80,8 @@ export const NodeManager = {
         return SymbolicGeneratorService.run(flow, node) as INodeState<N>;
       case "symbolicPool":
         return SymbolicPoolService.run(flow, node) as INodeState<N>;
-      case "diceSubtract":
-        return DiceSubtractService.run(flow, node) as INodeState<N>;
+      case "diceMath":
+        return DiceMathService.run(flow, node) as INodeState<N>;
 
       default:
         throw new Error("Node factory run: Invalid node type!");

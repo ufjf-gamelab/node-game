@@ -24,7 +24,7 @@ export const BaseNode: React.FC<IProps> = ({ children, selected, name, label, ic
 
         <div className="flex justify-center items-center text-5xl">{icon}</div>
 
-        {label && <span className="text-[11px] absolute bottom-1 left-1/2 -translate-x-1/2">{label}</span>}
+        {label && <span className="w-full text-center text-[11px] absolute bottom-1 left-1/2 -translate-x-1/2">{label}</span>}
 
         <span className="absolute top-0 translate-y-[90px] w-full max-[110px] text-sm leading-tight break-words text-center">{name}</span>
       </div>

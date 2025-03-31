@@ -16,8 +16,7 @@ export const DicePoolSumNode: React.ComponentType<IProps> = ({ data, isConnectab
 
     const allowedTypes: INodeType[] = [
       "histogram",
-      "diceSum",
-      "diceSubtract",
+      "diceMath",
       "dicePool",
       "dicePoolSum",
       "diceSuccess",

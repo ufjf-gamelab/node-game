@@ -8,6 +8,7 @@ import { DiceExplodeGeneratorDetails } from "@/features/dice-explode-generator";
 import { DiceCountRepetitionDetails } from "@/features/dice-count-repetition";
 import { BagGeneratorDetails } from "@/features/bag-generator";
 import { SymbolicGeneratorDetails } from "@/features/symbolic-generator";
+import { DiceMathDetails } from "@/features/dice-math";
 import { INode } from "@/config/types";
 import { useLayoutContext } from "@/contexts/layout-context";
 
@@ -27,6 +28,8 @@ function renderDetails(node: INode) {
       return <BagGeneratorDetails node={node} key={node.id} />;
     case "symbolicGenerator":
       return <SymbolicGeneratorDetails node={node} key={node.id} />;
+    case "diceMath":
+      return <DiceMathDetails node={node} key={node.id} />;
     default:
       return <BaseNodeDetails node={node} key={node.id} />;
   }

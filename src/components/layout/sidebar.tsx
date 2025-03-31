@@ -20,11 +20,8 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
               <li className="sidebar-item" onClick={() => addNewNode("diceExplodeGenerator")}>
                 Dice explode generator
               </li>
-              <li className="sidebar-item" onClick={() => addNewNode("diceSum")}>
-                Sum
-              </li>
-              <li className="sidebar-item" onClick={() => addNewNode("diceSubtract")}>
-                Subtract
+              <li className="sidebar-item" onClick={() => addNewNode("diceMath")}>
+                Math
               </li>
               <li className="sidebar-item" onClick={() => addNewNode("dicePool")}>
                 Pool
