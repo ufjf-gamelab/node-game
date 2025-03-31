@@ -48,3 +48,19 @@
     @apply w-full bg-gray-100 text-gray-800 p-1 rounded-sm border border-gray-400 shadow-sm;
   }
 }
+.react-flow-board .react-flow__handle {
+  @apply h-[25px] w-[13px] rounded-sm;
+}
+
+.react-flow-board .react-flow__handle-left {
+  transform: translate(-35%, -50%);
+  border-width: 1px;
+}
+.react-flow-board .react-flow__handle-right {
+  transform: translate(65%, -50%);
+}
+
+.react-flow__handle.connectionindicator:hover {
+  pointer-events: all;
+  background-color: rgb(80, 80, 80);
+}
