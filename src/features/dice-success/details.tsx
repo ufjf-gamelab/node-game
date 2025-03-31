@@ -18,13 +18,7 @@ export const DiceSuccessDetails: React.FunctionComponent<{ node: IDiceSuccessNod
     setFace(node.data.face);
   }, [node]);
 
-  useDebounce(
-    () => {
-      flow.setNodes(flow.getNodes());
-    },
-    500,
-    [face]
-  );
+  useDebounce(() => flow.updateNodeData(node.id, { ...node.data, face }), 500, [face]);
 
   return (
     <BaseNodeDetails

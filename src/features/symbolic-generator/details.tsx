@@ -34,13 +34,7 @@ export const SymbolicGeneratorDetails: React.FunctionComponent<IProps> = ({ node
     node.data.faces = newFaces;
   }
 
-  useDebounce(
-    () => {
-      flow.updateNode(node.id, { data: node.data });
-    },
-    500,
-    [faces]
-  );
+  useDebounce(() => flow.updateNodeData(node.id, { ...node.data, faces }), 500, [faces]);
 
   return (
     <BaseNodeDetails

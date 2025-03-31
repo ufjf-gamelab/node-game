@@ -34,13 +34,7 @@ export const BagGeneratorDetails: React.FunctionComponent<IProps> = ({ node }) =
     node.data.balls = newValue;
   }
 
-  useDebounce(
-    () => {
-      flow.updateNode(node.id, { data: node.data });
-    },
-    500,
-    [balls]
-  );
+  useDebounce(() => flow.updateNodeData(node.id, { ...node.data, balls }), 500, [balls]);
 
   return (
     <BaseNodeDetails

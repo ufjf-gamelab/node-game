@@ -13,13 +13,7 @@ export const BaseNodeDetails: React.FunctionComponent<IProps> = ({ node, childre
 
   const [name, setName] = React.useState(node.data.name);
 
-  useDebounce(
-    () => {
-      flow.setNodes(flow.getNodes());
-    },
-    500,
-    [name]
-  );
+  useDebounce(() => flow.updateNodeData(node.id, { ...node.data, name }), 500, [name]);
 
   return (
     <div className="flex flex-col">

@@ -40,10 +40,15 @@ export const DiceSuccessService: INodeService<IDiceSuccessNode> = {
 
 function getArraySuccess(data: number[], face: number) {
   const result: number[] = [];
+  console.log(data);
 
   data.map((item) => {
-    if (item >= face) result.push(1);
-    else result.push(0);
+    console.log(item, face, item >= face);
+
+    if (item >= face) {
+      // console.log(true, face);
+      result.push(1);
+    } else result.push(0);
   });
 
   return result;

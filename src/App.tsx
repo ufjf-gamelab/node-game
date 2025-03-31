@@ -43,7 +43,7 @@ function App() {
     const dice = NodeManager.new("diceGenerator", flow);
     dice.position.x = 20;
     dice.position.y = 20;
-    const betweenInterval = NodeManager.new("diceBetweenInterval", flow);
+    const betweenInterval = NodeManager.new("diceSuccess", flow);
     betweenInterval.position.x = 200;
     betweenInterval.position.y = 20;
     const histogram = NodeManager.new("histogram", flow);

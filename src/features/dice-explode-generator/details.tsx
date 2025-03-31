@@ -21,13 +21,7 @@ export const DiceExplodeGeneratorDetails: React.FunctionComponent<{ node: IDiceE
     node.data.explodeFace = newValue;
   }
 
-  useDebounce(
-    () => {
-      flow.setNodes(flow.getNodes());
-    },
-    500,
-    [maxFace, explodeFace]
-  );
+  useDebounce(() => flow.updateNodeData(node.id, { ...node.data, maxFace, explodeFace }), 500, [maxFace, explodeFace]);
 
   return (
     <BaseNodeDetails

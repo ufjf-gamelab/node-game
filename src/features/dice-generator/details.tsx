@@ -26,13 +26,7 @@ export const DiceGeneratorDetails: React.FunctionComponent<{ node: IDiceGenerato
     setMax(node.data.max);
   }, [node]);
 
-  useDebounce(
-    () => {
-      flow.setNodes(flow.getNodes());
-    },
-    500,
-    [min, max]
-  );
+  useDebounce(() => flow.updateNodeData(node.id, { ...node.data, min, max }), 500, [min, max]);
 
   return (
     <BaseNodeDetails
