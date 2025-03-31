@@ -39,6 +39,7 @@ export const SimulationProvider: React.ComponentType<UIStateProviderProps> = ({ 
         const chart = buildChart(histogram);
         newCharts.push(chart);
       } catch (error) {
+        alert("Error building chart!");
         console.error("Error building chart", error);
         setLoading(false);
       }
@@ -49,7 +50,13 @@ export const SimulationProvider: React.ComponentType<UIStateProviderProps> = ({ 
     flow
       .getNodes()
       .filter((node) => node.data.status === "LOADING" && node.type !== "histogram")
-      .forEach((node) => NodeManager.run(node, flow));
+      .forEach((node) => {
+        try {
+          NodeManager.run(node, flow);
+        } catch (error) {
+          console.log("Error running node", error);
+        }
+      });
 
     setCharts(newCharts);
     setLoading(false);
