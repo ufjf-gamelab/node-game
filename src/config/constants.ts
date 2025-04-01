@@ -6,7 +6,7 @@ import { DicePoolSumNode } from "@/features/dice-pool-sum";
 import { DiceSuccessNode } from "@/features/dice-success";
 import { DiceBetweenIntervalNode } from "@/features/dice-between-interval";
 import { DiceCountRepetitionNode } from "@/features/dice-count-repetition";
-import { IDiceMathOperation, INodeStatus, INodeType } from "./types";
+import { IDiceLogicalOperation, IDiceMathOperation, INodeStatus, INodeType } from "./types";
 import { DiceExplodeGeneratorNode } from "@/features/dice-explode-generator";
 import { BagGeneratorNode } from "@/features/bag-generator";
 import { BagPullWithoutRepetitionNode } from "@/features/bag-pull-without-repetition";
@@ -14,6 +14,7 @@ import { SymbolicGeneratorNode } from "@/features/symbolic-generator";
 import { SymbolicPoolNode } from "@/features/symbolic-pool";
 import { DiceMathNode } from "@/features/dice-math";
 import { DiceAbsoluteNode } from "@/features/dice-absolute";
+import { DiceLogicalNode } from "@/features/dice-logical";
 
 export const NODE_TYPES: Record<INodeType, React.ComponentType<any>> = {
   diceGenerator: DiceGeneratorNode,
@@ -30,6 +31,7 @@ export const NODE_TYPES: Record<INodeType, React.ComponentType<any>> = {
   symbolicPool: SymbolicPoolNode,
   diceMath: DiceMathNode,
   diceAbsolute: DiceAbsoluteNode,
+  diceLogical: DiceLogicalNode,
 };
 
 export const NODE_STATUS_TO_LABEL: Record<INodeStatus, string> = {
@@ -41,3 +43,4 @@ export const NODE_STATUS_TO_LABEL: Record<INodeStatus, string> = {
 };
 
 export const DICE_MATH_OPERATIONS: IDiceMathOperation[] = ["add", "subtract", "multiply", "divide (floor)", "divide (ceil)"] as const;
+export const DICE_LOGICAL_OPERATIONS: IDiceLogicalOperation[] = ["A >= B", "A <= B", "A = B"] as const;

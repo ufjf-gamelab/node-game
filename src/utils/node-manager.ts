@@ -1,3 +1,5 @@
+import { generateHash } from "./generate-hash";
+import { IFlowInstance, INode, INodeState, INodeType } from "@/config/types";
 import { DiceGeneratorService } from "@/features/dice-generator";
 import { HistogramService } from "@/features/histogram";
 import { DicePoolService } from "@/features/dice-pool";
@@ -12,8 +14,7 @@ import { SymbolicGeneratorService } from "@/features/symbolic-generator";
 import { SymbolicPoolService } from "@/features/symbolic-pool";
 import { DiceMathService } from "@/features/dice-math";
 import { DiceAbsoluteService } from "@/features/dice-absolute";
-import { generateHash } from "./generate-hash";
-import { IFlowInstance, INode, INodeState, INodeType } from "@/config/types";
+import { DiceLogicalService } from "@/features/dice-logical";
 
 export const NodeManager = {
   new(type: INodeType, flow: IFlowInstance): INode {
@@ -51,6 +52,8 @@ export const NodeManager = {
         return DiceMathService.new(flow, defaultDefinitions);
       case "diceAbsolute":
         return DiceAbsoluteService.new(flow, defaultDefinitions);
+      case "diceLogical":
+        return DiceLogicalService.new(flow, defaultDefinitions);
 
       default:
         throw new Error("Node creation: Invalid node type!");
@@ -87,6 +90,8 @@ export const NodeManager = {
         return DiceMathService.run(flow, node) as INodeState<N>;
       case "diceAbsolute":
         return DiceAbsoluteService.run(flow, node) as INodeState<N>;
+      case "diceLogical":
+        return DiceLogicalService.run(flow, node) as INodeState<N>;
 
       default:
         throw new Error("Node factory run: Invalid node type!");

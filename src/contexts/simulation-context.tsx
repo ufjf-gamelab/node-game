@@ -65,12 +65,12 @@ export const SimulationProvider: React.ComponentType<UIStateProviderProps> = ({ 
   function buildChart(histogramNode: IHistogramNode): IChart {
     const nodeState = NodeManager.run(histogramNode, flow);
 
-    const successTypeNodes: INodeType[] = ["diceSuccess", "diceBetweenInterval"];
+    const successTypeNodes: INodeType[] = ["diceSuccess", "diceBetweenInterval", "diceLogical"];
     const parentIsTypeSuccessNode = histogramNode.data.parentNodeType && successTypeNodes.includes(histogramNode.data.parentNodeType);
 
     const chartData: IChartData = nodeState.reduce((acc, item) => {
       let itemLabel = item;
-      if (parentIsTypeSuccessNode) itemLabel = item === 1 ? "Sucesso" : "Fracasso";
+      if (parentIsTypeSuccessNode) itemLabel = item === 1 ? "Success" : "Failure";
 
       const existingEntry = acc.find((entry) => entry.x === itemLabel);
 

@@ -20,6 +20,9 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
               <li className="sidebar-item" onClick={() => addNewNode("diceExplodeGenerator")}>
                 Dice explode generator
               </li>
+              <li className="sidebar-item" onClick={() => addNewNode("diceLogical")}>
+                Logical
+              </li>
               <li className="sidebar-item" onClick={() => addNewNode("diceMath")}>
                 Math
               </li>

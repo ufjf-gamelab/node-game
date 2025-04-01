@@ -16,6 +16,7 @@ export const DiceGeneratorNode: React.ComponentType<IProps> = ({ data, selected,
     const allowedTypes: INodeType[] = [
       "histogram",
       "diceMath",
+      "diceLogical",
       "dicePool",
       "diceSuccess",
       "diceBetweenInterval",

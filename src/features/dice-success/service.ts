@@ -13,7 +13,7 @@ export const DiceSuccessService: INodeService<IDiceSuccessNode> = {
         detailsTitle: "Dice Success",
         status: "IDLE",
         state: [],
-        face: 1,
+        face: 6,
       },
     };
   },

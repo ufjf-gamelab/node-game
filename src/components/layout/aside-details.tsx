@@ -1,5 +1,7 @@
 import React from "react";
+import { INode } from "@/config/types";
 import { useOnSelectionChange } from "@xyflow/react";
+import { useLayoutContext } from "@/contexts/layout-context";
 import { DiceSuccessDetails } from "@/features/dice-success";
 import { BaseNodeDetails } from "@/components/ui/base-node-details";
 import { DiceGeneratorDetails } from "@/features/dice-generator";
@@ -9,8 +11,7 @@ import { DiceCountRepetitionDetails } from "@/features/dice-count-repetition";
 import { BagGeneratorDetails } from "@/features/bag-generator";
 import { SymbolicGeneratorDetails } from "@/features/symbolic-generator";
 import { DiceMathDetails } from "@/features/dice-math";
-import { INode } from "@/config/types";
-import { useLayoutContext } from "@/contexts/layout-context";
+import { DiceLogicalDetails } from "@/features/dice-logical";
 
 function renderDetails(node: INode) {
   switch (node.type) {
@@ -30,6 +31,8 @@ function renderDetails(node: INode) {
       return <SymbolicGeneratorDetails node={node} key={node.id} />;
     case "diceMath":
       return <DiceMathDetails node={node} key={node.id} />;
+    case "diceLogical":
+      return <DiceLogicalDetails node={node} key={node.id} />;
     default:
       return <BaseNodeDetails node={node} key={node.id} />;
   }
