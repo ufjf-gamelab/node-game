@@ -21,6 +21,7 @@ export const DiceGeneratorNode: React.ComponentType<IProps> = ({ data, selected,
       "diceSuccess",
       "diceBetweenInterval",
       "diceCountRepetition",
+      "diceAbsolute",
     ];
     return allowedTypes.includes(targetNode.type);
   }

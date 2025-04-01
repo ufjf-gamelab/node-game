@@ -13,6 +13,7 @@ import { BagPullWithoutRepetitionNode } from "@/features/bag-pull-without-repeti
 import { SymbolicGeneratorNode } from "@/features/symbolic-generator";
 import { SymbolicPoolNode } from "@/features/symbolic-pool";
 import { DiceMathNode } from "@/features/dice-math";
+import { DiceAbsoluteNode } from "@/features/dice-absolute";
 
 export const NODE_TYPES: Record<INodeType, React.ComponentType<any>> = {
   diceGenerator: DiceGeneratorNode,
@@ -28,6 +29,7 @@ export const NODE_TYPES: Record<INodeType, React.ComponentType<any>> = {
   symbolicGenerator: SymbolicGeneratorNode,
   symbolicPool: SymbolicPoolNode,
   diceMath: DiceMathNode,
+  diceAbsolute: DiceAbsoluteNode,
 };
 
 export const NODE_STATUS_TO_LABEL: Record<INodeStatus, string> = {

@@ -13,7 +13,8 @@ export type INode =
   | IBagPullWithoutRepetitionNode
   | ISymbolicGeneratorNode
   | ISymbolicPoolNode
-  | IDiceMathNode;
+  | IDiceMathNode
+  | IDiceAbsoluteNode;
 
 type INodeStateMap = {
   diceGenerator: number[];
@@ -29,6 +30,7 @@ type INodeStateMap = {
   symbolicGenerator: string[];
   symbolicPool: string[][];
   diceMath: number[];
+  diceAbsolute: number[];
 };
 
 export type INodeType = keyof INodeStateMap;
@@ -70,3 +72,4 @@ export type IBagPullWithoutRepetitionNode = IBaseNode<{}, "bagPullWithoutRepetit
 export type ISymbolicGeneratorNode = IBaseNode<{ faces: string[] }, "symbolicGenerator">;
 export type ISymbolicPoolNode = IBaseNode<{}, "symbolicPool">;
 export type IDiceMathNode = IBaseNode<{ operation: IDiceMathOperation }, "diceMath">;
+export type IDiceAbsoluteNode = IBaseNode<{}, "diceAbsolute">;

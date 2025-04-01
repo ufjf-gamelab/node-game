@@ -23,6 +23,9 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
               <li className="sidebar-item" onClick={() => addNewNode("diceMath")}>
                 Math
               </li>
+              <li className="sidebar-item" onClick={() => addNewNode("diceAbsolute")}>
+                Absolute value
+              </li>
               <li className="sidebar-item" onClick={() => addNewNode("dicePool")}>
                 Pool
               </li>
