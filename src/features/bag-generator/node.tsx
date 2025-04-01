@@ -13,7 +13,7 @@ export const BagGeneratorNode: React.ComponentType<IProps> = ({ data, isConnecta
     const targetNode = flow.getNode(targetId) as INode | undefined;
     if (!targetNode) return false;
 
-    const allowedTypes: INodeType[] = ["bagPullWithoutRepetition"];
+    const allowedTypes: INodeType[] = ["bagPullWithoutRepetition", "histogram"];
     return allowedTypes.includes(targetNode.type);
   }
 

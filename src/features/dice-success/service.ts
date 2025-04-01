@@ -26,8 +26,8 @@ export const DiceSuccessService: INodeService<IDiceSuccessNode> = {
       const sourceNode = flow.getNode(edge.source);
       if (!sourceNode) throw new Error("Source connection not found!");
 
-      const sourceState = NodeManager.run(sourceNode, flow) as number[] | number[][];
-      const resultState = getArraySuccess(flattenArray(sourceState), node.data.face);
+      const sourceState = flattenArray(NodeManager.run(sourceNode, flow) as number[] | number[][]);
+      const resultState = getArraySuccess(sourceState, node.data.face);
 
       flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
       return resultState;
@@ -40,15 +40,13 @@ export const DiceSuccessService: INodeService<IDiceSuccessNode> = {
 
 function getArraySuccess(data: number[], face: number) {
   const result: number[] = [];
-  console.log(data);
 
   data.map((item) => {
-    console.log(item, face, item >= face);
-
     if (item >= face) {
-      // console.log(true, face);
       result.push(1);
-    } else result.push(0);
+    } else {
+      result.push(0);
+    }
   });
 
   return result;

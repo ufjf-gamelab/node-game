@@ -14,7 +14,7 @@ export const DiceSuccessNode: React.ComponentType<IProps> = ({ data, selected, i
     const targetNode = flow.getNode(targetId) as INode | undefined;
     if (!targetNode) return false;
 
-    const allowedTypes: INodeType[] = ["histogram", "diceMath", "dicePool", "dicePoolSum", "diceSuccess"];
+    const allowedTypes: INodeType[] = ["histogram", "diceMath", "dicePool", "diceSuccess"];
     return allowedTypes.includes(targetNode.type);
   }
 

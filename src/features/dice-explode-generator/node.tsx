@@ -14,15 +14,7 @@ export const DiceExplodeGeneratorNode: React.ComponentType<IProps> = ({ data, se
     const targetNode = flow.getNode(targetId) as INode | undefined;
     if (!targetNode) return false;
 
-    const allowedTypes: INodeType[] = [
-      "histogram",
-      "diceMath",
-      "dicePool",
-      "dicePoolSum",
-      "diceSuccess",
-      "diceBetweenInterval",
-      "diceCountRepetition",
-    ];
+    const allowedTypes: INodeType[] = ["histogram", "diceMath", "dicePool", "diceSuccess", "diceBetweenInterval", "diceCountRepetition"];
     return allowedTypes.includes(targetNode.type);
   }
 
