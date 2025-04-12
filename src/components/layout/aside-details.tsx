@@ -12,11 +12,14 @@ import { BagGeneratorDetails } from "@/features/bag-generator";
 import { SymbolicGeneratorDetails } from "@/features/symbolic-generator";
 import { DiceMathDetails } from "@/features/dice-math";
 import { DiceLogicalDetails } from "@/features/dice-logical";
+import { HistogramDetails } from "@/features/histogram/details";
 
 function renderDetails(node: INode) {
   switch (node.type) {
     case "diceGenerator":
       return <DiceGeneratorDetails node={node} key={node.id} />;
+    case "histogram":
+      return <HistogramDetails node={node} key={node.id} />;
     case "diceSuccess":
       return <DiceSuccessDetails node={node} key={node.id} />;
     case "diceBetweenInterval":

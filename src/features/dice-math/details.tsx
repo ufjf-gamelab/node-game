@@ -37,17 +37,6 @@ export const DiceMathDetails: React.FunctionComponent<{ node: IDiceMathNode }> =
               label: operation.charAt(0).toUpperCase() + operation.slice(1),
             }))}
           />
-          {/* <select
-            id="operation"
-            className="bg-gray-100 py-1 px-2 border shadow-none focus:ring-1 outline-none text-center w-28 overflow-hidden capitalize"
-            value={operation}
-            onChange={handleChangeOperation}>
-            {DICE_MATH_OPERATIONS.map((operation) => (
-              <option key={operation} value={operation} className="capitalize">
-                {operation}
-              </option>
-            ))}
-          </select> */}
         </div>
       }
     />

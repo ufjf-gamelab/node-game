@@ -1,0 +1,42 @@
+import React from "react";
+import { BaseNodeDetails } from "@/components/ui/base-node-details";
+import { IHistogramNode } from "@/config/types";
+import { useReactFlow } from "@xyflow/react";
+import { useDebounce } from "react-use";
+import { Select } from "@mantine/core";
+
+export const HistogramDetails: React.FunctionComponent<{ node: IHistogramNode }> = ({ node }) => {
+  const flow = useReactFlow();
+  const [sortDirection, setSortDirection] = React.useState(node.data.sortDirection);
+  const sortOptions: Array<IHistogramNode["data"]["sortDirection"]> = ["asc", "desc"];
+
+  function handleChangeOperation(value: string | null) {
+    const newValue = value as IHistogramNode["data"]["sortDirection"];
+    setSortDirection(newValue);
+    node.data.sortDirection = newValue;
+  }
+
+  useDebounce(() => flow.updateNodeData(node.id, { ...node.data, sortDirection }), 500, [sortDirection]);
+
+  return (
+    <BaseNodeDetails
+      node={node}
+      children={
+        <div className="w-full flex items-center justify-between border-b py-2 gap-4">
+          <label className="whitespace-nowrap w- font-medium" htmlFor="sortDirection">
+            Sort
+          </label>
+
+          <Select
+            id="sortDirection"
+            placeholder="Pick value"
+            value={sortDirection}
+            className="capitalize"
+            onChange={(value) => handleChangeOperation(value)}
+            data={sortOptions}
+          />
+        </div>
+      }
+    />
+  );
+};

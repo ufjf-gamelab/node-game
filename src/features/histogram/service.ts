@@ -13,8 +13,8 @@ export const HistogramService: INodeService<IHistogramNode> = {
         name: "Histogram " + (histogramCount + 1),
         detailsTitle: "Histogram",
         status: "IDLE",
-        state: [],
         parentNodeType: "",
+        sortDirection: "asc",
       },
     };
   },

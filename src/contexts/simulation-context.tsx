@@ -80,7 +80,7 @@ export const SimulationProvider: React.ComponentType<UIStateProviderProps> = ({ 
       return acc;
     }, [] as IChartData);
 
-    const sortedChartData = sortBy(chartData, "x", "asc");
+    const sortedChartData = sortBy(chartData, "x", histogramNode.data.sortDirection);
     return { id: "chart_" + histogramNode.id, name: histogramNode.data.name, data: sortedChartData };
   }
 
