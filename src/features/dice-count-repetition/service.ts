@@ -9,7 +9,7 @@ export const DiceCountRepetitionService: INodeService<IDiceCountRepetitionNode> 
       type: "diceCountRepetition",
       data: {
         name: "Dice count repetition",
-        detailsTitle: "Dice Count Repetition",
+        propertiesTitle: "Dice Count Repetition",
         status: "IDLE",
         face: 1,
       },

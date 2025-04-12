@@ -10,7 +10,7 @@ export const ValueIsEvenService: INodeService<IValueIsEvenNode> = {
       type: "valueIsEven",
       data: {
         name: "Is even",
-        detailsTitle: "Is Even",
+        propertiesTitle: "Is Even",
         status: "IDLE",
       },
     };

@@ -1,10 +1,10 @@
 import React from "react";
-import { BaseNodeDetails } from "@/components/ui/base-node-details";
-import { IDiceCountRepetitionNode } from "@/config/types";
+import { BaseNodeProperties } from "@/components/ui/base-node-properties";
+import { IDiceSuccessNode } from "@/config/types";
 import { useReactFlow } from "@xyflow/react";
 import { useDebounce } from "react-use";
 
-export const DiceCountRepetitionDetails: React.FunctionComponent<{ node: IDiceCountRepetitionNode }> = ({ node }) => {
+export const DiceSuccessProperties: React.FunctionComponent<{ node: IDiceSuccessNode }> = ({ node }) => {
   const flow = useReactFlow();
   const [face, setFace] = React.useState(node.data.face);
 
@@ -21,13 +21,13 @@ export const DiceCountRepetitionDetails: React.FunctionComponent<{ node: IDiceCo
   useDebounce(() => flow.updateNodeData(node.id, { ...node.data, face }), 500, [face]);
 
   return (
-    <BaseNodeDetails
+    <BaseNodeProperties
       node={node}
       children={
         <>
           <div className="w-full flex items-center justify-between border-b py-2 gap-2">
             <label className=" w-full font-medium" htmlFor="face">
-              Value to count
+              Success equal to or greater than
             </label>
             <input
               type="number"

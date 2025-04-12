@@ -56,8 +56,8 @@ export const NodeManager = {
     return service.run(flow, node as any) as INodeState<N>;
   },
 
-  getDetails(node: INode) {
-    return NODE_MODULES[node.type].details;
+  getProperties(node: INode) {
+    return NODE_MODULES[node.type].properties;
   },
 
   getNodeTypes(): Record<INodeType, React.ComponentType<any>> {

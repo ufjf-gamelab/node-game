@@ -1,9 +1,9 @@
-import { DiceExplodeGeneratorDetails } from "./details";
+import { DiceExplodeGeneratorProperties } from "./properties";
 import { DiceExplodeGeneratorNode } from "./node";
 import { DiceExplodeGeneratorService } from "./service";
 
 export const DiceExplodeGenerator = {
   component: DiceExplodeGeneratorNode,
   service: DiceExplodeGeneratorService,
-  details: DiceExplodeGeneratorDetails,
+  properties: DiceExplodeGeneratorProperties,
 };

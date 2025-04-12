@@ -2,11 +2,11 @@ import React from "react";
 import { useReactFlow } from "@xyflow/react";
 import { useDebounce } from "react-use";
 import { IDiceLogicalNode } from "@/config/types";
-import { BaseNodeDetails } from "@/components/ui/base-node-details";
+import { BaseNodeProperties } from "@/components/ui/base-node-properties";
 import { DICE_LOGICAL_OPERATIONS } from "@/config/constants";
 import { Select } from "@mantine/core";
 
-export const DiceLogicalDetails: React.FunctionComponent<{ node: IDiceLogicalNode }> = ({ node }) => {
+export const DiceLogicalProperties: React.FunctionComponent<{ node: IDiceLogicalNode }> = ({ node }) => {
   const flow = useReactFlow();
   const [operation, setOperation] = React.useState(node.data.operation);
 
@@ -19,7 +19,7 @@ export const DiceLogicalDetails: React.FunctionComponent<{ node: IDiceLogicalNod
   useDebounce(() => flow.updateNodeData(node.id, { ...node.data, operation }), 500, [operation]);
 
   return (
-    <BaseNodeDetails
+    <BaseNodeProperties
       node={node}
       children={
         <div className="w-full flex items-center justify-between border-b py-2 gap-4">

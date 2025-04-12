@@ -4,5 +4,5 @@ import { DicePoolSumService } from "./service";
 export const DicePoolSum = {
   component: DicePoolSumNode,
   service: DicePoolSumService,
-  details: null,
+  properties: null,
 };

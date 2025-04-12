@@ -10,7 +10,7 @@ export const DiceGeneratorService: INodeService<IDiceGeneratorNode> = {
       type: "diceGenerator",
       data: {
         name: "Dice",
-        detailsTitle: "Dice Generator",
+        propertiesTitle: "Dice Generator",
         status: "IDLE",
         min: 1,
         max: 6,

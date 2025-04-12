@@ -9,7 +9,7 @@ export const SymbolicPoolService: INodeService<ISymbolicPoolNode> = {
       type: "symbolicPool",
       data: {
         name: "Symbolic pool",
-        detailsTitle: "Symbolic Pool",
+        propertiesTitle: "Symbolic Pool",
         status: "IDLE",
       },
     };

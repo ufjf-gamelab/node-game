@@ -10,7 +10,7 @@ export const DiceMathService: INodeService<IDiceMathNode> = {
       type: "diceMath",
       data: {
         name: "Dice math",
-        detailsTitle: "Dice Math",
+        propertiesTitle: "Dice Math",
         status: "IDLE",
         operation: "add",
       },

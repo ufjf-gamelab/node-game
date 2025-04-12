@@ -11,7 +11,7 @@ export const HistogramService: INodeService<IHistogramNode> = {
       type: "histogram",
       data: {
         name: "Histogram " + (histogramCount + 1),
-        detailsTitle: "Histogram",
+        propertiesTitle: "Histogram",
         status: "IDLE",
         parentNodeType: "",
         sortDirection: "asc",

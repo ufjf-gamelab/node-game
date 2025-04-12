@@ -1,5 +1,5 @@
 import React from "react";
-import { BaseNodeDetails } from "@/components/ui/base-node-details";
+import { BaseNodeProperties } from "@/components/ui/base-node-properties";
 import { ISymbolicGeneratorNode } from "@/config/types";
 import { useReactFlow } from "@xyflow/react";
 import { useDebounce } from "react-use";
@@ -9,7 +9,7 @@ type IProps = {
   node: ISymbolicGeneratorNode;
 };
 
-export const SymbolicGeneratorDetails: React.FunctionComponent<IProps> = ({ node }) => {
+export const SymbolicGeneratorProperties: React.FunctionComponent<IProps> = ({ node }) => {
   const flow = useReactFlow();
   const [faces, setFaces] = React.useState(node.data.faces);
 
@@ -37,7 +37,7 @@ export const SymbolicGeneratorDetails: React.FunctionComponent<IProps> = ({ node
   useDebounce(() => flow.updateNodeData(node.id, { ...node.data, faces }), 500, [faces]);
 
   return (
-    <BaseNodeDetails
+    <BaseNodeProperties
       node={node}
       children={
         <>

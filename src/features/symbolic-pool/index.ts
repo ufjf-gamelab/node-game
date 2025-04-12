@@ -4,5 +4,5 @@ import { SymbolicPoolService } from "./service";
 export const SymbolicPool = {
   component: SymbolicPoolNode,
   service: SymbolicPoolService,
-  details: null,
+  properties: null,
 };

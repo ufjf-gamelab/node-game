@@ -1,5 +1,5 @@
 import React from "react";
-import { BaseNodeDetails } from "@/components/ui/base-node-details";
+import { BaseNodeProperties } from "@/components/ui/base-node-properties";
 import { IBagGeneratorNode } from "@/config/types";
 import { useReactFlow } from "@xyflow/react";
 import { useDebounce } from "react-use";
@@ -9,7 +9,7 @@ type IProps = {
   node: IBagGeneratorNode;
 };
 
-export const BagGeneratorDetails: React.FunctionComponent<IProps> = ({ node }) => {
+export const BagGeneratorProperties: React.FunctionComponent<IProps> = ({ node }) => {
   const flow = useReactFlow();
   const [balls, setBalls] = React.useState(node.data.balls);
 
@@ -37,7 +37,7 @@ export const BagGeneratorDetails: React.FunctionComponent<IProps> = ({ node }) =
   useDebounce(() => flow.updateNodeData(node.id, { ...node.data, balls }), 500, [balls]);
 
   return (
-    <BaseNodeDetails
+    <BaseNodeProperties
       node={node}
       children={
         <>

@@ -10,7 +10,7 @@ export const DiceExplodeGeneratorService: INodeService<IDiceExplodeGeneratorNode
       type: "diceExplodeGenerator",
       data: {
         name: "Dice explode",
-        detailsTitle: "Dice Explode Generator",
+        propertiesTitle: "Dice Explode Generator",
         status: "IDLE",
         explodeFace: 1,
         maxFace: 6,

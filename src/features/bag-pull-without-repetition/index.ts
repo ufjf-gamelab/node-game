@@ -4,5 +4,5 @@ import { BagPullWithoutRepetitionService } from "./service";
 export const BagPullWithoutRepetition = {
   component: BagPullWithoutRepetitionNode,
   service: BagPullWithoutRepetitionService,
-  details: null,
+  properties: null,
 };

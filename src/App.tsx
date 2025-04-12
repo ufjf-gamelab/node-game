@@ -3,7 +3,7 @@ import { Background, BackgroundVariant, Connection, ReactFlow, addEdge, useEdges
 import { NodeManager } from "@/utils/node-manager";
 import { Sidebar } from "@/components/layout/sidebar";
 import { TaskBar } from "./components/layout/task-bar";
-import { AsideDetails } from "@/components/layout/aside-details";
+import { AsideNodeProperties } from "@/components/layout/aside-node-properties";
 
 import { INodeType, INode, IEdge } from "@/config/types";
 
@@ -61,7 +61,7 @@ function App() {
   return (
     <div className="relative">
       <Sidebar addNewNode={addNewNode} />
-      <AsideDetails />
+      <AsideNodeProperties />
       <TaskBar />
 
       <main className="w-screen h-screen">

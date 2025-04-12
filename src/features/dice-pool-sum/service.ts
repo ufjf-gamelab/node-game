@@ -9,7 +9,7 @@ export const DicePoolSumService: INodeService<IDicePoolSumNode> = {
       type: "dicePoolSum",
       data: {
         name: "Dice pool sum",
-        detailsTitle: "Dice Pool Sum",
+        propertiesTitle: "Dice Pool Sum",
         status: "IDLE",
         state: [],
       },

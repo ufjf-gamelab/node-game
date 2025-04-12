@@ -10,7 +10,7 @@ export const DiceAbsoluteService: INodeService<IDiceAbsoluteNode> = {
       type: "diceAbsolute",
       data: {
         name: "Dice absolute",
-        detailsTitle: "Dice Absolute",
+        propertiesTitle: "Dice Absolute",
         status: "IDLE",
         state: [],
       },

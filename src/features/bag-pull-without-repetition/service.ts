@@ -9,7 +9,7 @@ export const BagPullWithoutRepetitionService: INodeService<IBagPullWithoutRepeti
       type: "bagPullWithoutRepetition",
       data: {
         status: "IDLE",
-        detailsTitle: "Pull Bag without repetition",
+        propertiesTitle: "Pull Bag without repetition",
         name: "Pull without repetition",
       },
     };

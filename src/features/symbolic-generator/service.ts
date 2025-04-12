@@ -10,7 +10,7 @@ export const SymbolicGeneratorService: INodeService<ISymbolicGeneratorNode> = {
       type: "symbolicGenerator",
       data: {
         status: "IDLE",
-        detailsTitle: "Symbolic generator",
+        propertiesTitle: "Symbolic generator",
         name: "Symbolic",
         faces: ["A", "B"],
       },

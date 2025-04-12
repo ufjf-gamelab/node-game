@@ -1,9 +1,9 @@
-import { BagGeneratorDetails } from "./details";
+import { BagGeneratorProperties } from "./properties";
 import { BagGeneratorNode } from "./node";
 import { BagGeneratorService } from "./service";
 
 export const BagGenerator = {
   component: BagGeneratorNode,
   service: BagGeneratorService,
-  details: BagGeneratorDetails,
+  properties: BagGeneratorProperties,
 };

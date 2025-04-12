@@ -8,7 +8,7 @@ type IProps = {
   children?: React.ReactNode;
 };
 
-export const BaseNodeDetails: React.FunctionComponent<IProps> = ({ node, children }) => {
+export const BaseNodeProperties: React.FunctionComponent<IProps> = ({ node, children }) => {
   const flow = useReactFlow();
 
   const [name, setName] = React.useState(node.data.name);
@@ -18,7 +18,7 @@ export const BaseNodeDetails: React.FunctionComponent<IProps> = ({ node, childre
   return (
     <div className="flex flex-col">
       <div className="border-b-2 px-2 py-4 text-center text-xl">
-        <h2>{node.data.detailsTitle}</h2>
+        <h2>{node.data.propertiesTitle}</h2>
       </div>
 
       <div className="flex flex-col px-2">

@@ -10,7 +10,7 @@ export const DiceSuccessService: INodeService<IDiceSuccessNode> = {
       type: "diceSuccess",
       data: {
         name: "Dice success",
-        detailsTitle: "Dice Success",
+        propertiesTitle: "Dice Success",
         status: "IDLE",
         state: [],
         face: 6,

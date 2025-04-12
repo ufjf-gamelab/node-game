@@ -10,7 +10,7 @@ export const DiceLogicalService: INodeService<IDiceLogicalNode> = {
       type: "diceLogical",
       data: {
         name: "Dice logical",
-        detailsTitle: "Dice Logical",
+        propertiesTitle: "Dice Logical",
         status: "IDLE",
         operation: "A = B",
       },

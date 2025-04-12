@@ -1,14 +1,10 @@
 import React from "react";
 import { useReactFlow } from "@xyflow/react";
 import { useDebounce } from "react-use";
-import { IDiceBetweenIntervalNode } from "@/config/types";
-import { BaseNodeDetails } from "@/components/ui/base-node-details";
+import { IDiceGeneratorNode } from "@/config/types";
+import { BaseNodeProperties } from "@/components/ui/base-node-properties";
 
-type IProps = {
-  node: IDiceBetweenIntervalNode;
-};
-
-export const DiceBetweenIntervalDetails: React.FunctionComponent<IProps> = ({ node }) => {
+export const DiceGeneratorProperties: React.FunctionComponent<{ node: IDiceGeneratorNode }> = ({ node }) => {
   const flow = useReactFlow();
   const [min, setMin] = React.useState(node.data.min);
   const [max, setMax] = React.useState(node.data.max);
@@ -25,10 +21,15 @@ export const DiceBetweenIntervalDetails: React.FunctionComponent<IProps> = ({ no
     node.data.min = newValue;
   }
 
+  React.useEffect(() => {
+    setMin(node.data.min);
+    setMax(node.data.max);
+  }, [node]);
+
   useDebounce(() => flow.updateNodeData(node.id, { ...node.data, min, max }), 500, [min, max]);
 
   return (
-    <BaseNodeDetails
+    <BaseNodeProperties
       node={node}
       children={
         <>

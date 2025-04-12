@@ -10,7 +10,7 @@ export const BagGeneratorService: INodeService<IBagGeneratorNode> = {
       type: "bagGenerator",
       data: {
         status: "IDLE",
-        detailsTitle: "Bag generator",
+        propertiesTitle: "Bag generator",
         name: "Bag",
         balls: ["red", "blue"],
       },

@@ -4,5 +4,5 @@ import { DiceAbsoluteService } from "./service";
 export const DiceAbsolute = {
   component: DiceAbsoluteNode,
   service: DiceAbsoluteService,
-  details: null,
+  properties: null,
 };

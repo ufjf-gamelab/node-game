@@ -1,10 +1,10 @@
 import React from "react";
-import { BaseNodeDetails } from "@/components/ui/base-node-details";
+import { BaseNodeProperties } from "@/components/ui/base-node-properties";
 import { IDiceExplodeGeneratorNode } from "@/config/types";
 import { useReactFlow } from "@xyflow/react";
 import { useDebounce } from "react-use";
 
-export const DiceExplodeGeneratorDetails: React.FunctionComponent<{ node: IDiceExplodeGeneratorNode }> = ({ node }) => {
+export const DiceExplodeGeneratorProperties: React.FunctionComponent<{ node: IDiceExplodeGeneratorNode }> = ({ node }) => {
   const flow = useReactFlow();
   const [maxFace, setMaxFace] = React.useState(node.data.maxFace);
   const [explodeFace, setExplodeFace] = React.useState(node.data.explodeFace);
@@ -24,7 +24,7 @@ export const DiceExplodeGeneratorDetails: React.FunctionComponent<{ node: IDiceE
   useDebounce(() => flow.updateNodeData(node.id, { ...node.data, maxFace, explodeFace }), 500, [maxFace, explodeFace]);
 
   return (
-    <BaseNodeDetails
+    <BaseNodeProperties
       node={node}
       children={
         <>

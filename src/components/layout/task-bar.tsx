@@ -10,7 +10,7 @@ import html2canvas from "html2canvas";
 
 export const TaskBar: React.ComponentType = () => {
   const { loading, runSimulation, clearSimulation, simulationCharts } = useSimulationContext();
-  const { simulationOpen, setSimulationOpen, asideDetailsOpen, sidebarWidth, asideDetailsWidth } = useLayoutContext();
+  const { simulationOpen, setSimulationOpen, asidePropertiesOpen, sidebarWidth, asidePropertiesWidth } = useLayoutContext();
 
   async function startSimulation() {
     await runSimulation();
@@ -42,7 +42,7 @@ export const TaskBar: React.ComponentType = () => {
       <div
         className="absolute z-[15] flex gap-4 h-16 justify-center transform -translate-x-1/2 transition-all duration-300 p-2 pb-8 rounded-md bg-white border border-gray-300 select-none"
         style={{
-          left: `calc(${sidebarWidth}px + (100vw - ${sidebarWidth}px - ${asideDetailsOpen ? asideDetailsWidth : 0}px) / 2)`,
+          left: `calc(${sidebarWidth}px + (100vw - ${sidebarWidth}px - ${asidePropertiesOpen ? asidePropertiesWidth : 0}px) / 2)`,
           top: "calc(100vh - 52px)",
         }}>
         <Button color="green" title="Start simulation" loading={loading} leftSection={<BiPlay className="text-xl" />} onClick={startSimulation}>
@@ -63,8 +63,8 @@ export const TaskBar: React.ComponentType = () => {
       <div
         className="absolute overflow-y-auto z-[10] transform -translate-x-1/2  h-[430px] max-w-[900px] bg-white border-t-4 border-blue-600 border-x border-x-gray-300 flex flex-col transition-all duration-200"
         style={{
-          left: `calc(${sidebarWidth}px + (100vw - ${sidebarWidth}px - ${asideDetailsOpen ? asideDetailsWidth : 0}px) / 2)`,
-          width: `calc(100vw - ${(asideDetailsOpen ? asideDetailsWidth : 0) + sidebarWidth + 64}px)`,
+          left: `calc(${sidebarWidth}px + (100vw - ${sidebarWidth}px - ${asidePropertiesOpen ? asidePropertiesWidth : 0}px) / 2)`,
+          width: `calc(100vw - ${(asidePropertiesOpen ? asidePropertiesWidth : 0) + sidebarWidth + 64}px)`,
           top: simulationOpen ? "calc(100vh - 430px)" : "calc(100vh - 23px)",
         }}>
         {!simulationCharts.length && (

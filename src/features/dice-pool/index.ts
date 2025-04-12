@@ -4,5 +4,5 @@ import { DicePoolService } from "./service";
 export const DicePool = {
   component: DicePoolNode,
   service: DicePoolService,
-  details: null,
+  properties: null,
 };

@@ -9,7 +9,7 @@ export const DiceBetweenIntervalService: INodeService<IDiceBetweenIntervalNode> 
       type: "diceBetweenInterval",
       data: {
         name: "Dice between interval",
-        detailsTitle: "Dice Between Interval",
+        propertiesTitle: "Dice Between Interval",
         status: "IDLE",
         min: 1,
         max: 2,

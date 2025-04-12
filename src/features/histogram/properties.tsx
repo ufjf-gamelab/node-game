@@ -1,11 +1,11 @@
 import React from "react";
-import { BaseNodeDetails } from "@/components/ui/base-node-details";
+import { BaseNodeProperties } from "@/components/ui/base-node-properties";
 import { IHistogramNode } from "@/config/types";
 import { useReactFlow } from "@xyflow/react";
 import { useDebounce } from "react-use";
 import { Select } from "@mantine/core";
 
-export const HistogramDetails: React.FunctionComponent<{ node: IHistogramNode }> = ({ node }) => {
+export const HistogramProperties: React.FunctionComponent<{ node: IHistogramNode }> = ({ node }) => {
   const flow = useReactFlow();
   const [sortDirection, setSortDirection] = React.useState(node.data.sortDirection);
   const sortOptions: Array<IHistogramNode["data"]["sortDirection"]> = ["asc", "desc"];
@@ -19,7 +19,7 @@ export const HistogramDetails: React.FunctionComponent<{ node: IHistogramNode }>
   useDebounce(() => flow.updateNodeData(node.id, { ...node.data, sortDirection }), 500, [sortDirection]);
 
   return (
-    <BaseNodeDetails
+    <BaseNodeProperties
       node={node}
       children={
         <div className="w-full flex items-center justify-between border-b py-2 gap-4">

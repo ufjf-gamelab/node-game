@@ -1,9 +1,9 @@
-import { SymbolicGeneratorDetails } from "./details";
+import { SymbolicGeneratorProperties } from "./properties";
 import { SymbolicGeneratorNode } from "./node";
 import { SymbolicGeneratorService } from "./service";
 
 export const SymbolicGenerator = {
   component: SymbolicGeneratorNode,
   service: SymbolicGeneratorService,
-  details: SymbolicGeneratorDetails,
+  properties: SymbolicGeneratorProperties,
 };

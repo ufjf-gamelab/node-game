@@ -4,5 +4,5 @@ import { ValueIsEvenService } from "./service";
 export const ValueIsEven = {
   component: ValueIsEvenNode,
   service: ValueIsEvenService,
-  details: null,
+  properties: null,
 };

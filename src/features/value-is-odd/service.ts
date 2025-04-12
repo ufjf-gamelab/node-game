@@ -10,7 +10,7 @@ export const ValueIsOddService: INodeService<IValueIsOddNode> = {
       type: "valueIsOdd",
       data: {
         name: "Is odd",
-        detailsTitle: "Is Odd",
+        propertiesTitle: "Is Odd",
         status: "IDLE",
       },
     };
