@@ -1,20 +1,40 @@
 import { generateHash } from "./generate-hash";
 import { IFlowInstance, INode, INodeState, INodeType } from "@/config/types";
-import { DiceGeneratorService } from "@/features/dice-generator";
-import { HistogramService } from "@/features/histogram";
-import { DicePoolService } from "@/features/dice-pool";
-import { DicePoolSumService } from "@/features/dice-pool-sum";
-import { DiceSuccessService } from "@/features/dice-success";
-import { DiceBetweenIntervalService } from "@/features/dice-between-interval";
-import { DiceCountRepetitionService } from "@/features/dice-count-repetition";
-import { DiceExplodeGeneratorService } from "@/features/dice-explode-generator";
-import { BagGeneratorService } from "@/features/bag-generator";
-import { BagGeneratorWithoutRepetitionService } from "@/features/bag-pull-without-repetition";
-import { SymbolicGeneratorService } from "@/features/symbolic-generator";
-import { SymbolicPoolService } from "@/features/symbolic-pool";
-import { DiceMathService } from "@/features/dice-math";
-import { DiceAbsoluteService } from "@/features/dice-absolute";
-import { DiceLogicalService } from "@/features/dice-logical";
+import { DiceGeneratorService, DiceGeneratorNode } from "@/features/dice-generator";
+import { HistogramNode, HistogramService } from "@/features/histogram";
+import { DicePoolNode, DicePoolService } from "@/features/dice-pool";
+import { DicePoolSumNode, DicePoolSumService } from "@/features/dice-pool-sum";
+import { DiceSuccessNode, DiceSuccessService } from "@/features/dice-success";
+import { DiceBetweenIntervalNode, DiceBetweenIntervalService } from "@/features/dice-between-interval";
+import { DiceCountRepetitionNode, DiceCountRepetitionService } from "@/features/dice-count-repetition";
+import { DiceExplodeGeneratorNode, DiceExplodeGeneratorService } from "@/features/dice-explode-generator";
+import { BagGeneratorNode, BagGeneratorService } from "@/features/bag-generator";
+import { BagGeneratorWithoutRepetitionService, BagPullWithoutRepetitionNode } from "@/features/bag-pull-without-repetition";
+import { SymbolicGeneratorNode, SymbolicGeneratorService } from "@/features/symbolic-generator";
+import { SymbolicPoolNode, SymbolicPoolService } from "@/features/symbolic-pool";
+import { DiceMathNode, DiceMathService } from "@/features/dice-math";
+import { DiceAbsoluteNode, DiceAbsoluteService } from "@/features/dice-absolute";
+import { DiceLogicalNode, DiceLogicalService } from "@/features/dice-logical";
+import { ValueIsEvenNode, ValueIsEvenService } from "@/features/value-is-even";
+
+export const NODE_TYPES: Record<INodeType, React.ComponentType<any>> = {
+  diceGenerator: DiceGeneratorNode,
+  histogram: HistogramNode,
+  dicePool: DicePoolNode,
+  dicePoolSum: DicePoolSumNode,
+  diceSuccess: DiceSuccessNode,
+  diceBetweenInterval: DiceBetweenIntervalNode,
+  diceCountRepetition: DiceCountRepetitionNode,
+  diceExplodeGenerator: DiceExplodeGeneratorNode,
+  bagGenerator: BagGeneratorNode,
+  bagPullWithoutRepetition: BagPullWithoutRepetitionNode,
+  symbolicGenerator: SymbolicGeneratorNode,
+  symbolicPool: SymbolicPoolNode,
+  diceMath: DiceMathNode,
+  diceAbsolute: DiceAbsoluteNode,
+  diceLogical: DiceLogicalNode,
+  valueIsEven: ValueIsEvenNode,
+};
 
 export const NodeManager = {
   new(type: INodeType, flow: IFlowInstance): INode {
@@ -54,6 +74,8 @@ export const NodeManager = {
         return DiceAbsoluteService.new(flow, defaultDefinitions);
       case "diceLogical":
         return DiceLogicalService.new(flow, defaultDefinitions);
+      case "valueIsEven":
+        return ValueIsEvenService.new(flow, defaultDefinitions);
 
       default:
         throw new Error("Node creation: Invalid node type!");
@@ -92,6 +114,8 @@ export const NodeManager = {
         return DiceAbsoluteService.run(flow, node) as INodeState<N>;
       case "diceLogical":
         return DiceLogicalService.run(flow, node) as INodeState<N>;
+      case "valueIsEven":
+        return ValueIsEvenService.run(flow, node) as INodeState<N>;
 
       default:
         throw new Error("Node factory run: Invalid node type!");

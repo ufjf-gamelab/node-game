@@ -44,11 +44,14 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
               <li className="sidebar-item" onClick={() => addNewNode("diceCountRepetition")}>
                 Count repetition
               </li>
+              <li className="sidebar-item" onClick={() => addNewNode("valueIsEven")}>
+                Is Even
+              </li>
             </ul>
           </Accordion.Panel>
         </Accordion.Item>
 
-        <Accordion.Item value="item-2">
+        <Accordion.Item value="bag">
           <Accordion.Control icon={<GiSwapBag className="text-[22px]" />}>Bag</Accordion.Control>
 
           <Accordion.Panel className="bg-white">
@@ -63,7 +66,7 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
           </Accordion.Panel>
         </Accordion.Item>
 
-        <Accordion.Item value="item-3">
+        <Accordion.Item value="symbolic">
           <Accordion.Control icon={<GiPerspectiveDiceSixFacesRandom className="text-[22px]" />}>Symbolic</Accordion.Control>
 
           <Accordion.Panel className="bg-white">
@@ -78,7 +81,7 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
           </Accordion.Panel>
         </Accordion.Item>
 
-        <Accordion.Item value="item-4">
+        <Accordion.Item value="output">
           <Accordion.Control className="px-4 hover:bg-slate-100">
             <div className="flex gap-4 items-center justify-start">
               <GiHistogram className="text-[22px]" />

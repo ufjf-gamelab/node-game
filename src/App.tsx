@@ -1,10 +1,10 @@
 import React from "react";
 import { Background, BackgroundVariant, Connection, ReactFlow, addEdge, useEdgesState, useNodesState, useReactFlow, MarkerType } from "@xyflow/react";
-import { NodeManager } from "@/utils/node-manager";
+import { NodeManager, NODE_TYPES } from "@/utils/node-manager";
 import { Sidebar } from "@/components/layout/sidebar";
 import { TaskBar } from "./components/layout/task-bar";
 import { AsideDetails } from "@/components/layout/aside-details";
-import { NODE_TYPES } from "@/config/constants";
+
 import { INodeType, INode, IEdge } from "@/config/types";
 
 function App() {

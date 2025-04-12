@@ -1,22 +1,5 @@
 import { Edge, Node, ReactFlowInstance } from "@xyflow/react";
 
-export type INode =
-  | IDiceGeneratorNode
-  | IHistogramNode
-  | IDicePoolNode
-  | IDicePoolSumNode
-  | IDiceSuccessNode
-  | IDiceBetweenIntervalNode
-  | IDiceCountRepetitionNode
-  | IDiceExplodeGeneratorNode
-  | IBagGeneratorNode
-  | IBagPullWithoutRepetitionNode
-  | ISymbolicGeneratorNode
-  | ISymbolicPoolNode
-  | IDiceMathNode
-  | IDiceAbsoluteNode
-  | IDiceLogicalNode;
-
 type INodeStateMap = {
   diceGenerator: number[];
   histogram: (number | string)[];
@@ -33,6 +16,7 @@ type INodeStateMap = {
   diceMath: number[];
   diceAbsolute: number[];
   diceLogical: number[];
+  valueIsEven: number[];
 };
 
 export type INodeType = keyof INodeStateMap;
@@ -76,3 +60,22 @@ export type ISymbolicPoolNode = IBaseNode<{}, "symbolicPool">;
 export type IDiceAbsoluteNode = IBaseNode<{}, "diceAbsolute">;
 export type IDiceMathNode = IBaseNode<{ operation: IDiceMathOperation }, "diceMath">;
 export type IDiceLogicalNode = IBaseNode<{ operation: IDiceLogicalOperation }, "diceLogical">;
+export type IValueIsEvenNode = IBaseNode<{}, "valueIsEven">;
+
+export type INode =
+  | IDiceGeneratorNode
+  | IHistogramNode
+  | IDicePoolNode
+  | IDicePoolSumNode
+  | IDiceSuccessNode
+  | IDiceBetweenIntervalNode
+  | IDiceCountRepetitionNode
+  | IDiceExplodeGeneratorNode
+  | IBagGeneratorNode
+  | IBagPullWithoutRepetitionNode
+  | ISymbolicGeneratorNode
+  | ISymbolicPoolNode
+  | IDiceMathNode
+  | IDiceAbsoluteNode
+  | IDiceLogicalNode
+  | IValueIsEvenNode;
