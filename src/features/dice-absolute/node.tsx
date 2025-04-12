@@ -13,7 +13,7 @@ export const DiceAbsoluteNode: React.ComponentType<IProps> = ({ data, selected, 
     const targetNode = flow.getNode(targetId) as INode | undefined;
     if (!targetNode) return false;
 
-    const allowedTypes: INodeType[] = ["histogram", "diceMath", "diceLogical", "dicePool", "diceSuccess"];
+    const allowedTypes: INodeType[] = ["histogram", "diceMath", "diceLogical", "dicePool", "diceSuccess", "valueIsEven", "valueIsOdd"];
     return allowedTypes.includes(targetNode.type);
   }
 

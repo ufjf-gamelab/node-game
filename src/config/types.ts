@@ -17,6 +17,7 @@ type INodeStateMap = {
   diceAbsolute: number[];
   diceLogical: number[];
   valueIsEven: number[];
+  valueIsOdd: number[];
 };
 
 export type INodeType = keyof INodeStateMap;
@@ -61,6 +62,7 @@ export type IDiceAbsoluteNode = IBaseNode<{}, "diceAbsolute">;
 export type IDiceMathNode = IBaseNode<{ operation: IDiceMathOperation }, "diceMath">;
 export type IDiceLogicalNode = IBaseNode<{ operation: IDiceLogicalOperation }, "diceLogical">;
 export type IValueIsEvenNode = IBaseNode<{}, "valueIsEven">;
+export type IValueIsOddNode = IBaseNode<{}, "valueIsOdd">;
 
 export type INode =
   | IDiceGeneratorNode
@@ -78,4 +80,5 @@ export type INode =
   | IDiceMathNode
   | IDiceAbsoluteNode
   | IDiceLogicalNode
-  | IValueIsEvenNode;
+  | IValueIsEvenNode
+  | IValueIsOddNode;

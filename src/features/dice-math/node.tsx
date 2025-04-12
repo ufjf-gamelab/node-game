@@ -22,6 +22,8 @@ export const DiceMathNode: React.ComponentType<IProps> = ({ data, selected, isCo
       "diceSuccess",
       "diceBetweenInterval",
       "diceCountRepetition",
+      "valueIsEven",
+      "valueIsOdd",
     ];
 
     return allowedTypes.includes(targetNode.type);

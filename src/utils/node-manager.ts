@@ -16,6 +16,7 @@ import { DiceMathNode, DiceMathService } from "@/features/dice-math";
 import { DiceAbsoluteNode, DiceAbsoluteService } from "@/features/dice-absolute";
 import { DiceLogicalNode, DiceLogicalService } from "@/features/dice-logical";
 import { ValueIsEvenNode, ValueIsEvenService } from "@/features/value-is-even";
+import { ValueIsOddNode, ValueIsOddService } from "@/features/value-is-odd";
 
 export const NODE_TYPES: Record<INodeType, React.ComponentType<any>> = {
   diceGenerator: DiceGeneratorNode,
@@ -34,6 +35,7 @@ export const NODE_TYPES: Record<INodeType, React.ComponentType<any>> = {
   diceAbsolute: DiceAbsoluteNode,
   diceLogical: DiceLogicalNode,
   valueIsEven: ValueIsEvenNode,
+  valueIsOdd: ValueIsOddNode,
 };
 
 export const NodeManager = {
@@ -76,6 +78,8 @@ export const NodeManager = {
         return DiceLogicalService.new(flow, defaultDefinitions);
       case "valueIsEven":
         return ValueIsEvenService.new(flow, defaultDefinitions);
+      case "valueIsOdd":
+        return ValueIsOddService.new(flow, defaultDefinitions);
 
       default:
         throw new Error("Node creation: Invalid node type!");
@@ -116,6 +120,8 @@ export const NodeManager = {
         return DiceLogicalService.run(flow, node) as INodeState<N>;
       case "valueIsEven":
         return ValueIsEvenService.run(flow, node) as INodeState<N>;
+      case "valueIsOdd":
+        return ValueIsOddService.run(flow, node) as INodeState<N>;
 
       default:
         throw new Error("Node factory run: Invalid node type!");

@@ -14,7 +14,16 @@ export const DicePoolSumNode: React.ComponentType<IProps> = ({ data, isConnectab
     const targetNode = flow.getNode(targetId) as INode | undefined;
     if (!targetNode) return false;
 
-    const allowedTypes: INodeType[] = ["histogram", "diceMath", "dicePool", "diceSuccess", "diceBetweenInterval", "diceCountRepetition"];
+    const allowedTypes: INodeType[] = [
+      "histogram",
+      "diceMath",
+      "dicePool",
+      "diceSuccess",
+      "diceBetweenInterval",
+      "diceCountRepetition",
+      "valueIsEven",
+      "valueIsOdd",
+    ];
     return allowedTypes.includes(targetNode.type);
   }
 

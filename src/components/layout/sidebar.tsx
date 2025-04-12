@@ -47,6 +47,9 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
               <li className="sidebar-item" onClick={() => addNewNode("valueIsEven")}>
                 Is Even
               </li>
+              <li className="sidebar-item" onClick={() => addNewNode("valueIsOdd")}>
+                Is Odd
+              </li>
             </ul>
           </Accordion.Panel>
         </Accordion.Item>
