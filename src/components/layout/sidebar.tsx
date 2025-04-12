@@ -1,11 +1,21 @@
 import { FunctionComponent } from "react";
-import { Accordion } from "@mantine/core";
+import { Accordion, ActionIcon, Tooltip } from "@mantine/core";
 import { GiPerspectiveDiceOne, GiPerspectiveDiceSixFacesRandom, GiSwapBag, GiHistogram } from "react-icons/gi";
+import { VscTrash } from "react-icons/vsc";
+
 import { INodeType } from "@/config/types";
+import { useReactFlow } from "@xyflow/react";
 
 type IProps = { addNewNode: (type: INodeType) => void };
 
 const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
+  const flow = useReactFlow();
+
+  function clearBoard() {
+    flow.setEdges([]);
+    flow.setNodes([]);
+  }
+
   return (
     <aside className="text-[14px] text-slate-900 fixed z-20 left-0 top-0 bg-white h-screen w-48 flex flex-col border-r select-none">
       <Accordion classNames={{ content: "p-0" }} chevronPosition="right" variant="contained" multiple defaultValue={["dice"]} className="w-full">
@@ -101,6 +111,14 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
           </Accordion.Panel>
         </Accordion.Item>
       </Accordion>
+
+      <div className="flex gap-2 items-end h-full pb-2 px-2">
+        <Tooltip label="Clear all board nodes">
+          <ActionIcon variant="filled" color="red" onClick={clearBoard}>
+            <VscTrash />
+          </ActionIcon>
+        </Tooltip>
+      </div>
     </aside>
   );
 };

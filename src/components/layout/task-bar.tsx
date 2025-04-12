@@ -45,19 +45,27 @@ export const TaskBar: React.ComponentType = () => {
           left: `calc(${sidebarWidth}px + (100vw - ${sidebarWidth}px - ${asidePropertiesOpen ? asidePropertiesWidth : 0}px) / 2)`,
           top: "calc(100vh - 52px)",
         }}>
-        <Button color="green" title="Start simulation" loading={loading} leftSection={<BiPlay className="text-xl" />} onClick={startSimulation}>
-          Start
-        </Button>
-        <Button title="Clear simulation" color="red" leftSection={<BiReset className="text-xl" />} onClick={clearSimulation}>
-          Clear
-        </Button>
+        <Tooltip label="Start simulation">
+          <Button color="green" loading={loading} leftSection={<BiPlay className="text-xl" />} onClick={startSimulation}>
+            Start
+          </Button>
+        </Tooltip>
+
+        <Tooltip label="Clear simulation">
+          <Button color="red" leftSection={<BiReset className="text-xl" />} onClick={clearSimulation}>
+            Clear
+          </Button>
+        </Tooltip>
+
         <Button leftSection={<BiImport className="text-xl" />} onClick={() => setOpenedImportModal(!openedImportModal)}>
           Import & Export
         </Button>
 
-        <Button title={simulationOpen ? "Close section" : "Open section"} color="gray" onClick={() => setSimulationOpen(!simulationOpen)}>
-          <BiSolidChevronUp className={cls("text-xl", { "transform rotate-180": simulationOpen, "transition-transform duration-700": true })} />
-        </Button>
+        <Tooltip label={simulationOpen ? "Close section" : "Open section"}>
+          <Button color="gray" onClick={() => setSimulationOpen(!simulationOpen)}>
+            <BiSolidChevronUp className={cls("text-xl", { "transform rotate-180": simulationOpen, "transition-transform duration-700": true })} />
+          </Button>
+        </Tooltip>
       </div>
 
       <div
