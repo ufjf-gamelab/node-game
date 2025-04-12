@@ -1,42 +1,42 @@
 import { generateHash } from "./generate-hash";
 import { IFlowInstance, INode, INodeState, INodeType } from "@/config/types";
-import { DiceGeneratorService, DiceGeneratorNode } from "@/features/dice-generator";
-import { HistogramNode, HistogramService } from "@/features/histogram";
-import { DicePoolNode, DicePoolService } from "@/features/dice-pool";
-import { DicePoolSumNode, DicePoolSumService } from "@/features/dice-pool-sum";
-import { DiceSuccessNode, DiceSuccessService } from "@/features/dice-success";
-import { DiceBetweenIntervalNode, DiceBetweenIntervalService } from "@/features/dice-between-interval";
-import { DiceCountRepetitionNode, DiceCountRepetitionService } from "@/features/dice-count-repetition";
-import { DiceExplodeGeneratorNode, DiceExplodeGeneratorService } from "@/features/dice-explode-generator";
-import { BagGeneratorNode, BagGeneratorService } from "@/features/bag-generator";
-import { BagGeneratorWithoutRepetitionService, BagPullWithoutRepetitionNode } from "@/features/bag-pull-without-repetition";
-import { SymbolicGeneratorNode, SymbolicGeneratorService } from "@/features/symbolic-generator";
-import { SymbolicPoolNode, SymbolicPoolService } from "@/features/symbolic-pool";
-import { DiceMathNode, DiceMathService } from "@/features/dice-math";
-import { DiceAbsoluteNode, DiceAbsoluteService } from "@/features/dice-absolute";
-import { DiceLogicalNode, DiceLogicalService } from "@/features/dice-logical";
-import { ValueIsEvenNode, ValueIsEvenService } from "@/features/value-is-even";
-import { ValueIsOddNode, ValueIsOddService } from "@/features/value-is-odd";
+import { DiceGenerator } from "@/features/dice-generator";
+import { Histogram } from "@/features/histogram";
+import { DicePool } from "@/features/dice-pool";
+import { DicePoolSum } from "@/features/dice-pool-sum";
+import { DiceSuccess } from "@/features/dice-success";
+import { DiceBetweenInterval } from "@/features/dice-between-interval";
+import { DiceCountRepetition } from "@/features/dice-count-repetition";
+import { DiceExplodeGenerator } from "@/features/dice-explode-generator";
+import { BagGenerator } from "@/features/bag-generator";
+import { BagPullWithoutRepetition } from "@/features/bag-pull-without-repetition";
+import { SymbolicGenerator } from "@/features/symbolic-generator";
+import { SymbolicPool } from "@/features/symbolic-pool";
+import { DiceMath } from "@/features/dice-math";
+import { DiceAbsolute } from "@/features/dice-absolute";
+import { DiceLogical } from "@/features/dice-logical";
+import { ValueIsEven } from "@/features/value-is-even";
+import { ValueIsOdd } from "@/features/value-is-odd";
 
-export const NODE_TYPES: Record<INodeType, React.ComponentType<any>> = {
-  diceGenerator: DiceGeneratorNode,
-  histogram: HistogramNode,
-  dicePool: DicePoolNode,
-  dicePoolSum: DicePoolSumNode,
-  diceSuccess: DiceSuccessNode,
-  diceBetweenInterval: DiceBetweenIntervalNode,
-  diceCountRepetition: DiceCountRepetitionNode,
-  diceExplodeGenerator: DiceExplodeGeneratorNode,
-  bagGenerator: BagGeneratorNode,
-  bagPullWithoutRepetition: BagPullWithoutRepetitionNode,
-  symbolicGenerator: SymbolicGeneratorNode,
-  symbolicPool: SymbolicPoolNode,
-  diceMath: DiceMathNode,
-  diceAbsolute: DiceAbsoluteNode,
-  diceLogical: DiceLogicalNode,
-  valueIsEven: ValueIsEvenNode,
-  valueIsOdd: ValueIsOddNode,
-};
+const NODE_MODULES = {
+  diceGenerator: DiceGenerator,
+  histogram: Histogram,
+  dicePool: DicePool,
+  dicePoolSum: DicePoolSum,
+  diceSuccess: DiceSuccess,
+  diceBetweenInterval: DiceBetweenInterval,
+  diceCountRepetition: DiceCountRepetition,
+  diceExplodeGenerator: DiceExplodeGenerator,
+  bagGenerator: BagGenerator,
+  bagPullWithoutRepetition: BagPullWithoutRepetition,
+  symbolicGenerator: SymbolicGenerator,
+  symbolicPool: SymbolicPool,
+  diceMath: DiceMath,
+  diceAbsolute: DiceAbsolute,
+  diceLogical: DiceLogical,
+  valueIsEven: ValueIsEven,
+  valueIsOdd: ValueIsOdd,
+} as const;
 
 export const NodeManager = {
   new(type: INodeType, flow: IFlowInstance): INode {
@@ -45,87 +45,26 @@ export const NodeManager = {
       position: getAdjustedPosition(flow),
     };
 
-    switch (type) {
-      case "diceGenerator":
-        return DiceGeneratorService.new(flow, defaultDefinitions);
-      case "histogram":
-        return HistogramService.new(flow, defaultDefinitions);
-      case "dicePool":
-        return DicePoolService.new(flow, defaultDefinitions);
-      case "dicePoolSum":
-        return DicePoolSumService.new(flow, defaultDefinitions);
-      case "diceSuccess":
-        return DiceSuccessService.new(flow, defaultDefinitions);
-      case "diceBetweenInterval":
-        return DiceBetweenIntervalService.new(flow, defaultDefinitions);
-      case "diceCountRepetition":
-        return DiceCountRepetitionService.new(flow, defaultDefinitions);
-      case "diceExplodeGenerator":
-        return DiceExplodeGeneratorService.new(flow, defaultDefinitions);
-      case "bagGenerator":
-        return BagGeneratorService.new(flow, defaultDefinitions);
-      case "bagPullWithoutRepetition":
-        return BagGeneratorWithoutRepetitionService.new(flow, defaultDefinitions);
-      case "symbolicGenerator":
-        return SymbolicGeneratorService.new(flow, defaultDefinitions);
-      case "symbolicPool":
-        return SymbolicPoolService.new(flow, defaultDefinitions);
-      case "diceMath":
-        return DiceMathService.new(flow, defaultDefinitions);
-      case "diceAbsolute":
-        return DiceAbsoluteService.new(flow, defaultDefinitions);
-      case "diceLogical":
-        return DiceLogicalService.new(flow, defaultDefinitions);
-      case "valueIsEven":
-        return ValueIsEvenService.new(flow, defaultDefinitions);
-      case "valueIsOdd":
-        return ValueIsOddService.new(flow, defaultDefinitions);
-
-      default:
-        throw new Error("Node creation: Invalid node type!");
-    }
+    const service = NODE_MODULES[type].service;
+    if (!service) throw new Error(`Node type ${type} not registered`);
+    return service.new(flow, defaultDefinitions);
   },
 
   run<N extends INode>(node: N, flow: IFlowInstance): INodeState<N> {
-    switch (node.type) {
-      case "diceGenerator":
-        return DiceGeneratorService.run(flow, node) as INodeState<N>;
-      case "histogram":
-        return HistogramService.run(flow, node) as INodeState<N>;
-      case "dicePool":
-        return DicePoolService.run(flow, node) as INodeState<N>;
-      case "dicePoolSum":
-        return DicePoolSumService.run(flow, node) as INodeState<N>;
-      case "diceSuccess":
-        return DiceSuccessService.run(flow, node) as INodeState<N>;
-      case "diceBetweenInterval":
-        return DiceBetweenIntervalService.run(flow, node) as INodeState<N>;
-      case "diceCountRepetition":
-        return DiceCountRepetitionService.run(flow, node) as INodeState<N>;
-      case "diceExplodeGenerator":
-        return DiceExplodeGeneratorService.run(flow, node) as INodeState<N>;
-      case "bagGenerator":
-        return BagGeneratorService.run(flow, node) as INodeState<N>;
-      case "bagPullWithoutRepetition":
-        return BagGeneratorWithoutRepetitionService.run(flow, node) as INodeState<N>;
-      case "symbolicGenerator":
-        return SymbolicGeneratorService.run(flow, node) as INodeState<N>;
-      case "symbolicPool":
-        return SymbolicPoolService.run(flow, node) as INodeState<N>;
-      case "diceMath":
-        return DiceMathService.run(flow, node) as INodeState<N>;
-      case "diceAbsolute":
-        return DiceAbsoluteService.run(flow, node) as INodeState<N>;
-      case "diceLogical":
-        return DiceLogicalService.run(flow, node) as INodeState<N>;
-      case "valueIsEven":
-        return ValueIsEvenService.run(flow, node) as INodeState<N>;
-      case "valueIsOdd":
-        return ValueIsOddService.run(flow, node) as INodeState<N>;
+    const service = NODE_MODULES[node.type].service;
+    if (!service) throw new Error(`Node type ${node.type} not registered`);
+    return service.run(flow, node as any) as INodeState<N>;
+  },
 
-      default:
-        throw new Error("Node factory run: Invalid node type!");
-    }
+  getDetails(node: INode) {
+    return NODE_MODULES[node.type].details;
+  },
+
+  getNodeTypes(): Record<INodeType, React.ComponentType<any>> {
+    return Object.entries(NODE_MODULES).reduce((acc, [key, value]) => {
+      acc[key as INodeType] = value.component;
+      return acc;
+    }, {} as Record<INodeType, React.ComponentType<any>>);
   },
 };
 

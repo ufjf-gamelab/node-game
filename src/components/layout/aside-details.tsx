@@ -1,45 +1,9 @@
 import React from "react";
-import { INode } from "@/config/types";
+import { NodeManager } from "@/utils/node-manager";
 import { useOnSelectionChange } from "@xyflow/react";
 import { useLayoutContext } from "@/contexts/layout-context";
-import { DiceSuccessDetails } from "@/features/dice-success";
 import { BaseNodeDetails } from "@/components/ui/base-node-details";
-import { DiceGeneratorDetails } from "@/features/dice-generator";
-import { DiceBetweenIntervalDetails } from "@/features/dice-between-interval";
-import { DiceExplodeGeneratorDetails } from "@/features/dice-explode-generator";
-import { DiceCountRepetitionDetails } from "@/features/dice-count-repetition";
-import { BagGeneratorDetails } from "@/features/bag-generator";
-import { SymbolicGeneratorDetails } from "@/features/symbolic-generator";
-import { DiceMathDetails } from "@/features/dice-math";
-import { DiceLogicalDetails } from "@/features/dice-logical";
-import { HistogramDetails } from "@/features/histogram/details";
-
-function renderDetails(node: INode) {
-  switch (node.type) {
-    case "diceGenerator":
-      return <DiceGeneratorDetails node={node} key={node.id} />;
-    case "histogram":
-      return <HistogramDetails node={node} key={node.id} />;
-    case "diceSuccess":
-      return <DiceSuccessDetails node={node} key={node.id} />;
-    case "diceBetweenInterval":
-      return <DiceBetweenIntervalDetails node={node} key={node.id} />;
-    case "diceCountRepetition":
-      return <DiceCountRepetitionDetails node={node} key={node.id} />;
-    case "diceExplodeGenerator":
-      return <DiceExplodeGeneratorDetails node={node} key={node.id} />;
-    case "bagGenerator":
-      return <BagGeneratorDetails node={node} key={node.id} />;
-    case "symbolicGenerator":
-      return <SymbolicGeneratorDetails node={node} key={node.id} />;
-    case "diceMath":
-      return <DiceMathDetails node={node} key={node.id} />;
-    case "diceLogical":
-      return <DiceLogicalDetails node={node} key={node.id} />;
-    default:
-      return <BaseNodeDetails node={node} key={node.id} />;
-  }
-}
+import { INode } from "@/config/types";
 
 export const AsideDetails: React.FunctionComponent = () => {
   const [selectedNode, setSelectedNode] = React.useState<INode | null>(null);
@@ -52,5 +16,10 @@ export const AsideDetails: React.FunctionComponent = () => {
   }, [selectedNode]);
 
   if (!selectedNode) return null;
-  return <div className="fixed right-0 top-0 h-screen bg-white z-20 w-60 border-l text-sm">{renderDetails(selectedNode)}</div>;
+  return <div className="fixed right-0 top-0 h-screen bg-white z-20 w-60 border-l text-sm">{renderNodeDetails(selectedNode)}</div>;
 };
+
+function renderNodeDetails(node: INode) {
+  const Component = (NodeManager.getDetails(node) || BaseNodeDetails) as React.FunctionComponent<{ node: INode }>;
+  return <Component node={node} key={node.id} />;
+}

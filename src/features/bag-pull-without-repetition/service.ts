@@ -1,7 +1,7 @@
 import { IBagGeneratorNode, IBagPullWithoutRepetitionNode, INodeService } from "@/config/types";
 import { NodeManager } from "@/utils/node-manager";
 
-export const BagGeneratorWithoutRepetitionService: INodeService<IBagPullWithoutRepetitionNode> = {
+export const BagPullWithoutRepetitionService: INodeService<IBagPullWithoutRepetitionNode> = {
   new(_flow, { id, position }) {
     return {
       id,

@@ -1,2 +1,8 @@
-export * from "./node";
-export * from "./service";
+import { DiceAbsoluteNode } from "./node";
+import { DiceAbsoluteService } from "./service";
+
+export const DiceAbsolute = {
+  component: DiceAbsoluteNode,
+  service: DiceAbsoluteService,
+  details: null,
+};

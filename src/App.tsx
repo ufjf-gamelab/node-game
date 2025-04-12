@@ -1,6 +1,6 @@
 import React from "react";
 import { Background, BackgroundVariant, Connection, ReactFlow, addEdge, useEdgesState, useNodesState, useReactFlow, MarkerType } from "@xyflow/react";
-import { NodeManager, NODE_TYPES } from "@/utils/node-manager";
+import { NodeManager } from "@/utils/node-manager";
 import { Sidebar } from "@/components/layout/sidebar";
 import { TaskBar } from "./components/layout/task-bar";
 import { AsideDetails } from "@/components/layout/aside-details";
@@ -71,7 +71,7 @@ function App() {
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
-          nodeTypes={NODE_TYPES}
+          nodeTypes={NodeManager.getNodeTypes()}
           deleteKeyCode={["Backspace", "Delete"]}
           className="react-flow-board"
           fitView>

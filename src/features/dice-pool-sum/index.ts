@@ -1,2 +1,8 @@
-export * from "./node";
-export * from "./service";
+import { DicePoolSumNode } from "./node";
+import { DicePoolSumService } from "./service";
+
+export const DicePoolSum = {
+  component: DicePoolSumNode,
+  service: DicePoolSumService,
+  details: null,
+};

@@ -1,2 +1,8 @@
-export * from "./service";
-export * from "./node";
+import { ValueIsEvenNode } from "./node";
+import { ValueIsEvenService } from "./service";
+
+export const ValueIsEven = {
+  component: ValueIsEvenNode,
+  service: ValueIsEvenService,
+  details: null,
+};
