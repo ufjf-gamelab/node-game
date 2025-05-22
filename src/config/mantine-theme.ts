@@ -1,7 +1,12 @@
-import { Button, createTheme, Tooltip } from "@mantine/core";
+import { Button, createTheme, Tooltip, Input } from "@mantine/core";
 
 export const mantineTheme = createTheme({
   components: {
+    Input: Input.extend({
+      defaultProps: {
+        variant: "filled",
+      },
+    }),
     Button: Button.extend({
       defaultProps: {
         radius: "sm",

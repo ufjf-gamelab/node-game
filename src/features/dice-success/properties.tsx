@@ -3,13 +3,14 @@ import { BaseNodeProperties } from "@/components/ui/base-node-properties";
 import { IDiceSuccessNode } from "@/config/types";
 import { useReactFlow } from "@xyflow/react";
 import { useDebounce } from "react-use";
+import { NumberInput } from "@mantine/core";
 
 export const DiceSuccessProperties: React.FunctionComponent<{ node: IDiceSuccessNode }> = ({ node }) => {
   const flow = useReactFlow();
   const [face, setFace] = React.useState(node.data.face);
 
-  function handleChangeFace(e: React.ChangeEvent<HTMLInputElement>) {
-    const newValue = Number(e.target.value) || 1;
+  function handleChangeFace(value: string | number) {
+    const newValue = isNaN(Number(value)) ? 1 : Number(value);
     setFace(newValue);
     node.data.face = newValue;
   }
@@ -20,25 +21,5 @@ export const DiceSuccessProperties: React.FunctionComponent<{ node: IDiceSuccess
 
   useDebounce(() => flow.updateNodeData(node.id, { ...node.data, face }), 500, [face]);
 
-  return (
-    <BaseNodeProperties
-      node={node}
-      children={
-        <>
-          <div className="w-full flex items-center justify-between border-b py-2 gap-2">
-            <label className=" w-full font-medium" htmlFor="face">
-              Success equal to or greater than
-            </label>
-            <input
-              type="number"
-              id="min"
-              className="bg-gray-100 py-1 px-2 border shadow-none focus:ring-1 outline-none text-center w-24"
-              value={face}
-              onChange={handleChangeFace}
-            />
-          </div>
-        </>
-      }
-    />
-  );
+  return <BaseNodeProperties node={node} children={<NumberInput label="Success equal or greater than" value={face} onChange={handleChangeFace} />} />;
 };

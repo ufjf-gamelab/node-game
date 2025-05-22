@@ -1,9 +1,10 @@
 import React from "react";
+import { useDebounce } from "react-use";
+import { useReactFlow } from "@xyflow/react";
+import { ActionIcon, Button, TextInput, Tooltip } from "@mantine/core";
+import { BiPlus, BiTrash } from "react-icons/bi";
 import { BaseNodeProperties } from "@/components/ui/base-node-properties";
 import { IBagGeneratorNode } from "@/config/types";
-import { useReactFlow } from "@xyflow/react";
-import { useDebounce } from "react-use";
-import { BiPlus, BiTrash } from "react-icons/bi";
 
 type IProps = {
   node: IBagGeneratorNode;
@@ -44,20 +45,18 @@ export const BagGeneratorProperties: React.FunctionComponent<IProps> = ({ node }
           {balls.map((_item, index) => (
             <div className="border-b py-2 w-full flex flex-col gap-2" key={"ball_key" + index}>
               <div className="w-full flex items-center justify-between gap-2">
-                <label className="w-full font-medium flex items-center gap-2" htmlFor={"ball_id" + index}>
-                  <button
-                    title="Remove face"
-                    className="disabled:text-gray-400 text-red-400 text-lg transition-colors"
-                    disabled={index === 0 && balls.length === 1}
-                    onClick={() => removeBall(index)}>
-                    <BiTrash />
-                  </button>
+                <label className="w-32 font-medium flex items-center gap-2" htmlFor={"ball_id" + index}>
+                  <Tooltip variant="" label="Remove face">
+                    <ActionIcon variant="light" color="red" onClick={() => removeBall(index)} disabled={index === 0 && balls.length === 1}>
+                      <BiTrash />
+                    </ActionIcon>
+                  </Tooltip>
                   <span>Face {index + 1}</span>
                 </label>
-                <input
+
+                <TextInput
                   type="text"
                   id={"ball_id" + index}
-                  className="bg-gray-100 py-1 px-2 border shadow-none focus:ring-1 outline-none text-center w-28"
                   value={balls[index]}
                   placeholder="Face name"
                   onChange={(e) => handleChangeFace(e, index)}
@@ -66,12 +65,9 @@ export const BagGeneratorProperties: React.FunctionComponent<IProps> = ({ node }
             </div>
           ))}
 
-          <button
-            className="flex items-center justify-center gap-2 py-1 bg-blue-100 hover:bg-blue-200 transition-colors rounded-sm my-2 font-semibold"
-            onClick={addNewBall}>
-            <BiPlus className="text-lg text-blue-600" />
+          <Button color="blue" variant="light" leftSection={<BiPlus className="text-lg " />} size="sm" onClick={addNewBall}>
             Add New face
-          </button>
+          </Button>
         </>
       }
     />

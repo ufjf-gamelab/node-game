@@ -2,6 +2,7 @@ import React from "react";
 import { useReactFlow } from "@xyflow/react";
 import { useDebounce } from "react-use";
 import { INode } from "@/config/types";
+import { TextInput } from "@mantine/core";
 
 type IProps = {
   node: INode;
@@ -21,42 +22,17 @@ export const BaseNodeProperties: React.FunctionComponent<IProps> = ({ node, chil
         <h2>{node.data.propertiesTitle}</h2>
       </div>
 
-      <div className="flex flex-col px-2">
-        <div className="w-full flex items-center justify-between border-b py-2">
-          <label className="whitespace-nowrap font-medium">Node ID</label>
-          <input
-            type="text"
-            value={node.id}
-            readOnly
-            className="cursor-default bg-transparent py-1 px-2 border-none shadow-none ring-0 outline-none text-right w-full"
-          />
-        </div>
-
-        <div className="w-full flex items-center justify-between border-b py-2">
-          <label className="whitespace-nowrap font-medium">Status</label>
-          <input
-            type="text"
-            value={node.data.status}
-            readOnly
-            className="cursor-default bg-transparent py-1 px-2 border-none shadow-none ring-0 outline-none text-right w-full"
-          />
-        </div>
-
-        <div className="w-full flex items-center justify-between border-b py-2">
-          <label className="whitespace-nowrap font-medium" htmlFor="min">
-            Name
-          </label>
-          <input
-            type="text"
-            id="min"
-            className="bg-gray-100 py-1 px-2 border shadow-none focus:ring-1 outline-none text-center w-28"
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-              node.data.name = e.target.value;
-            }}
-          />
-        </div>
+      <div className="flex flex-col p-2 gap-2 overflow-y-auto">
+        <TextInput label="Node ID" value={node.id} styles={{ input: { outline: "none" } }} readOnly />
+        <TextInput label="Status" value={node.data.status} readOnly />
+        <TextInput
+          label="Name"
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
+            node.data.name = e.target.value;
+          }}
+        />
 
         {children}
       </div>

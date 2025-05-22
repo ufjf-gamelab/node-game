@@ -4,6 +4,7 @@ import { ISymbolicGeneratorNode } from "@/config/types";
 import { useReactFlow } from "@xyflow/react";
 import { useDebounce } from "react-use";
 import { BiPlus, BiTrash } from "react-icons/bi";
+import { TextInput } from "@mantine/core";
 
 type IProps = {
   node: ISymbolicGeneratorNode;
@@ -54,13 +55,12 @@ export const SymbolicGeneratorProperties: React.FunctionComponent<IProps> = ({ n
                   </button>
                   <span>Face {index + 1}</span>
                 </label>
-                <input
-                  type="text"
+                <TextInput
                   id={"face_id" + index}
-                  className="bg-gray-100 py-1 px-2 border shadow-none focus:ring-1 outline-none text-center w-28"
                   value={faces[index]}
-                  placeholder="Face symbol"
                   onChange={(e) => handleChangeFace(e, index)}
+                  placeholder="Face symbol"
+                  className="w-full"
                 />
               </div>
             </div>
