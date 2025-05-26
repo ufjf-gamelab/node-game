@@ -23,7 +23,7 @@ type IProps = {
   close: () => unknown;
 };
 
-export const ImportExportModal: React.ComponentType<IProps> = ({ opened, close }) => {
+export const ModalImportExport: React.ComponentType<IProps> = ({ opened, close }) => {
   const { t } = useTranslation();
   const flow = useReactFlow<INode, IEdge>();
   const { charts } = useSimulationContext();

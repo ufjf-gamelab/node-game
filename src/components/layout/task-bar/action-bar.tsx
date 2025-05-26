@@ -3,7 +3,7 @@ import { cls } from "@/utils/cls";
 import { useTranslation } from "react-i18next";
 import { BiImport, BiPlay, BiReset, BiSolidChevronUp } from "react-icons/bi";
 import { Button, Tooltip } from "@mantine/core";
-import { ImportExportModal } from "@/features/import-export-modal";
+import { ModalImportExport } from "@/features/modal-import-export";
 import { useLayoutContext } from "@/contexts/layout-context";
 
 type IProps = {
@@ -55,7 +55,7 @@ export const ActionBar: React.FC<IProps> = ({ loading, runSimulation, clearSimul
         </Tooltip>
       </div>
 
-      <ImportExportModal opened={importModal} close={() => setImportModal(false)} />
+      <ModalImportExport opened={importModal} close={() => setImportModal(false)} />
     </>
   );
 };
