@@ -22,20 +22,14 @@ export const HistogramProperties: React.FunctionComponent<{ node: IHistogramNode
     <BaseNodeProperties
       node={node}
       children={
-        <div className="w-full flex items-center justify-between border-b py-2 gap-4">
-          <label className="whitespace-nowrap w- font-medium" htmlFor="sortDirection">
-            Sort
-          </label>
-
-          <Select
-            id="sortDirection"
-            placeholder="Pick value"
-            value={sortDirection}
-            className="capitalize"
-            onChange={(value) => handleChangeOperation(value)}
-            data={sortOptions}
-          />
-        </div>
+        <Select
+          label="Sort"
+          placeholder="Pick value"
+          className="capitalize"
+          value={sortDirection}
+          onChange={(value) => handleChangeOperation(value)}
+          data={sortOptions}
+        />
       }
     />
   );
