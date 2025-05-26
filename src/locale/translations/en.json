@@ -1,7 +1,31 @@
 {
   "common": {
-    "submit": "Submit",
-    "cancel": "Cancel"
+    "dice": "Dice",
+    "bag": "Bag",
+    "symbolic": "Symbolic",
+    "output": "Output"
+  },
+  "sidebar": {
+    "diceGenerator": "Dice",
+    "histogram": "Histogram",
+    "dicePool": "Pool",
+    "dicePoolSum": "Pool Sum",
+    "diceSuccess": "Success",
+    "diceBetweenInterval": "Between Interval",
+    "diceCountRepetition": "Count Repetition",
+    "diceExplodeGenerator": "Explode Generator",
+    "diceMath": "Math",
+    "diceAbsolute": "Absolute",
+    "diceLogical": "Logical",
+    "valueIsEven": "Value Is Even",
+    "valueIsOdd": "Value Is Odd",
+    "bagGenerator": "Bag Generator",
+    "bagPullWithoutRepetition": "Pull Without Repetition",
+    "symbolicGenerator": "Symbolic Generator",
+    "symbolicPool": "Symbolic Pool",
+    "english": "English",
+    "portuguese": "Portuguese",
+    "clearTooltip": "Clear all nodes"
   },
   "taskBar": {
     "start": "Start",

@@ -1,7 +1,31 @@
 {
   "common": {
-    "submit": "Enviar",
-    "cancel": "Cancelar"
+    "dice": "Dado",
+    "bag": "Bolsa",
+    "symbolic": "Simbólico",
+    "output": "Saída"
+  },
+  "sidebar": {
+    "english": "Inglês",
+    "portuguese": "Português",
+    "clearTooltip": "Limpar todos nós",
+    "diceGenerator": "Dado",
+    "histogram": "Histograma",
+    "dicePool": "Pool",
+    "dicePoolSum": "Pool Soma",
+    "diceSuccess": "Sucesso",
+    "diceBetweenInterval": "Entre Intervalo",
+    "diceCountRepetition": "Contar Repetição",
+    "diceExplodeGenerator": "Explosão Gerador",
+    "diceMath": "Matemática",
+    "diceAbsolute": "Absoluto",
+    "diceLogical": "Lógico",
+    "valueIsEven": "É Par",
+    "valueIsOdd": "É Impar",
+    "bagGenerator": "Bolsa",
+    "bagPullWithoutRepetition": "Sacar Sem Repetição",
+    "symbolicGenerator": "Gerador Simbólico",
+    "symbolicPool": "Pool Simbólica"
   },
   "taskBar": {
     "start": "Iniciar",
