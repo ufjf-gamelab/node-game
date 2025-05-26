@@ -24,7 +24,7 @@ type IProps = {
 
 export const ImportExportModal: React.ComponentType<IProps> = ({ opened, close }) => {
   const flow = useReactFlow<INode, IEdge>();
-  const { simulationCharts } = useSimulationContext();
+  const { charts } = useSimulationContext();
   const { setSimulationOpen } = useLayoutContext();
 
   const [inputFile, setInputFile] = React.useState<File | null>(null);
@@ -105,7 +105,7 @@ export const ImportExportModal: React.ComponentType<IProps> = ({ opened, close }
                 <Menu.Item leftSection={<BiChalkboard size={14} />} onClick={exportBoard}>
                   Board <span className="text-gray-400">(.txt)</span>
                 </Menu.Item>
-                <Menu.Item leftSection={<BiBarChart size={14} />} onClick={exportGraphImages} disabled={simulationCharts.length === 0}>
+                <Menu.Item leftSection={<BiBarChart size={14} />} onClick={exportGraphImages} disabled={charts.length === 0}>
                   Graphs <span className="text-gray-400">(.png)</span>
                 </Menu.Item>
               </Menu.Dropdown>

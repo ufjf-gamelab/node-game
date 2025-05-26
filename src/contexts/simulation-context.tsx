@@ -1,18 +1,16 @@
 import React from "react";
 import { IChartData } from "@/components/ui/bar-chart";
-import { IEdge, IHistogramNode, INode, INodeType } from "@/config/types";
+import { IChart, IEdge, IHistogramNode, INode, INodeType } from "@/config/types";
 import { NodeManager } from "@/utils/node-manager";
 import { useReactFlow } from "@xyflow/react";
 import { sortBy } from "@/utils/sort-by";
 import { waitAsync } from "@/utils/waitAsync";
 
-type IChart = { id: string; name: string; data: IChartData };
-
 interface UIStateContextProps {
   loading: boolean;
   runSimulation: () => Promise<void>;
   clearSimulation: () => void;
-  simulationCharts: IChart[];
+  charts: IChart[];
 }
 
 const LayoutContent = React.createContext<UIStateContextProps | undefined>(undefined);
@@ -90,7 +88,7 @@ export const SimulationProvider: React.ComponentType<UIStateProviderProps> = ({ 
     nodes.forEach((node) => flow.updateNodeData(node.id, { ...node.data, status: "IDLE" }));
   }
 
-  return <LayoutContent.Provider value={{ loading, runSimulation, clearSimulation, simulationCharts: charts }}>{children}</LayoutContent.Provider>;
+  return <LayoutContent.Provider value={{ loading, runSimulation, clearSimulation, charts }}>{children}</LayoutContent.Provider>;
 };
 
 export const useSimulationContext = (): UIStateContextProps => {

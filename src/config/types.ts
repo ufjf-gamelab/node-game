@@ -1,3 +1,4 @@
+import { IChartData } from "@/components/ui/bar-chart";
 import { Edge, Node, ReactFlowInstance } from "@xyflow/react";
 
 type INodeStateMap = {
@@ -82,3 +83,5 @@ export type INode =
   | IDiceLogicalNode
   | IValueIsEvenNode
   | IValueIsOddNode;
+
+export type IChart = { id: string; name: string; data: IChartData };
