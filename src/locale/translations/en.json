@@ -1,0 +1,20 @@
+{
+  "common": {
+    "submit": "Submit",
+    "cancel": "Cancel"
+  },
+  "taskBar": {
+    "start": "Start",
+    "startTooltip": "Start simulation and generate histograms",
+    "clear": "Clear",
+    "clearTooltip": "Clear simulation and histograms",
+    "importExport": "Import & Export",
+    "closeSection": "Close section",
+    "closeSectionTooltip": "Close simulation section",
+    "openSection": "Open section",
+    "openSectionTooltip": "Open simulation section",
+    "itemsNotFound": "No histograms found to display, check if there are valid connections between nodes",
+    "downloadChartImageTooltip": "Download chart image",
+    "alertChartNotFound": "Chart not found"
+  }
+}

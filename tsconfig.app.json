@@ -20,6 +20,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "useUnknownInCatchVariables": false,
+    "types": ["./src/i18next.d.ts"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]

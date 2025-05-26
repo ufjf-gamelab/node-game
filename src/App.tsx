@@ -4,6 +4,7 @@ import { NodeManager } from "@/utils/node-manager";
 import { Sidebar } from "@/components/layout/sidebar";
 import { TaskBar } from "./components/layout/task-bar";
 import { AsideNodeProperties } from "@/components/layout/aside-node-properties";
+import "@/config/i18n";
 
 import { INodeType, INode, IEdge } from "@/config/types";
 

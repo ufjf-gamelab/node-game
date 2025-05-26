@@ -1,0 +1,20 @@
+{
+  "common": {
+    "submit": "Enviar",
+    "cancel": "Cancelar"
+  },
+  "taskBar": {
+    "start": "Iniciar",
+    "startTooltip": "Iniciar simulação e gerar histogramas",
+    "clear": "Limpar",
+    "clearTooltip": "Limpar simulação e histogramas",
+    "importExport": "Importar & Exportar",
+    "closeSection": "Fechar seção",
+    "closeSectionTooltip": "Fechar seção de simulação",
+    "openSection": "Abrir seção",
+    "openSectionTooltip": "Abrir seção de simulação",
+    "itemsNotFound": "Nenhum histograma encontrado para exibir, verifique se existem conexões válidas entre os nós",
+    "downloadChartImageTooltip": "Baixar imagem do gráfico",
+    "alertChartNotFound": "Gráfico não encontrado"
+  }
+}
