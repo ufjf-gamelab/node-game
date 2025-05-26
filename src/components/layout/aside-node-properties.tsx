@@ -16,7 +16,11 @@ export const AsideNodeProperties: React.FunctionComponent = () => {
   }, [selectedNode]);
 
   if (!selectedNode) return null;
-  return <div className="fixed right-0 top-0 h-screen bg-white z-20 w-60 border-l text-sm">{renderNodeProperties(selectedNode)}</div>;
+  return (
+    <div className="fixed right-0 top-0 h-screen bg-white z-20 border-l text-sm" style={{ width: layoutContext.asidePropertiesWidth + "px" }}>
+      {renderNodeProperties(selectedNode)}
+    </div>
+  );
 };
 
 function renderNodeProperties(node: INode) {

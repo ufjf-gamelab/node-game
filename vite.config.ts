@@ -11,6 +11,7 @@ export default defineConfig({
       typescript: true,
     }),
   ],
+  assetsInclude: ["**/*.md"],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

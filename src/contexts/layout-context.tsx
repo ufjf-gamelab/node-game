@@ -18,7 +18,7 @@ interface UIStateProviderProps {
 }
 
 const sidebarWidth = 192;
-const asidePropertiesWidth = 240;
+const asidePropertiesWidth = 255;
 
 export const LayoutProvider: React.ComponentType<UIStateProviderProps> = ({ children }) => {
   const [simulationOpen, setSimulationOpen] = useState<boolean>(false);
