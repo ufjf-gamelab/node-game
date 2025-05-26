@@ -1,18 +1,12 @@
-# Dice Generator
-
----
-
-### **Descrição**
-
 O **Dice Generator** é um nó do tipo **gerador**, responsável por simular rolagens de dados dentro de um intervalo definido. É o **ponto de partida** para qualquer simulação que envolva aleatoriedade com uso de dados, como sistemas de ataque, testes de habilidade ou qualquer mecânica que dependa de rolagens de dados.
 
 - **Tipo:** Gerador (nó inicial, não depende de outros nós).
-- **Função:** Produz valores aleatórios inteiros dentro de um intervalo configurável.
+- **Função:** Produz valores inteiros aleatórios dentro de um intervalo configurável.
 - **Saída:** Números inteiros entre o valor mínimo e máximo definidos.
 
 ---
 
-### **Propriedades**
+## **Propriedades**
 
 1. **Valor Mínimo**
 
@@ -27,7 +21,7 @@ O **Dice Generator** é um nó do tipo **gerador**, responsável por simular rol
 
 ---
 
-### **Exemplo de Uso**
+## **Exemplo de Uso**
 
 **Cenário:** Simular um ataque básico em um RPG que usa um dado de 20 faces (1d20) e requer o valor minimo de acerto de 12.
 
@@ -50,7 +44,7 @@ src="/images/generator-success.png" width="500px" style="margin: 0 auto"/>
 
 ---
 
-### **Observações Importantes**
+## **Observações**
 
 - O **Dice Generator** é sempre o **primeiro nó** em uma cadeia de simulação.
 - Ele **não possui entrada**, apenas saída, pois gera valores aleatórios sem depender de outros nós.

@@ -66,7 +66,12 @@ export const BaseNodeProperties: React.FunctionComponent<IProps> = ({ node, chil
         </Button>
       </ScrollArea>
 
-      <Modal opened={helpModal} onClose={() => setHelpModal(false)} size={"xl"} withCloseButton={false}>
+      <Modal
+        opened={helpModal}
+        onClose={() => setHelpModal(false)}
+        size={"xl"}
+        title={node.data.propertiesTitle}
+        classNames={{ title: "text-3xl font-semibold" }}>
         <NodeDoc nodeType={node.type} />
       </Modal>
     </div>
