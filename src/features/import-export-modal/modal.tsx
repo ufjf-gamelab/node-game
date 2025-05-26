@@ -1,5 +1,4 @@
 import React from "react";
-import html2canvas from "html2canvas";
 import { Button, Divider, FileInput, Modal, Menu } from "@mantine/core";
 import { useReactFlow } from "@xyflow/react";
 import { BiBarChart, BiDownload, BiChalkboard, BiSolidFileImport } from "react-icons/bi";
@@ -9,6 +8,7 @@ import { downloadFile } from "@/utils/download-file";
 import { useLayoutContext } from "@/contexts/layout-context";
 import { useSimulationContext } from "@/contexts/simulation-context";
 import { waitAsync } from "@/utils/waitAsync";
+import { downloadElementImage } from "@/utils/downloadElementImage";
 
 const FILE_TYPE = "text/plain";
 
@@ -69,13 +69,7 @@ export const ImportExportModal: React.ComponentType<IProps> = ({ opened, close }
       return;
     }
 
-    const canvas = await html2canvas(chartElement);
-    const dataUrl = canvas.toDataURL("image/png");
-
-    const link = document.createElement("a");
-    link.href = dataUrl;
-    link.download = "chart-graphs.png".toLowerCase();
-    link.click();
+    await downloadElementImage(chartElement, "chart-graphs");
   }
 
   React.useEffect(() => {
