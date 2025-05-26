@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Divider, FileInput, Modal, Menu } from "@mantine/core";
 import { useReactFlow } from "@xyflow/react";
-import { BiBarChart, BiDownload, BiChalkboard, BiSolidFileImport } from "react-icons/bi";
+import { BiBarChart, BiDownload, BiChalkboard, BiSolidFileImport, BiSolidFile } from "react-icons/bi";
 import { parseJsonFile } from "@/utils/parse-json-file";
 import { IEdge, INode } from "@/config/types";
 import { downloadFile } from "@/utils/download-file";
@@ -9,6 +9,7 @@ import { useLayoutContext } from "@/contexts/layout-context";
 import { useSimulationContext } from "@/contexts/simulation-context";
 import { waitAsync } from "@/utils/waitAsync";
 import { downloadElementImage } from "@/utils/downloadElementImage";
+import { useTranslation } from "react-i18next";
 
 const FILE_TYPE = "text/plain";
 
@@ -23,6 +24,7 @@ type IProps = {
 };
 
 export const ImportExportModal: React.ComponentType<IProps> = ({ opened, close }) => {
+  const { t } = useTranslation();
   const flow = useReactFlow<INode, IEdge>();
   const { charts } = useSimulationContext();
   const { setSimulationOpen } = useLayoutContext();
@@ -32,7 +34,7 @@ export const ImportExportModal: React.ComponentType<IProps> = ({ opened, close }
 
   function selectInputFile(file: File | null) {
     if (file && file.type !== FILE_TYPE) {
-      setError("Select a valid .txt file!");
+      setError(t("modalImportExport.invalidFile"));
       setInputFile(null);
     } else {
       setError("");
@@ -47,7 +49,7 @@ export const ImportExportModal: React.ComponentType<IProps> = ({ opened, close }
       flow.setEdges(boardState.edges);
       close();
     } catch (error) {
-      setError(error?.message || "Error trying to read the selected file!");
+      setError(t("modalImportExport.readFileError"));
     }
   }
 
@@ -65,7 +67,7 @@ export const ImportExportModal: React.ComponentType<IProps> = ({ opened, close }
     await waitAsync(300);
     const chartElement = document.getElementById("charts-container");
     if (!chartElement) {
-      alert("Chart not found");
+      alert(t("modalImportExport.chartNotFound"));
       return;
     }
 
@@ -80,49 +82,50 @@ export const ImportExportModal: React.ComponentType<IProps> = ({ opened, close }
   }, [opened]);
 
   return (
-    <>
-      <Modal opened={opened} onClose={close} title="Import & Export" classNames={{ title: "text-xl font-medium" }} centered>
-        <Divider mb="md" />
+    <Modal opened={opened} onClose={close} title={t("modalImportExport.modalTitle")} classNames={{ title: "text-xl font-medium" }} centered>
+      <Divider mb="md" />
 
-        <div className="flex flex-col gap-6 pb-4">
-          <div className="flex flex-col gap-4">
-            <span className="font-medium text-base m-0">Export current state</span>
+      <div className="flex flex-col gap-6 pb-4">
+        <div className="flex flex-col gap-4">
+          <span>{t("modalImportExport.exportTitle")}</span>
 
-            <Menu withArrow shadow="md" width={200}>
-              <Menu.Target>
-                <Button leftSection={<BiDownload />} color="green">
-                  Download
-                </Button>
-              </Menu.Target>
+          <Menu withArrow shadow="md" width={200}>
+            <Menu.Target>
+              <Button leftSection={<BiDownload />} color="green">
+                {t("modalImportExport.download")}
+              </Button>
+            </Menu.Target>
 
-              <Menu.Dropdown w="100%" maw="250px">
-                <Menu.Item leftSection={<BiChalkboard size={14} />} onClick={exportBoard}>
-                  Board <span className="text-gray-400">(.txt)</span>
-                </Menu.Item>
-                <Menu.Item leftSection={<BiBarChart size={14} />} onClick={exportGraphImages} disabled={charts.length === 0}>
-                  Graphs <span className="text-gray-400">(.png)</span>
-                </Menu.Item>
-              </Menu.Dropdown>
-            </Menu>
-          </div>
-
-          <Divider />
-
-          <div className="flex flex-col gap-4">
-            <span className="font-medium text-base">Import new board</span>
-            <FileInput onChange={selectInputFile} accept=".txt" placeholder="Select file (.txt)" error={error} />
-
-            <Button
-              leftSection={<BiSolidFileImport />}
-              color="blue"
-              px="xl"
-              disabled={!inputFile}
-              onClick={() => inputFile && importBoard(inputFile)}>
-              Import
-            </Button>
-          </div>
+            <Menu.Dropdown w="100%" maw="250px">
+              <Menu.Item leftSection={<BiChalkboard size={14} />} onClick={exportBoard}>
+                {t("modalImportExport.downloadBoard")} <span className="text-gray-400">(.txt)</span>
+              </Menu.Item>
+              <Menu.Item leftSection={<BiBarChart size={14} />} onClick={exportGraphImages} disabled={charts.length === 0}>
+                {t("modalImportExport.downloadGraphs")} <span className="text-gray-400">(.png)</span>
+              </Menu.Item>
+            </Menu.Dropdown>
+          </Menu>
         </div>
-      </Modal>
-    </>
+
+        <Divider />
+
+        <div className="flex flex-col gap-4">
+          <span>{t("modalImportExport.importTitle")}</span>
+
+          <FileInput
+            value={inputFile}
+            onChange={selectInputFile}
+            accept=".txt"
+            placeholder={t("modalImportExport.filePlaceholder")}
+            leftSection={<BiSolidFile />}
+            error={error}
+          />
+
+          <Button leftSection={<BiSolidFileImport />} color="blue" px="xl" disabled={!inputFile} onClick={() => inputFile && importBoard(inputFile)}>
+            {t("modalImportExport.import")}
+          </Button>
+        </div>
+      </div>
+    </Modal>
   );
 };

@@ -40,5 +40,18 @@
     "itemsNotFound": "No histograms found to display, check if there are valid connections between nodes",
     "downloadChartImageTooltip": "Download chart image",
     "alertChartNotFound": "Chart not found"
+  },
+  "modalImportExport": {
+    "modalTitle": "Import & Export",
+    "exportTitle": "Export current state",
+    "download": "Download",
+    "downloadBoard": "Board",
+    "downloadGraphs": "Graphs",
+    "importTitle": "Import new board",
+    "filePlaceholder": "Select file (.txt)",
+    "import": "Import",
+    "invalidFile": "Select a valid .txt file!",
+    "readFileError": "Error trying to read the selected file!",
+    "chartNotFound": "Chart not found"
   }
 }

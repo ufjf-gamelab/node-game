@@ -40,5 +40,18 @@
     "itemsNotFound": "Nenhum histograma encontrado para exibir, verifique se existem conexões válidas entre os nós",
     "downloadChartImageTooltip": "Baixar imagem do gráfico",
     "alertChartNotFound": "Gráfico não encontrado"
+  },
+  "modalImportExport": {
+    "modalTitle": "Importar e Exportar",
+    "exportTitle": "Exportar estado atual",
+    "download": "Baixar",
+    "downloadBoard": "Quadro",
+    "downloadGraphs": "Gráficos",
+    "importTitle": "Importar novo quadro",
+    "filePlaceholder": "Selecionar arquivo (.txt)",
+    "import": "Importar",
+    "invalidFile": "Selecione um arquivo .txt válido!",
+    "readFileError": "Erro ao tentar ler o arquivo selecionado!",
+    "chartNotFound": "Gráfico não encontrado"
   }
 }
