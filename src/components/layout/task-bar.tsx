@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { BiDownload, BiImport, BiNoSignal, BiPlay, BiReset, BiSolidChevronUp } from "react-icons/bi";
 import { cls } from "@/utils/cls";
 import { useLayoutContext } from "@/contexts/layout-context";
@@ -9,6 +10,7 @@ import { ImportExportModal } from "@/features/import-export-modal";
 import html2canvas from "html2canvas";
 
 export const TaskBar: React.ComponentType = () => {
+  const { t } = useTranslation();
   const { loading, runSimulation, clearSimulation, simulationCharts } = useSimulationContext();
   const { simulationOpen, setSimulationOpen, asidePropertiesOpen, sidebarWidth, asidePropertiesWidth } = useLayoutContext();
 
@@ -22,7 +24,7 @@ export const TaskBar: React.ComponentType = () => {
   async function downloadChartAsImagem(chartId: string, chartName: string) {
     const chartElement = document.getElementById(chartId);
     if (!chartElement) {
-      alert("Chart not found");
+      alert(t("taskBar.alertChartNotFound"));
       return;
     }
 
@@ -45,23 +47,23 @@ export const TaskBar: React.ComponentType = () => {
           left: `calc(${sidebarWidth}px + (100vw - ${sidebarWidth}px - ${asidePropertiesOpen ? asidePropertiesWidth : 0}px) / 2)`,
           top: "calc(100vh - 52px)",
         }}>
-        <Tooltip label="Start simulation">
+        <Tooltip label={t("taskBar.startTooltip")}>
           <Button color="green" loading={loading} leftSection={<BiPlay className="text-xl" />} onClick={startSimulation}>
-            Start
+            {t("taskBar.start")}
           </Button>
         </Tooltip>
 
-        <Tooltip label="Clear simulation">
+        <Tooltip label={t("taskBar.clearTooltip")}>
           <Button color="red" leftSection={<BiReset className="text-xl" />} onClick={clearSimulation}>
-            Clear
+            {t("taskBar.clear")}
           </Button>
         </Tooltip>
 
         <Button leftSection={<BiImport className="text-xl" />} onClick={() => setOpenedImportModal(!openedImportModal)}>
-          Import & Export
+          {t("taskBar.importExport")}
         </Button>
 
-        <Tooltip label={simulationOpen ? "Close section" : "Open section"}>
+        <Tooltip label={simulationOpen ? t("taskBar.closeSectionTooltip") : t("taskBar.openSectionTooltip")}>
           <Button color="gray" onClick={() => setSimulationOpen(!simulationOpen)}>
             <BiSolidChevronUp className={cls("text-xl", { "transform rotate-180": simulationOpen, "transition-transform duration-700": true })} />
           </Button>
@@ -79,7 +81,7 @@ export const TaskBar: React.ComponentType = () => {
           <div className="flex flex-col h-full items-center justify-center text-gray-400">
             <BiNoSignal className="text-7xl" />
 
-            <h2 className="text-center">No histograms found to display, try to run another connection</h2>
+            <h2 className="text-center">{t("taskBar.itemsNotFound")}</h2>
           </div>
         )}
 
@@ -91,7 +93,7 @@ export const TaskBar: React.ComponentType = () => {
                   <div className="flex justify-center relative w-full">
                     <h3 className="text-xl font-medium py-3">{chart.name}</h3>
 
-                    <Tooltip label="Download chart as image">
+                    <Tooltip label={t("taskBar.downloadChartImageTooltip")}>
                       <Button p="xs" className="top-12 absolute right-1" onClick={() => downloadChartAsImagem(chart.id, chart.name)}>
                         <BiDownload />
                       </Button>
