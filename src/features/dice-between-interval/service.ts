@@ -1,3 +1,4 @@
+import { i18n } from "@/config/i18n";
 import { IDiceBetweenIntervalNode, INodeService } from "@/config/types";
 import { NodeManager } from "@/utils/node-manager";
 
@@ -8,8 +9,7 @@ export const DiceBetweenIntervalService: INodeService<IDiceBetweenIntervalNode> 
       position,
       type: "diceBetweenInterval",
       data: {
-        name: "Dice between interval",
-        propertiesTitle: "Dice Between Interval",
+        name: i18n.t("nodeShortName.diceBetweenInterval"),
         status: "IDLE",
         min: 1,
         max: 2,

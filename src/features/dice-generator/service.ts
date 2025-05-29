@@ -1,3 +1,4 @@
+import { i18n } from "@/config/i18n";
 import { IDiceGeneratorNode, INodeService } from "@/config/types";
 
 const TOTAL_DATA_VALUE = 10000;
@@ -9,8 +10,7 @@ export const DiceGeneratorService: INodeService<IDiceGeneratorNode> = {
       position,
       type: "diceGenerator",
       data: {
-        name: "Dice",
-        propertiesTitle: "Dice Generator",
+        name: i18n.t("nodeShortName.diceGenerator"),
         status: "IDLE",
         min: 1,
         max: 6,

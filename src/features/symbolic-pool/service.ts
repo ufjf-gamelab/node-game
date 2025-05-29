@@ -1,3 +1,4 @@
+import { i18n } from "@/config/i18n";
 import { ISymbolicPoolNode, INodeService, ISymbolicGeneratorNode } from "@/config/types";
 import { NodeManager } from "@/utils/node-manager";
 
@@ -8,8 +9,7 @@ export const SymbolicPoolService: INodeService<ISymbolicPoolNode> = {
       position,
       type: "symbolicPool",
       data: {
-        name: "Symbolic pool",
-        propertiesTitle: "Symbolic Pool",
+        name: i18n.t("nodeShortName.symbolicPool"),
         status: "IDLE",
       },
     };

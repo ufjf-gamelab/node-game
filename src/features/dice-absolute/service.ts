@@ -1,3 +1,4 @@
+import { i18n } from "@/config/i18n";
 import { IDiceAbsoluteNode, INodeService } from "@/config/types";
 import { flattenArray } from "@/utils/flatten-array";
 import { NodeManager } from "@/utils/node-manager";
@@ -9,8 +10,7 @@ export const DiceAbsoluteService: INodeService<IDiceAbsoluteNode> = {
       position,
       type: "diceAbsolute",
       data: {
-        name: "Dice absolute",
-        propertiesTitle: "Dice Absolute",
+        name: i18n.t("nodeShortName.diceAbsolute"),
         status: "IDLE",
         state: [],
       },

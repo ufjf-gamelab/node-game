@@ -21,7 +21,7 @@ export const NodeDoc: React.FunctionComponent<IProps> = ({ nodeType }) => {
       .then((res) => fetch(res.default))
       .then((res) => res.text())
       .then((text) => setContent(text))
-      .catch(() => setContent("<br/>Doc not found!"))
+      .catch(() => setContent("<br/>Ops! Documentation under construction."))
       .finally(() => setLoading(false));
   }, [nodeType]);
 

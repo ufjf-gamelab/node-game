@@ -1,3 +1,4 @@
+import { i18n } from "@/config/i18n";
 import { IBagGeneratorNode, INodeService } from "@/config/types";
 
 const TOTAL_DATA_VALUE = 10000;
@@ -9,9 +10,8 @@ export const BagGeneratorService: INodeService<IBagGeneratorNode> = {
       position,
       type: "bagGenerator",
       data: {
+        name: i18n.t("nodeShortName.bagGenerator"),
         status: "IDLE",
-        propertiesTitle: "Bag generator",
-        name: "Bag",
         balls: ["red", "blue"],
       },
     };

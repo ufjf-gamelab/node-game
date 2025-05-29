@@ -6,6 +6,7 @@ import { Button, Modal, ScrollArea, TextInput } from "@mantine/core";
 import { NodeDoc } from "./node-doc";
 import { BiSolidCog, BiSolidHelpCircle } from "react-icons/bi";
 import { useElementSize } from "@mantine/hooks";
+import { useTranslation } from "react-i18next";
 
 type IProps = {
   node: INode;
@@ -14,6 +15,7 @@ type IProps = {
 
 export const BaseNodeProperties: React.FunctionComponent<IProps> = ({ node, children }) => {
   const flow = useReactFlow();
+  const { t } = useTranslation();
   const { ref: titleElRef, height: titleHeight } = useElementSize();
   const [name, setName] = React.useState(node.data.name);
   const [helpModal, setHelpModal] = React.useState(false);
@@ -28,7 +30,7 @@ export const BaseNodeProperties: React.FunctionComponent<IProps> = ({ node, chil
   return (
     <div className="flex flex-col h-full">
       <div className="border-b-1 px-2 py-4 text-center text-xl" ref={titleElRef}>
-        <h2>{node.data.propertiesTitle}</h2>
+        <h2>{t(`nodeFullName.${node.type}`)}</h2>
       </div>
 
       <ScrollArea type="hover" h={scrollAreaHeight}>
@@ -70,7 +72,7 @@ export const BaseNodeProperties: React.FunctionComponent<IProps> = ({ node, chil
         opened={helpModal}
         onClose={() => setHelpModal(false)}
         size={"xl"}
-        title={node.data.propertiesTitle}
+        title={t(`nodeFullName.${node.type}`)}
         classNames={{ title: "text-3xl font-semibold" }}>
         <NodeDoc nodeType={node.type} />
       </Modal>

@@ -1,3 +1,4 @@
+import { i18n } from "@/config/i18n";
 import { IDiceSuccessNode, INodeService } from "@/config/types";
 import { flattenArray } from "@/utils/flatten-array";
 import { NodeManager } from "@/utils/node-manager";
@@ -9,8 +10,7 @@ export const DiceSuccessService: INodeService<IDiceSuccessNode> = {
       position,
       type: "diceSuccess",
       data: {
-        name: "Dice success",
-        propertiesTitle: "Dice Success",
+        name: i18n.t("nodeShortName.diceSuccess"),
         status: "IDLE",
         state: [],
         face: 6,

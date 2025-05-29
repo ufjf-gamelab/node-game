@@ -1,3 +1,4 @@
+import { i18n } from "@/config/i18n";
 import { IDicePoolNode, INodeService } from "@/config/types";
 import { NodeManager } from "@/utils/node-manager";
 
@@ -8,8 +9,7 @@ export const DicePoolService: INodeService<IDicePoolNode> = {
       position,
       type: "dicePool",
       data: {
-        name: "Dice pool",
-        propertiesTitle: "Dice Pool",
+        name: i18n.t("nodeShortName.dicePool"),
         status: "IDLE",
       },
     };

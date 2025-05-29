@@ -6,26 +6,9 @@
     "output": "Output"
   },
   "sidebar": {
-    "diceGenerator": "Dice",
-    "histogram": "Histogram",
-    "dicePool": "Pool",
-    "dicePoolSum": "Pool Sum",
-    "diceSuccess": "Success",
-    "diceBetweenInterval": "Between Interval",
-    "diceCountRepetition": "Count Repetition",
-    "diceExplodeGenerator": "Explode Generator",
-    "diceMath": "Math",
-    "diceAbsolute": "Absolute",
-    "diceLogical": "Logical",
-    "valueIsEven": "Value Is Even",
-    "valueIsOdd": "Value Is Odd",
-    "bagGenerator": "Bag Generator",
-    "bagPullWithoutRepetition": "Pull Without Repetition",
-    "symbolicGenerator": "Symbolic Generator",
-    "symbolicPool": "Symbolic Pool",
+    "clearTooltip": "Clear all nodes",
     "english": "English",
-    "portuguese": "Portuguese",
-    "clearTooltip": "Clear all nodes"
+    "portuguese": "Portuguese"
   },
   "taskBar": {
     "start": "Start",
@@ -53,5 +36,43 @@
     "invalidFile": "Select a valid .txt file!",
     "readFileError": "Error trying to read the selected file!",
     "chartNotFound": "Chart not found"
+  },
+  "nodeShortName": {
+    "diceGenerator": "Dice",
+    "histogram": "Histogram",
+    "dicePool": "Pool",
+    "dicePoolSum": "Pool Sum",
+    "diceSuccess": "Success",
+    "diceBetweenInterval": "Between Interval",
+    "diceCountRepetition": "Count Repetition",
+    "diceExplodeGenerator": "Explode",
+    "diceMath": "Math",
+    "diceAbsolute": "Absolute",
+    "diceLogical": "Logical",
+    "valueIsEven": "Is Even",
+    "valueIsOdd": "Is Odd",
+    "bagGenerator": "Bag",
+    "bagPullWithoutRepetition": "Pull Without Repetition",
+    "symbolicGenerator": "Symbolic",
+    "symbolicPool": "Symbolic Pool"
+  },
+  "nodeFullName": {
+    "diceGenerator": "Dice Generator",
+    "histogram": "Histogram",
+    "dicePool": "Dice Pool",
+    "dicePoolSum": "Dice Pool Sum",
+    "diceSuccess": "Dice Success",
+    "diceBetweenInterval": "Dice Between Interval",
+    "diceCountRepetition": "Dice Count Repetition",
+    "diceExplodeGenerator": "Dice Explode Generator",
+    "diceMath": "Dice Math",
+    "diceAbsolute": "Dice Absolute",
+    "diceLogical": "Dice Logical",
+    "valueIsEven": "Dice Is Even",
+    "valueIsOdd": "Dice Is Odd",
+    "bagGenerator": "Bag Generator",
+    "bagPullWithoutRepetition": "Pull Bag Without Repetition",
+    "symbolicGenerator": "Symbolic Generator",
+    "symbolicPool": "Symbolic Pool"
   }
 }

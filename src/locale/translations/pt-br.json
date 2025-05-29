@@ -6,26 +6,9 @@
     "output": "Saída"
   },
   "sidebar": {
-    "english": "Inglês",
-    "portuguese": "Português",
     "clearTooltip": "Limpar todos nós",
-    "diceGenerator": "Dado",
-    "histogram": "Histograma",
-    "dicePool": "Pool",
-    "dicePoolSum": "Pool Soma",
-    "diceSuccess": "Sucesso",
-    "diceBetweenInterval": "Entre Intervalo",
-    "diceCountRepetition": "Contar Repetição",
-    "diceExplodeGenerator": "Explosão Gerador",
-    "diceMath": "Matemática",
-    "diceAbsolute": "Absoluto",
-    "diceLogical": "Lógico",
-    "valueIsEven": "É Par",
-    "valueIsOdd": "É Impar",
-    "bagGenerator": "Bolsa",
-    "bagPullWithoutRepetition": "Sacar Sem Repetição",
-    "symbolicGenerator": "Gerador Simbólico",
-    "symbolicPool": "Pool Simbólica"
+    "english": "Inglês",
+    "portuguese": "Português"
   },
   "taskBar": {
     "start": "Iniciar",
@@ -53,5 +36,43 @@
     "invalidFile": "Selecione um arquivo .txt válido!",
     "readFileError": "Erro ao tentar ler o arquivo selecionado!",
     "chartNotFound": "Gráfico não encontrado"
+  },
+  "nodeShortName": {
+    "diceGenerator": "Dado",
+    "histogram": "Histograma",
+    "dicePool": "Pool",
+    "dicePoolSum": "Pool Soma",
+    "diceSuccess": "Sucesso",
+    "diceBetweenInterval": "Entre Intervalo",
+    "diceCountRepetition": "Contar Repetição",
+    "diceExplodeGenerator": "Explosão Gerador",
+    "diceMath": "Matemática",
+    "diceAbsolute": "Absoluto",
+    "diceLogical": "Lógico",
+    "valueIsEven": "É Par",
+    "valueIsOdd": "É Impar",
+    "bagGenerator": "Bolsa",
+    "bagPullWithoutRepetition": "Sacar Sem Repetição",
+    "symbolicGenerator": "Simbólico",
+    "symbolicPool": "Pool Simbólica"
+  },
+  "nodeFullName": {
+    "diceGenerator": "Dado Gerador",
+    "histogram": "Histograma",
+    "dicePool": "Pool Dado",
+    "dicePoolSum": "Pool Soma Dado",
+    "diceSuccess": "Dado Sucesso",
+    "diceBetweenInterval": "Dado Entre Intervalo",
+    "diceCountRepetition": "Contar Repetição de Dado",
+    "diceExplodeGenerator": "Explosão de Dado Gerador",
+    "diceMath": "Dado Matemática",
+    "diceAbsolute": "Dado Absoluto",
+    "diceLogical": "Dado Lógico",
+    "valueIsEven": "Dado É Par",
+    "valueIsOdd": "Dado É Impar",
+    "bagGenerator": "Bolsa Gerador",
+    "bagPullWithoutRepetition": "Sacar Bolsa Sem Repetição",
+    "symbolicGenerator": "Simbólico Gerador",
+    "symbolicPool": "Pool Simbólica"
   }
 }

@@ -1,3 +1,4 @@
+import { i18n } from "@/config/i18n";
 import { IDicePoolSumNode, INode, INodeService } from "@/config/types";
 import { NodeManager } from "@/utils/node-manager";
 
@@ -8,8 +9,7 @@ export const DicePoolSumService: INodeService<IDicePoolSumNode> = {
       position,
       type: "dicePoolSum",
       data: {
-        name: "Dice pool sum",
-        propertiesTitle: "Dice Pool Sum",
+        name: i18n.t("nodeShortName.dicePoolSum"),
         status: "IDLE",
         state: [],
       },

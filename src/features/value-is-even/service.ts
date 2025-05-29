@@ -1,3 +1,4 @@
+import { i18n } from "@/config/i18n";
 import { IValueIsEvenNode, INodeService } from "@/config/types";
 import { flattenArray } from "@/utils/flatten-array";
 import { NodeManager } from "@/utils/node-manager";
@@ -9,8 +10,7 @@ export const ValueIsEvenService: INodeService<IValueIsEvenNode> = {
       position,
       type: "valueIsEven",
       data: {
-        name: "Is even",
-        propertiesTitle: "Is Even",
+        name: i18n.t("nodeShortName.valueIsEven"),
         status: "IDLE",
       },
     };

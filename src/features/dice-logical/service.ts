@@ -1,3 +1,4 @@
+import { i18n } from "@/config/i18n";
 import { IDiceGeneratorNode, IDiceLogicalNode, INodeService } from "@/config/types";
 import { flattenArray } from "@/utils/flatten-array";
 import { NodeManager } from "@/utils/node-manager";
@@ -9,8 +10,7 @@ export const DiceLogicalService: INodeService<IDiceLogicalNode> = {
       position,
       type: "diceLogical",
       data: {
-        name: "Dice logical",
-        propertiesTitle: "Dice Logical",
+        name: i18n.t("nodeShortName.diceLogical"),
         status: "IDLE",
         operation: "A = B",
       },

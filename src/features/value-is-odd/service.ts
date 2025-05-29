@@ -1,3 +1,4 @@
+import { i18n } from "@/config/i18n";
 import { IValueIsOddNode, INodeService } from "@/config/types";
 import { flattenArray } from "@/utils/flatten-array";
 import { NodeManager } from "@/utils/node-manager";
@@ -9,8 +10,7 @@ export const ValueIsOddService: INodeService<IValueIsOddNode> = {
       position,
       type: "valueIsOdd",
       data: {
-        name: "Is odd",
-        propertiesTitle: "Is Odd",
+        name: i18n.t("nodeShortName.valueIsOdd"),
         status: "IDLE",
       },
     };

@@ -42,7 +42,6 @@ type IBaseNode<NodeData extends Record<string, unknown> = Record<string, unknown
   data: {
     name: string;
     status: INodeStatus;
-    propertiesTitle: string;
     errorMessage?: string;
   };
 };

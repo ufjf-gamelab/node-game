@@ -1,3 +1,4 @@
+import { i18n } from "@/config/i18n";
 import { IDiceExplodeGeneratorNode, INodeService } from "@/config/types";
 
 const TOTAL_DATA_VALUE = 10000;
@@ -9,8 +10,7 @@ export const DiceExplodeGeneratorService: INodeService<IDiceExplodeGeneratorNode
       position,
       type: "diceExplodeGenerator",
       data: {
-        name: "Dice explode",
-        propertiesTitle: "Dice Explode Generator",
+        name: i18n.t("nodeShortName.diceExplodeGenerator"),
         status: "IDLE",
         explodeFace: 1,
         maxFace: 6,

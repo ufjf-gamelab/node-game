@@ -1,3 +1,4 @@
+import { i18n } from "@/config/i18n";
 import { IBagGeneratorNode, IBagPullWithoutRepetitionNode, INodeService } from "@/config/types";
 import { NodeManager } from "@/utils/node-manager";
 
@@ -8,9 +9,8 @@ export const BagPullWithoutRepetitionService: INodeService<IBagPullWithoutRepeti
       position,
       type: "bagPullWithoutRepetition",
       data: {
+        name: i18n.t("nodeShortName.bagPullWithoutRepetition"),
         status: "IDLE",
-        propertiesTitle: "Pull Bag without repetition",
-        name: "Pull without repetition",
       },
     };
   },

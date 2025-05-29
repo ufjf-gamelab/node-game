@@ -1,3 +1,4 @@
+import { i18n } from "@/config/i18n";
 import { INodeService, ISymbolicGeneratorNode } from "@/config/types";
 
 const TOTAL_DATA_VALUE = 10000;
@@ -9,9 +10,8 @@ export const SymbolicGeneratorService: INodeService<ISymbolicGeneratorNode> = {
       position,
       type: "symbolicGenerator",
       data: {
+        name: i18n.t("nodeShortName.symbolicGenerator"),
         status: "IDLE",
-        propertiesTitle: "Symbolic generator",
-        name: "Symbolic",
         faces: ["A", "B"],
       },
     };

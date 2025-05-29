@@ -1,3 +1,4 @@
+import { i18n } from "@/config/i18n";
 import { IDiceCountRepetitionNode, INodeService } from "@/config/types";
 import { NodeManager } from "@/utils/node-manager";
 
@@ -8,8 +9,7 @@ export const DiceCountRepetitionService: INodeService<IDiceCountRepetitionNode> 
       position,
       type: "diceCountRepetition",
       data: {
-        name: "Dice count repetition",
-        propertiesTitle: "Dice Count Repetition",
+        name: i18n.t("nodeShortName.diceCountRepetition"),
         status: "IDLE",
         face: 1,
       },

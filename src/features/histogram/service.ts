@@ -1,3 +1,4 @@
+import { i18n } from "@/config/i18n";
 import { IHistogramNode, INode, INodeService } from "@/config/types";
 import { flattenArray } from "@/utils/flatten-array";
 import { NodeManager } from "@/utils/node-manager";
@@ -10,8 +11,7 @@ export const HistogramService: INodeService<IHistogramNode> = {
       position,
       type: "histogram",
       data: {
-        name: "Histogram " + (histogramCount + 1),
-        propertiesTitle: "Histogram",
+        name: `${i18n.t("nodeShortName.histogram")} ${histogramCount + 1}`,
         status: "IDLE",
         parentNodeType: "",
         sortDirection: "asc",
