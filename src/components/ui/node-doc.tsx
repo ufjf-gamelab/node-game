@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { INodeType } from "@/config/types";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
+import rehypeSanitize from "rehype-sanitize";
 
 type IProps = {
   nodeType: INodeType;
@@ -28,7 +29,7 @@ export const NodeDoc: React.FunctionComponent<IProps> = ({ nodeType }) => {
   return (
     <Box pos="relative" className="markdown">
       <LoadingOverlay visible={loading} />
-      <ReactMarkdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>
+      <ReactMarkdown rehypePlugins={[rehypeRaw, rehypeSanitize]} remarkPlugins={[remarkGfm]}>
         {content}
       </ReactMarkdown>
     </Box>

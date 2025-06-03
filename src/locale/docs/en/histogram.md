@@ -1,8 +1,8 @@
-**Dice Generator** is a **generator-type node** responsible for simulating dice rolls within a defined range. It is the **starting point** for any simulation involving randomness with dice, such as attack systems, skill checks, or any mechanics that rely on dice rolls.
+**Histogram** is a **visualization-type node** that displays the simulation results as a bar chart. It shows how frequently different outcomes occur in your simulations described in the model.
 
-- **Type:** Generator (initial node, does not depend on other nodes).
-- **Function:** Produces random integer values within a configurable range.
-- **Output:** Integer numbers between the defined minimum and maximum values.
+- **Type:** Visualizer (final node in the chain)
+- **Function:** Creates charts from the modeled simulation data
+- **Output:** Bar chart showing the frequency of the results
 
 ---
 
@@ -28,20 +28,14 @@
 ### **Name**
 
 - **Type:** Text
-- **Default:** Dice
+- **Default:** Histogram
 - **Function:** Name displayed in the modeling board and the generated chart
 
-### **Minimum Value**
+### **Ordering**
 
-- **Type:** Integer.
-- **Default:** `1`.
-- **Function:** Defines the smallest possible value the dice can generate.
-
-### **Maximum Value**
-
-- **Type:** Integer (must be > minimum value).
-- **Default:** `6`.
-- **Function:** Defines the largest possible value the dice can generate.
+- **Type:** Ascending | Descending
+- **Default:** Ascending
+- **Function:** Sets the order of values displayed in the histogram bar chart
 
 ---
 
@@ -69,6 +63,5 @@
 
 ## **Notes**
 
-- The **Dice Generator** is always the **first node** in a simulation chain with dice.
-- It **has no input**—only an output—since it generates random values independently.
-- Can be used alone for quick tests or combined with modifiers for complex rules.
+- The Histogram must always be placed **last** in the node chain
+- It must be connected to the output of another node

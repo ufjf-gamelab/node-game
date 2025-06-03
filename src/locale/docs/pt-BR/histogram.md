@@ -1,8 +1,8 @@
-**Dado Gerador** é um **nó do tipo gerador** responsável por simular lançamentos de dados dentro de um intervalo definido. Ele é o **ponto de partida** para qualquer simulação que envolva aleatoriedade com dados, como sistemas de ataque, testes de habilidade ou qualquer mecânica que dependa de lançamentos de dados.
+**Histograma** é um **nó do tipo visualização** que exibe os resultados da simulação como um gráfico de barras. Ele mostra com que frequência diferentes resultados ocorrem nas suas simulações descritas no modelo.
 
-- **Tipo:** Gerador (nó inicial, não depende de outros nós).
-- **Função:** Produz valores inteiros aleatórios dentro de um intervalo configurável.
-- **Saída:** Números inteiros entre os valores mínimo e máximo definidos.
+- **Tipo:** Visualizador (nó final na cadeia)
+- **Função:** Cria gráficos a partir dos dados da simulação modelada
+- **Saída:** Gráfico de barras que demonstra as frequências dos resultados
 
 ---
 
@@ -31,17 +31,11 @@
 - **Padrão:** Histograma
 - **Função:** Nome exibido no quadro de modelagem e no gráfico gerado
 
-### **Valor Mínimo**
+### **Ordenação**
 
-- **Tipo:** Inteiro.
-- **Padrão:** `1`.
-- **Função:** Define o menor valor possível que o dado pode gerar.
-
-### **Valor Máximo**
-
-- **Tipo:** Inteiro (deve ser > valor mínimo).
-- **Padrão:** `6`.
-- **Função:** Define o maior valor possível que o dado pode gerar.
+- **Tipo:** Ascendente | Descendente
+- **Padrão:** Ascendente
+- **Função:** Define a ordem dos valores exibidos no grafico de barras do histograma
 
 ---
 
@@ -69,6 +63,5 @@
 
 ## **Notas**
 
-- O **Dado Gerador** é sempre o **primeiro nó** em uma cadeia de simulação com dados.
-- Ele **não possui entrada**—apenas saída—pois gera valores aleatórios de forma independente.
-- Pode ser usado sozinho para testes rápidos ou combinado com modificadores para regras mais complexas.
+- O Histograma deve ser sempre colocado **por último** na cadeia de nós
+- É necessário que esteja conectado à saída de outro nó
