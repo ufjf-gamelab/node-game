@@ -19,7 +19,7 @@ export const BagGeneratorService: INodeService<IBagGeneratorNode> = {
 
   run(flow, node) {
     try {
-      const resultState = generateRandomData(1, node.data.balls.length, TOTAL_DATA_VALUE);
+      const resultState = generateRandomData(node.data.balls);
 
       flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
       return resultState;
@@ -30,10 +30,11 @@ export const BagGeneratorService: INodeService<IBagGeneratorNode> = {
   },
 };
 
-function generateRandomData(aMin: number, aMax: number, aN: number) {
-  let lData: number[] = [];
-  for (let i = 0; i < aN; i++) {
-    lData.push(parseInt(Math.floor(Math.random() * (aMax + 1 - aMin) + aMin).toString()));
+function generateRandomData(balls: string[]) {
+  let result: string[] = [];
+  for (let i = 0; i < TOTAL_DATA_VALUE; i++) {
+    const randomIndex = Math.floor(Math.random() * balls.length);
+    result.push(balls[randomIndex]);
   }
-  return lData;
+  return result;
 }
