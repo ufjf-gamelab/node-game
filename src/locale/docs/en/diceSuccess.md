@@ -1,5 +1,3 @@
-# **Success Dice Documentation**
-
 **Success Dice** is a **modifier-type node** responsible for determining whether input values represent a success according to a defined threshold condition. It is commonly used to evaluate whether a dice roll meets or exceeds the minimum value required to succeed in tests or actions within a game.
 
 - **Type:** Modifier (intermediate node)
