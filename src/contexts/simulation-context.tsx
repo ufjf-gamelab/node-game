@@ -1,10 +1,8 @@
 import React from "react";
-import { IChartData } from "@/components/ui/bar-chart";
-import { IChart, IEdge, IHistogramNode, INode, INodeType } from "@/config/types";
-import { NodeManager } from "@/utils/node-manager";
 import { useReactFlow } from "@xyflow/react";
-import { sortBy } from "@/utils/sort-by";
+import { NodeManager } from "@/utils/node-manager";
 import { waitAsync } from "@/utils/waitAsync";
+import { IChart, IEdge, IHistogramNode, INode } from "@/config/types";
 
 interface UIStateContextProps {
   loading: boolean;
@@ -32,10 +30,11 @@ export const SimulationProvider: React.ComponentType<UIStateProviderProps> = ({ 
 
     const newCharts: IChart[] = [];
     const histogramsNode = nodes.filter((node) => node.type === "histogram") as IHistogramNode[];
+
     histogramsNode.forEach((histogram) => {
       try {
-        const chart = buildChart(histogram);
-        newCharts.push(chart);
+        const chartData = NodeManager.run(histogram, flow);
+        newCharts.push({ id: "chart_" + histogram.id, name: histogram.data.name, data: chartData });
       } catch (error) {
         alert("Error building chart!");
         console.error("Error building chart", error);
@@ -58,28 +57,6 @@ export const SimulationProvider: React.ComponentType<UIStateProviderProps> = ({ 
 
     setCharts(newCharts);
     setLoading(false);
-  }
-
-  function buildChart(histogramNode: IHistogramNode): IChart {
-    const nodeState = NodeManager.run(histogramNode, flow);
-
-    const successTypeNodes: INodeType[] = ["diceSuccess", "diceBetweenInterval", "diceLogical", "valueIsEven", "valueIsOdd", "diceCountRepetition"];
-    const parentIsTypeSuccessNode = histogramNode.data.parentNodeType && successTypeNodes.includes(histogramNode.data.parentNodeType);
-
-    const chartData: IChartData = nodeState.reduce((acc, item) => {
-      let itemLabel = item;
-      if (parentIsTypeSuccessNode) itemLabel = item === 1 ? "Success" : "Failure";
-
-      const existingEntry = acc.find((entry) => entry.x === itemLabel);
-
-      if (existingEntry) existingEntry.y += 1;
-      else acc.push({ x: itemLabel, y: 1 });
-
-      return acc;
-    }, [] as IChartData);
-
-    const sortedChartData = sortBy(chartData, "x", histogramNode.data.sortDirection);
-    return { id: "chart_" + histogramNode.id, name: histogramNode.data.name, data: sortedChartData };
   }
 
   function clearSimulation() {

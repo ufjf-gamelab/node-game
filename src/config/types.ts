@@ -1,16 +1,18 @@
-import { IChartData } from "@/components/ui/bar-chart";
 import { Edge, Node, ReactFlowInstance } from "@xyflow/react";
 
-type INodeStateMap = {
+export type IChartData = { label: string | number; value: number }[];
+export type IChart = { id: string; name: string; data: IChartData };
+
+export type INodeStateMap = {
   diceGenerator: number[];
-  histogram: (number | string)[];
+  histogram: IChartData;
   dicePool: number[][];
   dicePoolSum: number[];
   diceSuccess: number[];
   diceBetweenInterval: number[];
   diceCountRepetition: number[];
   diceExplodeGenerator: number[];
-  bagGenerator: number[];
+  bagGenerator: string[];
   bagPullWithoutRepetition: string[];
   symbolicGenerator: string[];
   symbolicPool: string[][];
@@ -47,7 +49,7 @@ type IBaseNode<NodeData extends Record<string, unknown> = Record<string, unknown
 };
 
 export type IDiceGeneratorNode = IBaseNode<{ min: number; max: number }, "diceGenerator">;
-export type IHistogramNode = IBaseNode<{ parentNodeType: INodeType | ""; sortDirection: "asc" | "desc" }, "histogram">;
+export type IHistogramNode = IBaseNode<{ sortDirection: "asc" | "desc" }, "histogram">;
 export type IDicePoolNode = IBaseNode<{}, "dicePool">;
 export type IDicePoolSumNode = IBaseNode<{}, "dicePoolSum">;
 export type IDiceSuccessNode = IBaseNode<{ face: number }, "diceSuccess">;
@@ -82,5 +84,3 @@ export type INode =
   | IDiceLogicalNode
   | IValueIsEvenNode
   | IValueIsOddNode;
-
-export type IChart = { id: string; name: string; data: IChartData };

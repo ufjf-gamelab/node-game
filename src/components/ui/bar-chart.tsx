@@ -1,8 +1,7 @@
 import React from "react";
 import { ResponsiveContainer } from "recharts";
 import { BarChart } from "@mantine/charts";
-
-export type IChartData = { x: string | number; y: number }[];
+import { IChartData } from "@/config/types";
 
 type IProps = {
   data: IChartData;
@@ -15,7 +14,7 @@ const Chart: React.ComponentType<IProps> = ({ data }) => {
         <BarChart
           h="300"
           data={data}
-          dataKey="x"
+          dataKey="label"
           tickLine="y"
           classNames={{
             tooltipBody: "p-1",
@@ -23,7 +22,7 @@ const Chart: React.ComponentType<IProps> = ({ data }) => {
             tooltipItemName: "text-sm pl-1",
             tooltipItemColor: "pl-3",
           }}
-          series={[{ name: "y", color: "blue.6", label: "Results" }]}
+          series={[{ name: "value", color: "blue.6", label: "Results" }]}
         />
       </ResponsiveContainer>
     </div>
