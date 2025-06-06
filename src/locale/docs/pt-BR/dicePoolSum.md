@@ -1,7 +1,7 @@
-**Pool Soma Dado** é um **nó do tipo modificador** responsável por somar os valores agrupados por um nó do tipo **Pool Dado**. Ele é utilizado para calcular o total de uma combinação de valores agrupados, como somas de múltiplos dados em sistemas de jogo.
+**Pool Soma de Dado** é um **nó do tipo modificador** responsável por somar os valores agrupados por um nó do tipo **Pool de Dado**. Ele é utilizado para calcular o total de uma combinação de valores agrupados, como somas de múltiplos dados em sistemas de jogo.
 
 - **Tipo:** Modificador (nó intermediário)
-- **Função:** Soma os valores agrupados de cada execução do Pool Dado
+- **Função:** Soma os valores agrupados de cada execução do Pool de Dado
 - **Saída:** Lista com os totais somados por execução
 
 ---
@@ -28,7 +28,7 @@
 ### **Nome**
 
 - **Tipo:** Texto
-- **Padrão:** Pool Soma Dado
+- **Padrão:** Pool Soma de Dado
 - **Função:** Nome exibido no quadro de modelagem
 
 ---
@@ -44,16 +44,16 @@
 
 ### **2. Conexão com outros nós:**
 
-- Conecte **Dado A** ao **Pool Dado**
-- Conecte **Dado B** ao **Pool Dado**
-- Conecte **Pool Dado** ao **Pool Soma Dado**
-- Conecte **Pool Soma Dado** ao nó **Histograma**
+- Conecte **Dado A** ao **Pool de Dado**
+- Conecte **Dado B** ao **Pool de Dado**
+- Conecte **Pool de Dado** ao **Pool Soma de Dado**
+- Conecte **Pool Soma de Dado** ao nó **Histograma**
 
-<img src="/images/dice-pool.png" width="500px" alt="Exemplo de uso do Pool Dado com Pool Soma Dado"/>
+<img src="/images/dice-pool.png" width="500px" alt="Exemplo de uso do Pool de Dado com Pool Soma de Dado"/>
 
 ---
 
 ## **Notas**
 
-- Sempre deve receber como entrada um nó do tipo **Pool Dado**
+- Sempre deve receber como entrada um nó do tipo **Pool de Dado**
 - Ideal para representar sistemas de soma de múltiplos dados

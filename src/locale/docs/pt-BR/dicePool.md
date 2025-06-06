@@ -1,4 +1,4 @@
-**Pool Dado** é um **nó do tipo modificador** utilizado para agrupar os resultados de dois outros nós numéricos em um único conjunto (pool). Ele é ideal para representar sistemas que acumulam múltiplos dados ou fontes numéricas, como rolagens combinadas em jogos de mesa.
+**Pool de Dado** é um **nó do tipo modificador** utilizado para agrupar os resultados de dois outros nós numéricos em um único conjunto (pool). Ele é ideal para representar sistemas que acumulam múltiplos dados ou fontes numéricas, como rolagens combinadas em jogos de mesa.
 
 - **Tipo:** Modificador (nó intermediário)
 - **Função:** Agrupa os valores de dois nós de entrada em um único conjunto
@@ -28,7 +28,7 @@
 ### **Nome**
 
 - **Tipo:** Texto
-- **Padrão:** Pool Dado
+- **Padrão:** Pool de Dado
 - **Função:** Nome exibido no quadro de modelagem
 
 ---
@@ -44,16 +44,16 @@
 
 ### **2. Conexão com outros nós:**
 
-- Conecte **Dado A** ao **Pool Dado**
-- Conecte **Dado B** ao **Pool Dado**
-- Conecte **Pool Dado** ao **Pool Soma Dado**
-- Conecte **Pool Soma Dado** ao nó **Histograma**
+- Conecte **Dado A** ao **Pool de Dado**
+- Conecte **Dado B** ao **Pool de Dado**
+- Conecte **Pool de Dado** ao **Pool Soma de Dado**
+- Conecte **Pool Soma de Dado** ao nó **Histograma**
 
-<img src="/images/dice-pool.png" width="500px" alt="Exemplo de uso do Pool Dado com Pool Soma Dado"/>
+<img src="/images/dice-pool.png" width="500px" alt="Exemplo de uso do Pool de Dado com Pool Soma de Dado"/>
 
 ---
 
 ## **Notas**
 
 - Útil para representar mecânicas com múltiplas rolagens simultâneas.
-- Comumente encadeado com o nó **Pool Soma Dado** para adicionar o modificador de adição de valores.
+- Comumente encadeado com o nó **Pool Soma de Dado** para adicionar o modificador de adição de valores.

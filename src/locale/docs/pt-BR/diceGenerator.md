@@ -1,4 +1,4 @@
-**Dado Gerador** é um **nó do tipo gerador** responsável por simular lançamentos de dados dentro de um intervalo definido. Ele é o **ponto de partida** para qualquer simulação que envolva aleatoriedade com dados, como sistemas de ataque, testes de habilidade ou qualquer mecânica que dependa de lançamentos de dados.
+**Gerador de Dado** é um **nó do tipo gerador** responsável por simular lançamentos de dados dentro de um intervalo definido. Ele é o **ponto de partida** para qualquer simulação que envolva aleatoriedade com dados, como sistemas de ataque, testes de habilidade ou qualquer mecânica que dependa de lançamentos de dados.
 
 - **Tipo:** Gerador (nó inicial, não depende de outros nós).
 - **Função:** Produz valores inteiros aleatórios dentro de um intervalo configurável.
@@ -49,7 +49,7 @@
 
 **Cenário:** Simular um ataque básico em um RPG que usa um dado de 6 faces (1d6) e requer um valor mínimo de 4 para acerto.
 
-### **1. Propriedades do Dado Gerador:**
+### **1. Propriedades do Gerador de Dado:**
 
 - Valor Mínimo: `1`
 - Valor Máximo: `6`
@@ -60,15 +60,15 @@
 
 ### **3. Conexão com outros nós:**
 
-- Conecte **Dado Gerador** ao nó **Dado Sucesso**
+- Conecte **Gerador de Dado** ao nó **Dado Sucesso**
 - Conecte **Dado Sucesso** ao nó **Histograma**
 
-<img src="/images/generator-success.png" width="500px" alt="Dado Gerador → Dado Sucesso → Histograma"/>
+<img src="/images/generator-success.png" width="500px" alt="Exemplo de uso do Gerador de Dado"/>
 
 ---
 
 ## **Notas**
 
-- O **Dado Gerador** é sempre o **primeiro nó** em uma cadeia de simulação com dados.
+- O **Gerador de Dado** é sempre o **primeiro nó** em uma cadeia de simulação com dados.
 - Ele **não possui entrada**—apenas saída—pois gera valores aleatórios de forma independente.
 - Pode ser usado sozinho para testes rápidos ou combinado com modificadores para regras mais complexas.

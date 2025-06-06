@@ -57,10 +57,10 @@
     "symbolicPool": "Pool Simbólica"
   },
   "nodeFullName": {
-    "diceGenerator": "Dado Gerador",
+    "diceGenerator": "Gerador de Dado",
     "histogram": "Histograma",
-    "dicePool": "Pool Dado",
-    "dicePoolSum": "Pool Soma Dado",
+    "dicePool": "Pool de Dado",
+    "dicePoolSum": "Pool Soma de Dado",
     "diceSuccess": "Dado Sucesso",
     "diceBetweenInterval": "Dado Entre Intervalo",
     "diceCountRepetition": "Contar Repetição de Dado",

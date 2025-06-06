@@ -56,4 +56,4 @@
 ## **Notes**
 
 - Useful for representing mechanics with multiple simultaneous rolls.
-- Commonly chained with the **Pool Soma Dado** node to apply value addition.
+- Commonly chained with the **Pool Soma de Dado** node to apply value addition.
