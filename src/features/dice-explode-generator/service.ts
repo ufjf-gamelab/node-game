@@ -1,7 +1,6 @@
 import { i18n } from "@/config/i18n";
-import { IDiceExplodeGeneratorNode, INodeService } from "@/config/types";
-
-const TOTAL_DATA_VALUE = 10000;
+import { IDiceExplodeGeneratorNode, IDiceGeneratorNode, INodeService } from "@/config/types";
+import { NodeManager } from "@/utils/node-manager";
 
 export const DiceExplodeGeneratorService: INodeService<IDiceExplodeGeneratorNode> = {
   new(_flow, { id, position }) {
@@ -13,14 +12,22 @@ export const DiceExplodeGeneratorService: INodeService<IDiceExplodeGeneratorNode
         name: i18n.t("nodeShortName.diceExplodeGenerator"),
         status: "IDLE",
         explodeFace: 1,
-        maxFace: 6,
       },
     };
   },
 
   run(flow, node) {
     try {
-      const resultState = explodeDice(node.data.maxFace, node.data.explodeFace, TOTAL_DATA_VALUE);
+      const edge = flow.getEdges().find((edge) => edge.target === node.id);
+      if (!edge) throw new Error("Connection not found!");
+
+      const sourceNode = flow.getNode(edge.source) as IDiceGeneratorNode;
+      if (!sourceNode) throw new Error("Source connection not found!");
+
+      if (sourceNode.data.max < node.data.explodeFace) throw new Error("Explode face can't be greater than dice generator max face!");
+
+      const sourceState = NodeManager.run(sourceNode, flow) as number[] | number[][];
+      const resultState = explodeDice(sourceState, node.data.explodeFace);
 
       flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
       return resultState;
@@ -31,17 +38,37 @@ export const DiceExplodeGeneratorService: INodeService<IDiceExplodeGeneratorNode
   },
 };
 
-function explodeDice(maxFace: number, explodeFace: number, aN: number) {
-  let lCount = 0;
+function explodeDice(data: number[] | number[][], explodeFace: number): number[] {
   const result: number[] = [];
+  let count = 0;
 
-  for (let i = 0; i < aN; i++) {
-    while (explodeFace === parseInt(Math.floor(Math.random() * (maxFace + 1 - 1) + 1).toString())) {
-      lCount++;
+  if (Array.isArray(data[0])) {
+    for (const group of data as number[][]) {
+      const hasExplosion = group.some((val) => val === explodeFace);
+      if (hasExplosion) {
+        count++;
+      } else {
+        if (count > 0) {
+          result.push(count);
+          count = 0;
+        }
+      }
     }
+  } else {
+    for (const val of data as number[]) {
+      if (val === explodeFace) {
+        count++;
+      } else {
+        if (count > 0) {
+          result.push(count);
+          count = 0;
+        }
+      }
+    }
+  }
 
-    result.push(lCount);
-    lCount = 0;
+  if (count > 0) {
+    result.push(count);
   }
 
   return result;

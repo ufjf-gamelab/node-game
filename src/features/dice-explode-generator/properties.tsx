@@ -7,19 +7,7 @@ import { IDiceExplodeGeneratorNode } from "@/config/types";
 
 export const DiceExplodeGeneratorProperties: React.FunctionComponent<{ node: IDiceExplodeGeneratorNode }> = ({ node }) => {
   const flow = useReactFlow();
-  const [maxFace, setMaxFace] = React.useState(node.data.maxFace);
   const [explodeFace, setExplodeFace] = React.useState(node.data.explodeFace);
-
-  function handleChangeMaxFace(value: string | number) {
-    const newValue = isNaN(Number(value)) ? 0 : Number(value);
-    setMaxFace(newValue);
-    node.data.maxFace = newValue;
-
-    if (newValue < explodeFace) {
-      setExplodeFace(newValue);
-      node.data.explodeFace = newValue;
-    }
-  }
 
   function handleChangeExplodeFace(value: string | number) {
     const newValue = isNaN(Number(value)) ? 0 : Number(value);
@@ -27,17 +15,7 @@ export const DiceExplodeGeneratorProperties: React.FunctionComponent<{ node: IDi
     node.data.explodeFace = newValue;
   }
 
-  useDebounce(() => flow.updateNodeData(node.id, { ...node.data, maxFace, explodeFace }), 500, [maxFace, explodeFace]);
+  useDebounce(() => flow.updateNodeData(node.id, { ...node.data, explodeFace }), 500, [explodeFace]);
 
-  return (
-    <BaseNodeProperties
-      node={node}
-      children={
-        <>
-          <NumberInput label="Faces" value={maxFace} onChange={handleChangeMaxFace} min={1} />
-          <NumberInput label="Explode face" value={explodeFace} onChange={handleChangeExplodeFace} max={maxFace} />
-        </>
-      }
-    />
-  );
+  return <BaseNodeProperties node={node} children={<NumberInput label="Explode face" value={explodeFace} onChange={handleChangeExplodeFace} />} />;
 };

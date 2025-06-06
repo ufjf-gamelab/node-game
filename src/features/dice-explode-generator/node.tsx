@@ -44,11 +44,12 @@ export const DiceExplodeGeneratorNode: React.ComponentType<IProps> = ({ data, se
       }>
       <Handle
         type="source"
-        id={"explode-gen-source-" + id}
+        id={"explode-source-" + id}
         position={Position.Right}
         isConnectable={isConnectable}
         isValidConnection={(connection) => isValidConnection(connection.target)}
       />
+      <Handle type="target" id={"explode-target-" + id} position={Position.Left} isConnectable={isConnectable} />
     </BaseNode>
   );
 };
