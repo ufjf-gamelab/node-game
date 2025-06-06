@@ -24,8 +24,8 @@ export const DicePoolService: INodeService<IDicePoolNode> = {
       const sourceNode2 = flow.getNode(nodeEdges[1].source);
       if (!sourceNode1 || !sourceNode2) throw new Error("Source connection not found!");
 
-      const sourceState1 = NodeManager.run(sourceNode1, flow) as number[];
-      const sourceState2 = NodeManager.run(sourceNode2, flow) as number[];
+      const sourceState1 = NodeManager.run(sourceNode1, flow) as Array<number | number[]>;
+      const sourceState2 = NodeManager.run(sourceNode2, flow) as Array<number | number[]>;
       const resultState = poolNodes(sourceState1, sourceState2);
 
       flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
@@ -37,7 +37,7 @@ export const DicePoolService: INodeService<IDicePoolNode> = {
   },
 };
 
-export function poolNodes(aInput1: number[], aInput2: number[]) {
+export function poolNodes(aInput1: Array<number | number[]>, aInput2: Array<number | number[]>) {
   let result: number[][] = [];
 
   for (let i = 0; i < aInput1.length; i++) {

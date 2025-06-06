@@ -20,6 +20,7 @@ export const DicePoolNode: React.ComponentType<IProps> = ({ data, isConnectable,
       "diceCountRepetition",
       "valueIsEven",
       "valueIsOdd",
+      "dicePool",
       "histogram",
     ];
     return allowedTypes.includes(targetNode.type);
