@@ -24,7 +24,7 @@ export const DiceCountRepetitionService: INodeService<IDiceCountRepetitionNode> 
       const sourceNode = flow.getNode(edge.source);
       if (!sourceNode) throw new Error("Source connection not found!");
 
-      const sourceState = NodeManager.run(sourceNode, flow) as number[];
+      const sourceState = NodeManager.run(sourceNode, flow) as Array<number[] | number>;
       const resultState = countRepetition(sourceState, node.data.face);
 
       flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
@@ -36,7 +36,7 @@ export const DiceCountRepetitionService: INodeService<IDiceCountRepetitionNode> 
   },
 };
 
-function countRepetition(data: number[], face: number) {
+function countRepetition(data: Array<number[] | number>, face: number) {
   const result: number[] = [];
 
   for (let i = 0; i < data.length; i++) {

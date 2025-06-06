@@ -27,31 +27,44 @@ export const HistogramService: INodeService<IHistogramNode> = {
       const sourceNode = flow.getNode(edge.source) as INode | undefined;
       if (!sourceNode) throw new Error("Source connection not found!");
 
-      const nodesTypeBoolean: INodeType[] = ["diceSuccess", "diceBetweenInterval", "diceLogical", "valueIsEven", "valueIsOdd", "diceCountRepetition"];
-      const parentIsTypeBoolean = nodesTypeBoolean.includes(sourceNode.type);
-
       const sourceState = NodeManager.run(sourceNode, flow);
-      let resultState = [] as IChartData;
 
       if (isArrayOfObjects(sourceState)) {
-        resultState = sortBy(sourceState, "label", node.data.sortDirection);
+        const sortedChartData = sortBy(sourceState, "label", node.data.sortDirection);
         flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
-        return resultState;
+        return sortedChartData;
       }
 
-      resultState = flattenArray<string | number>(sourceState).reduce((accumulator, currentItem) => {
-        const label = parentIsTypeBoolean ? (currentItem === 1 ? "Success" : "Failure") : currentItem;
-
-        const existingEntry = accumulator.find((prevEntry) => prevEntry.label === label);
+      const resultState = flattenArray<string | number>(sourceState).reduce((accumulator, currentItem) => {
+        const existingEntry = accumulator.find((prevEntry) => prevEntry.label === currentItem);
         if (existingEntry) existingEntry.value += 1;
-        else accumulator.push({ label, value: 1 });
+        else accumulator.push({ label: currentItem, value: 1 });
 
         return accumulator;
       }, [] as IChartData);
 
+      const nodesTypeWithPercentage: INodeType[] = ["diceCountRepetition"];
+      if (nodesTypeWithPercentage.includes(sourceNode.type)) {
+        resultState.forEach((item) => {
+          const percentage = ((item.value / sourceState.length) * 100).toFixed(2);
+          item.label = `${item.label} (${percentage}%)`;
+        });
+      }
+
+      const nodesTypeBoolean: INodeType[] = ["diceSuccess", "diceBetweenInterval", "diceLogical", "valueIsEven", "valueIsOdd"];
+      const parentIsTypeBoolean = nodesTypeBoolean.includes(sourceNode.type);
+
+      if (parentIsTypeBoolean) {
+        resultState.forEach((item) => {
+          const percentage = ((item.value / sourceState.length) * 100).toFixed(2);
+
+          if (item.label === 1) item.label = `Success (${percentage}%)`;
+          else item.label = `Failure (${percentage}%)`;
+        });
+      }
+
       const sortedChartData = sortBy(resultState, "label", node.data.sortDirection);
       flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
-
       return sortedChartData;
     } catch (error) {
       flow.updateNodeData(node.id, { ...node.data, status: "ERROR", errorMessage: error?.message });
