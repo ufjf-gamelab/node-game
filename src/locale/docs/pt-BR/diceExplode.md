@@ -1,5 +1,3 @@
-# Documentação Explosão de Dado
-
 **Explosão de Dado** é um **nó do tipo modificador** utilizado para contar quantas vezes uma determinada face (valor) de explosão aparece consecutivamente nos dados de entrada. Esse tipo de mecânica é comum em jogos onde certos resultados de dados provocam rerrolagens adicionais ou "explosões".
 
 - **Tipo:** Modificador (nó intermediário)

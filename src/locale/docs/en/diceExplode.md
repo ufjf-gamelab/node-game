@@ -1,5 +1,3 @@
-# Dice Explosion Documentation
-
 **Dice Explosion** is a **modifier node** used to count how many times a specific face (value) for explosion appears consecutively in the input data. This mechanic is commonly found in games where certain dice results trigger additional rerolls or "explosions."
 
 - **Type:** Modifier (intermediate node)
