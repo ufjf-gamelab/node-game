@@ -3,7 +3,9 @@
     "dice": "Dice",
     "bag": "Bag",
     "symbolic": "Symbolic",
-    "output": "Output"
+    "output": "Output",
+    "ascending": "Ascending",
+    "descending": "Descending"
   },
   "sidebar": {
     "clearTooltip": "Clear all nodes",
@@ -36,6 +38,30 @@
     "invalidFile": "Select a valid .txt file!",
     "readFileError": "Error trying to read the selected file!",
     "chartNotFound": "Chart not found"
+  },
+  "nodeProperties": {
+    "help": "Help",
+    "properties": "Properties",
+    "nodeId": "Node ID",
+    "status": "Status",
+    "name": "Nome",
+    "minValue": "Min value",
+    "maxValue": "Max value",
+    "successEqualOrGreaterThan": "Success equal or greater than",
+    "sorting": "Sorting",
+    "face": "Face",
+    "Faces": "Faces",
+    "explodeFace": "Explode Face",
+    "operation": "Operation",
+    "valueToCount": "Value to count",
+    "addNewFace": "Add new face",
+    "sum": "Sum",
+    "subtract": "Subtract",
+    "multiply": "Multiply",
+    "divide (floor)": "Divide (floor)",
+    "divide (ceil)": "Divide (ceil)",
+    "facePlaceholder": "Face name",
+    "removeFace": "Remove face"
   },
   "nodeShortName": {
     "diceGenerator": "Dice",
@@ -74,5 +100,12 @@
     "bagPullWithoutRepetition": "Pull Bag Without Repetition",
     "symbolicGenerator": "Symbolic Generator",
     "symbolicPool": "Symbolic Pool"
+  },
+  "nodeStatus": {
+    "FINISHED": "Finished",
+    "IDLE": "Idle",
+    "ERROR": "Error",
+    "LOADING": "Loading",
+    "MISSING_DATA": "Missing data"
   }
 }

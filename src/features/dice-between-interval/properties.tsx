@@ -4,12 +4,14 @@ import { useDebounce } from "react-use";
 import { NumberInput } from "@mantine/core";
 import { BaseNodeProperties } from "@/components/ui/base-node-properties";
 import { IDiceBetweenIntervalNode } from "@/config/types";
+import { useTranslation } from "react-i18next";
 
 type IProps = {
   node: IDiceBetweenIntervalNode;
 };
 
 export const DiceBetweenIntervalProperties: React.FunctionComponent<IProps> = ({ node }) => {
+  const { t } = useTranslation();
   const flow = useReactFlow();
   const [min, setMin] = React.useState(node.data.min);
   const [max, setMax] = React.useState(node.data.max);
@@ -33,8 +35,8 @@ export const DiceBetweenIntervalProperties: React.FunctionComponent<IProps> = ({
       node={node}
       children={
         <>
-          <NumberInput label="Minimum value" value={min} onChange={handleChangeMin} max={max} />
-          <NumberInput label="Maximum value" value={max} onChange={handleChangeMax} min={min} />
+          <NumberInput label={t("nodeProperties.minValue")} value={min} onChange={handleChangeMin} max={max} />
+          <NumberInput label={t("nodeProperties.maxValue")} value={max} onChange={handleChangeMax} min={min} />
         </>
       }
     />

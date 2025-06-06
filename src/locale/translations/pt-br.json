@@ -3,7 +3,9 @@
     "dice": "Dado",
     "bag": "Bolsa",
     "symbolic": "Simbólico",
-    "output": "Saída"
+    "output": "Saída",
+    "ascending": "Ascendente",
+    "descending": "Descendente"
   },
   "sidebar": {
     "clearTooltip": "Limpar todos nós",
@@ -36,6 +38,30 @@
     "invalidFile": "Selecione um arquivo .txt válido!",
     "readFileError": "Erro ao tentar ler o arquivo selecionado!",
     "chartNotFound": "Gráfico não encontrado"
+  },
+  "nodeProperties": {
+    "help": "Ajuda",
+    "properties": "Propriedades",
+    "nodeId": "ID do nó",
+    "status": "Status",
+    "name": "Nome",
+    "minValue": "Valor mínimo",
+    "maxValue": "Valor máximo",
+    "successEqualOrGreaterThan": "Sucesso igual ou maior que",
+    "sorting": "Ordenação",
+    "face": "Face",
+    "Faces": "Faces",
+    "explodeFace": "Explodir Face",
+    "operation": "Operação",
+    "valueToCount": "Contar valor",
+    "addNewFace": "Adicionar nova face",
+    "sum": "Adição",
+    "subtract": "Subtração",
+    "multiply": "Multiplicação",
+    "divide (floor)": "Divisão (piso)",
+    "divide (ceil)": "Divisão (teto)",
+    "facePlaceholder": "Nome da face",
+    "removeFace": "Remover face"
   },
   "nodeShortName": {
     "diceGenerator": "Dado",
@@ -74,5 +100,12 @@
     "bagPullWithoutRepetition": "Sacar Bolsa Sem Repetição",
     "symbolicGenerator": "Simbólico Gerador",
     "symbolicPool": "Pool Simbólica"
+  },
+  "nodeStatus": {
+    "FINISHED": "Finalizado",
+    "IDLE": "Ocioso",
+    "ERROR": "Erro",
+    "LOADING": "Carregando",
+    "MISSING_DATA": "Faltando dados"
   }
 }

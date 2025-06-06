@@ -12,7 +12,7 @@ export const DiceMathService: INodeService<IDiceMathNode> = {
       data: {
         name: i18n.t("nodeShortName.diceMath"),
         status: "IDLE",
-        operation: "add",
+        operation: "sum",
       },
     };
   },
@@ -43,7 +43,7 @@ export const DiceMathService: INodeService<IDiceMathNode> = {
 const executeMathOperationDataNodes = (input1: number[], input2: number[], operation: IDiceMathNode["data"]["operation"]) => {
   const result = [];
   for (let i = 0; i < input1.length; i++) {
-    if (operation === "add") result.push(input1[i] + input2[i]);
+    if (operation === "sum") result.push(input1[i] + input2[i]);
     else if (operation === "subtract") result.push(input1[i] - input2[i]);
     else if (operation === "multiply") result.push(input1[i] * input2[i]);
     else if (operation === "divide (floor)") result.push(Math.floor(input1[i] / input2[i]));

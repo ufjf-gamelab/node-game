@@ -5,10 +5,13 @@ import { IDiceLogicalNode } from "@/config/types";
 import { BaseNodeProperties } from "@/components/ui/base-node-properties";
 import { DICE_LOGICAL_OPERATIONS } from "@/config/constants";
 import { Select } from "@mantine/core";
+import { useTranslation } from "react-i18next";
 
 export const DiceLogicalProperties: React.FunctionComponent<{ node: IDiceLogicalNode }> = ({ node }) => {
+  const { t } = useTranslation();
   const flow = useReactFlow();
   const [operation, setOperation] = React.useState(node.data.operation);
+  const operationOptions = DICE_LOGICAL_OPERATIONS.map((operation) => ({ value: operation, label: operation }));
 
   function handleChangeOperation(value: string | null) {
     const newValue = value as IDiceLogicalNode["data"]["operation"];
@@ -22,21 +25,7 @@ export const DiceLogicalProperties: React.FunctionComponent<{ node: IDiceLogical
     <BaseNodeProperties
       node={node}
       children={
-        <div className="w-full flex items-center justify-between border-b py-2 gap-4">
-          <label className="whitespace-nowrap w- font-medium" htmlFor="operation">
-            Operation
-          </label>
-
-          <Select
-            placeholder="Pick value"
-            value={operation}
-            onChange={(value) => handleChangeOperation(value)}
-            data={DICE_LOGICAL_OPERATIONS.map((operation) => ({
-              value: operation,
-              label: operation,
-            }))}
-          />
-        </div>
+        <Select label={t("nodeProperties.operation")} value={operation} onChange={(value) => handleChangeOperation(value)} data={operationOptions} />
       }
     />
   );

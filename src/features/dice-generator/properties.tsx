@@ -4,8 +4,10 @@ import { useDebounce } from "react-use";
 import { NumberInput } from "@mantine/core";
 import { IDiceGeneratorNode } from "@/config/types";
 import { BaseNodeProperties } from "@/components/ui/base-node-properties";
+import { useTranslation } from "react-i18next";
 
 export const DiceGeneratorProperties: React.FunctionComponent<{ node: IDiceGeneratorNode }> = ({ node }) => {
+  const { t } = useTranslation();
   const flow = useReactFlow();
   const [min, setMin] = React.useState(node.data.min);
   const [max, setMax] = React.useState(node.data.max);
@@ -34,8 +36,8 @@ export const DiceGeneratorProperties: React.FunctionComponent<{ node: IDiceGener
       node={node}
       children={
         <>
-          <NumberInput label="Min value" value={min} onChange={handleChangeMin} />
-          <NumberInput label="Max value" value={max} onChange={handleChangeMax} />
+          <NumberInput label={t("nodeProperties.minValue")} value={min} onChange={handleChangeMin} max={max} />
+          <NumberInput label={t("nodeProperties.maxValue")} value={max} onChange={handleChangeMax} min={min} />
         </>
       }
     />

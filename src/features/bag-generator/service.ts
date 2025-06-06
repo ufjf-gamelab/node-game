@@ -12,7 +12,7 @@ export const BagGeneratorService: INodeService<IBagGeneratorNode> = {
       data: {
         name: i18n.t("nodeShortName.bagGenerator"),
         status: "IDLE",
-        balls: ["red", "blue"],
+        balls: ["A", "B"],
       },
     };
   },

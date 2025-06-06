@@ -5,12 +5,14 @@ import { ActionIcon, Button, TextInput, Tooltip } from "@mantine/core";
 import { BiPlus, BiTrash } from "react-icons/bi";
 import { BaseNodeProperties } from "@/components/ui/base-node-properties";
 import { IBagGeneratorNode } from "@/config/types";
+import { useTranslation } from "react-i18next";
 
 type IProps = {
   node: IBagGeneratorNode;
 };
 
 export const BagGeneratorProperties: React.FunctionComponent<IProps> = ({ node }) => {
+  const { t } = useTranslation();
   const flow = useReactFlow();
   const [balls, setBalls] = React.useState(node.data.balls);
 
@@ -46,7 +48,7 @@ export const BagGeneratorProperties: React.FunctionComponent<IProps> = ({ node }
             <div className="border-b py-2 w-full flex flex-col gap-2" key={"ball_key" + index}>
               <div className="w-full flex items-center justify-between gap-2">
                 <label className="w-32 font-medium flex items-center gap-2" htmlFor={"ball_id" + index}>
-                  <Tooltip variant="" label="Remove face">
+                  <Tooltip variant="" label={t("nodeProperties.removeFace")}>
                     <ActionIcon variant="light" color="red" onClick={() => removeBall(index)} disabled={index === 0 && balls.length === 1}>
                       <BiTrash />
                     </ActionIcon>
@@ -58,7 +60,7 @@ export const BagGeneratorProperties: React.FunctionComponent<IProps> = ({ node }
                   type="text"
                   id={"ball_id" + index}
                   value={balls[index]}
-                  placeholder="Face name"
+                  placeholder={t("nodeProperties.facePlaceholder")}
                   onChange={(e) => handleChangeFace(e, index)}
                 />
               </div>
@@ -66,7 +68,7 @@ export const BagGeneratorProperties: React.FunctionComponent<IProps> = ({ node }
           ))}
 
           <Button color="blue" variant="light" leftSection={<BiPlus className="text-lg " />} size="sm" onClick={addNewBall}>
-            Add New face
+            {t("nodeProperties.addNewFace")}
           </Button>
         </>
       }

@@ -4,13 +4,15 @@ import { ISymbolicGeneratorNode } from "@/config/types";
 import { useReactFlow } from "@xyflow/react";
 import { useDebounce } from "react-use";
 import { BiPlus, BiTrash } from "react-icons/bi";
-import { TextInput } from "@mantine/core";
+import { ActionIcon, Button, TextInput, Tooltip } from "@mantine/core";
+import { useTranslation } from "react-i18next";
 
 type IProps = {
   node: ISymbolicGeneratorNode;
 };
 
 export const SymbolicGeneratorProperties: React.FunctionComponent<IProps> = ({ node }) => {
+  const { t } = useTranslation();
   const flow = useReactFlow();
   const [faces, setFaces] = React.useState(node.data.faces);
 
@@ -43,35 +45,31 @@ export const SymbolicGeneratorProperties: React.FunctionComponent<IProps> = ({ n
       children={
         <>
           {faces.map((_item, index) => (
-            <div className="border-b py-2 w-full flex flex-col gap-2" key={"face_key" + index}>
+            <div className="border-b py-2 w-full flex flex-col gap-2" key={"ball" + index}>
               <div className="w-full flex items-center justify-between gap-2">
-                <label className="w-full font-medium flex items-center gap-2" htmlFor={"face_id" + index}>
-                  <button
-                    title="Remove face"
-                    className="disabled:text-gray-400 text-red-400 text-lg transition-colors"
-                    disabled={index === 0 && faces.length === 1}
-                    onClick={() => removeFace(index)}>
-                    <BiTrash />
-                  </button>
+                <label className="w-32 font-medium flex items-center gap-2" htmlFor={"face_" + index}>
+                  <Tooltip variant="" label={t("nodeProperties.removeFace")}>
+                    <ActionIcon variant="light" color="red" onClick={() => removeFace(index)} disabled={index === 0 && faces.length === 1}>
+                      <BiTrash />
+                    </ActionIcon>
+                  </Tooltip>
                   <span>Face {index + 1}</span>
                 </label>
+
                 <TextInput
-                  id={"face_id" + index}
+                  type="text"
+                  id={"face_" + index}
                   value={faces[index]}
+                  placeholder={t("nodeProperties.facePlaceholder")}
                   onChange={(e) => handleChangeFace(e, index)}
-                  placeholder="Face symbol"
-                  className="w-full"
                 />
               </div>
             </div>
           ))}
 
-          <button
-            className="flex items-center justify-center gap-2 py-1 bg-blue-100 hover:bg-blue-200 transition-colors rounded-sm my-2 font-semibold"
-            onClick={addNewFace}>
-            <BiPlus className="text-lg text-blue-600" />
-            Add New face
-          </button>
+          <Button color="blue" variant="light" leftSection={<BiPlus className="text-lg " />} size="sm" onClick={addNewFace}>
+            {t("nodeProperties.addNewFace")}
+          </Button>
         </>
       }
     />

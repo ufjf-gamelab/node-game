@@ -29,7 +29,7 @@ export type INodeState<N extends INode> = N extends { type: infer T } ? (T exten
 export type INodeStatus = "IDLE" | "FINISHED" | "ERROR" | "MISSING_DATA" | "LOADING";
 export type IEdge = Edge;
 export type IFlowInstance = ReactFlowInstance<INode, IEdge>;
-export type IDiceMathOperation = "add" | "subtract" | "multiply" | "divide (floor)" | "divide (ceil)";
+export type IDiceMathOperation = "sum" | "subtract" | "multiply" | "divide (floor)" | "divide (ceil)";
 export type IDiceLogicalOperation = "A >= B" | "A <= B" | "A = B";
 export type INodeService<N extends INode> = {
   new: (flow: ReactFlowInstance<INode, IEdge>, defaultValue: Pick<N, "id" | "position">) => N;
