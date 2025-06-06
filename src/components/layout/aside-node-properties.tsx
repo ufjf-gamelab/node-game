@@ -1,19 +1,21 @@
 import React from "react";
 import { NodeManager } from "@/utils/node-manager";
-import { useOnSelectionChange } from "@xyflow/react";
+import { useOnSelectionChange, useNodes } from "@xyflow/react";
 import { useLayoutContext } from "@/contexts/layout-context";
 import { BaseNodeProperties } from "@/components/ui/base-node-properties";
 import { INode } from "@/config/types";
 
 export const AsideNodeProperties: React.FunctionComponent = () => {
-  const [selectedNode, setSelectedNode] = React.useState<INode | null>(null);
   const layoutContext = useLayoutContext();
+  const nodes = useNodes<INode>();
 
-  useOnSelectionChange({ onChange: React.useCallback(({ nodes }) => setSelectedNode((nodes[0] as INode) || null), []) });
+  const [selectedId, setSelectedId] = React.useState<string | null>(null);
+  const selectedNode = React.useMemo(() => nodes.find((node) => node.id === selectedId), [nodes, selectedId]);
+  useOnSelectionChange({ onChange: React.useCallback(({ nodes }) => setSelectedId(nodes[0]?.id || null), []) });
 
   React.useEffect(() => {
-    layoutContext.setAsidePropertiesOpen(!!selectedNode);
-  }, [selectedNode]);
+    layoutContext.setAsidePropertiesOpen(!!selectedId);
+  }, [selectedId]);
 
   if (!selectedNode) return null;
   return (

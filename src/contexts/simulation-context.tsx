@@ -47,13 +47,7 @@ export const SimulationProvider: React.ComponentType<UIStateProviderProps> = ({ 
     flow
       .getNodes()
       .filter((node) => node.data.status === "LOADING" && node.type !== "histogram")
-      .forEach((node) => {
-        try {
-          NodeManager.run(node, flow);
-        } catch (error) {
-          console.log("Error running node", error);
-        }
-      });
+      .forEach((node) => flow.updateNodeData(node.id, { ...node.data, status: "IDLE" }));
 
     setCharts(newCharts);
     setLoading(false);
