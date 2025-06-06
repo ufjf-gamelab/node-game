@@ -26,7 +26,12 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
 
   return (
     <aside className="text-[14px] text-slate-900 fixed z-20 left-0 top-0 bg-white h-screen w-48 flex flex-col border-r select-none">
-      <Accordion variant="contained" chevronPosition="right" defaultValue={["dice"]} classNames={{ content: "p-0", item: "border-x-0" }} multiple>
+      <Accordion
+        variant="contained"
+        chevronPosition="right"
+        defaultValue={["dice", "output"]}
+        classNames={{ content: "p-0", item: "border-x-0" }}
+        multiple>
         <Accordion.Item value="dice">
           <Accordion.Control icon={<GiPerspectiveDiceOne className="text-[22px]" />}>{t("common.dice")}</Accordion.Control>
 
