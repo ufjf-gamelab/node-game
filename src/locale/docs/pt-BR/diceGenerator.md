@@ -16,14 +16,9 @@
 
 ### **Status**
 
-- **Tipo:** Status
-- **Padrão:** `IDLE`
-- **Função:** Indica o estado atual do nó:
-  - `IDLE`: Pronto para uso
-  - `LOADING`: Calculando resultados
-  - `FINISHED`: Finalizado com sucesso
-  - `ERROR`: Ocorreu um problema
-  - `MISSING DATA`: Faltando dados de entrada ou propriedades
+- **Tipo:** `Finalizado` | `Ocioso` | `Erro` | `Carregando` | `Faltando dados`
+- **Padrão:** `Ocioso`
+- **Função:** Indica o estado atual do nó
 
 ### **Nome**
 

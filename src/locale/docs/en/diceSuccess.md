@@ -16,14 +16,9 @@
 
 ### **Status**
 
-- **Type:** Status
-- **Default:** `IDLE`
-- **Function:** Indicates the current state of the node:
-  - `IDLE`: Ready to use
-  - `LOADING`: Calculating results
-  - `FINISHED`: Successfully completed
-  - `ERROR`: An error occurred
-  - `MISSING DATA`: Missing input or configuration
+- **Type:** `Finished` | `Idle` | `Error` | `Loading` | `Missing Data`
+- **Default:** `Idle`
+- **Function:** Indicates the current state of the node
 
 ### **Name**
 
