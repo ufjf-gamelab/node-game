@@ -11,7 +11,7 @@ export type INodeStateMap = {
   diceSuccess: number[];
   diceBetweenInterval: number[];
   diceCountRepetition: number[];
-  diceExplodeGenerator: number[];
+  diceExplode: number[];
   bagGenerator: string[];
   bagPullWithoutRepetition: string[];
   symbolicGenerator: string[];
@@ -55,7 +55,7 @@ export type IDicePoolSumNode = IBaseNode<{}, "dicePoolSum">;
 export type IDiceSuccessNode = IBaseNode<{ face: number }, "diceSuccess">;
 export type IDiceBetweenIntervalNode = IBaseNode<{ min: number; max: number }, "diceBetweenInterval">;
 export type IDiceCountRepetitionNode = IBaseNode<{ face: number }, "diceCountRepetition">;
-export type IDiceExplodeGeneratorNode = IBaseNode<{ explodeFace: number }, "diceExplodeGenerator">;
+export type IDiceExplodeNode = IBaseNode<{ explodeFace: number }, "diceExplode">;
 export type IBagGeneratorNode = IBaseNode<{ balls: string[] }, "bagGenerator">;
 export type IBagPullWithoutRepetitionNode = IBaseNode<{}, "bagPullWithoutRepetition">;
 export type ISymbolicGeneratorNode = IBaseNode<{ faces: string[] }, "symbolicGenerator">;
@@ -74,7 +74,7 @@ export type INode =
   | IDiceSuccessNode
   | IDiceBetweenIntervalNode
   | IDiceCountRepetitionNode
-  | IDiceExplodeGeneratorNode
+  | IDiceExplodeNode
   | IBagGeneratorNode
   | IBagPullWithoutRepetitionNode
   | ISymbolicGeneratorNode

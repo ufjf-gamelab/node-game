@@ -35,8 +35,8 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
               <li className="sidebar-item" onClick={() => addNewNode("diceGenerator")}>
                 {t("nodeFullName.diceGenerator")}
               </li>
-              <li className="sidebar-item" onClick={() => addNewNode("diceExplodeGenerator")}>
-                {t("nodeShortName.diceExplodeGenerator")}
+              <li className="sidebar-item" onClick={() => addNewNode("diceExplode")}>
+                {t("nodeShortName.diceExplode")}
               </li>
               <li className="sidebar-item" onClick={() => addNewNode("diceLogical")}>
                 {t("nodeShortName.diceLogical")}

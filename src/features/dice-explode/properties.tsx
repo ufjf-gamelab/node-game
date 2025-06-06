@@ -3,9 +3,9 @@ import { useDebounce } from "react-use";
 import { useReactFlow } from "@xyflow/react";
 import { NumberInput } from "@mantine/core";
 import { BaseNodeProperties } from "@/components/ui/base-node-properties";
-import { IDiceExplodeGeneratorNode } from "@/config/types";
+import { IDiceExplodeNode } from "@/config/types";
 
-export const DiceExplodeGeneratorProperties: React.FunctionComponent<{ node: IDiceExplodeGeneratorNode }> = ({ node }) => {
+export const DiceExplodeProperties: React.FunctionComponent<{ node: IDiceExplodeNode }> = ({ node }) => {
   const flow = useReactFlow();
   const [explodeFace, setExplodeFace] = React.useState(node.data.explodeFace);
 

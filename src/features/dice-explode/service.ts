@@ -1,15 +1,15 @@
 import { i18n } from "@/config/i18n";
-import { IDiceExplodeGeneratorNode, IDiceGeneratorNode, INodeService } from "@/config/types";
+import { IDiceExplodeNode, IDiceGeneratorNode, INodeService } from "@/config/types";
 import { NodeManager } from "@/utils/node-manager";
 
-export const DiceExplodeGeneratorService: INodeService<IDiceExplodeGeneratorNode> = {
+export const DiceExplodeService: INodeService<IDiceExplodeNode> = {
   new(_flow, { id, position }) {
     return {
       id,
       position,
-      type: "diceExplodeGenerator",
+      type: "diceExplode",
       data: {
-        name: i18n.t("nodeShortName.diceExplodeGenerator"),
+        name: i18n.t("nodeShortName.diceExplode"),
         status: "IDLE",
         explodeFace: 1,
       },

@@ -7,7 +7,7 @@ import { DicePoolSum } from "@/features/dice-pool-sum";
 import { DiceSuccess } from "@/features/dice-success";
 import { DiceBetweenInterval } from "@/features/dice-between-interval";
 import { DiceCountRepetition } from "@/features/dice-count-repetition";
-import { DiceExplodeGenerator } from "@/features/dice-explode-generator";
+import { DiceExplode } from "@/features/dice-explode";
 import { BagGenerator } from "@/features/bag-generator";
 import { BagPullWithoutRepetition } from "@/features/bag-pull-without-repetition";
 import { SymbolicGenerator } from "@/features/symbolic-generator";
@@ -26,7 +26,7 @@ const NODE_MODULES = {
   diceSuccess: DiceSuccess,
   diceBetweenInterval: DiceBetweenInterval,
   diceCountRepetition: DiceCountRepetition,
-  diceExplodeGenerator: DiceExplodeGenerator,
+  diceExplode: DiceExplode,
   bagGenerator: BagGenerator,
   bagPullWithoutRepetition: BagPullWithoutRepetition,
   symbolicGenerator: SymbolicGenerator,

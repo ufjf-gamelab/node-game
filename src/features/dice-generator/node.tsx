@@ -24,7 +24,7 @@ export const DiceGeneratorNode: React.ComponentType<IProps> = ({ data, selected,
       "diceAbsolute",
       "valueIsEven",
       "valueIsOdd",
-      "diceExplodeGenerator",
+      "diceExplode",
     ];
     return allowedTypes.includes(targetNode.type);
   }
