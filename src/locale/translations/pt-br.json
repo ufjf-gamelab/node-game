@@ -98,7 +98,7 @@
     "valueIsOdd": "Dado É Impar",
     "bagGenerator": "Bolsa Gerador",
     "bagPullWithoutRepetition": "Sacar Bolsa Sem Repetição",
-    "symbolicGenerator": "Simbólico Gerador",
+    "symbolicGenerator": "Gerador Simbólico",
     "symbolicPool": "Pool Simbólica"
   },
   "nodeStatus": {
