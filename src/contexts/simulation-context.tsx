@@ -1,8 +1,8 @@
 import React from "react";
 import { useReactFlow } from "@xyflow/react";
-import { NodeManager } from "@/utils/node-manager";
 import { waitAsync } from "@/utils/waitAsync";
 import { IChart, IEdge, IHistogramNode, INode } from "@/config/types";
+import { runIterative } from "@/utils/runNodes";
 
 interface UIStateContextProps {
   loading: boolean;
@@ -33,10 +33,10 @@ export const SimulationProvider: React.ComponentType<UIStateProviderProps> = ({ 
 
     histogramsNode.forEach((histogram) => {
       try {
-        const chartData = NodeManager.run(histogram, flow);
+        const chartData = runIterative(flow, histogram);
         newCharts.push({ id: "chart_" + histogram.id, name: histogram.data.name, data: chartData });
       } catch (error) {
-        alert("Error building chart!");
+        alert("Error building chart! " + error?.message);
         console.error("Error building chart", error);
         setLoading(false);
       }

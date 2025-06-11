@@ -2,16 +2,19 @@ import React from "react";
 import { Handle, NodeProps, Position, useReactFlow } from "@xyflow/react";
 import { GiPerspectiveDiceSixFacesOne } from "react-icons/gi";
 import { BiMath } from "react-icons/bi";
-import { IDiceMathNode, INode, INodeType } from "@/config/types";
+import { connectionHasLoop } from "@/utils/connectionHasLoop";
 import { BaseNode } from "@/components/ui/base-node";
+import { IDiceMathNode, IEdge, INode, INodeType } from "@/config/types";
 
 type IProps = NodeProps<IDiceMathNode>;
 
 export const DiceMathNode: React.ComponentType<IProps> = ({ data, selected, isConnectable, id }: IProps) => {
-  const flow = useReactFlow();
+  const flow = useReactFlow<INode, IEdge>();
 
   function isValidConnection(targetId: string) {
-    const targetNode = flow.getNode(targetId) as INode | undefined;
+    if (targetId === id) return false;
+
+    const targetNode = flow.getNode(targetId);
     if (!targetNode) return false;
 
     const allowedTypes: INodeType[] = [
@@ -26,8 +29,12 @@ export const DiceMathNode: React.ComponentType<IProps> = ({ data, selected, isCo
       "valueIsOdd",
       "diceAbsolute",
     ];
+    if (!allowedTypes.includes(targetNode.type)) return false;
 
-    return allowedTypes.includes(targetNode.type);
+    const hasLoop = connectionHasLoop(flow, id, targetId);
+    if (hasLoop) return false;
+
+    return true;
   }
 
   return (
@@ -43,14 +50,29 @@ export const DiceMathNode: React.ComponentType<IProps> = ({ data, selected, isCo
         </>
       }>
       <Handle
+        type="target"
+        position={Position.Left}
+        id={"math-target-1-" + id}
+        className="top-6"
+        isConnectable={isConnectable}
+        isConnectableStart={false}
+      />
+      <Handle
+        type="target"
+        position={Position.Left}
+        id={"math-target-2-" + id}
+        className="top-16"
+        isConnectable={isConnectable}
+        isConnectableStart={false}
+      />
+
+      <Handle
         type="source"
         id={"math-source-" + id}
         position={Position.Right}
         isConnectable={isConnectable}
         isValidConnection={(connection) => isValidConnection(connection.target)}
       />
-      <Handle type="target" position={Position.Left} id={"math-target-1-" + id} className="top-6" isConnectable={isConnectable} />
-      <Handle type="target" position={Position.Left} id={"math-target-2-" + id} className="top-16" isConnectable={isConnectable} />
     </BaseNode>
   );
 };

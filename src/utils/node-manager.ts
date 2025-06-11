@@ -56,6 +56,12 @@ export const NodeManager = {
     return service.run(flow, node as any) as INodeState<N>;
   },
 
+  runIterative<N extends INode>(node: N, inputs: { node: INode; state: INodeState }[]): INodeState<N> {
+    const service = NODE_MODULES[node.type].service;
+    if (!service) throw new Error(`Node type ${node.type} not registered`);
+    return service.run(node as any, inputs) as INodeState<N>;
+  },
+
   getProperties(node: INode) {
     return NODE_MODULES[node.type].properties;
   },
