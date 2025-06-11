@@ -1,5 +1,3 @@
-# Documentação Matemático
-
 **Matemático** é um **nó do tipo modificador** utilizado para realizar operações matemáticas entre dois conjuntos de dados numéricos. As operações disponíveis incluem adição, subtração, multiplicação e divisões com arredondamento para baixo (piso) ou para cima (teto). É útil para representar modificadores, bônus, penalidades ou cálculos entre resultados distintos em jogos.
 
 - **Tipo:** Modificador (nó intermediário)

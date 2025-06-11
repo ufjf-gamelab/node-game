@@ -61,7 +61,8 @@
     "divide (floor)": "Divisão (piso)",
     "divide (ceil)": "Divisão (teto)",
     "facePlaceholder": "Nome da face",
-    "removeFace": "Remover face"
+    "removeFace": "Remover face",
+    "value": "Valor"
   },
   "nodeShortName": {
     "diceGenerator": "Dado",
@@ -80,7 +81,8 @@
     "bagGenerator": "Bolsa",
     "bagPullWithoutRepetition": "Sacar Sem Repetição",
     "symbolicGenerator": "Simbólico",
-    "symbolicPool": "Pool Simbólica"
+    "symbolicPool": "Pool Simbólica",
+    "integerValue": "Inteiro"
   },
   "nodeFullName": {
     "diceGenerator": "Gerador de Dado",
@@ -99,7 +101,8 @@
     "bagGenerator": "Bolsa Gerador",
     "bagPullWithoutRepetition": "Sacar Bolsa Sem Repetição",
     "symbolicGenerator": "Gerador Simbólico",
-    "symbolicPool": "Pool Simbólica"
+    "symbolicPool": "Pool Simbólica",
+    "integerValue": "Valor Inteiro"
   },
   "nodeStatus": {
     "FINISHED": "Finalizado",

@@ -73,6 +73,9 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
               <li className="sidebar-item" onClick={() => addNewNode("valueIsOdd")}>
                 {t("nodeShortName.valueIsOdd")}
               </li>
+              <li className="sidebar-item" onClick={() => addNewNode("integerValue")}>
+                {t("nodeShortName.integerValue")}
+              </li>
             </ul>
           </Accordion.Panel>
         </Accordion.Item>

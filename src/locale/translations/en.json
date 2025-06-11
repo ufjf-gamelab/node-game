@@ -61,7 +61,8 @@
     "divide (floor)": "Divide (floor)",
     "divide (ceil)": "Divide (ceil)",
     "facePlaceholder": "Face name",
-    "removeFace": "Remove face"
+    "removeFace": "Remove face",
+    "value": "Value"
   },
   "nodeShortName": {
     "diceGenerator": "Dice",
@@ -80,7 +81,8 @@
     "bagGenerator": "Bag",
     "bagPullWithoutRepetition": "Pull Without Repetition",
     "symbolicGenerator": "Symbolic",
-    "symbolicPool": "Symbolic Pool"
+    "symbolicPool": "Symbolic Pool",
+    "integerValue": "Integer"
   },
   "nodeFullName": {
     "diceGenerator": "Dice Generator",
@@ -99,7 +101,8 @@
     "bagGenerator": "Bag Generator",
     "bagPullWithoutRepetition": "Pull Bag Without Repetition",
     "symbolicGenerator": "Symbolic Generator",
-    "symbolicPool": "Symbolic Pool"
+    "symbolicPool": "Symbolic Pool",
+    "integerValue": "Integer Value"
   },
   "nodeStatus": {
     "FINISHED": "Finished",
