@@ -1,9 +1,10 @@
 import React from "react";
-import { Handle, NodeProps, Position, useReactFlow } from "@xyflow/react";
+import { NodeProps, Position, useReactFlow } from "@xyflow/react";
 import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
 import { INode, INodeType, ISymbolicGeneratorNode } from "@/config/types";
 import { VscSymbolString } from "react-icons/vsc";
 import { BaseNode } from "@/components/ui/base-node";
+import { NodeHandle } from "@/components/ui/node-handle";
 
 type IProps = NodeProps<ISymbolicGeneratorNode>;
 
@@ -30,12 +31,13 @@ export const SymbolicGeneratorNode: React.ComponentType<IProps> = ({ data, isCon
           <VscSymbolString className="text-3xl -ml-1" />
         </>
       }>
-      <Handle
-        type="source"
+      <NodeHandle
         id={"symbolic-gen-source-" + id}
+        type="source"
+        dataType="symbolic"
         position={Position.Right}
         isConnectable={isConnectable}
-        isValidConnection={(connection) => isValidConnection(connection.target)}
+        isValidConnection={isValidConnection}
       />
     </BaseNode>
   );

@@ -1,8 +1,9 @@
 import React from "react";
-import { Handle, NodeProps, Position, useReactFlow } from "@xyflow/react";
+import { NodeProps, Position, useReactFlow } from "@xyflow/react";
 import { GiRollingDiceCup } from "react-icons/gi";
 import { IBagPullWithoutRepetitionNode, INode, INodeType } from "@/config/types";
 import { BaseNode } from "@/components/ui/base-node";
+import { NodeHandle } from "@/components/ui/node-handle";
 
 type IProps = NodeProps<IBagPullWithoutRepetitionNode>;
 
@@ -19,14 +20,15 @@ export const BagPullWithoutRepetitionNode: React.ComponentType<IProps> = ({ data
 
   return (
     <BaseNode selected={selected} name={data.name} status={data.status} icon={<GiRollingDiceCup />}>
-      <Handle
+      <NodeHandle type="target" dataType="symbolic" id={"pull-target-" + id} position={Position.Left} isConnectable={isConnectable} />
+      <NodeHandle
         type="source"
+        dataType="symbolic"
         id={"pull-source-" + id}
         position={Position.Right}
         isConnectable={isConnectable}
-        isValidConnection={(connection) => isValidConnection(connection.target)}
+        isValidConnection={isValidConnection}
       />
-      <Handle type="target" id={"pull-target-" + id} position={Position.Left} isConnectable={isConnectable} />
     </BaseNode>
   );
 };

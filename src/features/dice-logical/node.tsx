@@ -1,8 +1,9 @@
 import React from "react";
-import { Handle, NodeProps, Position, useReactFlow } from "@xyflow/react";
+import { NodeProps, Position, useReactFlow } from "@xyflow/react";
 import { GiGearStickPattern, GiPerspectiveDiceSixFacesOne } from "react-icons/gi";
 import { IDiceLogicalNode, INode, INodeType } from "@/config/types";
 import { BaseNode } from "@/components/ui/base-node";
+import { NodeHandle } from "@/components/ui/node-handle";
 
 type IProps = NodeProps<IDiceLogicalNode>;
 
@@ -30,15 +31,31 @@ export const DiceLogicalNode: React.ComponentType<IProps> = ({ data, selected, i
           <GiGearStickPattern className="text-2xl -ml-1" />
         </>
       }>
-      <Handle
-        type="source"
+      <NodeHandle
+        id={"logical-target-1-" + id}
+        type="target"
+        dataType="numeric"
+        className="top-6"
+        position={Position.Left}
+        isConnectable={isConnectable}
+      />
+      <NodeHandle
+        id={"logical-target-2-" + id}
+        type="target"
+        dataType="numeric"
+        className="top-16"
+        position={Position.Left}
+        isConnectable={isConnectable}
+      />
+
+      <NodeHandle
         id={"logical-source-" + id}
+        type="source"
+        dataType="boolean"
         position={Position.Right}
         isConnectable={isConnectable}
-        isValidConnection={(connection) => isValidConnection(connection.target)}
+        isValidConnection={isValidConnection}
       />
-      <Handle type="target" position={Position.Left} id={"logical-target-1-" + id} className="top-6" isConnectable={isConnectable} />
-      <Handle type="target" position={Position.Left} id={"logical-target-2-" + id} className="top-16" isConnectable={isConnectable} />
     </BaseNode>
   );
 };

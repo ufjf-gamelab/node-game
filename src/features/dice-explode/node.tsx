@@ -1,9 +1,10 @@
 import React from "react";
-import { Handle, Position, NodeProps, useReactFlow } from "@xyflow/react";
+import { Position, NodeProps, useReactFlow } from "@xyflow/react";
 import { GiDiceTarget, GiRollingDiceCup } from "react-icons/gi";
 import { TiArrowLoop } from "react-icons/ti";
 import { IDiceCountRepetitionNode, INode, INodeType } from "@/config/types";
 import { BaseNode } from "@/components/ui/base-node";
+import { NodeHandle } from "@/components/ui/node-handle";
 
 type IProps = NodeProps<IDiceCountRepetitionNode>;
 
@@ -42,14 +43,15 @@ export const DiceExplodeNode: React.ComponentType<IProps> = ({ data, selected, i
           </div>
         </>
       }>
-      <Handle
-        type="source"
+      <NodeHandle id={"explode-target-" + id} type="target" dataType="numeric" position={Position.Left} isConnectable={isConnectable} />
+      <NodeHandle
         id={"explode-source-" + id}
+        type="source"
+        dataType="numeric"
         position={Position.Right}
         isConnectable={isConnectable}
-        isValidConnection={(connection) => isValidConnection(connection.target)}
+        isValidConnection={isValidConnection}
       />
-      <Handle type="target" id={"explode-target-" + id} position={Position.Left} isConnectable={isConnectable} />
     </BaseNode>
   );
 };

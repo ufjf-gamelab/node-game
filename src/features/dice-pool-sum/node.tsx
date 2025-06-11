@@ -1,9 +1,10 @@
 import React from "react";
 import { GiRollingDices } from "react-icons/gi";
 import { TbSum } from "react-icons/tb";
-import { Handle, NodeProps, Position, useReactFlow } from "@xyflow/react";
+import { NodeProps, Position, useReactFlow } from "@xyflow/react";
 import { IDicePoolSumNode, INode, INodeType } from "@/config/types";
 import { BaseNode } from "@/components/ui/base-node";
+import { NodeHandle } from "@/components/ui/node-handle";
 
 type IProps = NodeProps<IDicePoolSumNode>;
 
@@ -38,14 +39,15 @@ export const DicePoolSumNode: React.ComponentType<IProps> = ({ data, isConnectab
           <GiRollingDices className="text-3xl -ml-2" />
         </>
       }>
-      <Handle
-        type="source"
+      <NodeHandle id={"pool-sum-target-" + id} type="target" dataType="numeric" position={Position.Left} isConnectable={isConnectable} />
+      <NodeHandle
         id={"pool-sum-source-" + id}
+        type="source"
+        dataType="numeric"
         position={Position.Right}
         isConnectable={isConnectable}
-        isValidConnection={(connection) => isValidConnection(connection.target)}
+        isValidConnection={isValidConnection}
       />
-      <Handle type="target" id={"pool-sum-target-" + id} position={Position.Left} isConnectable={isConnectable} />{" "}
     </BaseNode>
   );
 };

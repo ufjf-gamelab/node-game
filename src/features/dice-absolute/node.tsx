@@ -1,8 +1,9 @@
 import React from "react";
-import { Handle, Position, NodeProps, useReactFlow } from "@xyflow/react";
+import { Position, NodeProps, useReactFlow } from "@xyflow/react";
 import { GiPerspectiveDiceSixFacesOne } from "react-icons/gi";
 import { IDiceBetweenIntervalNode, INode, INodeType } from "@/config/types";
 import { BaseNode } from "@/components/ui/base-node";
+import { NodeHandle } from "@/components/ui/node-handle";
 
 type IProps = NodeProps<IDiceBetweenIntervalNode>;
 
@@ -29,14 +30,15 @@ export const DiceAbsoluteNode: React.ComponentType<IProps> = ({ data, selected, 
           <span className="text-2xl font-semibold">|</span>
         </>
       }>
-      <Handle
-        type="source"
+      <NodeHandle id={"absolute-target-" + id} type="target" dataType="numeric" position={Position.Left} isConnectable={isConnectable} />
+      <NodeHandle
         id={"absolute-source-" + id}
+        type="source"
+        dataType="numeric"
         position={Position.Right}
         isConnectable={isConnectable}
-        isValidConnection={(connection) => isValidConnection(connection.target)}
+        isValidConnection={isValidConnection}
       />
-      <Handle type="target" id={"absolute-target-" + id} position={Position.Left} isConnectable={isConnectable} />
     </BaseNode>
   );
 };

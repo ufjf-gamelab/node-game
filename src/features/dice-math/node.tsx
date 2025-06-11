@@ -1,9 +1,10 @@
 import React from "react";
-import { Handle, NodeProps, Position, useReactFlow } from "@xyflow/react";
+import { NodeProps, Position, useReactFlow } from "@xyflow/react";
 import { GiPerspectiveDiceSixFacesOne } from "react-icons/gi";
 import { BiMath } from "react-icons/bi";
 import { IDiceMathNode, INode, INodeType } from "@/config/types";
 import { BaseNode } from "@/components/ui/base-node";
+import { NodeHandle } from "@/components/ui/node-handle";
 
 type IProps = NodeProps<IDiceMathNode>;
 
@@ -42,15 +43,31 @@ export const DiceMathNode: React.ComponentType<IProps> = ({ data, selected, isCo
           <BiMath className="text-2xl -ml-1" />
         </>
       }>
-      <Handle
-        type="source"
+      <NodeHandle
+        id={"math-target-1-" + id}
+        type="target"
+        dataType="numeric"
+        position={Position.Left}
+        className="top-6"
+        isConnectable={isConnectable}
+      />
+      <NodeHandle
+        id={"math-target-2-" + id}
+        type="target"
+        dataType="numeric"
+        position={Position.Left}
+        className="top-16"
+        isConnectable={isConnectable}
+      />
+
+      <NodeHandle
         id={"math-source-" + id}
+        type="source"
+        dataType="numeric"
         position={Position.Right}
         isConnectable={isConnectable}
-        isValidConnection={(connection) => isValidConnection(connection.target)}
+        isValidConnection={isValidConnection}
       />
-      <Handle type="target" position={Position.Left} id={"math-target-1-" + id} className="top-6" isConnectable={isConnectable} />
-      <Handle type="target" position={Position.Left} id={"math-target-2-" + id} className="top-16" isConnectable={isConnectable} />
     </BaseNode>
   );
 };

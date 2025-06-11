@@ -110,5 +110,15 @@
     "ERROR": "Erro",
     "LOADING": "Carregando",
     "MISSING_DATA": "Faltando dados"
+  },
+  "nodeHandleTooltip": {
+    "source": "Qualquer tipo de saída",
+    "target": "Qualquer tipo de entrada",
+    "source.numeric": "Saída numérica",
+    "source.boolean": "Saída binaria (verdadeiro/falso)",
+    "source.symbolic": "Saída simbólica",
+    "target.numeric": "Entrada numérica",
+    "target.boolean": "Entrada binaria (verdadeiro/falso)",
+    "target.symbolic": "Entrada simbólica"
   }
 }

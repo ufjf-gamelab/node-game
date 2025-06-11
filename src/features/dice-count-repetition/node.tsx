@@ -1,9 +1,10 @@
 import React from "react";
-import { Handle, Position, NodeProps, useReactFlow } from "@xyflow/react";
+import { Position, NodeProps, useReactFlow } from "@xyflow/react";
 import { IDiceCountRepetitionNode, INode, INodeType } from "@/config/types";
 import { GiDiceTarget } from "react-icons/gi";
 import { AiOutlineFieldNumber } from "react-icons/ai";
 import { BaseNode } from "@/components/ui/base-node";
+import { NodeHandle } from "@/components/ui/node-handle";
 
 type IProps = NodeProps<IDiceCountRepetitionNode>;
 
@@ -29,14 +30,15 @@ export const DiceCountRepetitionNode: React.ComponentType<IProps> = ({ data, sel
           <GiDiceTarget />
         </>
       }>
-      <Handle
-        type="source"
+      <NodeHandle id={"count-target-" + id} type="target" dataType="numeric" position={Position.Left} isConnectable={isConnectable} />
+      <NodeHandle
         id={"count-source-" + id}
+        type="source"
+        dataType="numeric"
         position={Position.Right}
         isConnectable={isConnectable}
-        isValidConnection={(connection) => isValidConnection(connection.target)}
+        isValidConnection={isValidConnection}
       />
-      <Handle type="target" id={"count-target-" + id} position={Position.Left} isConnectable={isConnectable} />
     </BaseNode>
   );
 };

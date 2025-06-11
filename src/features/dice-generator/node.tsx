@@ -1,8 +1,9 @@
 import React from "react";
-import { Handle, Position, NodeProps, useReactFlow } from "@xyflow/react";
+import { Position, NodeProps, useReactFlow } from "@xyflow/react";
 import { GiPerspectiveDiceSixFacesOne } from "react-icons/gi";
 import { IDiceGeneratorNode, INode, INodeType } from "@/config/types";
 import { BaseNode } from "@/components/ui/base-node";
+import { NodeHandle } from "@/components/ui/node-handle";
 
 type IProps = NodeProps<IDiceGeneratorNode>;
 
@@ -36,12 +37,13 @@ export const DiceGeneratorNode: React.ComponentType<IProps> = ({ data, selected,
       status={data.status}
       label={data.min + "-" + data.max}
       icon={<GiPerspectiveDiceSixFacesOne className="text-5xl" />}>
-      <Handle
+      <NodeHandle
         type="source"
+        dataType="numeric"
         id={"dice-gen-source-" + id}
         position={Position.Right}
         isConnectable={isConnectable}
-        isValidConnection={(connection) => isValidConnection(connection.target)}
+        isValidConnection={isValidConnection}
       />
     </BaseNode>
   );

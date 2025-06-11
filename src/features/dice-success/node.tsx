@@ -1,9 +1,10 @@
 import React from "react";
-import { Handle, Position, NodeProps, useReactFlow } from "@xyflow/react";
+import { Position, NodeProps, useReactFlow } from "@xyflow/react";
 import { IHistogramNode, INode, INodeType } from "@/config/types";
 import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
 import { BsChevronBarUp, BsFillQuestionSquareFill } from "react-icons/bs";
 import { BaseNode } from "@/components/ui/base-node";
+import { NodeHandle } from "@/components/ui/node-handle";
 
 type IProps = NodeProps<IHistogramNode>;
 
@@ -32,14 +33,15 @@ export const DiceSuccessNode: React.ComponentType<IProps> = ({ data, selected, i
           </div>
         </>
       }>
-      <Handle
-        type="source"
+      <NodeHandle id={"success-target-" + id} type="target" dataType="numeric" position={Position.Left} isConnectable={isConnectable} />
+      <NodeHandle
         id={"success-source-" + id}
+        type="source"
+        dataType="boolean"
         position={Position.Right}
         isConnectable={isConnectable}
-        isValidConnection={(connection) => isValidConnection(connection.target)}
+        isValidConnection={isValidConnection}
       />
-      <Handle type="target" id={"success-target-" + id} position={Position.Left} isConnectable={isConnectable} />
     </BaseNode>
   );
 };

@@ -1,9 +1,10 @@
 import React from "react";
-import { Handle, Position, NodeProps, useReactFlow } from "@xyflow/react";
+import { Position, NodeProps, useReactFlow } from "@xyflow/react";
 import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
 import { AiOutlineVerticalAlignMiddle } from "react-icons/ai";
 import { IDiceBetweenIntervalNode, INode, INodeType } from "@/config/types";
 import { BaseNode } from "@/components/ui/base-node";
+import { NodeHandle } from "@/components/ui/node-handle";
 
 type IProps = NodeProps<IDiceBetweenIntervalNode>;
 
@@ -29,14 +30,15 @@ export const DiceBetweenIntervalNode: React.ComponentType<IProps> = ({ data, sel
           <AiOutlineVerticalAlignMiddle className="text-2xl" />
         </>
       }>
-      <Handle
-        type="source"
+      <NodeHandle id={"between-target-" + id} type="target" dataType="numeric" position={Position.Left} isConnectable={isConnectable} />
+      <NodeHandle
         id={"between-source-" + id}
+        type="source"
+        dataType="boolean"
         position={Position.Right}
         isConnectable={isConnectable}
-        isValidConnection={(connection) => isValidConnection(connection.target)}
+        isValidConnection={isValidConnection}
       />
-      <Handle type="target" id={"between-target-" + id} position={Position.Left} isConnectable={isConnectable} />
     </BaseNode>
   );
 };

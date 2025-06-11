@@ -1,9 +1,10 @@
 import React from "react";
-import { NodeProps, Position, Handle, useReactFlow } from "@xyflow/react";
+import { NodeProps, Position, useReactFlow } from "@xyflow/react";
 import { GiRollingDices } from "react-icons/gi";
 import { VscSymbolString } from "react-icons/vsc";
 import { IDicePoolNode, INode, INodeType } from "@/config/types";
 import { BaseNode } from "@/components/ui/base-node";
+import { NodeHandle } from "@/components/ui/node-handle";
 
 type IProps = NodeProps<IDicePoolNode>;
 
@@ -29,15 +30,30 @@ export const SymbolicPoolNode: React.ComponentType<IProps> = ({ data, isConnecta
           <VscSymbolString className="text-2xl" />
         </>
       }>
-      <Handle
-        type="source"
+      <NodeHandle
+        id={"symbolic-pool-target-1-" + id}
+        type="target"
+        dataType="symbolic"
+        position={Position.Left}
+        isConnectable={isConnectable}
+        className="top-8"
+      />
+      <NodeHandle
+        id={"symbolic-pool-target-2-" + id}
+        type="target"
+        dataType="symbolic"
+        position={Position.Left}
+        isConnectable={isConnectable}
+        className="top-16"
+      />
+
+      <NodeHandle
         id={"symbolic-pool-source-" + id}
+        type="source"
         position={Position.Right}
         isConnectable={isConnectable}
-        isValidConnection={(connection) => isValidConnection(connection.target)}
+        isValidConnection={isValidConnection}
       />
-      <Handle type="target" id={"symbolic-pool-target-1-" + id} position={Position.Left} isConnectable={isConnectable} className="top-8" />
-      <Handle type="target" id={"symbolic-pool-target-2-" + id} position={Position.Left} isConnectable={isConnectable} className="top-16" />
     </BaseNode>
   );
 };

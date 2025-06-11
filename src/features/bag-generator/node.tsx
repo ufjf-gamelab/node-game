@@ -1,8 +1,9 @@
 import React from "react";
-import { Handle, NodeProps, Position, useReactFlow } from "@xyflow/react";
+import { NodeProps, Position, useReactFlow } from "@xyflow/react";
 import { GiGlassBall, GiSwapBag } from "react-icons/gi";
 import { IBagGeneratorNode, INode, INodeType } from "@/config/types";
 import { BaseNode } from "@/components/ui/base-node";
+import { NodeHandle } from "@/components/ui/node-handle";
 
 type IProps = NodeProps<IBagGeneratorNode>;
 
@@ -29,12 +30,13 @@ export const BagGeneratorNode: React.ComponentType<IProps> = ({ data, isConnecta
           <GiGlassBall className="text-lg -ml-2" />
         </>
       }>
-      <Handle
+      <NodeHandle
         type="source"
+        dataType="symbolic"
         id={"bag-source-" + id}
         position={Position.Right}
         isConnectable={isConnectable}
-        isValidConnection={(connection) => isValidConnection(connection.target)}
+        isValidConnection={isValidConnection}
       />
     </BaseNode>
   );

@@ -43,11 +43,12 @@ export const HistogramService: INodeService<IHistogramNode> = {
         return accumulator;
       }, [] as IChartData);
 
-      const nodesTypeWithPercentage: INodeType[] = ["diceCountRepetition"];
-      if (nodesTypeWithPercentage.includes(sourceNode.type)) {
+      if (sourceNode.type === "diceCountRepetition") {
         resultState.forEach((item) => {
           const percentage = ((item.value / sourceState.length) * 100).toFixed(2);
-          item.label = `${item.label} (${percentage}%)`;
+
+          if (item.label === 1) item.label = `Equal to ${sourceNode.data.face} (${percentage}%)`;
+          else item.label = `Not equal (${percentage}%)`;
         });
       }
 
