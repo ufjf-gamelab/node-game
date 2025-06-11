@@ -2,11 +2,11 @@ import React from "react";
 import { Position, NodeProps, useReactFlow } from "@xyflow/react";
 import { GiDiceTarget, GiRollingDiceCup } from "react-icons/gi";
 import { TiArrowLoop } from "react-icons/ti";
-import { IDiceCountRepetitionNode, INode, INodeType } from "@/config/types";
+import { IDiceExplodeNode, INode, INodeType } from "@/config/types";
 import { BaseNode } from "@/components/ui/base-node";
 import { NodeHandle } from "@/components/ui/node-handle";
 
-type IProps = NodeProps<IDiceCountRepetitionNode>;
+type IProps = NodeProps<IDiceExplodeNode>;
 
 export const DiceExplodeNode: React.ComponentType<IProps> = ({ data, selected, isConnectable, id }) => {
   const flow = useReactFlow();
@@ -34,6 +34,7 @@ export const DiceExplodeNode: React.ComponentType<IProps> = ({ data, selected, i
       selected={selected}
       name={data.name}
       status={data.status}
+      label={data.explodeFace}
       icon={
         <>
           <GiDiceTarget />

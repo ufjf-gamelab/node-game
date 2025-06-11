@@ -1,9 +1,10 @@
 import { FunctionComponent } from "react";
 import { Accordion, ActionIcon, Select, Tooltip } from "@mantine/core";
-import { GiPerspectiveDiceOne, GiPerspectiveDiceSixFacesRandom, GiSwapBag, GiHistogram } from "react-icons/gi";
+import { GiPerspectiveDiceOne, GiPerspectiveDiceSixFacesRandom, GiSwapBag } from "react-icons/gi";
+import { IoBarChartSharp } from "react-icons/io5";
 import { VscTrash } from "react-icons/vsc";
 
-import { INode, INodeType } from "@/config/types";
+import { INodeType } from "@/config/types";
 import { useReactFlow } from "@xyflow/react";
 import { useTranslation } from "react-i18next";
 import { BiWorld } from "react-icons/bi";
@@ -113,7 +114,7 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
         <Accordion.Item value="output">
           <Accordion.Control className="px-4 hover:bg-slate-100">
             <div className="flex gap-4 items-center justify-start">
-              <GiHistogram className="text-[22px]" />
+              <IoBarChartSharp className="text-[22px]" />
               <span>{t("common.output")}</span>
             </div>
           </Accordion.Control>

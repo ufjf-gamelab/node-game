@@ -24,6 +24,7 @@ export const DiceCountRepetitionNode: React.ComponentType<IProps> = ({ data, sel
       selected={selected}
       name={data.name}
       status={data.status}
+      label={data.face}
       icon={
         <>
           <AiOutlineFieldNumber className="text-xl" />

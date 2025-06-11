@@ -24,6 +24,7 @@ export const DiceBetweenIntervalNode: React.ComponentType<IProps> = ({ data, sel
       selected={selected}
       name={data.name}
       status={data.status}
+      label={"[" + data.min + " , " + data.max + "]"}
       icon={
         <>
           <GiPerspectiveDiceSixFacesRandom className="text-5xl" />

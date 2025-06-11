@@ -1,12 +1,12 @@
 import React from "react";
 import { Position, NodeProps, useReactFlow } from "@xyflow/react";
-import { IHistogramNode, INode, INodeType } from "@/config/types";
+import { IDiceSuccessNode, INode, INodeType } from "@/config/types";
 import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
 import { BsChevronBarUp, BsFillQuestionSquareFill } from "react-icons/bs";
 import { BaseNode } from "@/components/ui/base-node";
 import { NodeHandle } from "@/components/ui/node-handle";
 
-type IProps = NodeProps<IHistogramNode>;
+type IProps = NodeProps<IDiceSuccessNode>;
 
 export const DiceSuccessNode: React.ComponentType<IProps> = ({ data, selected, isConnectable, id }) => {
   const flow = useReactFlow();
@@ -24,6 +24,7 @@ export const DiceSuccessNode: React.ComponentType<IProps> = ({ data, selected, i
       selected={selected}
       name={data.name}
       status={data.status}
+      label={data.face}
       icon={
         <>
           <GiPerspectiveDiceSixFacesRandom />
