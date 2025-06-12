@@ -1,13 +1,13 @@
 import React from "react";
 import { NodeProps, Position, useReactFlow } from "@xyflow/react";
 import { GiGearStickPattern, GiPerspectiveDiceSixFacesOne } from "react-icons/gi";
-import { IDiceLogicalNode, INode, INodeType } from "@/config/types";
+import { IOrLogicalNode, INode, INodeType } from "@/config/types";
 import { BaseNode } from "@/components/ui/base-node";
 import { NodeHandle } from "@/components/ui/node-handle";
 
-type IProps = NodeProps<IDiceLogicalNode>;
+type IProps = NodeProps<IOrLogicalNode>;
 
-export const DiceLogicalNode: React.ComponentType<IProps> = ({ data, selected, isConnectable, id }: IProps) => {
+export const OrLogicalNode: React.ComponentType<IProps> = ({ data, selected, isConnectable, id }: IProps) => {
   const flow = useReactFlow();
 
   function isValidConnection(targetId: string) {
@@ -23,32 +23,34 @@ export const DiceLogicalNode: React.ComponentType<IProps> = ({ data, selected, i
       selected={selected}
       name={data.name}
       status={data.status}
-      label={data.operation}
       icon={
         <>
           <GiPerspectiveDiceSixFacesOne className="text-5xl" />
-          <GiGearStickPattern className="text-2xl -ml-1" />
+          <div className="flex flex-col items-center justify-center text-center -ml-1">
+            <GiGearStickPattern className="text-xl " />
+            <span className="text-base">&or;</span>
+          </div>
         </>
       }>
       <NodeHandle
-        id={"logical-target-1-" + id}
+        id={"or-target-1-" + id}
         type="target"
-        dataType="numeric"
+        dataType="boolean"
         className="top-6"
         position={Position.Left}
         isConnectable={isConnectable}
       />
       <NodeHandle
-        id={"logical-target-2-" + id}
+        id={"or-target-2-" + id}
         type="target"
-        dataType="numeric"
+        dataType="boolean"
         className="top-16"
         position={Position.Left}
         isConnectable={isConnectable}
       />
 
       <NodeHandle
-        id={"logical-source-" + id}
+        id={"or-source-" + id}
         type="source"
         dataType="boolean"
         position={Position.Right}

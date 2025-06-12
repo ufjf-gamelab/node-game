@@ -75,14 +75,16 @@
     "diceExplode": "Explosão",
     "diceMath": "Matemático",
     "diceAbsolute": "Absoluto",
-    "diceLogical": "Lógico",
+    "diceLogical": "Comparação Lógica",
     "valueIsEven": "É Par",
     "valueIsOdd": "É Impar",
     "bagGenerator": "Bolsa",
     "bagPullWithoutRepetition": "Sacar Sem Repetição",
     "symbolicGenerator": "Simbólico",
     "symbolicPool": "Pool Simbólica",
-    "integerValue": "Inteiro"
+    "integerValue": "Inteiro",
+    "andLogical": "AND",
+    "orLogical": "OR"
   },
   "nodeFullName": {
     "diceGenerator": "Gerador de Dado",
@@ -95,14 +97,16 @@
     "diceExplode": "Explosão de Dado",
     "diceMath": "Matemático",
     "diceAbsolute": "Dado Absoluto",
-    "diceLogical": "Dado Lógico",
+    "diceLogical": "Comparação Lógica de Dado",
     "valueIsEven": "Dado É Par",
     "valueIsOdd": "Dado É Impar",
     "bagGenerator": "Bolsa Gerador",
     "bagPullWithoutRepetition": "Sacar Bolsa Sem Repetição",
     "symbolicGenerator": "Gerador Simbólico",
     "symbolicPool": "Pool Simbólica",
-    "integerValue": "Valor Inteiro"
+    "integerValue": "Valor Inteiro",
+    "andLogical": "AND Lógico",
+    "orLogical": "OR Lógico"
   },
   "nodeStatus": {
     "FINISHED": "Finalizado",

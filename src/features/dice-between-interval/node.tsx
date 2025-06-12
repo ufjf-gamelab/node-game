@@ -15,7 +15,7 @@ export const DiceBetweenIntervalNode: React.ComponentType<IProps> = ({ data, sel
     const targetNode = flow.getNode(targetId) as INode | undefined;
     if (!targetNode) return false;
 
-    const allowedTypes: INodeType[] = ["histogram"];
+    const allowedTypes: INodeType[] = ["histogram", "andLogical", "orLogical"];
     return allowedTypes.includes(targetNode.type);
   }
 

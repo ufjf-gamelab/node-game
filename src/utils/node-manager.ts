@@ -17,25 +17,31 @@ import { DiceAbsolute } from "@/features/dice-absolute";
 import { DiceLogical } from "@/features/dice-logical";
 import { ValueIsEven } from "@/features/value-is-even";
 import { ValueIsOdd } from "@/features/value-is-odd";
+import { IntegerValue } from "@/features/integer-value";
+import { AndLogical } from "@/features/and-logical";
+import { OrLogical } from "@/features/or-logical";
 
 const NODE_MODULES = {
   diceGenerator: DiceGenerator,
-  histogram: Histogram,
+  diceExplode: DiceExplode,
   dicePool: DicePool,
   dicePoolSum: DicePoolSum,
+  diceCountRepetition: DiceCountRepetition,
+  diceMath: DiceMath,
+  diceAbsolute: DiceAbsolute,
+  integerValue: IntegerValue,
   diceSuccess: DiceSuccess,
   diceBetweenInterval: DiceBetweenInterval,
-  diceCountRepetition: DiceCountRepetition,
-  diceExplode: DiceExplode,
+  diceLogical: DiceLogical,
+  valueIsEven: ValueIsEven,
+  valueIsOdd: ValueIsOdd,
+  histogram: Histogram,
   bagGenerator: BagGenerator,
   bagPullWithoutRepetition: BagPullWithoutRepetition,
   symbolicGenerator: SymbolicGenerator,
   symbolicPool: SymbolicPool,
-  diceMath: DiceMath,
-  diceAbsolute: DiceAbsolute,
-  diceLogical: DiceLogical,
-  valueIsEven: ValueIsEven,
-  valueIsOdd: ValueIsOdd,
+  andLogical: AndLogical,
+  orLogical: OrLogical,
 } as const;
 
 export const NodeManager = {

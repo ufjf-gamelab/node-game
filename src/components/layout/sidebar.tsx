@@ -44,11 +44,11 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
               <li className="sidebar-item" onClick={() => addNewNode("diceExplode")}>
                 {t("nodeShortName.diceExplode")}
               </li>
-              <li className="sidebar-item" onClick={() => addNewNode("diceLogical")}>
-                {t("nodeShortName.diceLogical")}
-              </li>
               <li className="sidebar-item" onClick={() => addNewNode("diceMath")}>
                 {t("nodeShortName.diceMath")}
+              </li>
+              <li className="sidebar-item" onClick={() => addNewNode("integerValue")}>
+                {t("nodeShortName.integerValue")}
               </li>
               <li className="sidebar-item" onClick={() => addNewNode("diceAbsolute")}>
                 {t("nodeShortName.diceAbsolute")}
@@ -58,6 +58,15 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
               </li>
               <li className="sidebar-item" onClick={() => addNewNode("dicePoolSum")}>
                 {t("nodeShortName.dicePoolSum")}
+              </li>
+              <li className="sidebar-item" onClick={() => addNewNode("diceLogical")}>
+                {t("nodeShortName.diceLogical")}
+              </li>
+              <li className="sidebar-item" onClick={() => addNewNode("andLogical")}>
+                {t("nodeShortName.andLogical")}
+              </li>
+              <li className="sidebar-item" onClick={() => addNewNode("orLogical")}>
+                {t("nodeShortName.orLogical")}
               </li>
               <li className="sidebar-item" onClick={() => addNewNode("diceSuccess")}>
                 {t("nodeShortName.diceSuccess")}
@@ -73,9 +82,6 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
               </li>
               <li className="sidebar-item" onClick={() => addNewNode("valueIsOdd")}>
                 {t("nodeShortName.valueIsOdd")}
-              </li>
-              <li className="sidebar-item" onClick={() => addNewNode("integerValue")}>
-                {t("nodeShortName.integerValue")}
               </li>
             </ul>
           </Accordion.Panel>

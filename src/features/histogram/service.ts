@@ -52,7 +52,15 @@ export const HistogramService: INodeService<IHistogramNode> = {
         });
       }
 
-      const nodesTypeBoolean: INodeType[] = ["diceSuccess", "diceBetweenInterval", "diceLogical", "valueIsEven", "valueIsOdd"];
+      const nodesTypeBoolean: INodeType[] = [
+        "diceSuccess",
+        "diceBetweenInterval",
+        "diceLogical",
+        "valueIsEven",
+        "valueIsOdd",
+        "andLogical",
+        "orLogical",
+      ];
       const parentIsTypeBoolean = nodesTypeBoolean.includes(sourceNode.type);
 
       if (parentIsTypeBoolean) {

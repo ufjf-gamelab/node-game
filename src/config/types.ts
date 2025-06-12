@@ -22,6 +22,8 @@ export type INodeStateMap = {
   valueIsEven: number[];
   valueIsOdd: number[];
   integerValue: number[];
+  andLogical: number[];
+  orLogical: number[];
 };
 
 export type INodeType = keyof INodeStateMap;
@@ -67,6 +69,8 @@ export type IDiceLogicalNode = IBaseNode<{ operation: IDiceLogicalOperation }, "
 export type IValueIsEvenNode = IBaseNode<{}, "valueIsEven">;
 export type IValueIsOddNode = IBaseNode<{}, "valueIsOdd">;
 export type IIntegerValueNode = IBaseNode<{ value: number }, "integerValue">;
+export type IAndLogicalNode = IBaseNode<{}, "andLogical">;
+export type IOrLogicalNode = IBaseNode<{}, "orLogical">;
 
 export type INode =
   | IDiceGeneratorNode
@@ -86,4 +90,6 @@ export type INode =
   | IDiceLogicalNode
   | IValueIsEvenNode
   | IValueIsOddNode
-  | IIntegerValueNode;
+  | IIntegerValueNode
+  | IAndLogicalNode
+  | IOrLogicalNode;

@@ -75,14 +75,16 @@
     "diceExplode": "Explode",
     "diceMath": "Math",
     "diceAbsolute": "Absolute",
-    "diceLogical": "Logical",
+    "diceLogical": "Logical Comparison",
     "valueIsEven": "Is Even",
     "valueIsOdd": "Is Odd",
     "bagGenerator": "Bag",
     "bagPullWithoutRepetition": "Pull Without Repetition",
     "symbolicGenerator": "Symbolic",
     "symbolicPool": "Symbolic Pool",
-    "integerValue": "Integer"
+    "integerValue": "Integer",
+    "andLogical": "AND",
+    "orLogical": "OR"
   },
   "nodeFullName": {
     "diceGenerator": "Dice Generator",
@@ -95,14 +97,16 @@
     "diceExplode": "Dice Explode",
     "diceMath": "Dice Math",
     "diceAbsolute": "Dice Absolute",
-    "diceLogical": "Dice Logical",
+    "diceLogical": "Dice Logical Comparison",
     "valueIsEven": "Dice Is Even",
     "valueIsOdd": "Dice Is Odd",
     "bagGenerator": "Bag Generator",
     "bagPullWithoutRepetition": "Pull Bag Without Repetition",
     "symbolicGenerator": "Symbolic Generator",
     "symbolicPool": "Symbolic Pool",
-    "integerValue": "Integer Value"
+    "integerValue": "Integer Value",
+    "andLogical": "AND Logical",
+    "orLogical": "OR Logical"
   },
   "nodeStatus": {
     "FINISHED": "Finished",
