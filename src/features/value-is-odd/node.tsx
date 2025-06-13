@@ -1,7 +1,7 @@
 import React from "react";
 import { Position, NodeProps, useReactFlow } from "@xyflow/react";
 import { IHistogramNode, INode, INodeType } from "@/config/types";
-import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
+import { GiPerspectiveDiceSixFacesOne } from "react-icons/gi";
 import { BaseNode } from "@/components/ui/base-node";
 import { NodeHandle } from "@/components/ui/node-handle";
 
@@ -25,7 +25,7 @@ export const ValueIsOddNode: React.ComponentType<IProps> = ({ data, selected, is
       status={data.status}
       icon={
         <>
-          <GiPerspectiveDiceSixFacesRandom />
+          <GiPerspectiveDiceSixFacesOne />
           <div className="flex flex-col justify-center items-center -ml-1 ">
             <span className="text-lg -mb-2 font-bold">%</span>
             <span className="text-lg font-semibold">1</span>

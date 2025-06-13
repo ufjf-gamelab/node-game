@@ -1,7 +1,7 @@
 import React from "react";
 import { Position, NodeProps, useReactFlow } from "@xyflow/react";
 import { IDiceSuccessNode, INode, INodeType } from "@/config/types";
-import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
+import { GiPerspectiveDiceSixFacesOne } from "react-icons/gi";
 import { BsChevronBarUp, BsFillQuestionSquareFill } from "react-icons/bs";
 import { BaseNode } from "@/components/ui/base-node";
 import { NodeHandle } from "@/components/ui/node-handle";
@@ -27,7 +27,7 @@ export const DiceSuccessNode: React.ComponentType<IProps> = ({ data, selected, i
       label={data.face}
       icon={
         <>
-          <GiPerspectiveDiceSixFacesRandom />
+          <GiPerspectiveDiceSixFacesOne />
           <div className="flex flex-col justify-center items-center -ml-1">
             <BsChevronBarUp className="text-2xl" />
             <BsFillQuestionSquareFill className="text-lg" />

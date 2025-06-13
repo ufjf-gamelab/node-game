@@ -59,5 +59,5 @@
 ## **Notas**
 
 - O **Dado Sucesso** transforma a entrada numérica em um valor binário de sucesso (`1`) ou falha (`0`) com base na comparação `>=`.
-- É uma versão simplificada do nó **Dado Lógico**, focada exclusivamente na condição de "maior ou igual" (≥).
+- É uma versão simplificada do nó **Comparação Lógica de Dado**, focada exclusivamente na condição de "maior ou igual" (≥) e recebendo apenas uma fonte de dado.
 - É ideal para representar regras simples de sucesso, como testes de ataque, testes de perícia ou outras mecânicas que dependem de uma rolagem mínima.

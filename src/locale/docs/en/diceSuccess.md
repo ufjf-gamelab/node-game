@@ -59,6 +59,6 @@
 ## **Notes**
 
 - **Success Dice** converts a numeric input into a binary output: success (`1`) or failure (`0`) based on the `>=` comparison.
-- It is a **simplified version** of the **Logic Dice** node, focused solely on the **"greater than or equal to" (≥)** condition.
+- It is a **simplified version** of the **Dice Logical Comparison** node, focused solely on the **"greater than or equal to" (≥)** condition and receiving only one source of data.
 - Ideal for modeling simple success rules, such as attack rolls, skill checks, or any mechanics requiring a minimum dice result.
 - Can be combined with multiple dice and other processing nodes to build more complex rule systems.

@@ -1,4 +1,4 @@
-**Dado Lógico** é um **nó do tipo modificador** utilizado para realizar comparações lógicas entre dois conjuntos de dados numéricos. As operações disponíveis incluem igualdade, maior ou igual, e menor ou igual. Esse nó retorna `1` quando a condição é verdadeira e `0` quando é falsa, permitindo construir regras e condições em sistemas de simulação.
+**Comparação Lógica de Dado** é um **nó do tipo modificador** utilizado para realizar comparações lógicas entre dois conjuntos de dados numéricos. As operações disponíveis incluem igualdade, maior ou igual, e menor ou igual. Esse nó retorna `1` quando a condição é verdadeira e `0` quando é falsa, permitindo construir regras e condições em sistemas de simulação.
 
 - **Tipo:** Modificador (nó intermediário)
 - **Função:** Compara dois valores de entrada com base em uma operação lógica
@@ -23,7 +23,7 @@
 ### **Nome**
 
 - **Tipo:** Texto
-- **Padrão:** Dado Lógico
+- **Padrão:** Comparação Lógica de Dado
 - **Função:** Nome exibido no quadro de modelagem
 
 ### **Operação**
@@ -43,17 +43,17 @@
 - Gerador de Dado do ataque: Valor Mínimo `1`, Valor Máximo `20`
 - Gerador de Dado da defesa: Valor Mínimo `1`, Valor Máximo `12`
 
-### **2. Propriedades do nó Dado Lógico:**
+### **2. Propriedades do nó Comparação Lógica de Dado:**
 
 - Operação: `A >= B`
 
 ### **3. Conexão com outros nós:**
 
-- Conecte **Gerador de Dado do ataque** ao nó **Dado Lógico**
-- Conecte **Gerador de Dado da defesa** ao nó **Dado Lógico**
-- Conecte o **Dado Lógico** ao nó **Histograma**
+- Conecte **Gerador de Dado do ataque** ao nó **Comparação Lógica de Dado**
+- Conecte **Gerador de Dado da defesa** ao nó **Comparação Lógica de Dado**
+- Conecte o **Comparação Lógica de Dado** ao nó **Histograma**
 
-<img src="/images/logical.png" width="500px" alt="Exemplo de uso do nó Dado Lógico"/>
+<img src="/images/logical.png" width="500px" alt="Exemplo de uso do nó Comparação Lógica de Dado"/>
 
 ---
 

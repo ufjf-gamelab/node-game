@@ -1,6 +1,6 @@
 import React from "react";
 import { Position, NodeProps, useReactFlow } from "@xyflow/react";
-import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
+import { GiPerspectiveDiceSixFacesOne } from "react-icons/gi";
 import { AiOutlineVerticalAlignMiddle } from "react-icons/ai";
 import { IDiceBetweenIntervalNode, INode, INodeType } from "@/config/types";
 import { BaseNode } from "@/components/ui/base-node";
@@ -27,7 +27,7 @@ export const DiceBetweenIntervalNode: React.ComponentType<IProps> = ({ data, sel
       label={"[" + data.min + " , " + data.max + "]"}
       icon={
         <>
-          <GiPerspectiveDiceSixFacesRandom className="text-5xl" />
+          <GiPerspectiveDiceSixFacesOne className="text-5xl" />
           <AiOutlineVerticalAlignMiddle className="text-2xl" />
         </>
       }>
