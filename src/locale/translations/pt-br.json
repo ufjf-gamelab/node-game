@@ -116,13 +116,17 @@
     "MISSING_DATA": "Faltando dados"
   },
   "nodeHandleTooltip": {
-    "source": "Qualquer tipo de saída",
-    "target": "Qualquer tipo de entrada",
+    "source.any": "Qualquer tipo de saída",
     "source.numeric": "Saída numérica",
+    "source.numericPool": "Saída pool numérica",
     "source.boolean": "Saída binaria (verdadeiro/falso)",
     "source.symbolic": "Saída simbólica",
+    "source.symbolicPool": "Saída pool simbólica",
+    "target.any": "Qualquer tipo de entrada",
     "target.numeric": "Entrada numérica",
+    "target.numericPool": "Entrada pool numérica",
     "target.boolean": "Entrada binaria (verdadeiro/falso)",
-    "target.symbolic": "Entrada simbólica"
+    "target.symbolic": "Entrada simbólica",
+    "target.symbolicPool": "Entrada pool simbólica"
   }
 }

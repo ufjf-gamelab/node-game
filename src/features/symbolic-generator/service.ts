@@ -13,6 +13,7 @@ export const SymbolicGeneratorService: INodeService<ISymbolicGeneratorNode> = {
         name: i18n.t("nodeShortName.symbolicGenerator"),
         status: "IDLE",
         faces: ["A", "B"],
+        outputType: "symbolic",
       },
     };
   },

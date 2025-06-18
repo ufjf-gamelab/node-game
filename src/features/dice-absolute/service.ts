@@ -12,7 +12,8 @@ export const DiceAbsoluteService: INodeService<IDiceAbsoluteNode> = {
       data: {
         name: i18n.t("nodeShortName.diceAbsolute"),
         status: "IDLE",
-        state: [],
+        inputType: "numeric",
+        outputType: "numeric",
       },
     };
   },
@@ -25,8 +26,8 @@ export const DiceAbsoluteService: INodeService<IDiceAbsoluteNode> = {
       const sourceNode = flow.getNode(edge.source);
       if (!sourceNode) throw new Error("Source connection not found!");
 
-      const sourceState = NodeManager.run(sourceNode, flow) as number[] | number[][];
-      const resultState = getAbsoluteValue(flattenArray(sourceState));
+      const sourceState = flattenArray(NodeManager.run(sourceNode, flow) as number[] | number[][]);
+      const resultState = getAbsoluteValue(sourceState);
 
       flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
       return resultState;

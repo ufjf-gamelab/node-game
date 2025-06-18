@@ -1,5 +1,5 @@
 import { i18n } from "@/config/i18n";
-import { IDiceGeneratorNode, IAndLogicalNode, INodeService } from "@/config/types";
+import { IAndLogicalNode, INodeService } from "@/config/types";
 import { flattenArray } from "@/utils/flatten-array";
 import { NodeManager } from "@/utils/node-manager";
 
@@ -12,6 +12,8 @@ export const AndLogicalService: INodeService<IAndLogicalNode> = {
       data: {
         name: i18n.t("nodeShortName.andLogical"),
         status: "IDLE",
+        inputType: "boolean",
+        outputType: "boolean",
       },
     };
   },
@@ -21,15 +23,14 @@ export const AndLogicalService: INodeService<IAndLogicalNode> = {
       const nodeEdges = flow.getEdges().filter((edge) => edge.target === node.id);
       if (nodeEdges.length !== 2) throw new Error("Invalid connection!");
 
-      const sourceNode1 = flow.getNode(nodeEdges[0].source) as IDiceGeneratorNode | undefined;
-      const sourceNode2 = flow.getNode(nodeEdges[1].source) as IDiceGeneratorNode | undefined;
+      const sourceNode1 = flow.getNode(nodeEdges[0].source);
+      const sourceNode2 = flow.getNode(nodeEdges[1].source);
       if (!sourceNode1 || !sourceNode2) throw new Error("Source connection not found!");
 
       const sourceState1 = flattenArray(NodeManager.run(sourceNode1, flow) as number[] | number[][]);
       const sourceState2 = flattenArray(NodeManager.run(sourceNode2, flow) as number[] | number[][]);
 
       const resultState = executeAndLogical(sourceState1, sourceState2);
-
       flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
       return resultState;
     } catch (error) {

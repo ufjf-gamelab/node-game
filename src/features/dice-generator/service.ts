@@ -15,6 +15,7 @@ export const DiceGeneratorService: INodeService<IDiceGeneratorNode> = {
         min: 1,
         max: 6,
         state: [],
+        outputType: "numeric",
       },
     };
   },

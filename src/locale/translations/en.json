@@ -116,13 +116,17 @@
     "MISSING_DATA": "Missing data"
   },
   "nodeHandleTooltip": {
-    "source": "Any output type",
-    "target": "Any input type",
+    "source.any": "Any output type",
+    "target.any": "Any input type",
     "source.numeric": "Numeric output",
+    "source.numericPool": "Numeric pool output",
     "source.boolean": "Binary output (true/false)",
     "source.symbolic": "Symbolic output",
+    "source.symbolicPool": "Symbolic pool output",
     "target.numeric": "Numeric input",
+    "target.numericPool": "Numeric pool input",
     "target.boolean": "Binary input (true/false)",
-    "target.symbolic": "Symbolic input"
+    "target.symbolic": "Symbolic input",
+    "target.symbolicPool": "Symbolic pool input"
   }
 }

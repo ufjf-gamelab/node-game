@@ -12,6 +12,8 @@ export const ValueIsOddService: INodeService<IValueIsOddNode> = {
       data: {
         name: i18n.t("nodeShortName.valueIsOdd"),
         status: "IDLE",
+        inputType: "numeric",
+        outputType: "boolean",
       },
     };
   },

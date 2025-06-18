@@ -1,6 +1,5 @@
 import { i18n } from "@/config/i18n";
-import { IDiceGeneratorNode, IDiceLogicalNode, INodeService } from "@/config/types";
-import { flattenArray } from "@/utils/flatten-array";
+import { IDiceLogicalNode, INodeService } from "@/config/types";
 import { NodeManager } from "@/utils/node-manager";
 
 export const DiceLogicalService: INodeService<IDiceLogicalNode> = {
@@ -13,6 +12,8 @@ export const DiceLogicalService: INodeService<IDiceLogicalNode> = {
         name: i18n.t("nodeShortName.diceLogical"),
         status: "IDLE",
         operation: "A = B",
+        inputType: "numeric",
+        outputType: "boolean",
       },
     };
   },
@@ -26,15 +27,14 @@ export const DiceLogicalService: INodeService<IDiceLogicalNode> = {
       const edgeSourceNodeB = nodeEdges.find((edge) => edge.id.includes("logical-target-2-"));
       if (!edgeSourceNodeA || !edgeSourceNodeB) throw new Error("Source connection not found!");
 
-      const sourceNodeA = flow.getNode(edgeSourceNodeA.source) as IDiceGeneratorNode;
-      const sourceNodeB = flow.getNode(edgeSourceNodeB.source) as IDiceGeneratorNode;
+      const sourceNodeA = flow.getNode(edgeSourceNodeA.source);
+      const sourceNodeB = flow.getNode(edgeSourceNodeB.source);
       if (!sourceNodeA || !sourceNodeB) throw new Error("Source nodes not found!");
 
-      const sourceState1 = flattenArray(NodeManager.run(sourceNodeA, flow) as number[] | number[][]);
-      const sourceState2 = flattenArray(NodeManager.run(sourceNodeB, flow) as number[] | number[][]);
+      const sourceState1 = NodeManager.run(sourceNodeA, flow) as number[];
+      const sourceState2 = NodeManager.run(sourceNodeB, flow) as number[];
 
       const resultState = executeLogicalOperation(sourceState1, sourceState2, node.data.operation);
-
       flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
       return resultState;
     } catch (error) {

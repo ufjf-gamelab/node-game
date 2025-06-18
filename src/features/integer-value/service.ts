@@ -13,6 +13,7 @@ export const IntegerValueService: INodeService<IIntegerValueNode> = {
         name: i18n.t("nodeShortName.integerValue"),
         status: "IDLE",
         value: 1,
+        outputType: "numeric",
       },
     };
   },

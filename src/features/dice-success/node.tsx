@@ -1,6 +1,6 @@
 import React from "react";
-import { Position, NodeProps, useReactFlow } from "@xyflow/react";
-import { IDiceSuccessNode, INode, INodeType } from "@/config/types";
+import { Position, NodeProps } from "@xyflow/react";
+import { IDiceSuccessNode } from "@/config/types";
 import { GiPerspectiveDiceSixFacesOne } from "react-icons/gi";
 import { BsChevronBarUp, BsFillQuestionSquareFill } from "react-icons/bs";
 import { BaseNode } from "@/components/ui/base-node";
@@ -9,16 +9,6 @@ import { NodeHandle } from "@/components/ui/node-handle";
 type IProps = NodeProps<IDiceSuccessNode>;
 
 export const DiceSuccessNode: React.ComponentType<IProps> = ({ data, selected, isConnectable, id }) => {
-  const flow = useReactFlow();
-
-  function isValidConnection(targetId: string) {
-    const targetNode = flow.getNode(targetId) as INode | undefined;
-    if (!targetNode) return false;
-
-    const allowedTypes: INodeType[] = ["histogram", "andLogical", "orLogical"];
-    return allowedTypes.includes(targetNode.type);
-  }
-
   return (
     <BaseNode
       selected={selected}
@@ -34,15 +24,8 @@ export const DiceSuccessNode: React.ComponentType<IProps> = ({ data, selected, i
           </div>
         </>
       }>
-      <NodeHandle id={"success-target-" + id} type="target" dataType="numeric" position={Position.Left} isConnectable={isConnectable} />
-      <NodeHandle
-        id={"success-source-" + id}
-        type="source"
-        dataType="boolean"
-        position={Position.Right}
-        isConnectable={isConnectable}
-        isValidConnection={isValidConnection}
-      />
+      <NodeHandle id={"success-target-" + id} type="target" dataType={data.inputType} position={Position.Left} isConnectable={isConnectable} />
+      <NodeHandle id={"success-source-" + id} type="source" dataType={data.outputType} position={Position.Right} isConnectable={isConnectable} />
     </BaseNode>
   );
 };

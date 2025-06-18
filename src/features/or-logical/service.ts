@@ -1,6 +1,5 @@
 import { i18n } from "@/config/i18n";
-import { IDiceGeneratorNode, IOrLogicalNode, INodeService } from "@/config/types";
-import { flattenArray } from "@/utils/flatten-array";
+import { IOrLogicalNode, INodeService } from "@/config/types";
 import { NodeManager } from "@/utils/node-manager";
 
 export const OrLogicalService: INodeService<IOrLogicalNode> = {
@@ -12,6 +11,8 @@ export const OrLogicalService: INodeService<IOrLogicalNode> = {
       data: {
         name: i18n.t("nodeShortName.orLogical"),
         status: "IDLE",
+        inputType: "boolean",
+        outputType: "boolean",
       },
     };
   },
@@ -21,12 +22,12 @@ export const OrLogicalService: INodeService<IOrLogicalNode> = {
       const nodeEdges = flow.getEdges().filter((edge) => edge.target === node.id);
       if (nodeEdges.length !== 2) throw new Error("Invalid connection!");
 
-      const sourceNode1 = flow.getNode(nodeEdges[0].source) as IDiceGeneratorNode | undefined;
-      const sourceNode2 = flow.getNode(nodeEdges[1].source) as IDiceGeneratorNode | undefined;
+      const sourceNode1 = flow.getNode(nodeEdges[0].source);
+      const sourceNode2 = flow.getNode(nodeEdges[1].source);
       if (!sourceNode1 || !sourceNode2) throw new Error("Source connection not found!");
 
-      const sourceState1 = flattenArray(NodeManager.run(sourceNode1, flow) as number[] | number[][]);
-      const sourceState2 = flattenArray(NodeManager.run(sourceNode2, flow) as number[] | number[][]);
+      const sourceState1 = NodeManager.run(sourceNode1, flow) as number[];
+      const sourceState2 = NodeManager.run(sourceNode2, flow) as number[];
 
       const resultState = executeOrLogical(sourceState1, sourceState2);
 

@@ -1,6 +1,5 @@
 import { i18n } from "@/config/i18n";
-import { IDiceGeneratorNode, IDiceMathNode, INodeService } from "@/config/types";
-import { flattenArray } from "@/utils/flatten-array";
+import { IDiceMathNode, INodeService } from "@/config/types";
 import { NodeManager } from "@/utils/node-manager";
 
 export const DiceMathService: INodeService<IDiceMathNode> = {
@@ -13,6 +12,8 @@ export const DiceMathService: INodeService<IDiceMathNode> = {
         name: i18n.t("nodeShortName.diceMath"),
         status: "IDLE",
         operation: "sum",
+        inputType: "numeric",
+        outputType: "numeric",
       },
     };
   },
@@ -22,15 +23,14 @@ export const DiceMathService: INodeService<IDiceMathNode> = {
       const nodeEdges = flow.getEdges().filter((edge) => edge.target === node.id);
       if (nodeEdges.length !== 2) throw new Error("Invalid connection!");
 
-      const sourceNode1 = flow.getNode(nodeEdges[0].source) as IDiceGeneratorNode | undefined;
-      const sourceNode2 = flow.getNode(nodeEdges[1].source) as IDiceGeneratorNode | undefined;
+      const sourceNode1 = flow.getNode(nodeEdges[0].source);
+      const sourceNode2 = flow.getNode(nodeEdges[1].source);
       if (!sourceNode1 || !sourceNode2) throw new Error("Source connection not found!");
 
-      const sourceState1 = flattenArray(NodeManager.run(sourceNode1, flow) as number[] | number[][]);
-      const sourceState2 = flattenArray(NodeManager.run(sourceNode2, flow) as number[] | number[][]);
+      const sourceState1 = NodeManager.run(sourceNode1, flow) as number[];
+      const sourceState2 = NodeManager.run(sourceNode2, flow) as number[];
 
       const resultState = executeMathOperationDataNodes(sourceState1, sourceState2, node.data.operation);
-
       flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
       return resultState;
     } catch (error) {

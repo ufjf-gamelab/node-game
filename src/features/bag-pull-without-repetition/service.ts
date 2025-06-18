@@ -12,6 +12,8 @@ export const BagPullWithoutRepetitionService: INodeService<IBagPullWithoutRepeti
       data: {
         name: i18n.t("nodeShortName.bagPullWithoutRepetition"),
         status: "IDLE",
+        inputType: "symbolic",
+        outputType: "symbolic",
       },
     };
   },

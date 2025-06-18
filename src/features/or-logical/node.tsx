@@ -1,23 +1,13 @@
 import React from "react";
-import { NodeProps, Position, useReactFlow } from "@xyflow/react";
+import { NodeProps, Position } from "@xyflow/react";
 import { GiGearStickPattern, GiPerspectiveDiceSixFacesOne } from "react-icons/gi";
-import { IOrLogicalNode, INode, INodeType } from "@/config/types";
+import { IOrLogicalNode } from "@/config/types";
 import { BaseNode } from "@/components/ui/base-node";
 import { NodeHandle } from "@/components/ui/node-handle";
 
 type IProps = NodeProps<IOrLogicalNode>;
 
 export const OrLogicalNode: React.ComponentType<IProps> = ({ data, selected, isConnectable, id }: IProps) => {
-  const flow = useReactFlow();
-
-  function isValidConnection(targetId: string) {
-    const targetNode = flow.getNode(targetId) as INode | undefined;
-    if (!targetNode) return false;
-
-    const allowedTypes: INodeType[] = ["histogram", "andLogical", "orLogical"];
-    return allowedTypes.includes(targetNode.type);
-  }
-
   return (
     <BaseNode
       selected={selected}
@@ -35,7 +25,7 @@ export const OrLogicalNode: React.ComponentType<IProps> = ({ data, selected, isC
       <NodeHandle
         id={"or-target-1-" + id}
         type="target"
-        dataType="boolean"
+        dataType={data.inputType}
         className="top-6"
         position={Position.Left}
         isConnectable={isConnectable}
@@ -43,20 +33,13 @@ export const OrLogicalNode: React.ComponentType<IProps> = ({ data, selected, isC
       <NodeHandle
         id={"or-target-2-" + id}
         type="target"
-        dataType="boolean"
+        dataType={data.inputType}
         className="top-16"
         position={Position.Left}
         isConnectable={isConnectable}
       />
 
-      <NodeHandle
-        id={"or-source-" + id}
-        type="source"
-        dataType="boolean"
-        position={Position.Right}
-        isConnectable={isConnectable}
-        isValidConnection={isValidConnection}
-      />
+      <NodeHandle id={"or-source-" + id} type="source" dataType={data.outputType} position={Position.Right} isConnectable={isConnectable} />
     </BaseNode>
   );
 };

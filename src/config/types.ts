@@ -28,7 +28,7 @@ export type INodeStateMap = {
 
 export type INodeType = keyof INodeStateMap;
 export type INodeState<N extends INode> = N extends { type: infer T } ? (T extends INodeType ? INodeStateMap[T] : never) : never;
-
+export type INodeStateType = "numeric" | "symbolic" | "boolean" | "numericPool" | "symbolicPool" | "any";
 export type INodeStatus = "IDLE" | "FINISHED" | "ERROR" | "MISSING_DATA" | "LOADING";
 export type IEdge = Edge;
 export type IFlowInstance = ReactFlowInstance<INode, IEdge>;
@@ -48,6 +48,8 @@ type IBaseNode<NodeData extends Record<string, unknown> = Record<string, unknown
     name: string;
     status: INodeStatus;
     errorMessage?: string;
+    inputType?: INodeStateType;
+    outputType?: INodeStateType;
   };
 };
 

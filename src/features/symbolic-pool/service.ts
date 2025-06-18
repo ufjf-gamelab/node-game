@@ -11,6 +11,8 @@ export const SymbolicPoolService: INodeService<ISymbolicPoolNode> = {
       data: {
         name: i18n.t("nodeShortName.symbolicPool"),
         status: "IDLE",
+        inputType: "symbolic",
+        outputType: "symbolicPool",
       },
     };
   },

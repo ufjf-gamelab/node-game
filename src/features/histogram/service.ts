@@ -15,6 +15,7 @@ export const HistogramService: INodeService<IHistogramNode> = {
         name: `${i18n.t("nodeShortName.histogram")} ${histogramCount + 1}`,
         status: "IDLE",
         sortDirection: "asc",
+        inputType: "any",
       },
     };
   },

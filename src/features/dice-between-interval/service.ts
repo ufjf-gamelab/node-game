@@ -13,6 +13,8 @@ export const DiceBetweenIntervalService: INodeService<IDiceBetweenIntervalNode> 
         status: "IDLE",
         min: 1,
         max: 2,
+        inputType: "numeric",
+        outputType: "boolean",
       },
     };
   },

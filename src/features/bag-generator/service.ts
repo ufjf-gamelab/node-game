@@ -13,6 +13,7 @@ export const BagGeneratorService: INodeService<IBagGeneratorNode> = {
         name: i18n.t("nodeShortName.bagGenerator"),
         status: "IDLE",
         balls: ["A", "B"],
+        outputType: "symbolic",
       },
     };
   },
@@ -20,7 +21,6 @@ export const BagGeneratorService: INodeService<IBagGeneratorNode> = {
   run(flow, node) {
     try {
       const resultState = generateRandomData(node.data.balls);
-
       flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
       return resultState;
     } catch (error) {

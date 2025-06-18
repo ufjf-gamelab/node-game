@@ -1,5 +1,6 @@
 import { i18n } from "@/config/i18n";
 import { IDiceCountRepetitionNode, INodeService } from "@/config/types";
+import { flattenArray } from "@/utils/flatten-array";
 import { NodeManager } from "@/utils/node-manager";
 
 export const DiceCountRepetitionService: INodeService<IDiceCountRepetitionNode> = {
@@ -12,6 +13,8 @@ export const DiceCountRepetitionService: INodeService<IDiceCountRepetitionNode> 
         name: i18n.t("nodeShortName.diceCountRepetition"),
         status: "IDLE",
         face: 1,
+        inputType: "numeric",
+        outputType: "numeric",
       },
     };
   },
@@ -24,7 +27,7 @@ export const DiceCountRepetitionService: INodeService<IDiceCountRepetitionNode> 
       const sourceNode = flow.getNode(edge.source);
       if (!sourceNode) throw new Error("Source connection not found!");
 
-      const sourceState = NodeManager.run(sourceNode, flow) as Array<number[] | number>;
+      const sourceState = flattenArray(NodeManager.run(sourceNode, flow) as number[] | number[][]);
       const resultState = countRepetition(sourceState, node.data.face);
 
       flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });

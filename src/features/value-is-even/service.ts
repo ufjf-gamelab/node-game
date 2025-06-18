@@ -12,6 +12,8 @@ export const ValueIsEvenService: INodeService<IValueIsEvenNode> = {
       data: {
         name: i18n.t("nodeShortName.valueIsEven"),
         status: "IDLE",
+        inputType: "numeric",
+        outputType: "boolean",
       },
     };
   },
