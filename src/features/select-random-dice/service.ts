@@ -1,19 +1,19 @@
 import { i18n } from "@/config/i18n";
-import { IDiceCountRepetitionNode, INodeService } from "@/config/types";
-import { flattenArray } from "@/utils/flatten-array";
+import { ISelectRandomDiceNode, INodeService } from "@/config/types";
 import { NodeManager } from "@/utils/node-manager";
 
-export const DiceCountRepetitionService: INodeService<IDiceCountRepetitionNode> = {
+const TOTAL_DATA_VALUE = 10000;
+
+export const SelectRandomDiceService: INodeService<ISelectRandomDiceNode> = {
   new(_flow, { id, position }) {
     return {
       id,
       position,
-      type: "diceCountRepetition",
+      type: "selectRandomDice",
       data: {
-        name: i18n.t("nodeShortName.diceCountRepetition"),
+        name: i18n.t("nodeShortName.selectRandomDice"),
         status: "IDLE",
-        face: 1,
-        inputType: "numeric",
+        inputType: "numericPool",
         outputType: "numeric",
       },
     };
@@ -27,8 +27,8 @@ export const DiceCountRepetitionService: INodeService<IDiceCountRepetitionNode> 
       const sourceNode = flow.getNode(edge.source);
       if (!sourceNode) throw new Error("Source connection not found!");
 
-      const sourceState = flattenArray(NodeManager.run(sourceNode, flow) as number[] | number[][]);
-      const resultState = countRepetition(sourceState, node.data.face);
+      const sourceState = NodeManager.run(sourceNode, flow) as number[][];
+      const resultState = getRandomFlattenData(sourceState);
 
       flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
       return resultState;
@@ -39,13 +39,11 @@ export const DiceCountRepetitionService: INodeService<IDiceCountRepetitionNode> 
   },
 };
 
-function countRepetition(data: number[], face: number) {
+function getRandomFlattenData(data: number[][]) {
   const result: number[] = [];
 
-  data.forEach((item, i) => {
-    if (item === face) result[i] = 1;
-    else result[i] = 0;
-  });
-
+  for (let i = 0; i < TOTAL_DATA_VALUE; i++) {
+    result[i] = data[i][Math.floor(Math.random() * data[i].length)];
+  }
   return result;
 }

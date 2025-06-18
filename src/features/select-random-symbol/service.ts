@@ -1,20 +1,20 @@
 import { i18n } from "@/config/i18n";
-import { IDiceCountRepetitionNode, INodeService } from "@/config/types";
-import { flattenArray } from "@/utils/flatten-array";
+import { ISelectRandomSymbolNode, INodeService } from "@/config/types";
 import { NodeManager } from "@/utils/node-manager";
 
-export const DiceCountRepetitionService: INodeService<IDiceCountRepetitionNode> = {
+const TOTAL_DATA_VALUE = 10000;
+
+export const SelectRandomSymbolService: INodeService<ISelectRandomSymbolNode> = {
   new(_flow, { id, position }) {
     return {
       id,
       position,
-      type: "diceCountRepetition",
+      type: "selectRandomSymbol",
       data: {
-        name: i18n.t("nodeShortName.diceCountRepetition"),
+        name: i18n.t("nodeShortName.selectRandomSymbol"),
         status: "IDLE",
-        face: 1,
-        inputType: "numeric",
-        outputType: "numeric",
+        inputType: "symbolicPool",
+        outputType: "symbolic",
       },
     };
   },
@@ -27,8 +27,8 @@ export const DiceCountRepetitionService: INodeService<IDiceCountRepetitionNode> 
       const sourceNode = flow.getNode(edge.source);
       if (!sourceNode) throw new Error("Source connection not found!");
 
-      const sourceState = flattenArray(NodeManager.run(sourceNode, flow) as number[] | number[][]);
-      const resultState = countRepetition(sourceState, node.data.face);
+      const sourceState = NodeManager.run(sourceNode, flow) as string[][];
+      const resultState = getRandomFlattenData(sourceState);
 
       flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
       return resultState;
@@ -39,13 +39,11 @@ export const DiceCountRepetitionService: INodeService<IDiceCountRepetitionNode> 
   },
 };
 
-function countRepetition(data: number[], face: number) {
-  const result: number[] = [];
+function getRandomFlattenData(data: string[][]) {
+  const result: string[] = [];
 
-  data.forEach((item, i) => {
-    if (item === face) result[i] = 1;
-    else result[i] = 0;
-  });
-
+  for (let i = 0; i < TOTAL_DATA_VALUE; i++) {
+    result[i] = data[i][Math.floor(Math.random() * data[i].length)];
+  }
   return result;
 }

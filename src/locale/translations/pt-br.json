@@ -84,7 +84,9 @@
     "symbolicPool": "Pool Simbólica",
     "integerValue": "Inteiro",
     "andLogical": "AND",
-    "orLogical": "OR"
+    "orLogical": "OR",
+    "selectRandomDice": "Selecionar Aleatório",
+    "selectRandomSymbol": "Selecionar Símbolo Aleatório"
   },
   "nodeFullName": {
     "diceGenerator": "Gerador de Dado",
@@ -106,7 +108,9 @@
     "symbolicPool": "Pool Simbólica",
     "integerValue": "Valor Inteiro",
     "andLogical": "AND Lógico",
-    "orLogical": "OR Lógico"
+    "orLogical": "OR Lógico",
+    "selectRandomDice": "Selecionar Dado Aleatório",
+    "selectRandomSymbol": "Selecionar Símbolo Aleatório"
   },
   "nodeStatus": {
     "FINISHED": "Finalizado",

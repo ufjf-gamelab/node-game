@@ -84,7 +84,9 @@
     "symbolicPool": "Symbolic Pool",
     "integerValue": "Integer",
     "andLogical": "AND",
-    "orLogical": "OR"
+    "orLogical": "OR",
+    "selectRandomDice": "Select Random",
+    "selectRandomSymbol": "Select Random Symbolic"
   },
   "nodeFullName": {
     "diceGenerator": "Dice Generator",
@@ -106,7 +108,9 @@
     "symbolicPool": "Symbolic Pool",
     "integerValue": "Integer Value",
     "andLogical": "AND Logical",
-    "orLogical": "OR Logical"
+    "orLogical": "OR Logical",
+    "selectRandomDice": "Select Random Dice",
+    "selectRandomSymbol": "Select Random Symbolic"
   },
   "nodeStatus": {
     "FINISHED": "Finished",

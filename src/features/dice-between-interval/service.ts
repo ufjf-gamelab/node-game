@@ -45,15 +45,8 @@ function getArrayFaceBetween(data: number[], min: number, max: number) {
   for (let i = 0; i < data.length; i++) {
     const dado1 = data[i];
 
-    if (Array.isArray(dado1)) {
-      dado1.forEach((valor) => {
-        if (valor >= min && valor <= max) result.push(1);
-        else result.push(0);
-      });
-    } else {
-      if (dado1 >= min && dado1 <= max) result.push(1);
-      else result.push(0);
-    }
+    if (dado1 >= min && dado1 <= max) result.push(1);
+    else result.push(0);
   }
 
   return result;

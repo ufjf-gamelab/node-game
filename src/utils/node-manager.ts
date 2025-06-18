@@ -20,6 +20,8 @@ import { ValueIsOdd } from "@/features/value-is-odd";
 import { IntegerValue } from "@/features/integer-value";
 import { AndLogical } from "@/features/and-logical";
 import { OrLogical } from "@/features/or-logical";
+import { SelectRandomDice } from "@/features/select-random-dice";
+import { SelectRandomSymbol } from "@/features/select-random-symbol";
 
 const NODE_MODULES = {
   diceGenerator: DiceGenerator,
@@ -42,6 +44,8 @@ const NODE_MODULES = {
   symbolicPool: SymbolicPool,
   andLogical: AndLogical,
   orLogical: OrLogical,
+  selectRandomDice: SelectRandomDice,
+  selectRandomSymbol: SelectRandomSymbol,
 } as const;
 
 export const NodeManager = {
