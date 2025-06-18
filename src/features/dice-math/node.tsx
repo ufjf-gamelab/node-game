@@ -26,16 +26,16 @@ export const DiceMathNode: React.ComponentType<IProps> = ({ data, selected, isCo
         type="target"
         dataType={data.inputType}
         position={Position.Left}
-        className="top-6"
         isConnectable={isConnectable}
+        className="top-6"
       />
       <NodeHandle
         id={"math-target-2-" + id}
         type="target"
         dataType={data.inputType}
         position={Position.Left}
-        className="top-16"
         isConnectable={isConnectable}
+        className="top-16"
       />
 
       <NodeHandle id={"math-source-" + id} type="source" dataType={data.outputType} position={Position.Right} isConnectable={isConnectable} />

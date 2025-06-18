@@ -56,11 +56,14 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
               <li className="sidebar-item" onClick={() => addNewNode("dicePool")}>
                 {t("nodeShortName.dicePool")}
               </li>
-              <li className="sidebar-item" onClick={() => addNewNode("selectRandomDice")}>
-                {t("nodeShortName.selectRandomDice")}
+              <li className="sidebar-item" onClick={() => addNewNode("mergeDicePools")}>
+                {t("nodeShortName.mergeDicePools")}
               </li>
               <li className="sidebar-item" onClick={() => addNewNode("dicePoolSum")}>
                 {t("nodeShortName.dicePoolSum")}
+              </li>
+              <li className="sidebar-item" onClick={() => addNewNode("selectRandomDice")}>
+                {t("nodeShortName.selectRandomDice")}
               </li>
               <li className="sidebar-item" onClick={() => addNewNode("diceLogical")}>
                 {t("nodeShortName.diceLogical")}

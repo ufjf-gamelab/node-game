@@ -86,7 +86,8 @@
     "andLogical": "AND",
     "orLogical": "OR",
     "selectRandomDice": "Selecionar Aleatório",
-    "selectRandomSymbol": "Selecionar Símbolo Aleatório"
+    "selectRandomSymbol": "Selecionar Símbolo Aleatório",
+    "mergeDicePools": "Mesclar Pools"
   },
   "nodeFullName": {
     "diceGenerator": "Gerador de Dado",
@@ -110,7 +111,8 @@
     "andLogical": "AND Lógico",
     "orLogical": "OR Lógico",
     "selectRandomDice": "Selecionar Dado Aleatório",
-    "selectRandomSymbol": "Selecionar Símbolo Aleatório"
+    "selectRandomSymbol": "Selecionar Símbolo Aleatório",
+    "mergeDicePools": "Mesclar Pools de Dado"
   },
   "nodeStatus": {
     "FINISHED": "Finalizado",

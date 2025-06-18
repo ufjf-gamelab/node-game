@@ -26,6 +26,7 @@ export type INodeStateMap = {
   orLogical: number[];
   selectRandomDice: number[];
   selectRandomSymbol: string[];
+  mergeDicePools: number[][];
 };
 
 export type INodeType = keyof INodeStateMap;
@@ -77,6 +78,7 @@ export type IAndLogicalNode = IBaseNode<{}, "andLogical">;
 export type IOrLogicalNode = IBaseNode<{}, "orLogical">;
 export type ISelectRandomDiceNode = IBaseNode<{}, "selectRandomDice">;
 export type ISelectRandomSymbolNode = IBaseNode<{}, "selectRandomSymbol">;
+export type IMergeDicePoolsNode = IBaseNode<{}, "mergeDicePools">;
 
 export type INode =
   | IDiceGeneratorNode
@@ -100,4 +102,5 @@ export type INode =
   | IAndLogicalNode
   | IOrLogicalNode
   | ISelectRandomDiceNode
-  | ISelectRandomSymbolNode;
+  | ISelectRandomSymbolNode
+  | IMergeDicePoolsNode;

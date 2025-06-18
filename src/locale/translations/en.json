@@ -86,7 +86,8 @@
     "andLogical": "AND",
     "orLogical": "OR",
     "selectRandomDice": "Select Random",
-    "selectRandomSymbol": "Select Random Symbolic"
+    "selectRandomSymbol": "Select Random Symbolic",
+    "mergeDicePools": "Merge Pools"
   },
   "nodeFullName": {
     "diceGenerator": "Dice Generator",
@@ -110,7 +111,8 @@
     "andLogical": "AND Logical",
     "orLogical": "OR Logical",
     "selectRandomDice": "Select Random Dice",
-    "selectRandomSymbol": "Select Random Symbolic"
+    "selectRandomSymbol": "Select Random Symbolic",
+    "mergeDicePools": "Merge Dice Pools"
   },
   "nodeStatus": {
     "FINISHED": "Finished",

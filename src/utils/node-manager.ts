@@ -22,6 +22,7 @@ import { AndLogical } from "@/features/and-logical";
 import { OrLogical } from "@/features/or-logical";
 import { SelectRandomDice } from "@/features/select-random-dice";
 import { SelectRandomSymbol } from "@/features/select-random-symbol";
+import { MergeDicePools } from "@/features/merge-dice-pools";
 
 const NODE_MODULES = {
   diceGenerator: DiceGenerator,
@@ -46,6 +47,7 @@ const NODE_MODULES = {
   orLogical: OrLogical,
   selectRandomDice: SelectRandomDice,
   selectRandomSymbol: SelectRandomSymbol,
+  mergeDicePools: MergeDicePools,
 } as const;
 
 export const NodeManager = {
