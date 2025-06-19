@@ -1,5 +1,5 @@
 import { i18n } from "@/config/i18n";
-import { IDiceExplodeNode, INodeService } from "@/config/types";
+import { IDiceExplodeNode, IDiceGeneratorNode, INodeService } from "@/config/types";
 import { NodeManager } from "@/utils/node-manager";
 
 export const DiceExplodeService: INodeService<IDiceExplodeNode> = {
@@ -12,7 +12,7 @@ export const DiceExplodeService: INodeService<IDiceExplodeNode> = {
         name: i18n.t("nodeShortName.diceExplode"),
         status: "IDLE",
         explodeFace: 1,
-        inputType: "numeric",
+        inputType: "numericGenerator",
         outputType: "numeric",
       },
     };
@@ -23,10 +23,11 @@ export const DiceExplodeService: INodeService<IDiceExplodeNode> = {
       const edge = flow.getEdges().find((edge) => edge.target === node.id);
       if (!edge) throw new Error("Connection not found!");
 
-      const sourceNode = flow.getNode(edge.source);
+      const sourceNode = flow.getNode(edge.source) as IDiceGeneratorNode | undefined;
       if (!sourceNode) throw new Error("Source connection not found!");
+      if (sourceNode.data.max < node.data.explodeFace) throw new Error("Explode face can't be greater than dice generator max face!");
 
-      const sourceState = NodeManager.run(sourceNode, flow) as number[][] | number[];
+      const sourceState = NodeManager.run(sourceNode, flow);
       const resultState = explodeDice(sourceState, node.data.explodeFace);
 
       flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });

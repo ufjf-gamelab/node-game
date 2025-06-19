@@ -34,10 +34,16 @@ const NodeHandle: React.FunctionComponent<IProps> = ({ type, dataType = "any", .
     const targetNode = flow.getNode(targetId);
     if (!targetNode) return false;
 
-    if (props.isValidConnection) return props.isValidConnection(targetId);
-    if (targetNode.data?.inputType === "any") return true;
-    if (targetNode.data.inputType && type === "source") return targetNode.data.inputType === dataType;
-    return false;
+    if (props?.isValidConnection) return props.isValidConnection(targetId);
+
+    if (type !== "source" || !targetNode.data.inputType) return false;
+    return isValidTypeConnection({ inputType: targetNode.data.inputType, outputType: dataType });
+  }
+
+  function isValidTypeConnection({ inputType, outputType }: { inputType: INodeStateType; outputType: INodeStateType }) {
+    if (inputType === "any") return true;
+    if (inputType === "numeric" && outputType === "numericGenerator") return true;
+    return inputType === outputType;
   }
 
   return (
@@ -52,6 +58,12 @@ const NodeHandle: React.FunctionComponent<IProps> = ({ type, dataType = "any", .
         className={cls("pointer-events-auto", props.className)}>
         <div className="flex items-center justify-center text-white pointer-events-none w-full h-full">
           {dataType === "numeric" && <AiOutlineFieldNumber className="w-3" />}
+          {dataType === "numericGenerator" && (
+            <div className="flex flex-col items-center justify-center">
+              <AiOutlineFieldNumber className="w-3" />
+              <span className="text-[5px] -mt-1">Gen</span>
+            </div>
+          )}
           {dataType === "numericPool" && (
             <div className="w-full relative flex items-center">
               <span className="absolute text-[9px] top-[1px] font-mono left-1/2 -translate-x-1/2">N</span>

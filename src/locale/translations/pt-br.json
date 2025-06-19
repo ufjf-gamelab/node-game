@@ -62,7 +62,8 @@
     "divide (ceil)": "Divisão (teto)",
     "facePlaceholder": "Nome da face",
     "removeFace": "Remover face",
-    "value": "Valor"
+    "value": "Valor",
+    "quantity": "Quantidade"
   },
   "nodeShortName": {
     "diceGenerator": "Dado",
@@ -128,11 +129,13 @@
     "source.boolean": "Saída binaria (verdadeiro/falso)",
     "source.symbolic": "Saída simbólica",
     "source.symbolicPool": "Saída pool simbólica",
+    "source.numericGenerator": "Saída gerador numérico",
     "target.any": "Qualquer tipo de entrada",
     "target.numeric": "Entrada numérica",
     "target.numericPool": "Entrada pool numérica",
     "target.boolean": "Entrada binaria (verdadeiro/falso)",
     "target.symbolic": "Entrada simbólica",
-    "target.symbolicPool": "Entrada pool simbólica"
+    "target.symbolicPool": "Entrada pool simbólica",
+    "target.numericGenerator": "Entrada gerador numérico"
   }
 }

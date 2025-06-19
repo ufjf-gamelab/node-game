@@ -31,7 +31,7 @@ export type INodeStateMap = {
 
 export type INodeType = keyof INodeStateMap;
 export type INodeState<N extends INode> = N extends { type: infer T } ? (T extends INodeType ? INodeStateMap[T] : never) : never;
-export type INodeStateType = "numeric" | "symbolic" | "boolean" | "numericPool" | "symbolicPool" | "any";
+export type INodeStateType = "numericGenerator" | "numeric" | "symbolic" | "boolean" | "numericPool" | "symbolicPool" | "any";
 export type INodeStatus = "IDLE" | "FINISHED" | "ERROR" | "MISSING_DATA" | "LOADING";
 export type IEdge = Edge;
 export type IFlowInstance = ReactFlowInstance<INode, IEdge>;
@@ -58,7 +58,7 @@ type IBaseNode<NodeData extends Record<string, unknown> = Record<string, unknown
 
 export type IDiceGeneratorNode = IBaseNode<{ min: number; max: number }, "diceGenerator">;
 export type IHistogramNode = IBaseNode<{ sortDirection: "asc" | "desc" }, "histogram">;
-export type IDicePoolNode = IBaseNode<{}, "dicePool">;
+export type IDicePoolNode = IBaseNode<{ quantity: number }, "dicePool">;
 export type IDicePoolSumNode = IBaseNode<{}, "dicePoolSum">;
 export type IDiceSuccessNode = IBaseNode<{ face: number }, "diceSuccess">;
 export type IDiceBetweenIntervalNode = IBaseNode<{ min: number; max: number }, "diceBetweenInterval">;
