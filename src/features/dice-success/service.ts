@@ -1,7 +1,5 @@
 import { i18n } from "@/config/i18n";
 import { IDiceSuccessNode, INodeService } from "@/config/types";
-import { flattenArray } from "@/utils/flatten-array";
-import { NodeManager } from "@/utils/node-manager";
 
 export const DiceSuccessService: INodeService<IDiceSuccessNode> = {
   new(_flow, { id, position }) {
@@ -19,23 +17,13 @@ export const DiceSuccessService: INodeService<IDiceSuccessNode> = {
     };
   },
 
-  run(flow, node) {
-    try {
-      const edge = flow.getEdges().find((edge) => edge.target === node.id);
-      if (!edge) throw new Error("Connection not found!");
+  run({ node, inputs }) {
+    const [source1] = inputs;
+    if (!source1) throw new Error("Source connection state not found!");
 
-      const sourceNode = flow.getNode(edge.source);
-      if (!sourceNode) throw new Error("Source connection not found!");
-
-      const sourceState = flattenArray(NodeManager.run(sourceNode, flow) as number[] | number[][]);
-      const resultState = getArraySuccess(sourceState, node.data.face);
-
-      flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
-      return resultState;
-    } catch (error) {
-      flow.updateNodeData(node.id, { ...node.data, status: "ERROR", errorMessage: error?.message });
-      throw error;
-    }
+    const sourceState = source1.state as number[];
+    const resultState = getArraySuccess(sourceState, node.data.face);
+    return resultState;
   },
 };
 

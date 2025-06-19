@@ -1,7 +1,7 @@
 import { i18n } from "@/config/i18n";
-import { IChartData, IHistogramNode, INode, INodeService, INodeType } from "@/config/types";
+import { IChartData, IHistogramNode, INodeService } from "@/config/types";
 import { flattenArray } from "@/utils/flatten-array";
-import { NodeManager } from "@/utils/node-manager";
+
 import { sortBy } from "@/utils/sort-by";
 
 export const HistogramService: INodeService<IHistogramNode> = {
@@ -20,66 +20,48 @@ export const HistogramService: INodeService<IHistogramNode> = {
     };
   },
 
-  run(flow, node) {
-    try {
-      const edge = flow.getEdges().find((edge) => edge.target === node.id);
-      if (!edge) throw new Error("Connection not found!");
+  run({ node, inputs }) {
+    const [source1] = inputs;
+    if (!source1) throw new Error("Source connection state not found!");
 
-      const sourceNode = flow.getNode(edge.source) as INode | undefined;
-      if (!sourceNode) throw new Error("Source connection not found!");
+    const sourceState = source1.state;
+    const sourceNode = source1.node;
 
-      const sourceState = NodeManager.run(sourceNode, flow);
+    if (isArrayOfObjects(sourceState)) {
+      const sortedChartData = sortBy(sourceState, "label", node.data.sortDirection);
 
-      if (isArrayOfObjects(sourceState)) {
-        const sortedChartData = sortBy(sourceState, "label", node.data.sortDirection);
-        flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
-        return sortedChartData;
-      }
-
-      const resultState = flattenArray<string | number>(sourceState).reduce((accumulator, currentItem) => {
-        const existingEntry = accumulator.find((prevEntry) => prevEntry.label === currentItem);
-        if (existingEntry) existingEntry.value += 1;
-        else accumulator.push({ label: currentItem, value: 1 });
-
-        return accumulator;
-      }, [] as IChartData);
-
-      if (sourceNode.type === "diceCountRepetition") {
-        resultState.forEach((item) => {
-          const percentage = ((item.value / sourceState.length) * 100).toFixed(2);
-
-          if (item.label === 1) item.label = `Equal to ${sourceNode.data.face} (${percentage}%)`;
-          else item.label = `Not equal (${percentage}%)`;
-        });
-      }
-
-      const nodesTypeBoolean: INodeType[] = [
-        "diceSuccess",
-        "diceBetweenInterval",
-        "diceLogical",
-        "valueIsEven",
-        "valueIsOdd",
-        "andLogical",
-        "orLogical",
-      ];
-      const parentIsTypeBoolean = nodesTypeBoolean.includes(sourceNode.type);
-
-      if (parentIsTypeBoolean) {
-        resultState.forEach((item) => {
-          const percentage = ((item.value / sourceState.length) * 100).toFixed(2);
-
-          if (item.label === 1) item.label = `Success (${percentage}%)`;
-          else item.label = `Failure (${percentage}%)`;
-        });
-      }
-
-      const sortedChartData = sortBy(resultState, "label", node.data.sortDirection);
-      flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
       return sortedChartData;
-    } catch (error) {
-      flow.updateNodeData(node.id, { ...node.data, status: "ERROR", errorMessage: error?.message });
-      throw error;
     }
+
+    const resultState = flattenArray<string | number>(sourceState).reduce((accumulator, currentItem) => {
+      const existingEntry = accumulator.find((prevEntry) => prevEntry.label === currentItem);
+      if (existingEntry) existingEntry.value += 1;
+      else accumulator.push({ label: currentItem, value: 1 });
+
+      return accumulator;
+    }, [] as IChartData);
+
+    if (sourceNode.type === "diceCountRepetition") {
+      resultState.forEach((item) => {
+        const percentage = ((item.value / sourceState.length) * 100).toFixed(2);
+
+        if (item.label === 1) item.label = `Equal to ${sourceNode.data.face} (${percentage}%)`;
+        else item.label = `Not equal (${percentage}%)`;
+      });
+    }
+
+    if (sourceNode.data.outputType === "boolean") {
+      resultState.forEach((item) => {
+        const percentage = ((item.value / sourceState.length) * 100).toFixed(2);
+
+        if (item.label === 1) item.label = `Success (${percentage}%)`;
+        else item.label = `Failure (${percentage}%)`;
+      });
+    }
+
+    const sortedChartData = sortBy(resultState, "label", node.data.sortDirection);
+
+    return sortedChartData;
   },
 };
 

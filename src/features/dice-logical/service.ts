@@ -1,6 +1,5 @@
 import { i18n } from "@/config/i18n";
 import { IDiceLogicalNode, INodeService } from "@/config/types";
-import { NodeManager } from "@/utils/node-manager";
 
 export const DiceLogicalService: INodeService<IDiceLogicalNode> = {
   new(_flow, { id, position }) {
@@ -18,29 +17,14 @@ export const DiceLogicalService: INodeService<IDiceLogicalNode> = {
     };
   },
 
-  run(flow, node) {
-    try {
-      const nodeEdges = flow.getEdges().filter((edge) => edge.target === node.id);
-      if (nodeEdges.length !== 2) throw new Error("Invalid connection!");
+  run({ node, inputs }) {
+    const [source1, source2] = inputs;
+    if (!source1 || !source2) throw new Error("Source connection state not found!");
 
-      const edgeSourceNodeA = nodeEdges.find((edge) => edge.id.includes("logical-target-1-"));
-      const edgeSourceNodeB = nodeEdges.find((edge) => edge.id.includes("logical-target-2-"));
-      if (!edgeSourceNodeA || !edgeSourceNodeB) throw new Error("Source connection not found!");
-
-      const sourceNodeA = flow.getNode(edgeSourceNodeA.source);
-      const sourceNodeB = flow.getNode(edgeSourceNodeB.source);
-      if (!sourceNodeA || !sourceNodeB) throw new Error("Source nodes not found!");
-
-      const sourceState1 = NodeManager.run(sourceNodeA, flow) as number[];
-      const sourceState2 = NodeManager.run(sourceNodeB, flow) as number[];
-
-      const resultState = executeLogicalOperation(sourceState1, sourceState2, node.data.operation);
-      flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
-      return resultState;
-    } catch (error) {
-      flow.updateNodeData(node.id, { ...node.data, status: "ERROR", errorMessage: error?.message });
-      throw error;
-    }
+    const sourceState1 = source1.state as number[];
+    const sourceState2 = source2.state as number[];
+    const resultState = executeLogicalOperation(sourceState1, sourceState2, node.data.operation);
+    return resultState;
   },
 };
 

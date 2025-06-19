@@ -1,8 +1,6 @@
 import { i18n } from "@/config/i18n";
 import { IBagGeneratorNode, INodeService } from "@/config/types";
 
-const TOTAL_DATA_VALUE = 10000;
-
 export const BagGeneratorService: INodeService<IBagGeneratorNode> = {
   new(_flow, { id, position }) {
     return {
@@ -13,26 +11,20 @@ export const BagGeneratorService: INodeService<IBagGeneratorNode> = {
         name: i18n.t("nodeShortName.bagGenerator"),
         status: "IDLE",
         balls: ["A", "B"],
-        outputType: "symbolic",
+        outputType: "symbolicGenerator",
       },
     };
   },
 
-  run(flow, node) {
-    try {
-      const resultState = generateRandomData(node.data.balls);
-      flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
-      return resultState;
-    } catch (error) {
-      flow.updateNodeData(node.id, { ...node.data, status: "ERROR", errorMessage: error?.message });
-      throw error;
-    }
+  run({ node, iterations }) {
+    const resultState = generateRandomData(node.data.balls, iterations);
+    return resultState;
   },
 };
 
-function generateRandomData(balls: string[]) {
+function generateRandomData(balls: string[], iterations: number) {
   let result: string[] = [];
-  for (let i = 0; i < TOTAL_DATA_VALUE; i++) {
+  for (let i = 0; i < iterations; i++) {
     const randomIndex = Math.floor(Math.random() * balls.length);
     result.push(balls[randomIndex]);
   }

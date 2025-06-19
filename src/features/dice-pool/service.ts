@@ -1,6 +1,5 @@
 import { i18n } from "@/config/i18n";
 import { IDiceGeneratorNode, IDicePoolNode, INodeService } from "@/config/types";
-import { NodeManager } from "@/utils/node-manager";
 
 export const DicePoolService: INodeService<IDicePoolNode> = {
   new(_flow, { id, position }) {
@@ -18,23 +17,14 @@ export const DicePoolService: INodeService<IDicePoolNode> = {
     };
   },
 
-  run(flow, node) {
-    try {
-      const edge = flow.getEdges().find((edge) => edge.target === node.id);
-      if (!edge) throw new Error("Connection not found!");
+  run({ node, inputs }) {
+    const [source] = inputs;
+    if (!source) throw new Error("Source connection state not found!");
 
-      const sourceNode = flow.getNode(edge.source) as IDiceGeneratorNode | undefined;
-      if (!sourceNode) throw new Error("Source connection not found!");
-
-      const sourceState = NodeManager.run(sourceNode, flow);
-      const resultState = getDicePool(sourceState, node.data.quantity, sourceNode.data.min, sourceNode.data.max);
-
-      flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
-      return resultState;
-    } catch (error) {
-      flow.updateNodeData(node.id, { ...node.data, status: "ERROR", errorMessage: error?.message });
-      throw error;
-    }
+    const sourceState = source.state as number[];
+    const sourceNode = source.node as IDiceGeneratorNode;
+    const resultState = getDicePool(sourceState, node.data.quantity, sourceNode.data.min, sourceNode.data.max);
+    return resultState;
   },
 };
 

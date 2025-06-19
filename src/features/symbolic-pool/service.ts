@@ -1,6 +1,5 @@
 import { i18n } from "@/config/i18n";
 import { ISymbolicPoolNode, INodeService, ISymbolicGeneratorNode } from "@/config/types";
-import { NodeManager } from "@/utils/node-manager";
 
 export const SymbolicPoolService: INodeService<ISymbolicPoolNode> = {
   new(_flow, { id, position }) {
@@ -18,23 +17,14 @@ export const SymbolicPoolService: INodeService<ISymbolicPoolNode> = {
     };
   },
 
-  run(flow, node) {
-    try {
-      const edge = flow.getEdges().find((edge) => edge.target === node.id);
-      if (!edge) throw new Error("Connection not found!");
+  run({ node, inputs }) {
+    const [source] = inputs;
+    if (!source) throw new Error("Source connection state not found!");
 
-      const sourceNode = flow.getNode(edge.source) as ISymbolicGeneratorNode | undefined;
-      if (!sourceNode) throw new Error("Source connection not found!");
-
-      const sourceState = NodeManager.run(sourceNode, flow);
-      const resultState = getSymbolicPool(sourceState, node.data.quantity, sourceNode.data.faces);
-
-      flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
-      return resultState;
-    } catch (error) {
-      flow.updateNodeData(node.id, { ...node.data, status: "ERROR", errorMessage: error?.message });
-      throw error;
-    }
+    const sourceState = source.state as string[];
+    const sourceNode = source.node as ISymbolicGeneratorNode;
+    const resultState = getSymbolicPool(sourceState, node.data.quantity, sourceNode.data.faces);
+    return resultState;
   },
 };
 

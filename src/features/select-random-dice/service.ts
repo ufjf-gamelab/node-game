@@ -1,8 +1,5 @@
 import { i18n } from "@/config/i18n";
 import { ISelectRandomDiceNode, INodeService } from "@/config/types";
-import { NodeManager } from "@/utils/node-manager";
-
-const TOTAL_DATA_VALUE = 10000;
 
 export const SelectRandomDiceService: INodeService<ISelectRandomDiceNode> = {
   new(_flow, { id, position }) {
@@ -19,30 +16,20 @@ export const SelectRandomDiceService: INodeService<ISelectRandomDiceNode> = {
     };
   },
 
-  run(flow, node) {
-    try {
-      const edge = flow.getEdges().find((edge) => edge.target === node.id);
-      if (!edge) throw new Error("Connection not found!");
+  run({ inputs, iterations }) {
+    const [source] = inputs;
+    if (!source) throw new Error("Source connection state not found!");
 
-      const sourceNode = flow.getNode(edge.source);
-      if (!sourceNode) throw new Error("Source connection not found!");
-
-      const sourceState = NodeManager.run(sourceNode, flow) as number[][];
-      const resultState = getRandomFlattenData(sourceState);
-
-      flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
-      return resultState;
-    } catch (error) {
-      flow.updateNodeData(node.id, { ...node.data, status: "ERROR", errorMessage: error?.message });
-      throw error;
-    }
+    const sourceState = source.state as number[][];
+    const resultState = selectRandomValueFromPool(sourceState, iterations);
+    return resultState;
   },
 };
 
-function getRandomFlattenData(data: number[][]) {
+function selectRandomValueFromPool(data: number[][], iterations: number) {
   const result: number[] = [];
 
-  for (let i = 0; i < TOTAL_DATA_VALUE; i++) {
+  for (let i = 0; i < iterations; i++) {
     result[i] = data[i][Math.floor(Math.random() * data[i].length)];
   }
   return result;

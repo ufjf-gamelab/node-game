@@ -30,7 +30,7 @@ export type INodeStateMap = {
 };
 
 export type INodeType = keyof INodeStateMap;
-export type INodeState<N extends INode> = N extends { type: infer T } ? (T extends INodeType ? INodeStateMap[T] : never) : never;
+export type INodeState<N extends INode = INode> = N extends { type: infer T } ? (T extends INodeType ? INodeStateMap[T] : never) : never;
 export type INodeStateType = "numericGenerator" | "numeric" | "symbolic" | "symbolicGenerator" | "boolean" | "numericPool" | "symbolicPool" | "any";
 export type INodeStatus = "IDLE" | "FINISHED" | "ERROR" | "MISSING_DATA" | "LOADING";
 export type IEdge = Edge;
@@ -39,7 +39,7 @@ export type IDiceMathOperation = "sum" | "subtract" | "multiply" | "divide (floo
 export type IDiceLogicalOperation = "A >= B" | "A <= B" | "A = B";
 export type INodeService<N extends INode> = {
   new: (flow: ReactFlowInstance<INode, IEdge>, defaultValue: Pick<N, "id" | "position">) => N;
-  run: (flow: ReactFlowInstance<INode, IEdge>, node: N) => INodeState<N>;
+  run: (payload: { node: N; inputs: { node: INode; state: INodeState }[]; iterations: number }) => INodeState<N>;
 };
 
 type IBaseNode<NodeData extends Record<string, unknown> = Record<string, unknown>, NodeType extends INodeType = INodeType> = Node<
