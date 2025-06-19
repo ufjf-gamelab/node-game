@@ -14,28 +14,14 @@ export const SymbolicPoolNode: React.ComponentType<IProps> = ({ data, isConnecta
       selected={selected}
       name={data.name}
       status={data.status}
+      label={data.quantity}
       icon={
         <>
           <GiRollingDices className="text-5xl" />
           <VscSymbolString className="text-2xl" />
         </>
       }>
-      <NodeHandle
-        id={"symbolic-pool-target-1-" + id}
-        type="target"
-        dataType={data.inputType}
-        className="top-6"
-        position={Position.Left}
-        isConnectable={isConnectable}
-      />
-      <NodeHandle
-        id={"symbolic-pool-target-2-" + id}
-        type="target"
-        dataType={data.inputType}
-        className="top-16"
-        position={Position.Left}
-        isConnectable={isConnectable}
-      />
+      <NodeHandle id={"symbolic-pool-target-" + id} type="target" dataType={data.inputType} position={Position.Left} isConnectable={isConnectable} />
 
       <NodeHandle
         id={"symbolic-pool-source-" + id}

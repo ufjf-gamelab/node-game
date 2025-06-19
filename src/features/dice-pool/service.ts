@@ -27,7 +27,7 @@ export const DicePoolService: INodeService<IDicePoolNode> = {
       if (!sourceNode) throw new Error("Source connection not found!");
 
       const sourceState = NodeManager.run(sourceNode, flow);
-      const resultState = poolNodes(sourceState, node.data.quantity, sourceNode.data.min, sourceNode.data.max);
+      const resultState = getDicePool(sourceState, node.data.quantity, sourceNode.data.min, sourceNode.data.max);
 
       flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
       return resultState;
@@ -38,7 +38,7 @@ export const DicePoolService: INodeService<IDicePoolNode> = {
   },
 };
 
-export function poolNodes(aInput1: number[], quantity: number, min: number, max: number) {
+export function getDicePool(aInput1: number[], quantity: number, min: number, max: number) {
   let result: number[][] = [];
 
   for (let i = 0; i < aInput1.length; i++) {

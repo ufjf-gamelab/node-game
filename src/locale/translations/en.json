@@ -131,11 +131,13 @@
     "source.symbolic": "Symbolic output",
     "source.symbolicPool": "Symbolic pool output",
     "source.numericGenerator": "Numeric generator output",
+    "source.symbolicGenerator": "Symbolic generator output",
     "target.numeric": "Numeric input",
     "target.numericPool": "Numeric pool input",
     "target.boolean": "Binary input (true/false)",
     "target.symbolic": "Symbolic input",
     "target.symbolicPool": "Symbolic pool input",
-    "target.numericGenerator": "Numeric generator input"
+    "target.numericGenerator": "Numeric generator input",
+    "target.symbolicGenerator": "Symbolic generator input"
   }
 }

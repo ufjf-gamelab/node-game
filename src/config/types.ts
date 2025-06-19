@@ -31,7 +31,7 @@ export type INodeStateMap = {
 
 export type INodeType = keyof INodeStateMap;
 export type INodeState<N extends INode> = N extends { type: infer T } ? (T extends INodeType ? INodeStateMap[T] : never) : never;
-export type INodeStateType = "numericGenerator" | "numeric" | "symbolic" | "boolean" | "numericPool" | "symbolicPool" | "any";
+export type INodeStateType = "numericGenerator" | "numeric" | "symbolic" | "symbolicGenerator" | "boolean" | "numericPool" | "symbolicPool" | "any";
 export type INodeStatus = "IDLE" | "FINISHED" | "ERROR" | "MISSING_DATA" | "LOADING";
 export type IEdge = Edge;
 export type IFlowInstance = ReactFlowInstance<INode, IEdge>;
@@ -67,7 +67,7 @@ export type IDiceExplodeNode = IBaseNode<{ explodeFace: number }, "diceExplode">
 export type IBagGeneratorNode = IBaseNode<{ balls: string[] }, "bagGenerator">;
 export type IBagPullWithoutRepetitionNode = IBaseNode<{}, "bagPullWithoutRepetition">;
 export type ISymbolicGeneratorNode = IBaseNode<{ faces: string[] }, "symbolicGenerator">;
-export type ISymbolicPoolNode = IBaseNode<{}, "symbolicPool">;
+export type ISymbolicPoolNode = IBaseNode<{ quantity: number }, "symbolicPool">;
 export type IDiceAbsoluteNode = IBaseNode<{}, "diceAbsolute">;
 export type IDiceMathNode = IBaseNode<{ operation: IDiceMathOperation }, "diceMath">;
 export type IDiceLogicalNode = IBaseNode<{ operation: IDiceLogicalOperation }, "diceLogical">;
