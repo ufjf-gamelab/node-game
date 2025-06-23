@@ -5,16 +5,18 @@ import { BiMath } from "react-icons/bi";
 import { IDiceMathNode } from "@/config/types";
 import { BaseNode } from "@/components/ui/base-node";
 import { NodeHandle } from "@/components/ui/node-handle";
+import { useTranslation } from "react-i18next";
 
 type IProps = NodeProps<IDiceMathNode>;
 
 export const DiceMathNode: React.ComponentType<IProps> = ({ data, selected, isConnectable, id }: IProps) => {
+  const { t } = useTranslation();
   return (
     <BaseNode
       selected={selected}
       name={data.name}
       status={data.status}
-      label={data.operation.charAt(0).toUpperCase() + data.operation.slice(1)}
+      label={t(`nodeProperties.${data.operation}`)}
       icon={
         <>
           <GiPerspectiveDiceSixFacesOne className="text-5xl" />

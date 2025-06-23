@@ -45,8 +45,8 @@ export const HistogramService: INodeService<IHistogramNode> = {
       resultState.forEach((item) => {
         const percentage = ((item.value / sourceState.length) * 100).toFixed(2);
 
-        if (item.label === 1) item.label = `Equal to ${sourceNode.data.face} (${percentage}%)`;
-        else item.label = `Not equal (${percentage}%)`;
+        if (item.label === 1) item.label = `${i18n.t("common.equalTo")} ${sourceNode.data.face} (${percentage}%)`;
+        else item.label = `${i18n.t("common.notEqual")} (${percentage}%)`;
       });
     }
 
@@ -54,8 +54,8 @@ export const HistogramService: INodeService<IHistogramNode> = {
       resultState.forEach((item) => {
         const percentage = ((item.value / sourceState.length) * 100).toFixed(2);
 
-        if (item.label === 1) item.label = `Success (${percentage}%)`;
-        else item.label = `Failure (${percentage}%)`;
+        if (item.label === 1) item.label = `${i18n.t("common.success")} (${percentage}%)`;
+        else item.label = `${i18n.t("common.failure")} (${percentage}%)`;
       });
     }
 
