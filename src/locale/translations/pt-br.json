@@ -5,7 +5,11 @@
     "symbolic": "Simbólico",
     "output": "Saída",
     "ascending": "Ascendente",
-    "descending": "Descendente"
+    "descending": "Descendente",
+    "success": "Sucesso",
+    "failure": "Falha",
+    "equalTo": "Igual a",
+    "notEqual": "Não é igual"
   },
   "sidebar": {
     "clearTooltip": "Limpar todos nós",
@@ -88,7 +92,8 @@
     "orLogical": "OR",
     "selectRandomDice": "Selecionar Aleatório",
     "selectRandomSymbol": "Selecionar Símbolo Aleatório",
-    "mergeDicePools": "Mesclar Pools"
+    "mergeDicePools": "Mesclar Pools",
+    "selectHighestDice": "Selecionar Maior"
   },
   "nodeFullName": {
     "diceGenerator": "Gerador de Dado",
@@ -113,7 +118,8 @@
     "orLogical": "OR Lógico",
     "selectRandomDice": "Selecionar Dado Aleatório",
     "selectRandomSymbol": "Selecionar Símbolo Aleatório",
-    "mergeDicePools": "Mesclar Pools de Dado"
+    "mergeDicePools": "Mesclar Pools de Dado",
+    "selectHighestDice": "Selecionar Maior Dado"
   },
   "nodeStatus": {
     "FINISHED": "Finalizado",

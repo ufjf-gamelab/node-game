@@ -27,6 +27,7 @@ export type INodeStateMap = {
   selectRandomDice: number[];
   selectRandomSymbol: string[];
   mergeDicePools: number[][];
+  selectHighestDice: number[];
 };
 
 export type INodeType = keyof INodeStateMap;
@@ -79,6 +80,7 @@ export type IOrLogicalNode = IBaseNode<{}, "orLogical">;
 export type ISelectRandomDiceNode = IBaseNode<{}, "selectRandomDice">;
 export type ISelectRandomSymbolNode = IBaseNode<{}, "selectRandomSymbol">;
 export type IMergeDicePoolsNode = IBaseNode<{}, "mergeDicePools">;
+export type ISelectHighestDiceNode = IBaseNode<{}, "selectHighestDice">;
 
 export type INode =
   | IDiceGeneratorNode
@@ -103,4 +105,5 @@ export type INode =
   | IOrLogicalNode
   | ISelectRandomDiceNode
   | ISelectRandomSymbolNode
-  | IMergeDicePoolsNode;
+  | IMergeDicePoolsNode
+  | ISelectHighestDiceNode;

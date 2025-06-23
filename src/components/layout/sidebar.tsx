@@ -65,6 +65,9 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
               <li className="sidebar-item" onClick={() => addNewNode("selectRandomDice")}>
                 {t("nodeShortName.selectRandomDice")}
               </li>
+              <li className="sidebar-item" onClick={() => addNewNode("selectHighestDice")}>
+                {t("nodeShortName.selectHighestDice")}
+              </li>
               <li className="sidebar-item" onClick={() => addNewNode("diceLogical")}>
                 {t("nodeShortName.diceLogical")}
               </li>

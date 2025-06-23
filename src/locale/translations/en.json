@@ -5,7 +5,11 @@
     "symbolic": "Symbolic",
     "output": "Output",
     "ascending": "Ascending",
-    "descending": "Descending"
+    "descending": "Descending",
+    "success": "Success",
+    "failure": "Failure",
+    "equalTo": "Equal to",
+    "notEqual": "Not equal"
   },
   "sidebar": {
     "clearTooltip": "Clear all nodes",
@@ -88,7 +92,8 @@
     "orLogical": "OR",
     "selectRandomDice": "Select Random",
     "selectRandomSymbol": "Select Random Symbolic",
-    "mergeDicePools": "Merge Pools"
+    "mergeDicePools": "Merge Pools",
+    "selectHighestDice": "Select Highest"
   },
   "nodeFullName": {
     "diceGenerator": "Dice Generator",
@@ -113,7 +118,8 @@
     "orLogical": "OR Logical",
     "selectRandomDice": "Select Random Dice",
     "selectRandomSymbol": "Select Random Symbolic",
-    "mergeDicePools": "Merge Dice Pools"
+    "mergeDicePools": "Merge Dice Pools",
+    "selectHighestDice": "Select Highest Dice"
   },
   "nodeStatus": {
     "FINISHED": "Finished",

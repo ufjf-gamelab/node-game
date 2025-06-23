@@ -23,6 +23,7 @@ import { OrLogical } from "@/features/or-logical";
 import { SelectRandomDice } from "@/features/select-random-dice";
 import { SelectRandomSymbol } from "@/features/select-random-symbol";
 import { MergeDicePools } from "@/features/merge-dice-pools";
+import { SelectHighestDice } from "@/features/select-highest-dice";
 
 const NODE_MODULES = {
   diceGenerator: DiceGenerator,
@@ -48,6 +49,7 @@ const NODE_MODULES = {
   selectRandomDice: SelectRandomDice,
   selectRandomSymbol: SelectRandomSymbol,
   mergeDicePools: MergeDicePools,
+  selectHighestDice: SelectHighestDice,
 } as const;
 
 export const NodeManager = {
