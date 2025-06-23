@@ -53,33 +53,30 @@ function explodeDice(data: number[], explodeFace: number): number[] {
 }
 
 //  mc die explode
-function explodeDicePool(data: number[][], explodeFace: number): number[] {
-  const MAX_DEPTH = 20;
+// function explodeDicePool(data: number[][], explodeFace: number): number[] {
+//   const MAX_DEPTH = 20;
+//   // Simula uma rolagem de dado d6 (pode adaptar)
+//   function rollDie(): number {
+//     return Math.floor(Math.random() * 6) + 1;
+//   }
 
-  // Simula uma rolagem de dado d6 (pode adaptar)
-  function rollDie(): number {
-    return Math.floor(Math.random() * 6) + 1;
-  }
+//   // Conta explosões recursivamente para um grupo
+//   function countGroupExplosions(group: number[]): number {
+//     let explosions = 0;
+//     const diceQueue = [...group]; // fila dos dados para verificar explosão
+//     let depth = 0;
 
-  // Conta explosões recursivamente para um grupo
-  function countGroupExplosions(group: number[]): number {
-    let explosions = 0;
-    const diceQueue = [...group]; // fila dos dados para verificar explosão
-    let depth = 0;
-
-    while (diceQueue.length > 0 && depth < MAX_DEPTH) {
-      const die = diceQueue.shift()!;
-      if (die === explodeFace) {
-        explosions++;
-        const newDie = rollDie();
-        diceQueue.push(newDie); // novo dado pode explodir também
-      }
-      depth++;
-    }
-
-    return explosions;
-  }
-
-  // Para cada grupo, conta as explosões
-  return data.map((group) => countGroupExplosions(group));
-}
+//     while (diceQueue.length > 0 && depth < MAX_DEPTH) {
+//       const die = diceQueue.shift()!;
+//       if (die === explodeFace) {
+//         explosions++;
+//         const newDie = rollDie();
+//         diceQueue.push(newDie); // novo dado pode explodir também
+//       }
+//       depth++;
+//     }
+//     return explosions;
+//   }
+//   // Para cada grupo, conta as explosões
+//   return data.map((group) => countGroupExplosions(group));
+// }
