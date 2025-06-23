@@ -49,15 +49,15 @@
   }
 }
 .react-flow-board .react-flow__handle {
-  @apply h-[25px] w-[13px] rounded-sm;
+  @apply h-[28px] w-[16px] rounded-sm;
 }
 
 .react-flow-board .react-flow__handle-left {
-  transform: translate(-35%, -50%);
+  // transform: translate(-35%, -50%);
   border-width: 1px;
 }
 .react-flow-board .react-flow__handle-right {
-  transform: translate(65%, -50%);
+  // transform: translate(65%, -50%);
 }
 
 .react-flow__handle.connectionindicator:hover {

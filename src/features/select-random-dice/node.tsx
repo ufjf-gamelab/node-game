@@ -1,26 +1,24 @@
 import React from "react";
 import { Position, NodeProps } from "@xyflow/react";
-import { IDiceSuccessNode } from "@/config/types";
-import { GiPerspectiveDiceSixFacesOne } from "react-icons/gi";
-import { BsChevronBarUp, BsFillQuestionSquareFill } from "react-icons/bs";
+import { ISelectRandomDiceNode } from "@/config/types";
+import { GiRollingDices } from "react-icons/gi";
 import { BaseNode } from "@/components/ui/base-node";
 import { NodeHandle } from "@/components/ui/node-handle";
+import { LiaRandomSolid } from "react-icons/lia";
 
-type IProps = NodeProps<IDiceSuccessNode>;
+type IProps = NodeProps<ISelectRandomDiceNode>;
 
-export const DiceSuccessNode: React.ComponentType<IProps> = ({ data, selected, isConnectable, id }) => {
+export const SelectRandomDiceNode: React.ComponentType<IProps> = ({ data, selected, isConnectable, id }) => {
   return (
     <BaseNode
       selected={selected}
       name={data.name}
       status={data.status}
-      label={data.face}
       icon={
         <>
-          <GiPerspectiveDiceSixFacesOne />
-          <div className="flex flex-col justify-center items-center -ml-1">
-            <BsChevronBarUp className="text-2xl" />
-            <BsFillQuestionSquareFill className="text-lg" />
+          <GiRollingDices />
+          <div className="flex flex-col justify-center items-center">
+            <LiaRandomSolid className="text-xl " />
           </div>
         </>
       }>

@@ -1,6 +1,5 @@
 import { i18n } from "@/config/i18n";
-import { IDicePoolSumNode, INode, INodeService } from "@/config/types";
-import { NodeManager } from "@/utils/node-manager";
+import { IDicePoolSumNode, INodeService } from "@/config/types";
 
 export const DicePoolSumService: INodeService<IDicePoolSumNode> = {
   new(_flow, { id, position }) {
@@ -12,43 +11,29 @@ export const DicePoolSumService: INodeService<IDicePoolSumNode> = {
         name: i18n.t("nodeShortName.dicePoolSum"),
         status: "IDLE",
         state: [],
+        inputType: "numericPool",
+        outputType: "numeric",
       },
     };
   },
 
-  run(flow, node) {
-    try {
-      const edge = flow.getEdges().find((edge) => edge.target === node.id);
-      if (!edge) throw new Error("Connection not found!");
+  run({ inputs }) {
+    const [source] = inputs;
+    if (!source) throw new Error("Source connection state not found!");
 
-      const sourceNode = flow.getNode(edge.source) as INode | undefined;
-      if (!sourceNode) throw new Error("Source connection not found!");
-
-      const sourceState = NodeManager.run(sourceNode, flow) as number[];
-      const resultState = poolSumNodes(sourceState);
-
-      flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
-      return resultState;
-    } catch (error) {
-      flow.updateNodeData(node.id, { ...node.data, status: "ERROR", errorMessage: error?.message });
-      throw error;
-    }
+    const sourceState = source.state as number[][];
+    const resultState = executePoolSum(sourceState);
+    return resultState;
   },
 };
 
-function poolSumNodes(input: number[]) {
+function executePoolSum(input: number[][]) {
   let result = [];
 
   for (let i = 0; i < input.length; i++) {
     const dado1 = input[i];
-
     result[i] = 0;
-
-    if (Array.isArray(dado1)) {
-      dado1.forEach((valor) => (result[i] += valor));
-    } else {
-      result[i] += dado1;
-    }
+    dado1.forEach((valor) => (result[i] += valor));
   }
 
   return result;

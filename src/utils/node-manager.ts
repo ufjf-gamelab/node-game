@@ -20,6 +20,9 @@ import { ValueIsOdd } from "@/features/value-is-odd";
 import { IntegerValue } from "@/features/integer-value";
 import { AndLogical } from "@/features/and-logical";
 import { OrLogical } from "@/features/or-logical";
+import { SelectRandomDice } from "@/features/select-random-dice";
+import { SelectRandomSymbol } from "@/features/select-random-symbol";
+import { MergeDicePools } from "@/features/merge-dice-pools";
 
 const NODE_MODULES = {
   diceGenerator: DiceGenerator,
@@ -42,6 +45,9 @@ const NODE_MODULES = {
   symbolicPool: SymbolicPool,
   andLogical: AndLogical,
   orLogical: OrLogical,
+  selectRandomDice: SelectRandomDice,
+  selectRandomSymbol: SelectRandomSymbol,
+  mergeDicePools: MergeDicePools,
 } as const;
 
 export const NodeManager = {
@@ -56,10 +62,10 @@ export const NodeManager = {
     return service.new(flow, defaultDefinitions);
   },
 
-  run<N extends INode>(node: N, flow: IFlowInstance): INodeState<N> {
+  runIterative<N extends INode = INode>(node: N, inputs: { node: INode; state: INodeState }[], iterations: number): INodeState<N> {
     const service = NODE_MODULES[node.type].service;
     if (!service) throw new Error(`Node type ${node.type} not registered`);
-    return service.run(flow, node as any) as INodeState<N>;
+    return service.run({ node: node as never, inputs, iterations }) as INodeState<N>;
   },
 
   getProperties(node: INode) {

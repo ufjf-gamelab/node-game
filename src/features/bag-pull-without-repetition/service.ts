@@ -12,25 +12,19 @@ export const BagPullWithoutRepetitionService: INodeService<IBagPullWithoutRepeti
       data: {
         name: i18n.t("nodeShortName.bagPullWithoutRepetition"),
         status: "IDLE",
+        inputType: "symbolicGenerator",
+        outputType: "symbolic",
       },
     };
   },
 
-  run(flow, node) {
-    try {
-      const edge = flow.getEdges().find((edge) => edge.target === node.id);
-      if (!edge) throw new Error("Connection not found!");
+  run({ inputs }) {
+    const [source] = inputs;
+    if (!source) throw new Error("Source connection state not found!");
 
-      const sourceNode = flow.getNode(edge.source) as IBagGeneratorNode | undefined;
-      if (!sourceNode) throw new Error("Source connection not found!");
-
-      const resultState = pullBagWithoutRepetition(sourceNode.data.balls);
-      flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
-      return resultState;
-    } catch (error) {
-      flow.updateNodeData(node.id, { ...node.data, status: "ERROR", errorMessage: error?.message });
-      throw error;
-    }
+    const sourceNode = source.node as IBagGeneratorNode;
+    const resultState = pullBagWithoutRepetition(sourceNode.data.balls);
+    return resultState;
   },
 };
 

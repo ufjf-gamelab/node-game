@@ -1,7 +1,5 @@
 import { i18n } from "@/config/i18n";
 import { IValueIsOddNode, INodeService } from "@/config/types";
-import { flattenArray } from "@/utils/flatten-array";
-import { NodeManager } from "@/utils/node-manager";
 
 export const ValueIsOddService: INodeService<IValueIsOddNode> = {
   new(_flow, { id, position }) {
@@ -12,27 +10,19 @@ export const ValueIsOddService: INodeService<IValueIsOddNode> = {
       data: {
         name: i18n.t("nodeShortName.valueIsOdd"),
         status: "IDLE",
+        inputType: "numeric",
+        outputType: "boolean",
       },
     };
   },
 
-  run(flow, node) {
-    try {
-      const edge = flow.getEdges().find((edge) => edge.target === node.id);
-      if (!edge) throw new Error("Connection not found!");
+  run({ inputs }) {
+    const [source] = inputs;
+    if (!source) throw new Error("Source connection state not found!");
 
-      const sourceNode = flow.getNode(edge.source);
-      if (!sourceNode) throw new Error("Source connection not found!");
-
-      const sourceState = flattenArray(NodeManager.run(sourceNode, flow) as number[] | number[][]);
-      const resultState = getValueIsOdd(sourceState);
-
-      flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
-      return resultState;
-    } catch (error) {
-      flow.updateNodeData(node.id, { ...node.data, status: "ERROR", errorMessage: error?.message });
-      throw error;
-    }
+    const sourceState = source.state as number[];
+    const resultState = getValueIsOdd(sourceState);
+    return resultState;
   },
 };
 

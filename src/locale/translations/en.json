@@ -62,7 +62,8 @@
     "divide (ceil)": "Divide (ceil)",
     "facePlaceholder": "Face name",
     "removeFace": "Remove face",
-    "value": "Value"
+    "value": "Value",
+    "quantity": "Quantity"
   },
   "nodeShortName": {
     "diceGenerator": "Dice",
@@ -84,7 +85,10 @@
     "symbolicPool": "Symbolic Pool",
     "integerValue": "Integer",
     "andLogical": "AND",
-    "orLogical": "OR"
+    "orLogical": "OR",
+    "selectRandomDice": "Select Random",
+    "selectRandomSymbol": "Select Random Symbolic",
+    "mergeDicePools": "Merge Pools"
   },
   "nodeFullName": {
     "diceGenerator": "Dice Generator",
@@ -106,7 +110,10 @@
     "symbolicPool": "Symbolic Pool",
     "integerValue": "Integer Value",
     "andLogical": "AND Logical",
-    "orLogical": "OR Logical"
+    "orLogical": "OR Logical",
+    "selectRandomDice": "Select Random Dice",
+    "selectRandomSymbol": "Select Random Symbolic",
+    "mergeDicePools": "Merge Dice Pools"
   },
   "nodeStatus": {
     "FINISHED": "Finished",
@@ -116,13 +123,21 @@
     "MISSING_DATA": "Missing data"
   },
   "nodeHandleTooltip": {
-    "source": "Any output type",
-    "target": "Any input type",
+    "source.any": "Any output type",
+    "target.any": "Any input type",
     "source.numeric": "Numeric output",
+    "source.numericPool": "Numeric pool output",
     "source.boolean": "Binary output (true/false)",
     "source.symbolic": "Symbolic output",
+    "source.symbolicPool": "Symbolic pool output",
+    "source.numericGenerator": "Numeric generator output",
+    "source.symbolicGenerator": "Symbolic generator output",
     "target.numeric": "Numeric input",
+    "target.numericPool": "Numeric pool input",
     "target.boolean": "Binary input (true/false)",
-    "target.symbolic": "Symbolic input"
+    "target.symbolic": "Symbolic input",
+    "target.symbolicPool": "Symbolic pool input",
+    "target.numericGenerator": "Numeric generator input",
+    "target.symbolicGenerator": "Symbolic generator input"
   }
 }

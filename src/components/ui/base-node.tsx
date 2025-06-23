@@ -15,7 +15,7 @@ type IProps = {
 export const BaseNode: React.FC<IProps> = ({ children, selected, name, label, icon, status, ...restProps }) => {
   return (
     <div
-      className={"w-[90px] h-[90px] rounded-sm border border-gray-400/80 cursor-move relative " + `${selected ? "bg-blue-200" : "bg-white"}`}
+      className={"w-[95px] h-[95px] rounded-sm border border-gray-400/80 cursor-move relative " + `${selected ? "bg-blue-200" : "bg-white"}`}
       {...restProps}>
       {children}
 
@@ -26,7 +26,7 @@ export const BaseNode: React.FC<IProps> = ({ children, selected, name, label, ic
 
         {label && <span className="w-full text-center text-[11px] absolute bottom-1 left-1/2 -translate-x-1/2">{label}</span>}
 
-        <span className="absolute top-0 translate-y-[90px] w-full max-[110px] text-sm leading-tight break-words text-center">{name}</span>
+        <span className="absolute top-0 translate-y-[95px] w-full max-[110px] text-sm leading-tight break-words text-center">{name}</span>
       </div>
     </div>
   );

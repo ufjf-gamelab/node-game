@@ -1,7 +1,5 @@
 import { i18n } from "@/config/i18n";
-import { IDiceGeneratorNode, IDiceLogicalNode, INodeService } from "@/config/types";
-import { flattenArray } from "@/utils/flatten-array";
-import { NodeManager } from "@/utils/node-manager";
+import { IDiceLogicalNode, INodeService } from "@/config/types";
 
 export const DiceLogicalService: INodeService<IDiceLogicalNode> = {
   new(_flow, { id, position }) {
@@ -13,34 +11,20 @@ export const DiceLogicalService: INodeService<IDiceLogicalNode> = {
         name: i18n.t("nodeShortName.diceLogical"),
         status: "IDLE",
         operation: "A = B",
+        inputType: "numeric",
+        outputType: "boolean",
       },
     };
   },
 
-  run(flow, node) {
-    try {
-      const nodeEdges = flow.getEdges().filter((edge) => edge.target === node.id);
-      if (nodeEdges.length !== 2) throw new Error("Invalid connection!");
+  run({ node, inputs }) {
+    const [source1, source2] = inputs;
+    if (!source1 || !source2) throw new Error("Source connection state not found!");
 
-      const edgeSourceNodeA = nodeEdges.find((edge) => edge.id.includes("logical-target-1-"));
-      const edgeSourceNodeB = nodeEdges.find((edge) => edge.id.includes("logical-target-2-"));
-      if (!edgeSourceNodeA || !edgeSourceNodeB) throw new Error("Source connection not found!");
-
-      const sourceNodeA = flow.getNode(edgeSourceNodeA.source) as IDiceGeneratorNode;
-      const sourceNodeB = flow.getNode(edgeSourceNodeB.source) as IDiceGeneratorNode;
-      if (!sourceNodeA || !sourceNodeB) throw new Error("Source nodes not found!");
-
-      const sourceState1 = flattenArray(NodeManager.run(sourceNodeA, flow) as number[] | number[][]);
-      const sourceState2 = flattenArray(NodeManager.run(sourceNodeB, flow) as number[] | number[][]);
-
-      const resultState = executeLogicalOperation(sourceState1, sourceState2, node.data.operation);
-
-      flow.updateNodeData(node.id, { ...node.data, status: "FINISHED" });
-      return resultState;
-    } catch (error) {
-      flow.updateNodeData(node.id, { ...node.data, status: "ERROR", errorMessage: error?.message });
-      throw error;
-    }
+    const sourceState1 = source1.state as number[];
+    const sourceState2 = source2.state as number[];
+    const resultState = executeLogicalOperation(sourceState1, sourceState2, node.data.operation);
+    return resultState;
   },
 };
 
