@@ -3,11 +3,10 @@ import { Accordion, ActionIcon, Select, Tooltip } from "@mantine/core";
 import { GiPerspectiveDiceOne, GiPerspectiveDiceSixFacesRandom, GiSwapBag } from "react-icons/gi";
 import { IoBarChartSharp } from "react-icons/io5";
 import { VscTrash } from "react-icons/vsc";
-
-import { INodeType } from "@/config/types";
 import { useReactFlow } from "@xyflow/react";
 import { useTranslation } from "react-i18next";
 import { BiWorld } from "react-icons/bi";
+import { INodeType } from "@/config/types";
 
 type IProps = { addNewNode: (type: INodeType) => void };
 
@@ -27,6 +26,10 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
 
   return (
     <aside className="text-[14px] text-slate-900 fixed z-20 left-0 top-0 bg-white h-screen w-48 flex flex-col border-r select-none">
+      <div className="px-4 mt-2 mb-2">
+        <img src="logo/md.png" alt="Node Crafter logo" className="w-full pointer-events-none" draggable={false} />
+      </div>
+
       <Accordion
         variant="contained"
         chevronPosition="right"
@@ -35,7 +38,6 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
         multiple>
         <Accordion.Item value="dice">
           <Accordion.Control icon={<GiPerspectiveDiceOne className="text-[22px]" />}>{t("common.dice")}</Accordion.Control>
-
           <Accordion.Panel className="bg-white">
             <ul className="flex flex-col">
               <li className="sidebar-item" onClick={() => addNewNode("diceGenerator")}>
