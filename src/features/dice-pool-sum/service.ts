@@ -28,12 +28,11 @@ export const DicePoolSumService: INodeService<IDicePoolSumNode> = {
 };
 
 function executePoolSum(input: number[][]) {
-  let result = [];
+  const result: number[] = [];
 
   for (let i = 0; i < input.length; i++) {
-    const dado1 = input[i];
     result[i] = 0;
-    dado1.forEach((valor) => (result[i] += valor));
+    input[i].forEach((valor) => (result[i] += valor));
   }
 
   return result;
