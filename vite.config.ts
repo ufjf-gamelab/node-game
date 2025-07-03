@@ -5,7 +5,7 @@ import checker from "vite-plugin-checker";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/node-game/",
+  base: "/node-crafter/",
   plugins: [
     react(),
     checker({
