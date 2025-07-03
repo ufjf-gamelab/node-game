@@ -98,21 +98,6 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
           </Accordion.Panel>
         </Accordion.Item>
 
-        <Accordion.Item value="bag">
-          <Accordion.Control icon={<GiSwapBag className="text-[22px]" />}>{t("common.bag")}</Accordion.Control>
-
-          <Accordion.Panel className="bg-white">
-            <ul className="flex flex-col">
-              <li className="sidebar-item" onClick={() => addNewNode("bagGenerator")}>
-                {t("nodeFullName.bagGenerator")}
-              </li>
-              <li className="sidebar-item" onClick={() => addNewNode("bagPullWithoutRepetition")}>
-                {t("nodeShortName.bagPullWithoutRepetition")}
-              </li>
-            </ul>
-          </Accordion.Panel>
-        </Accordion.Item>
-
         <Accordion.Item value="symbolic">
           <Accordion.Control icon={<GiPerspectiveDiceSixFacesRandom className="text-[22px]" />}>{t("common.symbolic")}</Accordion.Control>
 
@@ -126,6 +111,9 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
               </li>
               <li className="sidebar-item" onClick={() => addNewNode("selectRandomSymbol")}>
                 {t("nodeShortName.selectRandomSymbol")}
+              </li>
+              <li className="sidebar-item" onClick={() => addNewNode("bagPullWithoutRepetition")}>
+                {t("nodeShortName.bagPullWithoutRepetition")}
               </li>
             </ul>
           </Accordion.Panel>
