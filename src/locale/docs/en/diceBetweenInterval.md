@@ -59,7 +59,7 @@
 - Connect **Dice Generator** to the **Between Range Dice** node
 - Connect **Between Range Dice** to the **Histogram** node
 
-<img src="/images/dice-between-interval.png" width="500px" alt="Example usage of Between Range Dice"/>
+<img src="/node-crafter/doc-images/dice-between-interval.png" width="500px" alt="Example usage of Between Range Dice"/>
 
 ---
 

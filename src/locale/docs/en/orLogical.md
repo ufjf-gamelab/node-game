@@ -52,7 +52,7 @@
 - Connect the **Dice Is Even** to the **OR Logical**
 - Connect the **OR Logical** to the **Histogram**
 
-<img src="/images/or-logical.png" alt="Example usage of OR Logical node" width="500px"/>
+<img src="/node-crafter/doc-images/or-logical.png" alt="Example usage of OR Logical node" width="500px"/>
 
 ---
 

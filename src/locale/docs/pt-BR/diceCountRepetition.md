@@ -53,7 +53,7 @@
 - Conecte **Dado de Dado B** ao nó **Pool de Dado**
 - Conecte **Pool de Dado** ao nó **Histograma**
 
-<img src="/images/critical-count.png" width="500px" alt="Exemplo de uso do Contar Repetição de Dado"/>
+<img src="/node-crafter/doc-images/critical-count.png" width="500px" alt="Exemplo de uso do Contar Repetição de Dado"/>
 
 ---
 

@@ -43,7 +43,7 @@
 - Conecte o **Gerador Simbólico B** ao nó **Pool Simbólica**
 - Conecte a **Pool Simbólica** ao nó **Histograma**
 
-<img src="/images/symbolic-pool.png" width="500px" alt="Exemplo de uso do Pool Simbólica"/>
+<img src="/node-crafter/doc-images/symbolic-pool.png" width="500px" alt="Exemplo de uso do Pool Simbólica"/>
 
 ---
 

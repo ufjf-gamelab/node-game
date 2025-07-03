@@ -47,7 +47,7 @@
 - Connect the **Dice Pool** node to the **Select Random Dice** node
 - Connect the **Select Random Dice** node to the **Histogram** node
 
-<img src="/node-crafter/images/select-random.png" alt="Example usage of Select Random Dice node" width="500px"/>
+<img src="/node-crafter/doc-images/select-random.png" alt="Example usage of Select Random Dice node" width="500px"/>
 
 ---
 

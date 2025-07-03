@@ -59,7 +59,7 @@
 - Conecte **Dado Gerador** ao nó **Dado Entre Intervalo**
 - Conecte **Dado Entre Intervalo** ao nó **Histograma**
 
-<img src="/images/dice-between-interval.png" width="500px" alt="Exemplo de uso do Dado Entre Intervalo"/>
+<img src="/node-crafter/doc-images/dice-between-interval.png" width="500px" alt="Exemplo de uso do Dado Entre Intervalo"/>
 
 ---
 

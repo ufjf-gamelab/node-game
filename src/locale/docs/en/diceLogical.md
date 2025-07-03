@@ -53,7 +53,7 @@
 - Connect **Defense Dice Generator** to the **Dice Logical Comparison** node
 - Connect the **Dice Logical Comparison** node to the **Histogram** node
 
-<img src="/images/logical.png" width="500px" alt="Example of use of the Dice Logical Comparison node"/>
+<img src="/node-crafter/doc-images/logical.png" width="500px" alt="Example of use of the Dice Logical Comparison node"/>
 
 ---
 

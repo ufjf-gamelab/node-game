@@ -41,7 +41,7 @@
 - Conecte o nó **Gerador de Dado** ao nó **Dado é Ímpar**
 - Conecte o nó **Dado é Ímpar** ao nó **Histograma de Sucesso/Falha**
 
-<img src="/images/is-odd.png" width="500px" alt="Exemplo de uso do nó Dado é Ímpar"/>
+<img src="/node-crafter/doc-images/is-odd.png" width="500px" alt="Exemplo de uso do nó Dado é Ímpar"/>
 
 ---
 

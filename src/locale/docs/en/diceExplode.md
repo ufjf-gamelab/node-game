@@ -52,7 +52,7 @@
 - Connect the **Dice Generator** to the **Dice Explosion** node
 - Connect the **Dice Explosion** node to the **Histogram** node
 
-<img src="/images/dice-explode.png" width="500px" alt="Example usage of Dice Explosion"/>
+<img src="/node-crafter/doc-images/dice-explode.png" width="500px" alt="Example usage of Dice Explosion"/>
 
 ---
 

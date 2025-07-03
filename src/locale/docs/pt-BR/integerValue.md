@@ -53,7 +53,7 @@
 - Conecte o **Nó Inteiro** ao nó **Matemático**
 - Conecte o **Matemático** ao nó **Histograma**
 
-<img src="/images/integer.png" width="500px" alt="Exemplo de uso do nó Inteiro"/>
+<img src="/node-crafter/doc-images/integer.png" width="500px" alt="Exemplo de uso do nó Inteiro"/>
 
 ---
 

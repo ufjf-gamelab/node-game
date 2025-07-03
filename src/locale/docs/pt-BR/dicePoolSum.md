@@ -44,7 +44,7 @@
 - Conecte **Pool de Dado** ao **Pool Soma de Dado**
 - Conecte **Pool Soma de Dado** ao nó **Histograma**
 
-<img src="/images/dice-pool.png" width="500px" alt="Exemplo de uso do Pool de Dado com Pool Soma de Dado"/>
+<img src="/node-crafter/doc-images/dice-pool.png" width="500px" alt="Exemplo de uso do Pool de Dado com Pool Soma de Dado"/>
 
 ---
 

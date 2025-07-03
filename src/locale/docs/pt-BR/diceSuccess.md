@@ -52,7 +52,7 @@
 - Conecte **Dado Gerador** ao nó **Dado Sucesso**
 - Conecte **Dado Sucesso** ao nó **Histograma**
 
-![Dado Gerador → Dado Sucesso → Histograma](/images/generator-success.png)
+<img src="/node-crafter/doc-images/generator-success.png" width="500px" alt="Example usage of Dice Success"/>
 
 ---
 

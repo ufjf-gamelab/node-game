@@ -55,7 +55,7 @@
 - Connect the **Dice Pool** node to the **Dice Pool Sum** node
 - Connect the **Dice Pool Sum** node to the **Histogram** node
 
-<img src="/node-crafter/images/dice-pool.png" width="500px" alt="Example usage of Dice Pool with Dice Pool Sum node"/>
+<img src="/node-crafter/doc-images/dice-pool.png" width="500px" alt="Example usage of Dice Pool with Dice Pool Sum node"/>
 
 ---
 

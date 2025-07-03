@@ -53,7 +53,7 @@
 - Connect the **Integer Node** to the **Math** node
 - Connect the **Math** node to the **Histogram** node
 
-<img src="/images/integer.png" width="500px" alt="Usage example of the Integer node"/>
+<img src="/node-crafter/doc-images/integer.png" width="500px" alt="Usage example of the Integer node"/>
 
 ---
 

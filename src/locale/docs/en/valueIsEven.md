@@ -41,7 +41,7 @@
 - Connect the **Dice Generator** node to the **Dice Is Even** node
 - Connect the **Dice Is Even** node to the **Success/Failure Histogram** node
 
-<img src="/images/is-even.png" width="500px" alt="Example usage of the Dice Is Even node"/>
+<img src="/node-crafter/doc-images/is-even.png" width="500px" alt="Example usage of the Dice Is Even node"/>
 
 ---
 

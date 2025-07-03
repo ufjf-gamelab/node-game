@@ -44,7 +44,7 @@
 - Connect **Dice Pool** to **Dice Pool Sum**
 - Connect **Dice Pool Sum** to **Histogram**
 
-<img src="/images/dice-pool.png" width="500px" alt="Example usage of Dice Pool with Dice Pool Sum"/>
+<img src="/node-crafter/doc-images/dice-pool.png" width="500px" alt="Example usage of Dice Pool with Dice Pool Sum"/>
 
 ---
 

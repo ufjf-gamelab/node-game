@@ -41,7 +41,7 @@
 - Connect the **Dice Generator** node to the **Dice is Odd** node
 - Connect the **Dice is Odd** node to the **Success/Failure Histogram** node
 
-<img src="/images/is-odd.png" width="500px" alt="Example usage of the Dice is Odd node"/>
+<img src="/node-crafter/doc-images/is-odd.png" width="500px" alt="Example usage of the Dice is Odd node"/>
 
 ---
 

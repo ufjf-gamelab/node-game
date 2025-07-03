@@ -41,7 +41,7 @@
 - Conecte o nó **Gerador de Dado** ao nó **Dado é Par**
 - Conecte o nó **Dado é Par** ao nó **Histograma de Sucesso/Falha**
 
-<img src="/images/is-even.png" width="500px" alt="Exemplo de uso do nó Dado é Par"/>
+<img src="/node-crafter/doc-images/is-even.png" width="500px" alt="Exemplo de uso do nó Dado é Par"/>
 
 ---
 

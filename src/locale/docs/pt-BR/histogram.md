@@ -52,7 +52,7 @@
 - Conecte **Dado Gerador** ao nó **Dado Sucesso**
 - Conecte **Dado Sucesso** ao nó **Histograma**
 
-<img src="/images/generator-success.png" width="500px" alt="Dado Gerador → Dado Sucesso → Histograma"/>
+<img src="/node-crafter/doc-images/generator-success.png" width="500px" alt="Dado Gerador → Dado Sucesso → Histograma"/>
 
 ---
 

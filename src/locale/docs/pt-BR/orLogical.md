@@ -52,7 +52,7 @@
 - Conecte o **Dado é Par** ao **OR Lógico**
 - Conecte o **OR Lógico** ao **Histograma**
 
-<img src="/images/or-logical.png" alt="Exemplo de uso do nó OR Lógico"/>
+<img src="/node-crafter/doc-images/or-logical.png" alt="Exemplo de uso do nó OR Lógico"/>
 
 ---
 

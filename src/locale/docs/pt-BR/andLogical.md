@@ -52,7 +52,7 @@
 - Conecte o **Dado é Par** ao **AND Lógico**
 - Conecte o **AND Lógico** ao **Histograma**
 
-<img src="/images/and-logical.png" alt="Exemplo de uso do nó AND Lógico" width="500px"/>
+<img src="/node-crafter/doc-images/and-logical.png" alt="Exemplo de uso do nó AND Lógico" width="500px"/>
 
 ---
 

@@ -53,7 +53,7 @@
 - Connect **Dice Generator B** to the **Dice Pool** node
 - Connect the **Dice Pool** to the **Histogram** node
 
-<img src="/images/critical-count.png" width="500px" alt="Example usage of Dice Count Repetition"/>
+<img src="/node-crafter/doc-images/critical-count.png" width="500px" alt="Example usage of Dice Count Repetition"/>
 
 ---
 

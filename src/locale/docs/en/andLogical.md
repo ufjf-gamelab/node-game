@@ -52,7 +52,7 @@
 - Connect the **Dice Is Even** to the **AND Logical**
 - Connect the **AND Logical** to the **Histogram**
 
-<img src="/images/and-logical.png" alt="Example usage of AND Logical node" width="500px"/>
+<img src="/node-crafter/doc-images/and-logical.png" alt="Example usage of AND Logical node" width="500px"/>
 
 ---
 

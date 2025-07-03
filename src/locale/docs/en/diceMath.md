@@ -53,7 +53,7 @@
 - Connect **Strength Bonus Generator** to the **Math** node
 - Connect the **Math** node to the **Histogram** node
 
-<img src="/images/math.png" width="500px" alt="Example usage of the Math node"/>
+<img src="/node-crafter/doc-images/math.png" width="500px" alt="Example usage of the Math node"/>
 
 ---
 

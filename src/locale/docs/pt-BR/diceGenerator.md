@@ -58,7 +58,7 @@
 - Conecte **Gerador de Dado** ao nó **Dado Sucesso**
 - Conecte **Dado Sucesso** ao nó **Histograma**
 
-<img src="/images/generator-success.png" width="500px" alt="Exemplo de uso do Gerador de Dado"/>
+<img src="/node-crafter/doc-images/generator-success.png" width="500px" alt="Exemplo de uso do Gerador de Dado"/>
 
 ---
 

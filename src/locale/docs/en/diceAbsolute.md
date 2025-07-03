@@ -48,7 +48,7 @@
 - Connect the **Mathematical** node to the **Absolute Dice** node
 - Connect the **Absolute Dice** node to the **Histogram** node
 
-<img src="/images/absolute.png" width="500px" alt="Example of use of the Absolute Dice node"/>
+<img src="/node-crafter/doc-images/absolute.png" width="500px" alt="Example of use of the Absolute Dice node"/>
 
 ---
 

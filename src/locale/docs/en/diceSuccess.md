@@ -52,7 +52,7 @@
 - Connect **Dice Generator** to **Success Dice**
 - Connect **Success Dice** to **Histogram**
 
-![Dice Generator → Success Dice → Histogram](/images/generator-success.png)
+<img src="/node-crafter/doc-images/generator-success.png" width="500px" alt="Example usage of Dice Success"/>
 
 ---
 

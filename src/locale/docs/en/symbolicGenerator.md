@@ -48,7 +48,7 @@
 
 - Connect the **Symbolic Generator** directly to a **Histogram** node or any other node compatible with symbolic values.
 
-<img src="/images/symbolic.png" width="500px" alt="Example usage of the Symbolic Generator node"/>
+<img src="/node-crafter/doc-images/symbolic.png" width="500px" alt="Example usage of the Symbolic Generator node"/>
 
 ---
 

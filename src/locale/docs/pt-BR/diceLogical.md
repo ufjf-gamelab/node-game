@@ -53,7 +53,7 @@
 - Conecte **Gerador de Dado da defesa** ao nó **Comparação Lógica de Dado**
 - Conecte o **Comparação Lógica de Dado** ao nó **Histograma**
 
-<img src="/images/logical.png" width="500px" alt="Exemplo de uso do nó Comparação Lógica de Dado"/>
+<img src="/node-crafter/doc-images/logical.png" width="500px" alt="Exemplo de uso do nó Comparação Lógica de Dado"/>
 
 ---
 

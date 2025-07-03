@@ -48,7 +48,7 @@
 - Conecte o nó **Matemático** ao nó **Dado Absoluto**
 - Conecte o nó **Dado Absoluto** ao nó **Histograma**
 
-<img src="/images/absolute.png" width="500px" alt="Exemplo de uso do nó Dado Absoluto"/>
+<img src="/node-crafter/doc-images/absolute.png" width="500px" alt="Exemplo de uso do nó Dado Absoluto"/>
 
 ---
 

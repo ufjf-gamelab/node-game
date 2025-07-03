@@ -53,7 +53,7 @@
 - Conecte **Dado Gerador do bonus de força** ao nó **Matemático**
 - Conecte **Matemático** ao nó **Histograma**
 
-<img src="/images/math.png" width="500px" alt="Exemplo de uso do nó Matemático"/>
+<img src="/node-crafter/doc-images/math.png" width="500px" alt="Exemplo de uso do nó Matemático"/>
 
 ---
 

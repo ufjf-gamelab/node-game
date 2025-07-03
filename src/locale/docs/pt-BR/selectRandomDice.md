@@ -48,7 +48,7 @@
 - Conecte o **Selecionar Dado Aleatório** ao nó **Histograma**
 - %BASE_URL%
 
-<img src="/node-crafter/images/select-random.png" alt="Exemplo de uso do nó Selecionar Dado Aleatório" width="500px"/>
+<img src="/node-crafter/doc-images/select-random.png" alt="Exemplo de uso do nó Selecionar Dado Aleatório" width="500px"/>
 
 ---
 

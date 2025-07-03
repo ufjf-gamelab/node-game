@@ -48,7 +48,7 @@
 
 - Conecte o **Gerador Simbólico** diretamente ao nó **Histograma** ou outro nó compatível com valores simbólicos
 
-<img src="/images/symbolic.png" width="500px" alt="Exemplo de uso do Gerador Simbólico"/>
+<img src="/node-crafter/doc-images/symbolic.png" width="500px" alt="Exemplo de uso do Gerador Simbólico"/>
 
 ---
 
