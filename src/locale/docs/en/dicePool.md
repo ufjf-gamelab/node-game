@@ -1,8 +1,10 @@
-**Dice Pool** is a **modifier-type node** used to group the results of two other numeric nodes into a single pool. It is ideal for representing systems that combine multiple dice or numeric sources, such as grouped rolls in tabletop games.
+# **Dice Pool**
+
+**Dice Pool** is a **modifier-type node** used to generate a **numeric pool** from a **numeric generator node input**. It represents multiple simultaneous rolls of the same type of dice and is ideal for systems that require grouping random values, such as multi-dice rolls.
 
 - **Type:** Modifier (intermediate node)
-- **Function:** Groups the values from two input nodes into a single set
-- **Output:** List of numeric results grouped by execution pairs
+- **Function:** Performs multiple rolls from the input generator node based on the defined quantity
+- **Output:** Numeric pool (list of multiple values per simulation)
 
 ---
 
@@ -12,7 +14,7 @@
 
 - **Type:** Text
 - **Default:** Random ID
-- **Function:** Unique identifier of the node
+- **Function:** Unique identifier for the node
 
 ### **Status**
 
@@ -23,32 +25,42 @@
 ### **Name**
 
 - **Type:** Text
-- **Default:** Pool
+- **Default:** Dice Pool
 - **Function:** Name displayed in the modeling board
+
+### **Quantity**
+
+- **Type:** Integer number
+- **Default:** `2`
+- **Function:** Defines how many times the generator node will be executed per simulation (e.g., 3 means 3dX)
 
 ---
 
 ## **Usage Example**
 
-**Scenario:** Simulate a damage system where the player rolls two six-sided dice (2d6) and sums the result to determine total damage.
+**Scenario:** Simulate a damage system where the player rolls **2 six-sided dice (2d6)** and sums the result to determine the total damage.
 
-### **1. Dice Generator Properties:**
+### **1. Dice Generator Node Properties:**
 
-- Dice A: Minimum Value `1`, Maximum Value `6`
-- Dice B: Minimum Value `1`, Maximum Value `6`
+- Minimum Value: `1`
+- Maximum Value: `6`
 
-### **2. Connection with other nodes:**
+### **2. Dice Pool Node Properties:**
 
-- Connect **Dice A** to **Dice Pool**
-- Connect **Dice B** to **Dice Pool**
-- Connect **Dice Pool** to **Dice Pool Sum**
-- Connect **Dice Pool Sum** to **Histogram**
+- Quantity: `2`
 
-<img src="/images/dice-pool.png" width="500px" alt="Example usage of Dice Pool with Dice Pool Sum"/>
+### **3. Connections:**
+
+- Connect the **Dice Generator** to the **Dice Pool** node
+- Connect the **Dice Pool** node to the **Dice Pool Sum** node
+- Connect the **Dice Pool Sum** node to the **Histogram** node
+
+<img src="/node-crafter/images/dice-pool.png" width="500px" alt="Example usage of Dice Pool with Dice Pool Sum node"/>
 
 ---
 
 ## **Notes**
 
-- Useful for representing mechanics with multiple simultaneous rolls.
-- Commonly chained with the **Pool Soma de Dado** node to apply value addition.
+- Ideal for representing rolls like **2d6**, **3d10**, etc., centralizing the repetition logic in a single node.
+- Can be combined with selection nodes like **Select Highest Dice** and **Select Random Dice** to filter the pool.
+- Replaces the need for multiple separate generator nodes to simulate more than one dice.

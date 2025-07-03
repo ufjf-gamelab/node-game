@@ -1,8 +1,8 @@
-**Pool de Dado** é um **nó do tipo modificador** utilizado para agrupar os resultados de dois outros nós numéricos em um único conjunto (pool). Ele é ideal para representar sistemas que acumulam múltiplos dados ou fontes numéricas, como rolagens combinadas em jogos de mesa.
+**Pool de Dado** é um **nó do tipo modificador** utilizado para gerar uma **pool numérica** a partir de um **nó gerador numérico de entrada**. Ele representa múltiplas rolagens simultâneas do mesmo tipo de dado, sendo ideal para sistemas que exigem agrupamento de valores aleatórios, como jogadas de múltiplos dados.
 
 - **Tipo:** Modificador (nó intermediário)
-- **Função:** Agrupa os valores de dois nós de entrada em um único conjunto
-- **Saída:** Lista dos resultados numéricos agrupados em pares de execução
+- **Função:** Executa múltiplas rolagens do nó gerador de entrada com base na quantidade definida
+- **Saída:** Pool numérica (lista dos multiplos valores de cada jogada)
 
 ---
 
@@ -26,29 +26,39 @@
 - **Padrão:** Pool de Dado
 - **Função:** Nome exibido no quadro de modelagem
 
+### **Quantidade**
+
+- **Tipo:** Número inteiro
+- **Padrão:** `2`
+- **Função:** Define quantas vezes o nó gerador será executado por jogada (ex: 3 gera 3dX)
+
 ---
 
 ## **Exemplo de Uso**
 
-**Cenário:** Simular um sistema de dano onde o jogador rola dois dados de seis faces (2d6) e soma o resultado para determinar o dano total.
+**Cenário:** Simular um sistema de dano onde o jogador rola **2 dados de seis faces (2d6)** e soma o resultado para determinar o dano total.
 
-### **1. Propriedades dos Dados Geradores:**
+### **1. Propriedades do nó Gerador de Dado:**
 
-- Dado A: Valor Mínimo `1`, Valor Máximo `6`
-- Dado B: Valor Mínimo `1`, Valor Máximo `6`
+- Valor Mínimo: `1`
+- Valor Máximo: `6`
 
-### **2. Conexão com outros nós:**
+### **2. Propriedades do nó Pool de Dado:**
 
-- Conecte **Dado A** ao **Pool de Dado**
-- Conecte **Dado B** ao **Pool de Dado**
-- Conecte **Pool de Dado** ao **Pool Soma de Dado**
-- Conecte **Pool Soma de Dado** ao nó **Histograma**
+- Quantidade: `2`
 
-<img src="/images/dice-pool.png" width="500px" alt="Exemplo de uso do Pool de Dado com Pool Soma de Dado"/>
+### **3. Conexões:**
+
+- Conecte o **Gerador de Dado** ao nó **Pool de Dado**
+- Conecte o **Pool de Dado** ao nó **Pool Soma de Dado**
+- Conecte o **Pool Soma de Dado** ao nó **Histograma**
+
+<img src="/node-crafter/images/select-random.png" width="500px" alt="Exemplo de uso do Pool de Dado com Pool Soma de Dado"/>
 
 ---
 
 ## **Notas**
 
-- Útil para representar mecânicas com múltiplas rolagens simultâneas.
-- Comumente encadeado com o nó **Pool Soma de Dado** para adicionar o modificador de adição de valores.
+- Ideal para representar rolagens como **2d6**, **3d10**, etc., centralizando a lógica de repetição em um único nó.
+- Pode ser combinado com nós de seleção como **Selecionar Maior Dado** e **Selecionar Dado Aleatório** para operar um filtro da pool.
+- Substitui a necessidade de múltiplos nós geradores distintos para simular mais de um dado.
