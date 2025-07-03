@@ -6,7 +6,7 @@ import { TaskBar } from "./components/layout/task-bar";
 import { AsideNodeProperties } from "@/components/layout/aside-node-properties";
 import "@/config/i18n";
 
-import { INodeType, INode, IEdge } from "@/config/types";
+import { INodeType, INode, IEdge, IIntegerValueNode } from "@/config/types";
 
 function App() {
   const flow = useReactFlow<INode, IEdge>();
@@ -47,16 +47,24 @@ function App() {
   React.useEffect(() => {
     const dice = NodeManager.new("diceGenerator", flow);
     dice.position.x = 20;
-    dice.position.y = 20;
-    const betweenInterval = NodeManager.new("diceSuccess", flow);
-    betweenInterval.position.x = 200;
-    betweenInterval.position.y = 20;
+    dice.position.y = -40;
+
+    const diceMath = NodeManager.new("diceMath", flow);
+    diceMath.position.x = 200;
+    diceMath.position.y = 20;
+
+    const integerValue = NodeManager.new("integerValue", flow) as IIntegerValueNode;
+    integerValue.position.x = 20;
+    integerValue.position.y = 80;
+    integerValue.data.value = 4;
+
     const histogram = NodeManager.new("histogram", flow);
-    histogram.position.x = 400;
+    histogram.position.x = 360;
     histogram.position.y = 20;
-    setNodes([dice, betweenInterval, histogram]);
-    onConnect({ source: dice.id, target: betweenInterval.id, sourceHandle: null, targetHandle: null });
-    onConnect({ source: betweenInterval.id, target: histogram.id, sourceHandle: null, targetHandle: null });
+    setNodes([dice, diceMath, integerValue, histogram]);
+    onConnect({ source: dice.id, target: diceMath.id, sourceHandle: null, targetHandle: "math-target-1-" + diceMath.id });
+    onConnect({ source: integerValue.id, target: diceMath.id, sourceHandle: null, targetHandle: "math-target-2-" + diceMath.id });
+    onConnect({ source: diceMath.id, target: histogram.id, sourceHandle: null, targetHandle: null });
   }, []);
 
   return (
