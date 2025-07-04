@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { Accordion, ActionIcon, Select, Tooltip } from "@mantine/core";
-import { GiPerspectiveDiceOne, GiPerspectiveDiceSixFacesRandom, GiSwapBag } from "react-icons/gi";
+import { GiPerspectiveDiceOne, GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
 import { IoBarChartSharp } from "react-icons/io5";
 import { VscTrash } from "react-icons/vsc";
 import { useReactFlow } from "@xyflow/react";
