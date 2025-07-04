@@ -11,7 +11,7 @@ type IProps = {
   nodeType: INodeType;
 };
 export const NodeDoc: React.FunctionComponent<IProps> = ({ nodeType }) => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -22,7 +22,7 @@ export const NodeDoc: React.FunctionComponent<IProps> = ({ nodeType }) => {
       .then((res) => fetch(res.default))
       .then((res) => res.text())
       .then((text) => setContent(text))
-      .catch(() => setContent("<br/>Ops! Documentation under construction."))
+      .catch(() => setContent("<br/>" + t("common.nodeDocNotFound")))
       .finally(() => setLoading(false));
   }, [nodeType]);
 

@@ -1,12 +1,13 @@
 import { FunctionComponent } from "react";
 import { Accordion, ActionIcon, Select, Tooltip } from "@mantine/core";
-import { GiPerspectiveDiceOne, GiPerspectiveDiceSixFacesRandom, GiSwapBag } from "react-icons/gi";
-import { IoBarChartSharp } from "react-icons/io5";
+import { GiGearStickPattern, GiPerspectiveDiceOne, GiPerspectiveDiceSixFacesRandom, GiSwapBag } from "react-icons/gi";
+import { IoBarChartSharp, IoFilterSharp } from "react-icons/io5";
 import { VscTrash } from "react-icons/vsc";
+import { BiMath, BiWorld } from "react-icons/bi";
 import { useReactFlow } from "@xyflow/react";
 import { useTranslation } from "react-i18next";
-import { BiWorld } from "react-icons/bi";
 import { INodeType } from "@/config/types";
+import { HiOutlineAdjustmentsHorizontal } from "react-icons/hi2";
 
 type IProps = { addNewNode: (type: INodeType) => void };
 
@@ -38,38 +39,73 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
         multiple>
         <Accordion.Item value="dice">
           <Accordion.Control icon={<GiPerspectiveDiceOne className="text-[22px]" />}>{t("common.dice")}</Accordion.Control>
+
           <Accordion.Panel className="bg-white">
             <ul className="flex flex-col">
               <li className="sidebar-item" onClick={() => addNewNode("diceGenerator")}>
                 {t("nodeFullName.diceGenerator")}
               </li>
               <li className="sidebar-item" onClick={() => addNewNode("diceExplode")}>
-                {t("nodeShortName.diceExplode")}
+                {t("nodeFullName.diceExplode")}
               </li>
+            </ul>
+          </Accordion.Panel>
+        </Accordion.Item>
+
+        <Accordion.Item value="symbolic">
+          <Accordion.Control icon={<GiPerspectiveDiceSixFacesRandom className="text-[22px]" />}>{t("common.symbolic")}</Accordion.Control>
+
+          <Accordion.Panel className="bg-white">
+            <ul className="flex flex-col">
+              <li className="sidebar-item" onClick={() => addNewNode("symbolicGenerator")}>
+                {t("nodeFullName.symbolicGenerator")}
+              </li>
+
+              <li className="sidebar-item" onClick={() => addNewNode("bagPullWithoutRepetition")}>
+                {t("nodeFullName.bagPullWithoutRepetition")}
+              </li>
+            </ul>
+          </Accordion.Panel>
+        </Accordion.Item>
+
+        <Accordion.Item value="operations">
+          <Accordion.Control icon={<BiMath className="text-[22px]" />}>{t("common.operations")}</Accordion.Control>
+
+          <Accordion.Panel className="bg-white">
+            <ul className="flex flex-col">
               <li className="sidebar-item" onClick={() => addNewNode("diceMath")}>
                 {t("nodeShortName.diceMath")}
-              </li>
-              <li className="sidebar-item" onClick={() => addNewNode("integerValue")}>
-                {t("nodeShortName.integerValue")}
               </li>
               <li className="sidebar-item" onClick={() => addNewNode("diceAbsolute")}>
                 {t("nodeShortName.diceAbsolute")}
               </li>
-              <li className="sidebar-item" onClick={() => addNewNode("dicePool")}>
-                {t("nodeShortName.dicePool")}
-              </li>
-              <li className="sidebar-item" onClick={() => addNewNode("mergeDicePools")}>
-                {t("nodeShortName.mergeDicePools")}
+              <li className="sidebar-item" onClick={() => addNewNode("diceCountRepetition")}>
+                {t("nodeShortName.diceCountRepetition")}
               </li>
               <li className="sidebar-item" onClick={() => addNewNode("dicePoolSum")}>
-                {t("nodeShortName.dicePoolSum")}
+                {t("nodeFullName.dicePoolSum")}
               </li>
-              <li className="sidebar-item" onClick={() => addNewNode("selectRandomDice")}>
-                {t("nodeShortName.selectRandomDice")}
+            </ul>
+          </Accordion.Panel>
+        </Accordion.Item>
+
+        <Accordion.Item value="parameters">
+          <Accordion.Control icon={<HiOutlineAdjustmentsHorizontal className="text-[22px]" />}>{t("common.parameters")}</Accordion.Control>
+
+          <Accordion.Panel className="bg-white">
+            <ul className="flex flex-col">
+              <li className="sidebar-item" onClick={() => addNewNode("integerValue")}>
+                {t("nodeShortName.integerValue")}
               </li>
-              <li className="sidebar-item" onClick={() => addNewNode("selectHighestDice")}>
-                {t("nodeShortName.selectHighestDice")}
-              </li>
+            </ul>
+          </Accordion.Panel>
+        </Accordion.Item>
+
+        <Accordion.Item value="logical">
+          <Accordion.Control icon={<GiGearStickPattern className="text-[22px]" />}>{t("common.logical")}</Accordion.Control>
+
+          <Accordion.Panel className="bg-white">
+            <ul className="flex flex-col">
               <li className="sidebar-item" onClick={() => addNewNode("diceLogical")}>
                 {t("nodeShortName.diceLogical")}
               </li>
@@ -85,9 +121,6 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
               <li className="sidebar-item" onClick={() => addNewNode("diceBetweenInterval")}>
                 {t("nodeShortName.diceBetweenInterval")}
               </li>
-              <li className="sidebar-item" onClick={() => addNewNode("diceCountRepetition")}>
-                {t("nodeShortName.diceCountRepetition")}
-              </li>
               <li className="sidebar-item" onClick={() => addNewNode("valueIsEven")}>
                 {t("nodeShortName.valueIsEven")}
               </li>
@@ -98,34 +131,44 @@ const Sidebar: FunctionComponent<IProps> = ({ addNewNode }) => {
           </Accordion.Panel>
         </Accordion.Item>
 
-        <Accordion.Item value="symbolic">
-          <Accordion.Control icon={<GiPerspectiveDiceSixFacesRandom className="text-[22px]" />}>{t("common.symbolic")}</Accordion.Control>
+        <Accordion.Item value="pools">
+          <Accordion.Control icon={<GiSwapBag className="text-[22px]" />}>{t("common.pools")}</Accordion.Control>
 
           <Accordion.Panel className="bg-white">
             <ul className="flex flex-col">
-              <li className="sidebar-item" onClick={() => addNewNode("symbolicGenerator")}>
-                {t("nodeFullName.symbolicGenerator")}
+              <li className="sidebar-item" onClick={() => addNewNode("dicePool")}>
+                {t("nodeFullName.dicePool")}
+              </li>
+              <li className="sidebar-item" onClick={() => addNewNode("mergeDicePools")}>
+                {t("nodeFullName.mergeDicePools")}
               </li>
               <li className="sidebar-item" onClick={() => addNewNode("symbolicPool")}>
                 {t("nodeShortName.symbolicPool")}
               </li>
+            </ul>
+          </Accordion.Panel>
+        </Accordion.Item>
+
+        <Accordion.Item value="filters">
+          <Accordion.Control icon={<IoFilterSharp className="text-[22px]" />}>{t("common.filters")}</Accordion.Control>
+
+          <Accordion.Panel className="bg-white">
+            <ul className="flex flex-col">
+              <li className="sidebar-item" onClick={() => addNewNode("selectRandomDice")}>
+                {t("nodeFullName.selectRandomDice")}
+              </li>
+              <li className="sidebar-item" onClick={() => addNewNode("selectHighestDice")}>
+                {t("nodeFullName.selectHighestDice")}
+              </li>
               <li className="sidebar-item" onClick={() => addNewNode("selectRandomSymbol")}>
                 {t("nodeShortName.selectRandomSymbol")}
-              </li>
-              <li className="sidebar-item" onClick={() => addNewNode("bagPullWithoutRepetition")}>
-                {t("nodeShortName.bagPullWithoutRepetition")}
               </li>
             </ul>
           </Accordion.Panel>
         </Accordion.Item>
 
         <Accordion.Item value="output">
-          <Accordion.Control className="px-4 hover:bg-slate-100">
-            <div className="flex gap-4 items-center justify-start">
-              <IoBarChartSharp className="text-[22px]" />
-              <span>{t("common.output")}</span>
-            </div>
-          </Accordion.Control>
+          <Accordion.Control icon={<IoBarChartSharp className="text-[22px]" />}>{t("common.output")}</Accordion.Control>
 
           <Accordion.Panel className="bg-white">
             <ul className="flex flex-col">

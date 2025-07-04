@@ -1,5 +1,5 @@
 import { i18n } from "@/config/i18n";
-import { IBagGeneratorNode, IBagPullWithoutRepetitionNode, INodeService } from "@/config/types";
+import { ISymbolicGeneratorNode, IBagPullWithoutRepetitionNode, INodeService } from "@/config/types";
 
 const TOTAL_SIMULATIONS = 10000;
 
@@ -22,8 +22,8 @@ export const BagPullWithoutRepetitionService: INodeService<IBagPullWithoutRepeti
     const [source] = inputs;
     if (!source) throw new Error("Source connection state not found!");
 
-    const sourceNode = source.node as IBagGeneratorNode;
-    const resultState = pullBagWithoutRepetition(sourceNode.data.balls);
+    const sourceNode = source.node as ISymbolicGeneratorNode;
+    const resultState = pullBagWithoutRepetition(sourceNode.data.faces);
     return resultState;
   },
 };

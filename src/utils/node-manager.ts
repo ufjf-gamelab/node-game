@@ -8,7 +8,6 @@ import { DiceSuccess } from "@/features/dice-success";
 import { DiceBetweenInterval } from "@/features/dice-between-interval";
 import { DiceCountRepetition } from "@/features/dice-count-repetition";
 import { DiceExplode } from "@/features/dice-explode";
-import { BagGenerator } from "@/features/bag-generator";
 import { BagPullWithoutRepetition } from "@/features/bag-pull-without-repetition";
 import { SymbolicGenerator } from "@/features/symbolic-generator";
 import { SymbolicPool } from "@/features/symbolic-pool";
@@ -26,30 +25,37 @@ import { MergeDicePools } from "@/features/merge-dice-pools";
 import { SelectHighestDice } from "@/features/select-highest-dice";
 
 const NODE_MODULES = {
+  //dice
   diceGenerator: DiceGenerator,
   diceExplode: DiceExplode,
-  dicePool: DicePool,
-  dicePoolSum: DicePoolSum,
-  diceCountRepetition: DiceCountRepetition,
-  diceMath: DiceMath,
-  diceAbsolute: DiceAbsolute,
-  integerValue: IntegerValue,
-  diceSuccess: DiceSuccess,
-  diceBetweenInterval: DiceBetweenInterval,
-  diceLogical: DiceLogical,
-  valueIsEven: ValueIsEven,
-  valueIsOdd: ValueIsOdd,
-  histogram: Histogram,
-  bagGenerator: BagGenerator,
-  bagPullWithoutRepetition: BagPullWithoutRepetition,
+  // symbolic
   symbolicGenerator: SymbolicGenerator,
-  symbolicPool: SymbolicPool,
+  bagPullWithoutRepetition: BagPullWithoutRepetition,
+  // operations
+  diceMath: DiceMath,
+  diceCountRepetition: DiceCountRepetition,
+  diceAbsolute: DiceAbsolute,
+  dicePoolSum: DicePoolSum,
+  // parameters
+  integerValue: IntegerValue,
+  // logical
+  diceLogical: DiceLogical,
   andLogical: AndLogical,
   orLogical: OrLogical,
-  selectRandomDice: SelectRandomDice,
-  selectRandomSymbol: SelectRandomSymbol,
+  diceSuccess: DiceSuccess,
+  diceBetweenInterval: DiceBetweenInterval,
+  valueIsEven: ValueIsEven,
+  valueIsOdd: ValueIsOdd,
+  // pools
+  dicePool: DicePool,
+  symbolicPool: SymbolicPool,
   mergeDicePools: MergeDicePools,
+  // filters
+  selectRandomDice: SelectRandomDice,
   selectHighestDice: SelectHighestDice,
+  selectRandomSymbol: SelectRandomSymbol,
+  // output
+  histogram: Histogram,
 } as const;
 
 export const NodeManager = {
